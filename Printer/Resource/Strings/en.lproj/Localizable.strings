@@ -1,0 +1,51 @@
+/* 
+  Localizable.strings
+  Soccer
+
+  Created by Андрей Чернышев on 01.02.2023.
+  
+*/
+
+// MARK: General
+"Cancel" = "Cancel";
+"Continue" = "Continue";
+"Next" = "Next";
+
+// MARK: ImagePicker
+"ImagePicker.TakePhoto" = "Take a photo";
+"ImagePicker.CameraRoll" = "Camera roll";
+"ImagePicker.PhotoLibrary" = "Photo library";
+
+// MARK: Splash
+"Splash.Loading" = "Loading...";
+
+// MARK: Onboarding
+"Onboarding.Connect.Title" = "Connect to Any Printers";
+"Onboarding.Connect.SubTitle" = "Effortlessly connect to all compatible\nprinters";
+"Onboarding.Scan.Title" = "Scan and Print Documents";
+"Onboarding.Scan.SubTitle" = "Scan any file with your phone, edit or save\nas PDF and print";
+"Onboarding.Print.Title" = "Print files from anywhere";
+"Onboarding.Print.SubTitle" = "Easily print files from iCloud, Google Drive,\nDropbox or email ";
+
+// MARK: Paygate
+"Paygate.Title" = "Unlock Premium Status";
+"Paygate.Cell1" = "Compatible with a multitude of printers";
+"Paygate.Cell2" = "Print documents, photos, emails, and more";
+"Paygate.Cell3" = "Scan on the go and enjoy seamless printing";
+"Paygate.Info" = "Secured by the App Store. Cancel anytime.";
+"Paygate.TermsOfUse" = "Terms of Use";
+"Paygate.PrivacyPolicy" = "Privacy Policy";
+"Paygate.RestorePurchases" = "Restore Purchase";
+"Paygate.Failed" = "Failed to make purchase";
+"Paygate.Monthly.Name1" = "7 days for free";
+"Paygate.Monthly.Name2" = "Quick prep";
+"Paygate.Monthly.Bottom1" = "After 7-day trial";
+"Paygate.Monthly.Bottom2" = "Trial is over";
+"Paygate.Lifetime.Name" = "Lifetime";
+"Paygate.Lifetime.PriceDescription" = "\nIn terms of  1  year";
+"Paygate.Lifetime.BottomDescription" = "once";
+"Paygate.Discount" = "SAVE %i%%";
+"Paygate.Price.Period" = "month";
+"Paygate.Error.Title" = "Error";
+"Paygate.Error.Text" = "An error occurred during execution. Try later.";
+"Paygate.Error.Button" = "OK";
