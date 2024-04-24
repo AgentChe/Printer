@@ -135,6 +135,7 @@ private extension PaygateProductButton {
     
     func makeLabel() -> UILabel {
         let view = UILabel()
+        view.numberOfLines = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

@@ -24,7 +24,6 @@ struct Currency {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.locale = productPrice.priceLocale
-        formatter.maximumFractionDigits = 2
         formatter.roundingMode = .down
         formatter.currencyCode = productPrice.currency
         
@@ -33,16 +32,39 @@ struct Currency {
         formatter.currencyCode = ""
         formatter.currencySymbol = ""
         
-        guard let resultPrice = formatter.string(from: NSNumber(value: productPrice.priceValue / div)) else {
+        if div == 1 {
+            let result = productPrice.priceLocalized.replacingOccurrences(of: currencySymbol, with: "")
+            return localized(price: result, currencySymbol: currencySymbol)
+        }
+        
+        let resultPrice = productPrice.priceValue / Double(div)
+        
+        if resultPrice < 100 {
+            formatter.maximumFractionDigits = 2
+        } else if resultPrice < 1000 {
+            formatter.maximumFractionDigits = 1
+        } else {
+            formatter.maximumFractionDigits = 0
+        }
+        
+        guard let result = formatter.string(from: NSNumber(value: resultPrice)) else {
             return nil
         }
         
+        return localized(price: result, currencySymbol: currencySymbol)
+    }
+    
+    private func localized(price: String, currencySymbol: String) -> String {
         let ltrCurrencies = LTRCurrency.allCases.map { $0.rawValue }
         
+        let result: String
         if ltrCurrencies.contains(productPrice.currency) {
-            return String(format: "%@%@", currencySymbol, resultPrice)
+            result = String(format: "%@%@", currencySymbol, price)
         } else {
-            return String(format: "%@%@", resultPrice, currencySymbol)
+            result = String(format: "%@%@", price, currencySymbol)
         }
+        
+        return result
+            .removingWhitespaces()
     }
 }

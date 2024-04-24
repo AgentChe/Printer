@@ -38,32 +38,12 @@ private extension PaygateOptionInfo {
                     .textColor(Appearance.black)
                     .font(font(at: component.weight))
                 
-                let formatter = formatter(locale: price.priceLocale)
-                
                 switch component.component {
                 case .text(let text):
                     return text.attributed(with: attrs)
                 case .price(let priceDiv):
-                    let priceResult = price.priceValue / Double(priceDiv)
-                    
-                    let priceResultLocalized: String
-                    
-                    if priceDiv == 1 {
-                        priceResultLocalized = price.priceLocalized
-                    } else {
-                        if priceResult < 100 {
-                            formatter.maximumFractionDigits = 2
-                        } else if priceResult < 1000 {
-                            formatter.maximumFractionDigits = 1
-                        } else {
-                            formatter.maximumFractionDigits = 0
-                        }
-                        
-                        priceResultLocalized = formatter.string(from: NSNumber(value: priceResult)) ?? ""
-                    }
-                    
-                    return priceResultLocalized
-                        .removingWhitespaces()
+                    return Currency(productPrice: price, div: Double(priceDiv))
+                        .formatted()?
                         .attributed(with: attrs)
                 case .promo(let promo):
                     let attrs = TextAttributes()
@@ -87,13 +67,5 @@ private extension PaygateOptionInfo {
         case .regular(let size):
             return Fonts.SFPro.regular(size: size.scale)
         }
-    }
-    
-    static func formatter(locale: Locale) -> NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = locale
-        formatter.roundingMode = .down
-        return formatter
     }
 }
