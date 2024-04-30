@@ -46,8 +46,7 @@ private extension SplashViewController {
             return
         }
         
-        let nc = NavigationController(rootViewController: MainViewController.make())
-        nc.setNavigationBarHidden(false, animated: false)
+        let nc = TabBarController()
         
         if SessionManager().hasActiveSubscriptions() {
             UIApplication.shared.keyWindow?.rootViewController = nc

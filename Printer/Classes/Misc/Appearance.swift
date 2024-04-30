@@ -15,4 +15,5 @@ struct Appearance {
     static let mainViewBackground = UIColor(hex: "#F3F5FD")
     static let addPrinterColor = UIColor(hex: "#2E5CFF")
     static let navigationBottomLineColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1)
+    static let subtitleLabelColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
 }

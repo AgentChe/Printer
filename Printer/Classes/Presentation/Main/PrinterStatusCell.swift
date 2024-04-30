@@ -31,6 +31,7 @@ final class PrinterStatusCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Check you internet connection or add another one"
         label.font = Fonts.SFProDisplay.regular(size: 16)
+        label.textColor = Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         // Set the style for the subtitle label
         return label
@@ -87,8 +88,8 @@ final class PrinterStatusCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     private func setupLayout() {
-        let spacing = CGFloat(20.0) // The space you want between elements
-        let buttonHeight = CGFloat(50.0) // The height of the buttons
+        let spacing = CGFloat(10.0) // The space you want between elements
+        let buttonHeight = CGFloat(63.0) // The height of the buttons
         
         NSLayoutConstraint.activate([
             // Printer image view constraints
@@ -107,13 +108,13 @@ final class PrinterStatusCell: UICollectionViewCell {
             
             // Add printer button constraints
             addPrinterButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            addPrinterButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: spacing),
-            addPrinterButton.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.8), // 80% of contentView's width
-            addPrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            addPrinterButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: (2*spacing).scale),
+            addPrinterButton.widthAnchor.constraint(equalToConstant: 361.scale),
+            addPrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight.scale),
             
             // Compatible list button constraints
             compatibleListButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            compatibleListButton.topAnchor.constraint(equalTo: addPrinterButton.bottomAnchor, constant: spacing / 2),
+            compatibleListButton.topAnchor.constraint(equalTo: addPrinterButton.bottomAnchor, constant: (spacing / 4).scale),
             compatibleListButton.widthAnchor.constraint(equalTo: addPrinterButton.widthAnchor), // Same width as add printer button
             compatibleListButton.heightAnchor.constraint(equalTo: addPrinterButton.heightAnchor) // Same height as add printer button
         ])

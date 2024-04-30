@@ -21,7 +21,6 @@ final class MainView: UIView {
     var quickActions: [QuickAction] = []
     var isAnimatingNavigationBar: Bool = false
   
-    // Здесь инициализация UICollectionView, как было показано ранее
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -29,6 +28,8 @@ final class MainView: UIView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(QuickActionCell.self, forCellWithReuseIdentifier: QuickActionCell.identifier)
         cv.register(PrinterStatusCell.self, forCellWithReuseIdentifier: PrinterStatusCell.identifier)
+        cv.register(QuickActionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: QuickActionHeaderView.identifier)
+        cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: CGFloat(15), right: 0)
         cv.dataSource = self
         cv.delegate = self
         cv.backgroundColor = .clear
@@ -63,7 +64,7 @@ final class MainView: UIView {
             collectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0.scale),
             collectionView.leftAnchor.constraint(equalTo: leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: 0.scale)
         ])
     }
 //    func updatePrinterStatus(_ status: PrinterStatus?) {
@@ -111,17 +112,36 @@ extension MainView: UICollectionViewDataSource {
             return cell
         }
     }
-     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                if indexPath.section == 1 { // We only want a header for the second section
+                    let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: QuickActionHeaderView.identifier, for: indexPath) as! QuickActionHeaderView
+                    // Configure your header if needed
+                    return header
+                }
+                // If you don't want a header for other sections, you should create a default UICollectionReusableView here
+                return UICollectionReusableView()
+            default:
+                assert(false, "Unexpected element kind")
+            }
+        }
 }
 
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MainView: UICollectionViewDelegateFlowLayout {
     // Return the appropriate size for each item based on the section
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+          if section == 1 {
+              return CGSize(width: collectionView.bounds.width, height: 60.scale) // Adjust the height to match your design
+          }
+          return CGSize.zero // No header for other sections
+      }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
             // Return size for PrinterStatusCell
-            return CGSize(width: collectionView.bounds.width, height: 370.scale) // Adjust height as needed
+            return CGSize(width: collectionView.bounds.width, height: 335.scale) // Adjust height as needed
         } else {
             // Return size for QuickActionCell
             let width = collectionView.bounds.width - 32.scale
@@ -129,4 +149,5 @@ extension MainView: UICollectionViewDelegateFlowLayout {
             return CGSize(width: width, height: height)
         }
     }
+    
 }
