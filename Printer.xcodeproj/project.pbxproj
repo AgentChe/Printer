@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */; };
+		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
+		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
 		A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D242BE041A3006ADD60 /* QuickActionCell.swift */; };
 		A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D252BE041A3006ADD60 /* MainViewModel.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
@@ -101,6 +104,9 @@
 /* Begin PBXFileReference section */
 		72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Printer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF54F7D944796B29C00D6D5 /* Pods-Printer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.release.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.release.xcconfig"; sourceTree = "<group>"; };
+		A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterStatusCell.swift; sourceTree = "<group>"; };
+		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
 		A3692D242BE041A3006ADD60 /* QuickActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
 		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +220,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A355C2A52BE08F870064E1F1 /* UIView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		C45561E149515E465BE877B2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +267,7 @@
 		DEDF905F2BD7AF67004340C0 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				A355C2A42BE08F7F0064E1F1 /* Helpers */,
 				DEDF912B2BD7B2C1004340C0 /* Fonts */,
 				DEDF91292BD7B08A004340C0 /* Strings */,
 				DEDF90542BD7AF5D004340C0 /* Assets.xcassets */,
@@ -553,7 +568,9 @@
 			children = (
 				DEDF91892BD9542D004340C0 /* MainViewController.swift */,
 				DEDF918D2BD95438004340C0 /* MainView.swift */,
+				A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
+				A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */,
 				A3692D242BE041A3006ADD60 /* QuickActionCell.swift */,
 			);
 			path = Main;
@@ -737,6 +754,7 @@
 				DEDF90E82BD7B07C004340C0 /* UIColor+Extension.swift in Sources */,
 				DEDF910D2BD7B07C004340C0 /* SplashReceiptValidationObserver.swift in Sources */,
 				DEDF914D2BD7BD38004340C0 /* OSlideView.swift in Sources */,
+				A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */,
 				DEDF90EE2BD7B07C004340C0 /* APIRequestBody.swift in Sources */,
 				DEDF91B52BD95E7C004340C0 /* Currency.swift in Sources */,
 				DEDF918A2BD9542D004340C0 /* MainViewController.swift in Sources */,
@@ -789,6 +807,7 @@
 				DEDF91012BD7B07C004340C0 /* SceneDelegate.swift in Sources */,
 				DEDF90EA2BD7B07C004340C0 /* UIEdgeInsets+Extension.swift in Sources */,
 				DEDF919D2BD9565E004340C0 /* PaygateInfoCell.swift in Sources */,
+				A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */,
 				DEDF90EF2BD7B07C004340C0 /* RestAPITransport.swift in Sources */,
 				DEDF90DC2BD7B07C004340C0 /* NavigationController.swift in Sources */,
 				DEDF90E12BD7B07C004340C0 /* PaddingLabel.swift in Sources */,
@@ -796,6 +815,7 @@
 				DEDF91A32BD9565E004340C0 /* PaygateViewModel.swift in Sources */,
 				DEDF90F72BD7B07C004340C0 /* NumberLaunches.swift in Sources */,
 				DEDF90E42BD7B07C004340C0 /* Collection+Extension.swift in Sources */,
+				A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */,
 				DEDF90F52BD7B07C004340C0 /* SignError.swift in Sources */,
 				DEDF90D82BD7B07C004340C0 /* ImagePicker.swift in Sources */,
 				DEDF90DA2BD7B07C004340C0 /* RxActivityIndicator.swift in Sources */,

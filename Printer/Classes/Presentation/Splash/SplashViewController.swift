@@ -47,13 +47,14 @@ private extension SplashViewController {
         }
         
         let nc = NavigationController(rootViewController: MainViewController.make())
-        nc.setNavigationBarHidden(true, animated: false)
+        nc.setNavigationBarHidden(false, animated: false)
         
         if SessionManager().hasActiveSubscriptions() {
             UIApplication.shared.keyWindow?.rootViewController = nc
         } else {
             let vc = PaygateViewController.make {
                 UIApplication.shared.keyWindow?.rootViewController = nc
+                 
             }
             present(vc, animated: true)
         }

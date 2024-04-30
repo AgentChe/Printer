@@ -18,6 +18,39 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Set the title of the navigation item
+        title = "My printer"
+          
+           // Enable large titles
+           navigationController?.navigationBar.prefersLargeTitles = true
+           navigationItem.largeTitleDisplayMode = .always
+
+           // Style the navigation bar for iOS 15 and later
+           if #available(iOS 15.0, *) {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+               appearance.backgroundColor = Appearance.mainViewBackground
+                appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+                appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black] // Large title color
+               appearance.shadowColor = nil
+
+                // Set the appearance for when the view controller is shown
+                navigationController?.navigationBar.standardAppearance = appearance
+                // Set the appearance for when the view controller is scrolled
+                navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            } else {
+                // Style the navigation bar for earlier iOS versions
+                navigationController?.navigationBar.barTintColor = .white
+                navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+                navigationController?.navigationBar.isTranslucent = false
+                navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.black] // Large title color
+            }
+        // Remove the shadow line for all versions
+         navigationController?.navigationBar.shadowImage = UIImage()
+         // Set the navigation bar's background image to a blank/empty image
+         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+         
+      
         
         viewModel.onQuickActionsChanged = { [weak self] actions in
             self?.mainView.quickActions = actions
@@ -25,7 +58,7 @@ final class MainViewController: UIViewController {
         }
         
         viewModel.onPrinterStatusChanged = { [weak self] status in
-            self?.mainView.updatePrinterStatus(status)
+         //   self?.mainView.updatePrinterStatus(status)
         }
         
         viewModel.loadQuickActions()
