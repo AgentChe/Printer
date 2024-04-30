@@ -12,6 +12,8 @@
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
 		A355C2AA2BE09B520064E1F1 /* QuickActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */; };
 		A355C2AD2BE09F820064E1F1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2AC2BE09F820064E1F1 /* TabBarViewController.swift */; };
+		A355C2B02BE0A70E0064E1F1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2AF2BE0A70E0064E1F1 /* SettingsViewController.swift */; };
+		A355C2B22BE0A8F50064E1F1 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2B12BE0A8F50064E1F1 /* SettingsTableViewCell.swift */; };
 		A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D242BE041A3006ADD60 /* QuickActionCell.swift */; };
 		A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D252BE041A3006ADD60 /* MainViewModel.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
@@ -111,6 +113,8 @@
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
 		A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionHeaderView.swift; sourceTree = "<group>"; };
 		A355C2AC2BE09F820064E1F1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		A355C2AF2BE0A70E0064E1F1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		A355C2B12BE0A8F50064E1F1 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		A3692D242BE041A3006ADD60 /* QuickActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
 		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +242,15 @@
 				A355C2AC2BE09F820064E1F1 /* TabBarViewController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		A355C2AE2BE0A6FD0064E1F1 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A355C2AF2BE0A70E0064E1F1 /* SettingsViewController.swift */,
+				A355C2B12BE0A8F50064E1F1 /* SettingsTableViewCell.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		C45561E149515E465BE877B2 /* Pods */ = {
@@ -453,6 +466,7 @@
 				DEDF919A2BD9565E004340C0 /* Paygate */,
 				A355C2AB2BE09F5A0064E1F1 /* TabBar */,
 				DEDF91882BD95423004340C0 /* Main */,
+				A355C2AE2BE0A6FD0064E1F1 /* Settings */,
 				DEDF91472BD7BD38004340C0 /* Onboarding */,
 				DEDF90AF2BD7B07C004340C0 /* Splash */,
 			);
@@ -819,6 +833,7 @@
 				DEDF90E32BD7B07C004340C0 /* TapAreaButton.swift in Sources */,
 				DEDF91A02BD9565E004340C0 /* PaygateView.swift in Sources */,
 				DEDF91012BD7B07C004340C0 /* SceneDelegate.swift in Sources */,
+				A355C2B02BE0A70E0064E1F1 /* SettingsViewController.swift in Sources */,
 				DEDF90EA2BD7B07C004340C0 /* UIEdgeInsets+Extension.swift in Sources */,
 				DEDF919D2BD9565E004340C0 /* PaygateInfoCell.swift in Sources */,
 				A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */,
@@ -836,6 +851,7 @@
 				DEDF90DA2BD7B07C004340C0 /* RxActivityIndicator.swift in Sources */,
 				DEDF91262BD7B07C004340C0 /* SessionManager.swift in Sources */,
 				A355C2AD2BE09F820064E1F1 /* TabBarViewController.swift in Sources */,
+				A355C2B22BE0A8F50064E1F1 /* SettingsTableViewCell.swift in Sources */,
 				DEDF90FC2BD7B07C004340C0 /* Weak.swift in Sources */,
 				DEDF90F82BD7B07C004340C0 /* ObservableRetrySingle.swift in Sources */,
 				DEDF90E02BD7B07C004340C0 /* GradientView.swift in Sources */,

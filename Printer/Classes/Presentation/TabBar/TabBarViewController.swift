@@ -15,7 +15,7 @@ class TabBarController: UITabBarController {
         // Initialize all your view controllers
         let mainVC = MainViewController.make()
         let scanVC = UIViewController()
-        let settingsVC = UIViewController()
+        let settingsVC = SettingsViewController()
         
         mainVC.tabBarItem = UITabBarItem(
             title: "Print",
