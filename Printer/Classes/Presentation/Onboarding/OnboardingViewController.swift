@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import RxSwift
+
 
 final class OnboardingViewController: UIViewController {
     struct Constants {
@@ -14,8 +14,6 @@ final class OnboardingViewController: UIViewController {
     }
     
     lazy var mainView = OnboardingView()
-    
-    private lazy var disposeBag = DisposeBag()
     
     private lazy var viewModel = OnboardingViewModel()
     

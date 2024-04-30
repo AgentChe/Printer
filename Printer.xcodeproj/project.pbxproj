@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D242BE041A3006ADD60 /* QuickActionCell.swift */; };
+		A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D252BE041A3006ADD60 /* MainViewModel.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
 		DEDF90552BD7AF5D004340C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90542BD7AF5D004340C0 /* Assets.xcassets */; };
 		DEDF90582BD7AF5D004340C0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90572BD7AF5D004340C0 /* Base */; };
@@ -99,6 +101,8 @@
 /* Begin PBXFileReference section */
 		72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Printer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF54F7D944796B29C00D6D5 /* Pods-Printer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.release.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.release.xcconfig"; sourceTree = "<group>"; };
+		A3692D242BE041A3006ADD60 /* QuickActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
+		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -549,6 +553,8 @@
 			children = (
 				DEDF91892BD9542D004340C0 /* MainViewController.swift */,
 				DEDF918D2BD95438004340C0 /* MainView.swift */,
+				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
+				A3692D242BE041A3006ADD60 /* QuickActionCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -747,6 +753,7 @@
 				DEDF90D72BD7B07C004340C0 /* FirebaseManager.swift in Sources */,
 				DEDF91242BD7B07C004340C0 /* IAPManager.swift in Sources */,
 				DEDF90EB2BD7B07C004340C0 /* UITapGestureRecognizer+Extension.swift in Sources */,
+				A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */,
 				DEDF90ED2BD7B07C004340C0 /* DefaultRequestWrapper.swift in Sources */,
 				DEDF90E92BD7B07C004340C0 /* UIDevice+Extension.swift in Sources */,
 				DEDF91202BD7B07C004340C0 /* IAPErrorHelper.swift in Sources */,
@@ -773,6 +780,7 @@
 				DEDF91002BD7B07C004340C0 /* GlobalDefinitions.swift in Sources */,
 				DEDF918E2BD95438004340C0 /* MainView.swift in Sources */,
 				DEDF91502BD7BD38004340C0 /* OnboardingViewModel.swift in Sources */,
+				A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */,
 				DEDF90F02BD7B07C004340C0 /* PushNotificationsAuthorizationStatus.swift in Sources */,
 				DEDF91232BD7B07C004340C0 /* ProductPrice.swift in Sources */,
 				DEDF90F62BD7B07C004340C0 /* Fonts.swift in Sources */,
@@ -878,7 +886,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -935,7 +943,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -953,6 +961,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2NVL5EUMWM;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Printer/Info.plist;
@@ -986,6 +995,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2NVL5EUMWM;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Printer/Info.plist;

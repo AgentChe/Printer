@@ -138,7 +138,7 @@ DEPENDENCIES:
   - SwiftyStoreKit
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  file:///Users/nkhsnv/CocoaPodsSpecs:
     - Alamofire
     - Amplitude-iOS
     - Branch
@@ -196,6 +196,6 @@ SPEC CHECKSUMS:
   RxSwift: a4b44f7d24599f674deebd1818eab82e58410632
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 76822897607739627a1948e5ca2f3f99407f4139
+PODFILE CHECKSUM: 04d5097052f057bd91a36566ff80ed6df09d15a7
 
 COCOAPODS: 1.15.2

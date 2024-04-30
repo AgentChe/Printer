@@ -2,7 +2,7 @@ platform :ios, ‘15.0’
 inhibit_all_warnings!
 use_frameworks!
 
-source 'https://github.com/CocoaPods/Specs.git'
+source 'file:///Users/nkhsnv/CocoaPodsSpecs'
 
 target 'Printer' do
   pod 'lottie-ios'

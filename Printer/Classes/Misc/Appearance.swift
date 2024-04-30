@@ -12,4 +12,6 @@ struct Appearance {
     static let white = UIColor.white
     static let black = UIColor.black
     static let background = UIColor(integralRed: 243, green: 245, blue: 253)
+    static let mainViewBackground = UIColor(hex: "#F3F5FD")
+    static let addPrinterColor = UIColor(hex: "#2E5CFF")
 }
