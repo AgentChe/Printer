@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A301E0752BE437DD00A5F9EC /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E0742BE437DD00A5F9EC /* ScanViewController.swift */; };
+		A301E0772BE44FE700A5F9EC /* PhotoReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E0762BE44FE700A5F9EC /* PhotoReviewViewController.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -108,6 +110,8 @@
 /* Begin PBXFileReference section */
 		72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Printer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EF54F7D944796B29C00D6D5 /* Pods-Printer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.release.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.release.xcconfig"; sourceTree = "<group>"; };
+		A301E0742BE437DD00A5F9EC /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
+		A301E0762BE44FE700A5F9EC /* PhotoReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewViewController.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -226,6 +230,15 @@
 				72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A301E0732BE437D200A5F9EC /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				A301E0742BE437DD00A5F9EC /* ScanViewController.swift */,
+				A301E0762BE44FE700A5F9EC /* PhotoReviewViewController.swift */,
+			);
+			path = Scan;
 			sourceTree = "<group>";
 		};
 		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
@@ -466,6 +479,7 @@
 				DEDF919A2BD9565E004340C0 /* Paygate */,
 				A355C2AB2BE09F5A0064E1F1 /* TabBar */,
 				DEDF91882BD95423004340C0 /* Main */,
+				A301E0732BE437D200A5F9EC /* Scan */,
 				A355C2AE2BE0A6FD0064E1F1 /* Settings */,
 				DEDF91472BD7BD38004340C0 /* Onboarding */,
 				DEDF90AF2BD7B07C004340C0 /* Splash */,
@@ -784,11 +798,13 @@
 				DEDF914D2BD7BD38004340C0 /* OSlideView.swift in Sources */,
 				A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */,
 				DEDF90EE2BD7B07C004340C0 /* APIRequestBody.swift in Sources */,
+				A301E0752BE437DD00A5F9EC /* ScanViewController.swift in Sources */,
 				DEDF91B52BD95E7C004340C0 /* Currency.swift in Sources */,
 				DEDF918A2BD9542D004340C0 /* MainViewController.swift in Sources */,
 				DEDF91B02BD958AF004340C0 /* PaygateOptionLineComponent.swift in Sources */,
 				DEDF910F2BD7B07C004340C0 /* SplashViewController.swift in Sources */,
 				DEDF919C2BD9565E004340C0 /* PaygateOptionInfo.swift in Sources */,
+				A301E0772BE44FE700A5F9EC /* PhotoReviewViewController.swift in Sources */,
 				DEDF90F22BD7B07C004340C0 /* PushNotificationsManager.swift in Sources */,
 				DEDF91AF2BD958AF004340C0 /* PaygateOptionConfig.swift in Sources */,
 				DEDF90DF2BD7B07C004340C0 /* CircleView.swift in Sources */,
@@ -1017,6 +1033,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Printer/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to scan documents.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1051,6 +1068,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Printer/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to scan documents.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

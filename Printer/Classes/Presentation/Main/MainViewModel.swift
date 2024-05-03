@@ -28,7 +28,7 @@ final class MainViewModel {
                         icon: UIImage(named: "QuickActions.Documents")),
             QuickAction(title: "Web Pages", 
                         detail: "Print from the web",
-                        icon: UIImage(named: "QuickActions.WebPages")),
+                        icon: UIImage(named: "QuickActions.Webpages")),
             QuickAction(title: "Notes", 
                         detail: "Print your notes",
                         icon: UIImage(named: "QuickActions.Notes")),
