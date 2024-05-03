@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A301E0752BE437DD00A5F9EC /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E0742BE437DD00A5F9EC /* ScanViewController.swift */; };
 		A301E0772BE44FE700A5F9EC /* PhotoReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E0762BE44FE700A5F9EC /* PhotoReviewViewController.swift */; };
+		A301E07A2BE5289D00A5F9EC /* WeScan in Frameworks */ = {isa = PBXBuildFile; productRef = A301E0792BE5289D00A5F9EC /* WeScan */; };
 		A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -218,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */,
+				A301E07A2BE5289D00A5F9EC /* WeScan in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -686,6 +688,9 @@
 			dependencies = (
 			);
 			name = Printer;
+			packageProductDependencies = (
+				A301E0792BE5289D00A5F9EC /* WeScan */,
+			);
 			productName = Printer;
 			productReference = DEDF90482BD7AF5B004340C0 /* Printer.app */;
 			productType = "com.apple.product-type.application";
@@ -714,6 +719,9 @@
 				Base,
 			);
 			mainGroup = DEDF903F2BD7AF5B004340C0;
+			packageReferences = (
+				A301E0782BE5289D00A5F9EC /* XCRemoteSwiftPackageReference "WeScan" */,
+			);
 			productRefGroup = DEDF90492BD7AF5B004340C0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1113,6 +1121,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A301E0782BE5289D00A5F9EC /* XCRemoteSwiftPackageReference "WeScan" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WeTransfer/WeScan.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A301E0792BE5289D00A5F9EC /* WeScan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A301E0782BE5289D00A5F9EC /* XCRemoteSwiftPackageReference "WeScan" */;
+			productName = WeScan;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DEDF90402BD7AF5B004340C0 /* Project object */;
 }
