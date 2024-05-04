@@ -46,7 +46,7 @@ final class QuadrilateralView: UIView {
     public var editable = false {
         didSet {
             cornerViews(hidden: !editable)
-            quadLayer.fillColor = editable ? UIColor(white: 0.0, alpha: 0.6).cgColor : UIColor(white: 1.0, alpha: 0.5).cgColor
+            quadLayer.fillColor = editable ?  UIColor(white: 1.0, alpha: 0.5).cgColor :  UIColor(white: 0.0, alpha: 0.6).cgColor
             guard let quad else {
                 return
             }
@@ -71,7 +71,7 @@ final class QuadrilateralView: UIView {
             guard oldValue != isHighlighted else {
                 return
             }
-            quadLayer.fillColor = isHighlighted ? UIColor.clear.cgColor : UIColor(white: 0.0, alpha: 0.6).cgColor
+            quadLayer.fillColor = isHighlighted ? UIColor(white: 0.0, alpha: 0).cgColor : UIColor(white: 1.0, alpha: 0.5).cgColor
             if isHighlighted {
                 bringSubviewToFront(quadView)
             } else {
@@ -145,6 +145,7 @@ final class QuadrilateralView: UIView {
         if let quad {
             drawQuadrilateral(quad: quad, animated: false)
         }
+       
     }
 
     // MARK: - Drawings
@@ -165,11 +166,11 @@ final class QuadrilateralView: UIView {
     private func drawQuad(_ quad: Quadrilateral, animated: Bool) {
         var path = quad.path
 
-        if editable {
-            path = path.reversing()
-            let rectPath = UIBezierPath(rect: bounds)
-            path.append(rectPath)
-        }
+//        if editable {
+//            path = path.reversing()
+//            let rectPath = UIBezierPath(rect: bounds)
+//            path.append(rectPath)
+//        }
 
         if animated == true {
             let pathAnimation = CABasicAnimation(keyPath: "path")
