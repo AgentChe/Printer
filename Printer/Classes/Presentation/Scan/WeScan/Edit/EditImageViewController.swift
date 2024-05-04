@@ -45,6 +45,7 @@ public final class EditImageViewController: UIViewController {
         quadView.editable = true
         quadView.strokeColor = strokeColor
         quadView.translatesAutoresizingMaskIntoConstraints = false
+       
         return quadView
     }()
 
@@ -55,7 +56,7 @@ public final class EditImageViewController: UIViewController {
     public init(image: UIImage, quad: Quadrilateral?, rotateImage: Bool = true, strokeColor: CGColor? = nil) {
         self.image = rotateImage ? image.applyingPortraitOrientation() : image
         self.quad = quad ?? EditImageViewController.defaultQuad(allOfImage: image)
-        self.strokeColor = strokeColor
+        self.strokeColor = UIColor.clear.cgColor
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -65,8 +66,7 @@ public final class EditImageViewController: UIViewController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-
-        setupViews()
+         setupViews()
         setupConstraints()
         zoomGestureController = ZoomGestureController(image: image, quadView: quadView)
         addLongGesture(of: zoomGestureController)

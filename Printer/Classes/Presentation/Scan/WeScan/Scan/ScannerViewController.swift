@@ -59,7 +59,7 @@ public final class ScannerViewController: UIViewController {
     private lazy var autoScanButton: UIBarButtonItem = {
         let title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
         let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(toggleAutoScan))
-        button.tintColor = Appearance.addPrinterColor
+        button.tintColor = Appearance.signatureBlue
 
         return button
     }()
@@ -67,7 +67,7 @@ public final class ScannerViewController: UIViewController {
     private lazy var flashButton: UIBarButtonItem = {
         let image = UIImage(systemName: "bolt.fill", named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
         let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleFlash))
-        button.tintColor = Appearance.addPrinterColor
+        button.tintColor = Appearance.signatureBlue
 
         return button
     }()
@@ -108,6 +108,10 @@ public final class ScannerViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
 
         navigationController?.navigationBar.barStyle = .blackTranslucent
+        
+        let backButton = UIBarButtonItem()
+          backButton.title = ""
+          navigationItem.backBarButtonItem = backButton
     }
 
     override public func viewDidLayoutSubviews() {
@@ -270,7 +274,7 @@ public final class ScannerViewController: UIViewController {
         case .off:
             flashEnabled = false
             flashButton.image = flashImage
-            flashButton.tintColor = Appearance.addPrinterColor
+            flashButton.tintColor = Appearance.signatureBlue
         case .unknown, .unavailable:
             flashEnabled = false
             flashButton.image = flashOffImage
@@ -306,6 +310,7 @@ extension ScannerViewController: RectangleDetectionDelegateProtocol {
 
         let editVC = EditScanViewController(image: picture, quad: quad)
         ImageManager.shared.addImage(picture)
+        
         navigationController?.pushViewController(editVC, animated: false)
         
         let tabBarVC = findRootTabBarController()

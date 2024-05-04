@@ -82,12 +82,31 @@ final class EditScanViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
+        // Customize the back button
+       
+        navigationController?.navigationBar.tintColor = Appearance.signatureBlue // Change to your preferred color
+        
+       
+        
+        // Create a UINavigationBarAppearance instance
+          let appearance = UINavigationBarAppearance()
+          appearance.backgroundColor = Appearance.white  // Customize the background color if needed
+        appearance.titleTextAttributes = [.foregroundColor: Appearance.signatureBlue]  // Set title color here
+          
+          // Apply the appearance to the navigation bar
+          navigationController?.navigationBar.standardAppearance = appearance
+          if #available(iOS 15.0, *) {
+              navigationController?.navigationBar.scrollEdgeAppearance = appearance
+          }
+        
+        
         title = NSLocalizedString("wescan.edit.title",
                                   tableName: nil,
                                   bundle: Bundle(for: EditScanViewController.self),
-                                  value: "Edit Scan",
+                                  value: "Scan",
                                   comment: "The title of the EditScanViewController"
         )
+      
         navigationItem.rightBarButtonItem = nextButton
         if let firstVC = self.navigationController?.viewControllers.first, firstVC == self {
             navigationItem.leftBarButtonItem = cancelButton
@@ -101,6 +120,7 @@ final class EditScanViewController: UIViewController {
         touchDown.minimumPressDuration = 0
         view.addGestureRecognizer(touchDown)
     }
+    
     // MARK: - Setups
     private func setupViews() {
         view.addSubview(imageView)
@@ -112,7 +132,7 @@ final class EditScanViewController: UIViewController {
         // Keep button
         keepButton = UIButton(type: .system)
         keepButton.setTitle("Keep scan", for: .normal)
-        keepButton.backgroundColor = Appearance.addPrinterColor // Using your custom color
+        keepButton.backgroundColor = Appearance.signatureBlue // Using your custom color
         keepButton.setTitleColor(.white, for: .normal)
         keepButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17) // Using your custom font
         keepButton.layer.cornerRadius = 24 // Adjust radius to match the one in your image.
@@ -161,7 +181,7 @@ final class EditScanViewController: UIViewController {
 
         // Constraints for retakeButton
         NSLayoutConstraint.activate([
-            retakeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -50.scale:-10.scale), // Lifted up by 10 pts
+            retakeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -40.scale:-10.scale), // Lifted up by 10 pts
             retakeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: ScreenSize.isIphoneXFamily ? 20.scale:40.scale),
             retakeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: ScreenSize.isIphoneXFamily ? -20.scale:-40.scale),
             retakeButton.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 50.scale:30.scale)
@@ -179,6 +199,8 @@ final class EditScanViewController: UIViewController {
         // Work around for an iOS 11.2 bug where UIBarButtonItems don't get back to their normal state after being pressed.
         navigationController?.navigationBar.tintAdjustmentMode = .normal
         navigationController?.navigationBar.tintAdjustmentMode = .automatic
+        let tabBarVC = findRootTabBarController()
+        tabBarVC?.tabBar.isHidden = false
     }
 
   

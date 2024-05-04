@@ -42,7 +42,7 @@ class PhotoReviewViewController: UIViewController {
         // Keep button
         keepButton = UIButton(type: .system)
         keepButton.setTitle("Keep scan", for: .normal)
-        keepButton.backgroundColor = Appearance.addPrinterColor // Set the correct color code if different
+        keepButton.backgroundColor = Appearance.signatureBlue // Set the correct color code if different
         keepButton.setTitleColor(.white, for: .normal)
         keepButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17) // Set the font size as needed
         keepButton.layer.cornerRadius = 24 // Adjust radius to match the one in your image
@@ -69,7 +69,7 @@ class PhotoReviewViewController: UIViewController {
         
         // Constraints for retakeButton
         NSLayoutConstraint.activate([
-            retakeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), 
+            retakeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             retakeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             retakeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             retakeButton.heightAnchor.constraint(equalToConstant: 50)

@@ -51,7 +51,7 @@ final class PrinterStatusCell: UICollectionViewCell {
         button.layer.cornerRadius = 24 // Adjust the corner radius to match your design
         
         // Shadow properties
-        button.layer.shadowColor = Appearance.addPrinterColor?.cgColor
+        button.layer.shadowColor = Appearance.signatureBlue?.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 0) // These values will need tweaking
         button.layer.shadowRadius = 6 // Adjust the blur radius to match your design
         button.layer.shadowOpacity = 0.4 // Adjust the opacity to match your design
