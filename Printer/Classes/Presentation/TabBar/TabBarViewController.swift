@@ -34,7 +34,11 @@ class TabBarController: UITabBarController {
         )
         
         // Add them as children of the tab bar controller
-        self.viewControllers = [mainVC, scanVC, settingsVC].map { UINavigationController(rootViewController: $0) }
+        self.viewControllers = [
+            UINavigationController(rootViewController: mainVC),
+            scanVC,
+            UINavigationController(rootViewController: settingsVC)
+        ]
         
         // Customizing the Tab Bar's appearance (optional)
         if #available(iOS 15.0, *) {

@@ -69,7 +69,7 @@ class PhotoReviewViewController: UIViewController {
         
         // Constraints for retakeButton
         NSLayoutConstraint.activate([
-            retakeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), // Lifted up by 50 pts
+            retakeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10), 
             retakeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             retakeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             retakeButton.heightAnchor.constraint(equalToConstant: 50)
