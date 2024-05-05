@@ -10,18 +10,18 @@ class ImageManager {
     static let shared = ImageManager()
     private init() {} // Private initialization to ensure just one instance is created.
 
-    var images: [UIImage] = []
+    var imageScans: [ImageScannerResults] = []
 
-    func addImage(_ image: UIImage) {
-        images.append(image)
+    func addImageScans(_ image: ImageScannerResults) {
+        imageScans.append(image)
     }
 
     func clearImages() {
-        images.removeAll()
+        imageScans.removeAll()
     }
     func removeLastImage() {
-        if !images.isEmpty {
-            images.removeLast()
+        if !imageScans.isEmpty {
+            imageScans.removeLast()
         }
     }
 }

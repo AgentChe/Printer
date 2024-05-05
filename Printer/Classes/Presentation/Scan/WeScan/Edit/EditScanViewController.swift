@@ -10,7 +10,7 @@ import AVFoundation
 import UIKit
 
 /// The `EditScanViewController` offers an interface for the user to edit the detected quadrilateral.
-final class EditScanViewController: UIViewController {
+final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate {
     var keepButton: UIButton!
     var retakeButton: UIButton!
     private lazy var imageView: UIImageView = {
@@ -118,6 +118,7 @@ final class EditScanViewController: UIViewController {
 
         let touchDown = UILongPressGestureRecognizer(target: zoomGestureController, action: #selector(zoomGestureController.handle(pan:)))
         touchDown.minimumPressDuration = 0
+        touchDown.delegate = self
         view.addGestureRecognizer(touchDown)
     }
     
@@ -138,6 +139,8 @@ final class EditScanViewController: UIViewController {
         keepButton.layer.cornerRadius = 24 // Adjust radius to match the one in your image.
         keepButton.clipsToBounds = true
         keepButton.translatesAutoresizingMaskIntoConstraints = false
+        keepButton.addTarget(self, action: #selector(keepButtonTapped), for: .touchUpInside)
+
         view.addSubview(keepButton)
 
         // Retake button
@@ -148,9 +151,52 @@ final class EditScanViewController: UIViewController {
         retakeButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17) // Using your custom font
         retakeButton.layer.cornerRadius = 0 // No rounded corners
         retakeButton.translatesAutoresizingMaskIntoConstraints = false
+        retakeButton.addTarget(self, action: #selector(retakeButtonTapped), for: .touchUpInside)
         view.addSubview(retakeButton)
     }
+    @objc func retakeButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @objc func keepButtonTapped() {
+        // Add your action code here
+        guard let quad = quadView.quad,
+            let ciImage = CIImage(image: image) else {
+                if let imageScannerController = navigationController as? ImageScannerController {
+                    let error = ImageScannerControllerError.ciImageCreation
+                    imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFailWithError: error)
+                }
+                return
+        }
+        let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
+        let orientedImage = ciImage.oriented(forExifOrientation: Int32(cgOrientation.rawValue))
+        let scaledQuad = quad.scale(quadView.bounds.size, image.size)
+        self.quad = scaledQuad
 
+        // Cropped Image
+        var cartesianScaledQuad = scaledQuad.toCartesian(withHeight: image.size.height)
+        cartesianScaledQuad.reorganize()
+
+        let filteredImage = orientedImage.applyingFilter("CIPerspectiveCorrection", parameters: [
+            "inputTopLeft": CIVector(cgPoint: cartesianScaledQuad.bottomLeft),
+            "inputTopRight": CIVector(cgPoint: cartesianScaledQuad.bottomRight),
+            "inputBottomLeft": CIVector(cgPoint: cartesianScaledQuad.topLeft),
+            "inputBottomRight": CIVector(cgPoint: cartesianScaledQuad.topRight)
+        ])
+
+        let croppedImage = UIImage.from(ciImage: filteredImage)
+        // Enhanced Image
+        let enhancedImage = filteredImage.applyingAdaptiveThreshold()?.withFixedOrientation()
+        let enhancedScan = enhancedImage.flatMap { ImageScannerScan(image: $0) }
+
+        let results = ImageScannerResults(
+            detectedRectangle: scaledQuad,
+            originalScan: ImageScannerScan(image: image),
+            croppedScan: ImageScannerScan(image: croppedImage),
+            enhancedScan: enhancedScan
+        )
+        ImageManager.shared.addImageScans(results)
+        self.navigationController?.popViewController(animated: true)
+    }
     private func setupConstraints() {
         let imageViewConstraints = [
             imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: ScreenSize.isIphoneXFamily ? -150.scale:-100.scale),
@@ -186,6 +232,15 @@ final class EditScanViewController: UIViewController {
             retakeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: ScreenSize.isIphoneXFamily ? -20.scale:-40.scale),
             retakeButton.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 50.scale:30.scale)
         ])
+        
+    }
+    // MARK: - UIGestureRecognizerDelegate
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        // Check if the touch is inside the keepButton or retakeButton
+        if touch.view == keepButton || touch.view == retakeButton {
+            return false
+        }
+        return true
     }
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -249,7 +304,7 @@ final class EditScanViewController: UIViewController {
             croppedScan: ImageScannerScan(image: croppedImage),
             enhancedScan: enhancedScan
         )
-
+        ImageManager.shared.addImageScans(results)
         let reviewViewController = ReviewViewController(results: results)
         navigationController?.pushViewController(reviewViewController, animated: true)
     }

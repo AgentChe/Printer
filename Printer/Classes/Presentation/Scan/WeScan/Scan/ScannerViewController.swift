@@ -309,7 +309,7 @@ extension ScannerViewController: RectangleDetectionDelegateProtocol {
         activityIndicator.stopAnimating()
 
         let editVC = EditScanViewController(image: picture, quad: quad)
-        ImageManager.shared.addImage(picture)
+         
         
         navigationController?.pushViewController(editVC, animated: false)
         
