@@ -127,6 +127,7 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
         view.addSubview(imageView)
         view.addSubview(quadView)
         setupButtons() // Include buttons in the setup.
+        
     }
 
     private func setupButtons() {
@@ -195,7 +196,7 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
             enhancedScan: enhancedScan
         )
         ImageManager.shared.addImageScans(results)
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true) 
     }
     private func setupConstraints() {
         let imageViewConstraints = [

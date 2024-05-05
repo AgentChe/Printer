@@ -24,4 +24,7 @@ class ImageManager {
             imageScans.removeLast()
         }
     }
+    func getImageScansCount() -> Int {
+            return imageScans.count
+        }
 }
