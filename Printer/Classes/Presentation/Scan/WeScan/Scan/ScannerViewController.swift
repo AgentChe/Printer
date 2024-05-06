@@ -120,12 +120,18 @@ public final class ScannerViewController: UIViewController {
             saveButton.heightAnchor.constraint(equalToConstant: 44.scale)
         ])
 
-        saveButton.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
 
-    @objc private func saveAction() {
+    @objc private func saveButtonTapped() {
         // Implement the save functionality
         print("Save button tapped")
+        let scannedResultsVC = ScannedResultsViewController()
+        navigationController?.pushViewController(scannedResultsVC, animated: true)
+        
+        let tabBarVC = findRootTabBarController()
+        tabBarVC?.tabBar.isHidden = true
+        
     }
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -146,7 +152,7 @@ public final class ScannerViewController: UIViewController {
             saveButton.alpha = 0
         } else {
             saveButton.alpha = 1
-            saveButton.setTitle("Save \(ImageManager.shared.getImageScansCount())", for: .normal)
+            saveButton.setTitle("Save ( \(ImageManager.shared.getImageScansCount()))", for: .normal)
         }
     }
 
