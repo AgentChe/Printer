@@ -100,8 +100,37 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         return dateFormatter.string(from: Date())
     }
     @objc private func shareTapped() {
-        // Implement sharing functionality
+        var itemsToShare = [Any]()  // Create an array to hold the items to share
+
+        // Collect images from the data source
+        for scanResult in ImageManager.shared.imageScans {
+            if let image = scanResult.enhancedScan?.image {
+                itemsToShare.append(image)
+            }
+        }
+
+        // Check if there are items to share
+        if itemsToShare.isEmpty {
+            showAlert(with: "No Images", message: "There are no images to share.")
+            return
+        }
+
+        // Add a descriptive text to the share items
+        let message = "Sharing \(itemsToShare.count) image\(itemsToShare.count > 1 ? "s":"")."
+        itemsToShare.insert(message, at: 0)  // Add the message as the first item to share
+
+        // Create and present the activity view controller
+        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view  // For iPads
+        self.present(activityViewController, animated: true, completion: nil)
     }
+
+    private func showAlert(with title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ImageManager.shared.getImageScansCount() // Number of items
