@@ -50,18 +50,24 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         setupButtons()
         setupNavigationBar()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let tabBarVC = findRootTabBarController()
+        tabBarVC?.tabBar.isHidden = false
+    }
 
     private func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.showsHorizontalScrollIndicator = false
         //collectionView.isPagingEnabled = true
         //collectionView.decelerationRate = .fast
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionView.backgroundColor = .white
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor,constant: ScreenSize.isIphoneXFamily ? 10.scale : 20.scale),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
@@ -72,15 +78,15 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.bottomAnchor.constraint(equalTo: printButton.topAnchor, constant: -20),
+            collectionView.bottomAnchor.constraint(equalTo: printButton.topAnchor, constant:ScreenSize.isIphoneXFamily ? -10.scale:-20.scale),
             printButton.widthAnchor.constraint(equalToConstant: 358.scale),
             printButton.heightAnchor.constraint(equalToConstant: 68.scale),
             printButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30.scale),
+            printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -15.scale:0.scale),
             
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20.scale)
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant:ScreenSize.isIphoneXFamily ? 45.scale:50.scale)
         ])
     }
     
@@ -98,13 +104,15 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3 // Number of items
+        return ImageManager.shared.getImageScansCount() // Number of items
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .gray // Set up the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCollectionViewCell
+        let image = ImageManager.shared.imageScans[indexPath.item].enhancedScan?.image
+        cell.imageView.image = image
+        cell.collectionView = collectionView
+        cell.parentVC = self
         return cell
-    }
-}
+    }}
  

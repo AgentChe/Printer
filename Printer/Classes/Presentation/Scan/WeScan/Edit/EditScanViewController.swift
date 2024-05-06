@@ -107,7 +107,7 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
                                   comment: "The title of the EditScanViewController"
         )
       
-        navigationItem.rightBarButtonItem = nextButton
+        //navigationItem.rightBarButtonItem = nextButton
         if let firstVC = self.navigationController?.viewControllers.first, firstVC == self {
             navigationItem.leftBarButtonItem = cancelButton
         } else {
@@ -196,7 +196,7 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
             enhancedScan: enhancedScan
         )
         ImageManager.shared.addImageScans(results)
-        self.navigationController?.popViewController(animated: true) 
+        self.navigationController?.popViewController(animated: true)
     }
     private func setupConstraints() {
         let imageViewConstraints = [

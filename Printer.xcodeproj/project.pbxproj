@@ -67,6 +67,7 @@
 		A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D252BE041A3006ADD60 /* MainViewModel.swift */; };
 		A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */; };
 		A377357F2BE868C900FCD54F /* CenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357E2BE868C900FCD54F /* CenteredFlowLayout.swift */; };
+		A37735812BE9436200FCD54F /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37735802BE9436200FCD54F /* ImageCollectionViewCell.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
 		DEDF90552BD7AF5D004340C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90542BD7AF5D004340C0 /* Assets.xcassets */; };
 		DEDF90582BD7AF5D004340C0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90572BD7AF5D004340C0 /* Base */; };
@@ -219,6 +220,7 @@
 		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedResultsViewController.swift; sourceTree = "<group>"; };
 		A377357E2BE868C900FCD54F /* CenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredFlowLayout.swift; sourceTree = "<group>"; };
+		A37735802BE9436200FCD54F /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */,
+				A37735802BE9436200FCD54F /* ImageCollectionViewCell.swift */,
 				A377357E2BE868C900FCD54F /* CenteredFlowLayout.swift */,
 			);
 			path = ScannedResults;
@@ -1091,6 +1094,7 @@
 				DEDF910F2BD7B07C004340C0 /* SplashViewController.swift in Sources */,
 				DEDF919C2BD9565E004340C0 /* PaygateOptionInfo.swift in Sources */,
 				A301E0772BE44FE700A5F9EC /* PhotoReviewViewController.swift in Sources */,
+				A37735812BE9436200FCD54F /* ImageCollectionViewCell.swift in Sources */,
 				DEDF90F22BD7B07C004340C0 /* PushNotificationsManager.swift in Sources */,
 				A301E1942BE5448500A5F9EC /* CGSize+Utils.swift in Sources */,
 				DEDF91AF2BD958AF004340C0 /* PaygateOptionConfig.swift in Sources */,

@@ -152,8 +152,9 @@ public final class ScannerViewController: UIViewController {
             saveButton.alpha = 0
         } else {
             saveButton.alpha = 1
-            saveButton.setTitle("Save ( \(ImageManager.shared.getImageScansCount()))", for: .normal)
+            saveButton.setTitle("Save (\(ImageManager.shared.getImageScansCount()))", for: .normal)
         }
+        
     }
 
     override public func viewDidLayoutSubviews() {
