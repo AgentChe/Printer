@@ -13,7 +13,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         let layout = CenteredFlowLayout()
         layout.itemSize = CGSize(width: 325.scale, height: 459.scale)
         layout.scrollDirection = .horizontal
-        let sideInset = ((ScreenSize.width - 325)/2).scale
+        let sideInset = (ScreenSize.width.scale - 325.scale)/2 + layout.minimumLineSpacing
         layout.sectionInset = UIEdgeInsets(top: 0, left: sideInset, bottom: 0, right: sideInset)
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
@@ -82,11 +82,11 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
             printButton.widthAnchor.constraint(equalToConstant: 358.scale),
             printButton.heightAnchor.constraint(equalToConstant: 68.scale),
             printButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -15.scale:0.scale),
+            printButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -105.scale:-50.scale),
             
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant:ScreenSize.isIphoneXFamily ? 45.scale:50.scale)
+            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:ScreenSize.isIphoneXFamily ? -50.scale:0.scale)
         ])
     }
     
