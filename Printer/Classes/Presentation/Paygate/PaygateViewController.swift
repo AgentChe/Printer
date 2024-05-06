@@ -62,6 +62,7 @@ final class PaygateViewController: UIViewController {
         mainView.closeButton.rx.tap
             .bind(to: Binder(self) { base, void in
                 base.dismiss()
+               
             })
             .disposed(by: disposeBag)
         
@@ -118,6 +119,8 @@ private extension PaygateViewController {
     func dismiss() {
         dismiss(animated: true) { [weak self] in
             self?.didClose?()
+            let tabBarVC = findRootTabBarController()
+            tabBarVC?.tabBar.isHidden = false
         }
     }
     
