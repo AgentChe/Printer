@@ -165,10 +165,15 @@ final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBuffe
                 guard let self = self else { return }
                 let error = ImageScannerControllerError.authorization
                 self.delegate?.captureSessionManager(self, didFailWithError: error)
+                if let rootViewController = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController {
+                      let accessVC = SeekForAccesToScanViewController()
+                      accessVC.modalPresentationStyle = .fullScreen  // Set the presentation style to full screen
+                      rootViewController.present(accessVC, animated: false)
+                  }
             }
         }
     }
-
+    
     internal func stop() {
         captureSession.stopRunning()
     }

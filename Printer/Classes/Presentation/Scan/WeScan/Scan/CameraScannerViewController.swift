@@ -81,6 +81,7 @@ public final class CameraScannerViewController: UIViewController {
         setupConstraints()
 
         captureSessionManager = CaptureSessionManager(videoPreviewLayer: videoPreviewLayer)
+        
         captureSessionManager?.delegate = self
 
         NotificationCenter.default.addObserver(

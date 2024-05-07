@@ -68,6 +68,7 @@
 		A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */; };
 		A377357F2BE868C900FCD54F /* CenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357E2BE868C900FCD54F /* CenteredFlowLayout.swift */; };
 		A37735812BE9436200FCD54F /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37735802BE9436200FCD54F /* ImageCollectionViewCell.swift */; };
+		A37735832BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37735822BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
 		DEDF90552BD7AF5D004340C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90542BD7AF5D004340C0 /* Assets.xcassets */; };
 		DEDF90582BD7AF5D004340C0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90572BD7AF5D004340C0 /* Base */; };
@@ -221,6 +222,7 @@
 		A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedResultsViewController.swift; sourceTree = "<group>"; };
 		A377357E2BE868C900FCD54F /* CenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredFlowLayout.swift; sourceTree = "<group>"; };
 		A37735802BE9436200FCD54F /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		A37735822BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASeekForAccesToScanViewController.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				A301E0742BE437DD00A5F9EC /* ScanViewController.swift */,
+				A37735822BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift */,
 				A301E0762BE44FE700A5F9EC /* PhotoReviewViewController.swift */,
 				A301E1C72BE5E0AC00A5F9EC /* ImageManager.swift */,
 				A301E1832BE5448500A5F9EC /* WeScan */,
@@ -1118,6 +1121,7 @@
 				DEDF90FB2BD7B07C004340C0 /* TextAttributes.swift in Sources */,
 				DEDF90F12BD7B07C004340C0 /* PushNotificationsModel.swift in Sources */,
 				DEDF914F2BD7BD38004340C0 /* OnboardingViewController.swift in Sources */,
+				A37735832BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift in Sources */,
 				DEDF91252BD7B07C004340C0 /* PurchaseValidationObserver.swift in Sources */,
 				DEDF90E62BD7B07C004340C0 /* String+Extension.swift in Sources */,
 				DEDF90E22BD7B07C004340C0 /* PaddingTextField.swift in Sources */,
