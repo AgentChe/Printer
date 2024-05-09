@@ -69,6 +69,11 @@
 		A377357F2BE868C900FCD54F /* CenteredFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357E2BE868C900FCD54F /* CenteredFlowLayout.swift */; };
 		A37735812BE9436200FCD54F /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37735802BE9436200FCD54F /* ImageCollectionViewCell.swift */; };
 		A37735832BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37735822BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift */; };
+		A37735FE2BEC470100FCD54F /* ConnectPrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37735FD2BEC470100FCD54F /* ConnectPrinterViewController.swift */; };
+		A37736052BEC560800FCD54F /* BluetoothToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37736042BEC560800FCD54F /* BluetoothToggleView.swift */; };
+		A37736072BEC59FB00FCD54F /* WiFiToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37736062BEC59FB00FCD54F /* WiFiToggleView.swift */; };
+		A377360A2BEC756800FCD54F /* Wi-fi(Network).swift in Sources */ = {isa = PBXBuildFile; fileRef = A37736092BEC756800FCD54F /* Wi-fi(Network).swift */; };
+		A377360D2BEC768900FCD54F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377360C2BEC768900FCD54F /* BluetoothManager.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
 		DEDF90552BD7AF5D004340C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90542BD7AF5D004340C0 /* Assets.xcassets */; };
 		DEDF90582BD7AF5D004340C0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90572BD7AF5D004340C0 /* Base */; };
@@ -223,6 +228,11 @@
 		A377357E2BE868C900FCD54F /* CenteredFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredFlowLayout.swift; sourceTree = "<group>"; };
 		A37735802BE9436200FCD54F /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		A37735822BE9A33400FCD54F /* ASeekForAccesToScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASeekForAccesToScanViewController.swift; sourceTree = "<group>"; };
+		A37735FD2BEC470100FCD54F /* ConnectPrinterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectPrinterViewController.swift; sourceTree = "<group>"; };
+		A37736042BEC560800FCD54F /* BluetoothToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothToggleView.swift; sourceTree = "<group>"; };
+		A37736062BEC59FB00FCD54F /* WiFiToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiToggleView.swift; sourceTree = "<group>"; };
+		A37736092BEC756800FCD54F /* Wi-fi(Network).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wi-fi(Network).swift"; sourceTree = "<group>"; };
+		A377360C2BEC768900FCD54F /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -514,6 +524,34 @@
 			path = ScannedResults;
 			sourceTree = "<group>";
 		};
+		A37735FC2BEC46DB00FCD54F /* ConnectPrinter */ = {
+			isa = PBXGroup;
+			children = (
+				A37735FD2BEC470100FCD54F /* ConnectPrinterViewController.swift */,
+				A377360B2BEC765A00FCD54F /* WiFi+Bluetooth */,
+				A37736082BEC703C00FCD54F /* ToggleViews */,
+			);
+			path = ConnectPrinter;
+			sourceTree = "<group>";
+		};
+		A37736082BEC703C00FCD54F /* ToggleViews */ = {
+			isa = PBXGroup;
+			children = (
+				A37736062BEC59FB00FCD54F /* WiFiToggleView.swift */,
+				A37736042BEC560800FCD54F /* BluetoothToggleView.swift */,
+			);
+			path = ToggleViews;
+			sourceTree = "<group>";
+		};
+		A377360B2BEC765A00FCD54F /* WiFi+Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				A377360C2BEC768900FCD54F /* BluetoothManager.swift */,
+				A37736092BEC756800FCD54F /* Wi-fi(Network).swift */,
+			);
+			path = "WiFi+Bluetooth";
+			sourceTree = "<group>";
+		};
 		C45561E149515E465BE877B2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,6 +765,7 @@
 				DEDF919A2BD9565E004340C0 /* Paygate */,
 				A355C2AB2BE09F5A0064E1F1 /* TabBar */,
 				DEDF91882BD95423004340C0 /* Main */,
+				A37735FC2BEC46DB00FCD54F /* ConnectPrinter */,
 				A301E0732BE437D200A5F9EC /* Scan */,
 				A355C2AE2BE0A6FD0064E1F1 /* Settings */,
 				DEDF91472BD7BD38004340C0 /* Onboarding */,
@@ -1129,6 +1168,7 @@
 				A301E1C52BE5448500A5F9EC /* ImageScannerController.swift in Sources */,
 				DEDF91A12BD9565E004340C0 /* PaygateViewController.swift in Sources */,
 				A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */,
+				A377360D2BEC768900FCD54F /* BluetoothManager.swift in Sources */,
 				DEDF91392BD7B948004340C0 /* Spinner.swift in Sources */,
 				A301E1932BE5448500A5F9EC /* CGRect+Utils.swift in Sources */,
 				A301E1972BE5448500A5F9EC /* UIImage+SFSymbol.swift in Sources */,
@@ -1153,11 +1193,13 @@
 				DEDF91232BD7B07C004340C0 /* ProductPrice.swift in Sources */,
 				DEDF90F62BD7B07C004340C0 /* Fonts.swift in Sources */,
 				DEDF90E32BD7B07C004340C0 /* TapAreaButton.swift in Sources */,
+				A37735FE2BEC470100FCD54F /* ConnectPrinterViewController.swift in Sources */,
 				DEDF91A02BD9565E004340C0 /* PaygateView.swift in Sources */,
 				DEDF91012BD7B07C004340C0 /* SceneDelegate.swift in Sources */,
 				A355C2B02BE0A70E0064E1F1 /* SettingsViewController.swift in Sources */,
 				A301E1982BE5448500A5F9EC /* UIImage+Utils.swift in Sources */,
 				DEDF90EA2BD7B07C004340C0 /* UIEdgeInsets+Extension.swift in Sources */,
+				A377360A2BEC756800FCD54F /* Wi-fi(Network).swift in Sources */,
 				DEDF919D2BD9565E004340C0 /* PaygateInfoCell.swift in Sources */,
 				A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */,
 				DEDF90EF2BD7B07C004340C0 /* RestAPITransport.swift in Sources */,
@@ -1165,6 +1207,7 @@
 				A301E1902BE5448500A5F9EC /* CGAffineTransform+Utils.swift in Sources */,
 				A301E1BB2BE5448500A5F9EC /* CameraScannerViewController.swift in Sources */,
 				DEDF90DC2BD7B07C004340C0 /* NavigationController.swift in Sources */,
+				A37736072BEC59FB00FCD54F /* WiFiToggleView.swift in Sources */,
 				A301E1C82BE5E0AC00A5F9EC /* ImageManager.swift in Sources */,
 				DEDF90E12BD7B07C004340C0 /* PaddingLabel.swift in Sources */,
 				DEDF90FE2BD7B07C004340C0 /* AppDelegate.swift in Sources */,
@@ -1180,6 +1223,7 @@
 				DEDF91262BD7B07C004340C0 /* SessionManager.swift in Sources */,
 				A355C2AD2BE09F820064E1F1 /* TabBarViewController.swift in Sources */,
 				A301E1892BE5448500A5F9EC /* QuadrilateralView.swift in Sources */,
+				A37736052BEC560800FCD54F /* BluetoothToggleView.swift in Sources */,
 				A301E1C42BE5448500A5F9EC /* CaptureSession+Orientation.swift in Sources */,
 				A355C2B22BE0A8F50064E1F1 /* SettingsTableViewCell.swift in Sources */,
 				A301E1882BE5448500A5F9EC /* Quadrilateral.swift in Sources */,
@@ -1356,6 +1400,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Printer/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to compatible devices, allowing for the transfer of data between your device and Bluetooth-enabled peripherals like printers and wearables.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to scan documents.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1391,6 +1436,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Printer/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to compatible devices, allowing for the transfer of data between your device and Bluetooth-enabled peripherals like printers and wearables.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to scan documents.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

@@ -7,6 +7,7 @@
 
 import UIKit
 final class PrinterStatusCell: UICollectionViewCell {
+ 
     static let identifier = "PrinterStatusCell"
     
     // Use the existing subviews from MainView
@@ -49,7 +50,7 @@ final class PrinterStatusCell: UICollectionViewCell {
 
         // Corner radius for rounded corners
         button.layer.cornerRadius = 24 // Adjust the corner radius to match your design
-        
+        button.isUserInteractionEnabled = true
         // Shadow properties
         button.layer.shadowColor = Appearance.signatureBlue?.cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 0) // These values will need tweaking
@@ -81,7 +82,6 @@ final class PrinterStatusCell: UICollectionViewCell {
          addSubview(subtitleLabel)
          addSubview(addPrinterButton)
          addSubview(compatibleListButton)
-         
          setupLayout()
      }
     required init?(coder: NSCoder) {
@@ -94,26 +94,26 @@ final class PrinterStatusCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             // Printer image view constraints
             printerImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            printerImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spacing),
+            printerImageView.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
             printerImageView.widthAnchor.constraint(equalToConstant: 130.scale), // Adjust multiplier for the desired width
             printerImageView.heightAnchor.constraint(equalTo: printerImageView.widthAnchor), // Makes the image view square
             
             // Title label constraints
-            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: printerImageView.bottomAnchor, constant: spacing),
             
             // Subtitle label constraints
-            subtitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            subtitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: spacing / 2),
             
             // Add printer button constraints
-            addPrinterButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            addPrinterButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             addPrinterButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: (2*spacing).scale),
             addPrinterButton.widthAnchor.constraint(equalToConstant: 361.scale),
             addPrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight.scale),
             
             // Compatible list button constraints
-            compatibleListButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             compatibleListButton.topAnchor.constraint(equalTo: addPrinterButton.bottomAnchor, constant: (spacing / 4).scale),
             compatibleListButton.widthAnchor.constraint(equalTo: addPrinterButton.widthAnchor), // Same width as add printer button
             compatibleListButton.heightAnchor.constraint(equalTo: addPrinterButton.heightAnchor) // Same height as add printer button
@@ -126,7 +126,16 @@ final class PrinterStatusCell: UICollectionViewCell {
 extension PrinterStatusCell {
     // MARK: - Actions
     @objc private func addPrinterButtonTapped() {
-       // delegate?.didTapAddPrinter()
+        //delegate?.didTapAddPrinter()
+        
+        if let rootViewController = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController {
+            let connectPrinterVC = ConnectPrinterViewController()
+            connectPrinterVC.modalPresentationStyle = .fullScreen // Set the presentation style to fullscreen
+            rootViewController.present(connectPrinterVC, animated: true)
+          }
+
+        
+       
     }
     
     @objc private func compatibleListButtonTapped() {

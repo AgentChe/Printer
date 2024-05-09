@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app uses Bluetooth to connect to compatible devices, allowing for the transfer of data between your device and Bluetooth-enabled peripherals like printers and wearables.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires camera access to scan documents.</string>
 	<key>UIApplicationSceneManifest</key>
