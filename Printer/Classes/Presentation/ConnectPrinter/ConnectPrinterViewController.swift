@@ -56,6 +56,47 @@ class ConnectPrinterViewController: UIViewController,StatusChangeDelegate {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    let addPrinterButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("New printer", for: .normal)
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 16)
+        button.backgroundColor = Appearance.signatureBlue
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 20
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Move title label 2 points up
+        button.titleEdgeInsets = UIEdgeInsets(top: -1.7.scale, left: 0, bottom: 0, right: 0)
+        
+        return button
+    }()
+    let availablePrintersLabel: UILabel = {
+          let label = UILabel()
+          label.text = "Available Printers"
+          label.font = Fonts.SFProDisplay.bold(size: 24) // Assuming the font and size from your description
+          label.textColor = .black
+          label.textAlignment = .left
+          return label
+      }()
+    let instructionLabel: UILabel = {
+           let label = UILabel()
+           label.text = "If you don’t see your printer here, please check the connections and reboot it (power reset) and try again."
+           label.font = Fonts.SFProDisplay.medium(size: 15)
+           label.textColor = .gray
+           label.numberOfLines = 3
+           label.textAlignment = .left
+           return label
+       }()
+       
+       let showCompatiblePrinterListButton: UIButton = {
+           let button = UIButton(type: .system)
+           button.setTitle("Printer compatible list", for: .normal)
+           button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 16)
+           button.backgroundColor = .clear
+           button.contentHorizontalAlignment = .left
+           button.setTitleColor(.systemBlue, for: .normal)
+           return button
+       }()
     var connectionCheckTimer: Timer?
     let wifi2ndManager = NetworkReachability()
     let bluetoothManager = BluetoothManager()
@@ -77,7 +118,7 @@ class ConnectPrinterViewController: UIViewController,StatusChangeDelegate {
         super.viewDidLoad()
         view.backgroundColor = Appearance.mainViewBackground
         setupViews()
-    
+        
         wifi2ndManager.delegate = self
         
         bluetoothManager.delegate = self
@@ -106,6 +147,10 @@ class ConnectPrinterViewController: UIViewController,StatusChangeDelegate {
         view.addSubview(closeButton)
         view.addSubview(bluetoothToggleView)
         view.addSubview(wifiToggleView)
+        view.addSubview(addPrinterButton)
+        view.addSubview(availablePrintersLabel)
+        view.addSubview(instructionLabel)
+        view.addSubview(showCompatiblePrinterListButton)
         
         // Use AutoLayout to position the views
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +158,9 @@ class ConnectPrinterViewController: UIViewController,StatusChangeDelegate {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         bluetoothToggleView.translatesAutoresizingMaskIntoConstraints = false
         wifiToggleView.translatesAutoresizingMaskIntoConstraints = false
+        availablePrintersLabel.translatesAutoresizingMaskIntoConstraints = false
+        instructionLabel.translatesAutoresizingMaskIntoConstraints = false
+        showCompatiblePrinterListButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.scale),
@@ -139,6 +187,29 @@ class ConnectPrinterViewController: UIViewController,StatusChangeDelegate {
             wifiToggleView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0.scale),
             wifiToggleView.widthAnchor.constraint(equalToConstant: 358.scale),
             wifiToggleView.heightAnchor.constraint(equalToConstant: 79.scale),
+            
+            addPrinterButton.topAnchor.constraint(equalTo: wifiToggleView.bottomAnchor, constant: 32.scale),
+            addPrinterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addPrinterButton.widthAnchor.constraint(equalToConstant: 144.scale),
+            addPrinterButton.heightAnchor.constraint(equalToConstant: 50.scale),
+            
+           
+            availablePrintersLabel.topAnchor.constraint(equalTo: addPrinterButton.bottomAnchor, constant: 25.scale),
+            availablePrintersLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.scale),
+            availablePrintersLabel.widthAnchor.constraint(equalToConstant: 270.scale),
+            availablePrintersLabel.heightAnchor.constraint(equalToConstant: 29.scale),
+
+            instructionLabel.topAnchor.constraint(equalTo: availablePrintersLabel.bottomAnchor, constant: 10.scale),
+            instructionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.scale),
+            instructionLabel.widthAnchor.constraint(equalToConstant: 348.scale),
+            instructionLabel.heightAnchor.constraint(equalToConstant: 64.scale),
+
+            showCompatiblePrinterListButton.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: 0.scale),
+            showCompatiblePrinterListButton.leadingAnchor.constraint(equalTo: instructionLabel.leadingAnchor),
+            showCompatiblePrinterListButton.widthAnchor.constraint(equalToConstant: 200.scale), // Adjust width as necessary
+            showCompatiblePrinterListButton.heightAnchor.constraint(equalToConstant: 50.scale),
+            
+            
         ])
     }
 }

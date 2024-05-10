@@ -56,6 +56,7 @@
 		A301E1C42BE5448500A5F9EC /* CaptureSession+Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E17E2BE5448500A5F9EC /* CaptureSession+Orientation.swift */; };
 		A301E1C52BE5448500A5F9EC /* ImageScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E1802BE5448500A5F9EC /* ImageScannerController.swift */; };
 		A301E1C82BE5E0AC00A5F9EC /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E1C72BE5E0AC00A5F9EC /* ImageManager.swift */; };
+		A30714FD2BEDDFCB00667526 /* ConnectPrinterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30714FC2BEDDFCB00667526 /* ConnectPrinterCell.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -215,6 +216,7 @@
 		A301E17E2BE5448500A5F9EC /* CaptureSession+Orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CaptureSession+Orientation.swift"; sourceTree = "<group>"; };
 		A301E1802BE5448500A5F9EC /* ImageScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScannerController.swift; sourceTree = "<group>"; };
 		A301E1C72BE5E0AC00A5F9EC /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		A30714FC2BEDDFCB00667526 /* ConnectPrinterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectPrinterCell.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -482,11 +484,12 @@
 			path = WeScan;
 			sourceTree = "<group>";
 		};
-		A301E1842BE5448500A5F9EC /* Sources */ = {
+		A30714FB2BED9F1F00667526 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Sources;
+			name = Sources;
+			path = Sources/Sources;
 			sourceTree = "<group>";
 		};
 		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
@@ -528,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				A37735FD2BEC470100FCD54F /* ConnectPrinterViewController.swift */,
+				A30714FC2BEDDFCB00667526 /* ConnectPrinterCell.swift */,
 				A377360B2BEC765A00FCD54F /* WiFi+Bluetooth */,
 				A37736082BEC703C00FCD54F /* ToggleViews */,
 			);
@@ -827,7 +831,7 @@
 			children = (
 				DEDF90992BD7B07C004340C0 /* Misc */,
 				DEDF90C12BD7B07C004340C0 /* Presentation */,
-				A301E1842BE5448500A5F9EC /* Sources */,
+				A30714FB2BED9F1F00667526 /* Sources */,
 				DEDF90D22BD7B07C004340C0 /* Service */,
 			);
 			path = Classes;
@@ -1151,6 +1155,7 @@
 				DEDF91242BD7B07C004340C0 /* IAPManager.swift in Sources */,
 				A301E18B2BE5448500A5F9EC /* EditImageViewController.swift in Sources */,
 				DEDF90EB2BD7B07C004340C0 /* UITapGestureRecognizer+Extension.swift in Sources */,
+				A30714FD2BEDDFCB00667526 /* ConnectPrinterCell.swift in Sources */,
 				A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */,
 				DEDF90ED2BD7B07C004340C0 /* DefaultRequestWrapper.swift in Sources */,
 				DEDF90E92BD7B07C004340C0 /* UIDevice+Extension.swift in Sources */,
