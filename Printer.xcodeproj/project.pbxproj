@@ -57,6 +57,9 @@
 		A301E1C52BE5448500A5F9EC /* ImageScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E1802BE5448500A5F9EC /* ImageScannerController.swift */; };
 		A301E1C82BE5E0AC00A5F9EC /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301E1C72BE5E0AC00A5F9EC /* ImageManager.swift */; };
 		A30714FD2BEDDFCB00667526 /* ConnectPrinterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30714FC2BEDDFCB00667526 /* ConnectPrinterCell.swift */; };
+		A30714FF2BEDF03600667526 /* AvaliablePrintersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30714FE2BEDF03600667526 /* AvaliablePrintersCell.swift */; };
+		A30715012BEDF61300667526 /* PrinterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715002BEDF61300667526 /* PrinterCell.swift */; };
+		A30715032BEDF62A00667526 /* NoPrinterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715022BEDF62A00667526 /* NoPrinterCell.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -217,6 +220,9 @@
 		A301E1802BE5448500A5F9EC /* ImageScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScannerController.swift; sourceTree = "<group>"; };
 		A301E1C72BE5E0AC00A5F9EC /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		A30714FC2BEDDFCB00667526 /* ConnectPrinterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectPrinterCell.swift; sourceTree = "<group>"; };
+		A30714FE2BEDF03600667526 /* AvaliablePrintersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvaliablePrintersCell.swift; sourceTree = "<group>"; };
+		A30715002BEDF61300667526 /* PrinterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterCell.swift; sourceTree = "<group>"; };
+		A30715022BEDF62A00667526 /* NoPrinterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPrinterCell.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -531,7 +537,10 @@
 			isa = PBXGroup;
 			children = (
 				A37735FD2BEC470100FCD54F /* ConnectPrinterViewController.swift */,
+				A30715002BEDF61300667526 /* PrinterCell.swift */,
+				A30715022BEDF62A00667526 /* NoPrinterCell.swift */,
 				A30714FC2BEDDFCB00667526 /* ConnectPrinterCell.swift */,
+				A30714FE2BEDF03600667526 /* AvaliablePrintersCell.swift */,
 				A377360B2BEC765A00FCD54F /* WiFi+Bluetooth */,
 				A37736082BEC703C00FCD54F /* ToggleViews */,
 			);
@@ -1149,6 +1158,7 @@
 				DEDF90EC2BD7B07C004340C0 /* UIView+RxExtension.swift in Sources */,
 				A301E1BC2BE5448500A5F9EC /* CaptureSessionManager.swift in Sources */,
 				DEDF90FD2BD7B07C004340C0 /* XOREncryption.swift in Sources */,
+				A30715032BEDF62A00667526 /* NoPrinterCell.swift in Sources */,
 				DEDF90FF2BD7B07C004340C0 /* Appearance.swift in Sources */,
 				A301E1962BE5448500A5F9EC /* UIImage+Orientation.swift in Sources */,
 				DEDF90D72BD7B07C004340C0 /* FirebaseManager.swift in Sources */,
@@ -1195,6 +1205,7 @@
 				A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */,
 				DEDF90F02BD7B07C004340C0 /* PushNotificationsAuthorizationStatus.swift in Sources */,
 				A301E1BD2BE5448500A5F9EC /* FocusRectangleView.swift in Sources */,
+				A30715012BEDF61300667526 /* PrinterCell.swift in Sources */,
 				DEDF91232BD7B07C004340C0 /* ProductPrice.swift in Sources */,
 				DEDF90F62BD7B07C004340C0 /* Fonts.swift in Sources */,
 				DEDF90E32BD7B07C004340C0 /* TapAreaButton.swift in Sources */,
@@ -1204,6 +1215,7 @@
 				A355C2B02BE0A70E0064E1F1 /* SettingsViewController.swift in Sources */,
 				A301E1982BE5448500A5F9EC /* UIImage+Utils.swift in Sources */,
 				DEDF90EA2BD7B07C004340C0 /* UIEdgeInsets+Extension.swift in Sources */,
+				A30714FF2BEDF03600667526 /* AvaliablePrintersCell.swift in Sources */,
 				A377360A2BEC756800FCD54F /* Wi-fi(Network).swift in Sources */,
 				DEDF919D2BD9565E004340C0 /* PaygateInfoCell.swift in Sources */,
 				A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */,

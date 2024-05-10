@@ -1,0 +1,77 @@
+//
+//  AvaliablePrintersCell.swift
+//  Printer
+//
+//  Created by Niiaz Khasanov on 5/10/24.
+//
+
+import UIKit
+ 
+// Define your custom cell classes
+class AvaliablePrintersCell: UICollectionViewCell {
+    static let availablePrintersCellKey = "availablePrintersCellKey"
+    private var collectionView: UICollectionView!
+    private var actionButton: UIButton! // Define the button
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupCollectionView()
+        setupActionButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 358.scale, height: 92.scale) // Adjust size as needed
+
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        layout.minimumLineSpacing = 20.scale
+
+        collectionView.register(PrinterCell.self, forCellWithReuseIdentifier: PrinterCell.identifier)
+        collectionView.register(NoPrinterCell.self, forCellWithReuseIdentifier: NoPrinterCell.identifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+
+        addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60), // Leave space for the button
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    private func setupActionButton() {
+        actionButton = UIButton(type: .system)
+        actionButton.setTitle("Don't see your device?", for: .normal)
+        actionButton.setTitleColor(Appearance.signatureBlue, for: .normal)
+        actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium) // Set font size and weight
+        actionButton.translatesAutoresizingMaskIntoConstraints = false
+        actionButton.backgroundColor = .clear
+        addSubview(actionButton)
+
+        NSLayoutConstraint.activate([
+            actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 3.scale),
+            actionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
+        ])
+    }}
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
+extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4 // Always return 4 cells
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell {
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+}
