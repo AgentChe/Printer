@@ -51,7 +51,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         actionButton = UIButton(type: .system)
         actionButton.setTitle("Don't see your device?", for: .normal)
         actionButton.setTitleColor(Appearance.signatureBlue, for: .normal)
-        actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .medium) // Set font size and weight
+        actionButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17) // Set font size and weight
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         actionButton.backgroundColor = .clear
         addSubview(actionButton)
@@ -61,15 +61,27 @@ class AvaliablePrintersCell: UICollectionViewCell {
             actionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }}
-
+extension AvaliablePrintersCell: UICollectionViewDelegateFlowLayout {
+    // Specify the size for each item
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // You can adjust the width and height according to your needs
+        // return CGSize(width: 358.scale, height: 92.scale)
+        
+        return CGSize(width: 358.scale, height: 150.scale)
+    }
+}
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4 // Always return 4 cells
+        //return 4 // Always return 4 cells
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell {
+//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell {
+//            return cell
+//        }
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell {
             return cell
         }
         return UICollectionViewCell()

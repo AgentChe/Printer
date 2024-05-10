@@ -32,7 +32,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = Appearance.mainViewBackground
-        
+        collectionView.isScrollEnabled = false
         // Register cell types
         collectionView.register(ConnectPrinterCell.self, forCellWithReuseIdentifier: ConnectPrinterCell.connectPrinterCellKey)
         collectionView.register(AvaliablePrintersCell.self, forCellWithReuseIdentifier: AvaliablePrintersCell.availablePrintersCellKey)
@@ -53,7 +53,8 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
            if indexPath.item % 2 == 0 {
                return CGSize(width: collectionView.bounds.width, height: 630.scale)
            } else {
-               return CGSize(width: collectionView.bounds.width, height: 500.scale)
+               //return CGSize(width: collectionView.bounds.width, height: 500.scale)
+               return CGSize(width: collectionView.bounds.width, height: 193.4.scale)
            }
        }
 
