@@ -88,6 +88,11 @@ extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDel
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell {
                 let printerURL = foundPrinters[indexPath.item].url
                 cell.printerName.text = PrinterManager.shared.getPrinterName(for: printerURL)
+                if printerURL == PrinterManager.shared.currentlyConnectedPrinterURL {
+                    cell.connectionStatusLabel.text = "Connected"
+                } else {
+                    cell.connectionStatusLabel.text = "Not connected"
+                }
                 return cell
             }
         } else {

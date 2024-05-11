@@ -86,10 +86,21 @@ class ConnectPrinterCell: UICollectionViewCell {
                 if let printer = printerPickerController.selectedPrinter {
                     print("Printer name: \(printer.displayName)")
                     print("Printer URL: \(printer.url)")
-                    
                     PrinterManager.shared.savePrinter(url: printer.url, displayName: printer.displayName)
-                    self?.delegate?.reloadCollectionView()
-                    // Start printing process here if required
+                 
+                    PrinterManager.shared.connectToPrinter(with: printer.url) { printer, error in
+                          if let printer = printer {
+                              print("Ready to print with \(printer.displayName)")
+                              self?.delegate?.reloadCollectionView()
+                              // Start printing process here if required
+                              // Proceed to set up the print job here
+                              
+                          } else if let error = error {
+                              
+                              print("Error: \(error.localizedDescription)")
+                          }
+                      }
+                    
                 }
             }
         }

@@ -41,7 +41,7 @@ class PrinterCell: UICollectionViewCell {
         return label
     }()
     
-    private let detailLabel: UILabel = {
+     let connectionStatusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.scale, weight: .regular)
         label.text = "Not connected"
@@ -67,7 +67,7 @@ class PrinterCell: UICollectionViewCell {
         addSubview(iconContainerView)
         iconContainerView.addSubview(iconImageView)
         addSubview(printerName)
-        addSubview(detailLabel)
+        addSubview(connectionStatusLabel)
     }
     
     private func setupLayout() {
@@ -90,16 +90,16 @@ class PrinterCell: UICollectionViewCell {
             printerName.topAnchor.constraint(equalTo: topAnchor, constant: 22.6.scale),
             
             // Detail Label Constraints
-            detailLabel.leadingAnchor.constraint(equalTo: printerName.leadingAnchor),
-            detailLabel.trailingAnchor.constraint(equalTo: printerName.trailingAnchor),
-            detailLabel.topAnchor.constraint(equalTo: printerName.bottomAnchor, constant: 5.scale)
+            connectionStatusLabel.leadingAnchor.constraint(equalTo: printerName.leadingAnchor),
+            connectionStatusLabel.trailingAnchor.constraint(equalTo: printerName.trailingAnchor),
+            connectionStatusLabel.topAnchor.constraint(equalTo: printerName.bottomAnchor, constant: 5.scale)
         ])
     }
     
     func configure(with action: QuickAction) {
         iconImageView.image = action.icon
         printerName.text = action.title
-        detailLabel.text = action.detail // Assuming QuickAction now has a 'detail' property for additional text
+        connectionStatusLabel.text = action.detail // Assuming QuickAction now has a 'detail' property for additional text
     }
 }
  
