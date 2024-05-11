@@ -14,13 +14,17 @@ protocol StatusChangeDelegate: AnyObject {
 }
 
 
-
+protocol ConnectPrinterCellDelegate: AnyObject {
+    func getCollectionView() -> UICollectionView?
+    func reloadCollectionView()
+}
 class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    
+    var foundPrinters:[UIPrinter]!
     private var collectionView: UICollectionView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        foundPrinters = PrinterManager.shared.retrieveAllPrinters()
         setupCollectionView()
     }
     private func setupCollectionView() {
@@ -32,7 +36,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = Appearance.mainViewBackground
-        collectionView.isScrollEnabled = false
+      
         // Register cell types
         collectionView.register(ConnectPrinterCell.self, forCellWithReuseIdentifier: ConnectPrinterCell.connectPrinterCellKey)
         collectionView.register(AvaliablePrintersCell.self, forCellWithReuseIdentifier: AvaliablePrintersCell.availablePrintersCellKey)
@@ -48,20 +52,25 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
         ])
     }
     // MARK: UICollectionViewDelegateFlowLayout methods
-       
-       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-           if indexPath.item % 2 == 0 {
-               return CGSize(width: collectionView.bounds.width, height: 630.scale)
-           } else {
-               //return CGSize(width: collectionView.bounds.width, height: 500.scale)
-               return CGSize(width: collectionView.bounds.width, height: 193.4.scale)
-           }
-       }
-
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.item % 2 == 0 {
+            return CGSize(width: collectionView.bounds.width, height: 630.scale)
+        } else {
+            let printerManager = PrinterManager.shared
+            if printerManager.hasSavedPrinters() {
+                let foundPrintersCount = CGFloat(foundPrinters.count)
+                return CGSize(width: collectionView.bounds.width, height:60.scale + (20+92).scale)//*foundPrintersCount)
+            } else {
+                return CGSize(width: collectionView.bounds.width, height: 193.4.scale)
+            }
+        }
+    }
+    
     // MARK: UICollectionViewDataSource methods
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+            return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -72,13 +81,27 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
         // Determine which cell to use based on the item index
         if indexPath.item % 2 == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ConnectPrinterCell.connectPrinterCellKey, for: indexPath) as! ConnectPrinterCell
+            cell.delegate = self
             // Configure cell
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AvaliablePrintersCell.availablePrintersCellKey, for: indexPath) as! AvaliablePrintersCell
+            cell.foundPrinters = foundPrinters
+            cell.collectionView.reloadData()
             // Configure cell
             return cell
         }
     }
 }
 
+extension ConnectPrinterViewController: ConnectPrinterCellDelegate {
+    func getCollectionView() -> UICollectionView? {
+        return self.collectionView
+    }
+    func reloadCollectionView() {
+          DispatchQueue.main.async {
+              self.foundPrinters = PrinterManager.shared.retrieveAllPrinters()
+              self.collectionView.reloadData()
+          }
+      }
+}

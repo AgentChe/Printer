@@ -6,13 +6,13 @@
 //
 
 import UIKit
- 
+
 // Define your custom cell classes
 class AvaliablePrintersCell: UICollectionViewCell {
     static let availablePrintersCellKey = "availablePrintersCellKey"
-    private var collectionView: UICollectionView!
+    var collectionView: UICollectionView!
     private var actionButton: UIButton! // Define the button
-
+    var foundPrinters:[UIPrinter] = []
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
@@ -26,22 +26,22 @@ class AvaliablePrintersCell: UICollectionViewCell {
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 358.scale, height: 92.scale) // Adjust size as needed
-
+        
+        
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         layout.minimumLineSpacing = 20.scale
-
+        
         collectionView.register(PrinterCell.self, forCellWithReuseIdentifier: PrinterCell.identifier)
         collectionView.register(NoPrinterCell.self, forCellWithReuseIdentifier: NoPrinterCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-
+        
         addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60), // Leave space for the button
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60.scale), // Leave space for the button
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -55,7 +55,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         actionButton.backgroundColor = .clear
         addSubview(actionButton)
-
+        
         NSLayoutConstraint.activate([
             actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 3.scale),
             actionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
@@ -64,25 +64,36 @@ class AvaliablePrintersCell: UICollectionViewCell {
 extension AvaliablePrintersCell: UICollectionViewDelegateFlowLayout {
     // Specify the size for each item
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // You can adjust the width and height according to your needs
-        // return CGSize(width: 358.scale, height: 92.scale)
-        
-        return CGSize(width: 358.scale, height: 150.scale)
+        if foundPrinters.count != 0 {
+            // You can adjust the width and height according to your needs
+            return CGSize(width: 358.scale, height: 92.scale)
+        } else {
+            return CGSize(width: 358.scale, height: 150.scale)
+        }
     }
 }
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //return 4 // Always return 4 cells
-        return 1
+        if foundPrinters.count != 0 {
+            return foundPrinters.count
+        } else {
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell {
-//            return cell
-//        }
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell {
-            return cell
+        if foundPrinters.count != 0 {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell {
+                let printerURL = foundPrinters[indexPath.item].url
+                cell.printerName.text = PrinterManager.shared.getPrinterName(for: printerURL)
+                return cell
+            }
+        } else {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell {
+                return cell
+            }
         }
         return UICollectionViewCell()
     }

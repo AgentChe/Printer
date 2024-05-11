@@ -33,7 +33,7 @@ class PrinterCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let titleLabel: UILabel = {
+    let printerName: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17.scale, weight: .regular)
         label.text = "Printer N1234"
@@ -66,7 +66,7 @@ class PrinterCell: UICollectionViewCell {
     private func setupViews() {
         addSubview(iconContainerView)
         iconContainerView.addSubview(iconImageView)
-        addSubview(titleLabel)
+        addSubview(printerName)
         addSubview(detailLabel)
     }
     
@@ -85,20 +85,20 @@ class PrinterCell: UICollectionViewCell {
             iconImageView.heightAnchor.constraint(equalToConstant: 24.scale), // Adjust your size
             
             // Title Label Constraints
-            titleLabel.leadingAnchor.constraint(equalTo: iconContainerView.trailingAnchor, constant: 10.scale),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15.scale),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 22.6.scale),
+            printerName.leadingAnchor.constraint(equalTo: iconContainerView.trailingAnchor, constant: 10.scale),
+            printerName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15.scale),
+            printerName.topAnchor.constraint(equalTo: topAnchor, constant: 22.6.scale),
             
             // Detail Label Constraints
-            detailLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            detailLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5.scale)
+            detailLabel.leadingAnchor.constraint(equalTo: printerName.leadingAnchor),
+            detailLabel.trailingAnchor.constraint(equalTo: printerName.trailingAnchor),
+            detailLabel.topAnchor.constraint(equalTo: printerName.bottomAnchor, constant: 5.scale)
         ])
     }
     
     func configure(with action: QuickAction) {
         iconImageView.image = action.icon
-        titleLabel.text = action.title
+        printerName.text = action.title
         detailLabel.text = action.detail // Assuming QuickAction now has a 'detail' property for additional text
     }
 }

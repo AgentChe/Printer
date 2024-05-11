@@ -9,6 +9,7 @@ import UIKit
 
 class ConnectPrinterCell: UICollectionViewCell {
     static let connectPrinterCellKey = "connectPrinterCellKey"
+    weak var delegate: ConnectPrinterCellDelegate?
     // Create the header label
     let headerLabel: UILabel = {
         let label = UILabel()
@@ -51,18 +52,48 @@ class ConnectPrinterCell: UICollectionViewCell {
     }()
     let addPrinterButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("New printer", for: .normal)
-        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 16)
-        button.backgroundColor = Appearance.signatureBlue
-        button.setTitleColor(.white, for: .normal)
+
+        // Create and configure a UIButton.Configuration instance
+        var config = UIButton.Configuration.filled()
+        config.title = "New printer"
+        config.baseForegroundColor = .white
+        config.baseBackgroundColor = Appearance.signatureBlue
+        config.cornerStyle = .medium // This can be adjusted to match your design requirements
+        
+        // Custom font setup
+        config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
+            var outgoing = incoming
+            outgoing.font = Fonts.SFProDisplay.medium(size: 16)
+            return outgoing
+        }
+
+        // Apply the configuration to the button
+        button.configuration = config
         button.layer.cornerRadius = 20
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Move title label 2 points up
-        button.titleEdgeInsets = UIEdgeInsets(top: -1.7.scale, left: 0, bottom: 0, right: 0)
-        
+        button.addTarget(self, action: #selector(selectPrinter), for: .touchUpInside) // Assuming selectPrinter is the selector method
+
+        // Adjust title position using a padding configuration
+        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: -1.7, leading: 0, bottom: 0, trailing: 0)
+
         return button
     }()
+    @objc func selectPrinter() {
+        let printerPicker = UIPrinterPickerController(initiallySelectedPrinter: nil)
+        
+        printerPicker.present(animated: true) { [weak self] (printerPickerController, userDidSelect, error) in
+            if userDidSelect {
+                if let printer = printerPickerController.selectedPrinter {
+                    print("Printer name: \(printer.displayName)")
+                    print("Printer URL: \(printer.url)")
+                    
+                    PrinterManager.shared.savePrinter(url: printer.url, displayName: printer.displayName)
+                    self?.delegate?.reloadCollectionView()
+                    // Start printing process here if required
+                }
+            }
+        }
+    }
     let availablePrintersLabel: UILabel = {
           let label = UILabel()
           label.text = "Available Printers"

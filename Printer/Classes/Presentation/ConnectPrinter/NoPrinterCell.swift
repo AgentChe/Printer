@@ -21,7 +21,7 @@ class NoPrinterCell: UICollectionViewCell {
     private let noPrimtersLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.SFProDisplay.medium(size: 17)
-        label.text = "No Printers Found"
+        label.text = "No Printers Added"
         label.textAlignment = .center
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
         label.translatesAutoresizingMaskIntoConstraints = false
