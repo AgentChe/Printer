@@ -16,7 +16,7 @@ protocol MainViewDelegate: AnyObject {
     func didTapCompatibleList()
 }
 
-final class MainView: UIView {
+ class MainView: UIView {
     weak var delegate: MainViewDelegate?
     var quickActions: [QuickAction] = []
     var isAnimatingNavigationBar: Bool = false
@@ -24,10 +24,11 @@ final class MainView: UIView {
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 100, height: 100) // Пример размера ячейки
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(QuickActionCell.self, forCellWithReuseIdentifier: QuickActionCell.identifier)
-        cv.register(PrinterStatusCell.self, forCellWithReuseIdentifier: PrinterStatusCell.identifier)
+        cv.register(PrinterNotConnectedStatusCell.self, forCellWithReuseIdentifier: PrinterNotConnectedStatusCell.identifier)
+        cv.register(PrinterConnectedStatusCell.self, forCellWithReuseIdentifier: PrinterConnectedStatusCell.identifier)
         cv.register(QuickActionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: QuickActionHeaderView.identifier)
         cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: CGFloat(15), right: 0)
         cv.dataSource = self
@@ -98,11 +99,19 @@ extension MainView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterStatusCell.identifier, for: indexPath) as? PrinterStatusCell else {
-                fatalError("Could not dequeue PrinterStatusCell")
+            if PrinterManager.shared.currentlyConnectedPrinterURL != nil {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterConnectedStatusCell.identifier, for: indexPath) as! PrinterConnectedStatusCell
+                let currentlyConnectedPrinterURL = PrinterManager.shared.currentlyConnectedPrinterURL!
+                let printerName = PrinterManager.shared.getPrinterName(for: currentlyConnectedPrinterURL)!
+                let cleanedPrinterName = printerName.filter { $0 != "\"" }  // Remove all " characters
+                  let truncatedPrinterName = String(cleanedPrinterName.prefix(10))  // Keep only the first 10 characters
+                  print(truncatedPrinterName)
+                cell.titleLabel.text = "Printer \(truncatedPrinterName) is connected"
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterNotConnectedStatusCell.identifier, for: indexPath) as! PrinterNotConnectedStatusCell
+                return cell
             }
-            // Configure the cell with printer status
-            return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: QuickActionCell.identifier, for: indexPath) as? QuickActionCell else {
                 fatalError("Could not dequeue QuickActionCell")
@@ -141,7 +150,12 @@ extension MainView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
             // Return size for PrinterStatusCell
-            return CGSize(width: collectionView.bounds.width, height: 335.scale) // Adjust height as needed
+       
+            if PrinterManager.shared.currentlyConnectedPrinterURL != nil {
+                return CGSize(width: collectionView.bounds.width, height: 220.scale)
+            } else {
+                return CGSize(width: collectionView.bounds.width, height: 335.scale) // Adjust height as needed
+            }
         } else {
             // Return size for QuickActionCell
             let width = collectionView.bounds.width - 32.scale
@@ -150,4 +164,41 @@ extension MainView: UICollectionViewDelegateFlowLayout {
         }
     }
     
+}
+// MARK: - ConnectPrinterCellDelegate
+extension MainView: ConnectPrinterCellDelegate {
+    // Get reference to the UICollectionView
+    func getCollectionView() -> UICollectionView? {
+        return collectionView
+    }
+    
+    // Reload the UICollectionView
+    func reloadCollectionView() {
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    // Dismiss the current ViewController hosting this view
+    func dismissViewController() {
+        DispatchQueue.main.async {
+            // Assuming the view controller that contains this view is presented modally
+            if let viewController = self.findViewController() {
+                viewController.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+}
+
+// Helper extension to find the view controller that hosts a specific view
+extension UIView {
+    func findViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next as? UIView {
+            return nextResponder.findViewController()
+        } else {
+            return nil
+        }
+    }
 }

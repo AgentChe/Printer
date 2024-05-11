@@ -6,9 +6,9 @@
 //
 
 import UIKit
-final class PrinterStatusCell: UICollectionViewCell {
+final class PrinterNotConnectedStatusCell: UICollectionViewCell {
  
-    static let identifier = "PrinterStatusCell"
+    static let identifier = "PrinterNotConnectedStatusCell"
     
     // Use the existing subviews from MainView
     let printerImageView: UIImageView = {
@@ -123,7 +123,7 @@ final class PrinterStatusCell: UICollectionViewCell {
     }
     // Initialize and set up the layout for subviews here...
 }
-extension PrinterStatusCell {
+extension PrinterNotConnectedStatusCell {
     // MARK: - Actions
     @objc private func addPrinterButtonTapped() {
         //delegate?.didTapAddPrinter()

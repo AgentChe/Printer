@@ -17,6 +17,7 @@ protocol StatusChangeDelegate: AnyObject {
 protocol ConnectPrinterCellDelegate: AnyObject {
     func getCollectionView() -> UICollectionView?
     func reloadCollectionView()
+    func dismissViewController()
 }
 class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     var foundPrinters:[UIPrinter]!
@@ -36,7 +37,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = Appearance.mainViewBackground
-      
+        
         // Register cell types
         collectionView.register(ConnectPrinterCell.self, forCellWithReuseIdentifier: ConnectPrinterCell.connectPrinterCellKey)
         collectionView.register(AvaliablePrintersCell.self, forCellWithReuseIdentifier: AvaliablePrintersCell.availablePrintersCellKey)
@@ -70,7 +71,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
     // MARK: UICollectionViewDataSource methods
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 1
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -99,9 +100,13 @@ extension ConnectPrinterViewController: ConnectPrinterCellDelegate {
         return self.collectionView
     }
     func reloadCollectionView() {
-          DispatchQueue.main.async {
-              self.foundPrinters = PrinterManager.shared.retrieveAllPrinters()
-              self.collectionView.reloadData()
-          }
-      }
+        DispatchQueue.main.async {
+            self.foundPrinters = PrinterManager.shared.retrieveAllPrinters()
+            self.collectionView.reloadData()
+        }
+    }
+    func dismissViewController() {
+      
+        dismiss(animated: true, completion: nil)
+    }
 }

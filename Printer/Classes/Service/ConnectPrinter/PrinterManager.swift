@@ -151,3 +151,17 @@ extension PrinterManager {
         }
     }
 }
+extension PrinterManager {
+    // Function to connect to the last connected printer
+    func connectToLastConnectedPrinter(completion: @escaping (UIPrinter?, Error?) -> Void) {
+        // Retrieve the last connected printer URL
+        guard let lastPrinterURL = self.lastConnectedPrinter else {
+            let error = NSError(domain: "PrinterManagerError", code: 404, userInfo: [NSLocalizedDescriptionKey: "No previously connected printer found."])
+            completion(nil, error)
+            return
+        }
+
+        // Connect to the printer using the retrieved URL
+        connectToPrinter(with: lastPrinterURL, completion: completion)
+    }
+}

@@ -61,7 +61,8 @@
 		A30715012BEDF61300667526 /* PrinterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715002BEDF61300667526 /* PrinterCell.swift */; };
 		A30715032BEDF62A00667526 /* NoPrinterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715022BEDF62A00667526 /* NoPrinterCell.swift */; };
 		A30715072BEEF0EE00667526 /* PrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715062BEEF0EE00667526 /* PrinterManager.swift */; };
-		A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */; };
+		A307150A2BEF4C0F00667526 /* PrinterConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715092BEF4C0F00667526 /* PrinterConnectedStatusCell.swift */; };
+		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
 		A355C2AA2BE09B520064E1F1 /* QuickActionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */; };
@@ -225,7 +226,8 @@
 		A30715002BEDF61300667526 /* PrinterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterCell.swift; sourceTree = "<group>"; };
 		A30715022BEDF62A00667526 /* NoPrinterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPrinterCell.swift; sourceTree = "<group>"; };
 		A30715062BEEF0EE00667526 /* PrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterManager.swift; sourceTree = "<group>"; };
-		A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterStatusCell.swift; sourceTree = "<group>"; };
+		A30715092BEF4C0F00667526 /* PrinterConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterConnectedStatusCell.swift; sourceTree = "<group>"; };
+		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
 		A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionHeaderView.swift; sourceTree = "<group>"; };
@@ -924,7 +926,8 @@
 				A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
 				A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */,
-				A355C2A02BE07F740064E1F1 /* PrinterStatusCell.swift */,
+				A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */,
+				A30715092BEF4C0F00667526 /* PrinterConnectedStatusCell.swift */,
 				A3692D242BE041A3006ADD60 /* QuickActionCell.swift */,
 			);
 			path = Main;
@@ -1166,6 +1169,7 @@
 				DEDF91AF2BD958AF004340C0 /* PaygateOptionConfig.swift in Sources */,
 				DEDF90DF2BD7B07C004340C0 /* CircleView.swift in Sources */,
 				DEDF914C2BD7BD38004340C0 /* OAnimationInfoView.swift in Sources */,
+				A307150A2BEF4C0F00667526 /* PrinterConnectedStatusCell.swift in Sources */,
 				DEDF90EC2BD7B07C004340C0 /* UIView+RxExtension.swift in Sources */,
 				A301E1BC2BE5448500A5F9EC /* CaptureSessionManager.swift in Sources */,
 				DEDF90FD2BD7B07C004340C0 /* XOREncryption.swift in Sources */,
@@ -1244,7 +1248,7 @@
 				DEDF90E42BD7B07C004340C0 /* Collection+Extension.swift in Sources */,
 				A301E1BE2BE5448500A5F9EC /* RectangleFeaturesFunnel.swift in Sources */,
 				A355C2AA2BE09B520064E1F1 /* QuickActionHeaderView.swift in Sources */,
-				A355C2A12BE07F740064E1F1 /* PrinterStatusCell.swift in Sources */,
+				A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */,
 				DEDF90F52BD7B07C004340C0 /* SignError.swift in Sources */,
 				DEDF90D82BD7B07C004340C0 /* ImagePicker.swift in Sources */,
 				DEDF90DA2BD7B07C004340C0 /* RxActivityIndicator.swift in Sources */,

@@ -38,6 +38,7 @@ class ConnectPrinterCell: UICollectionViewCell {
         button.setImage(closeImage, for: .normal)
         button.tintColor = .black
         button.contentHorizontalAlignment = .right
+        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         return button
     }()
     let bluetoothToggleView: BluetoothToggleView = {
@@ -69,7 +70,7 @@ class ConnectPrinterCell: UICollectionViewCell {
 
         // Apply the configuration to the button
         button.configuration = config
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 23
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(selectPrinter), for: .touchUpInside) // Assuming selectPrinter is the selector method
 
@@ -78,6 +79,9 @@ class ConnectPrinterCell: UICollectionViewCell {
 
         return button
     }()
+    @objc func closeButtonTapped() {
+        delegate?.dismissViewController()
+    }
     @objc func selectPrinter() {
         let printerPicker = UIPrinterPickerController(initiallySelectedPrinter: nil)
         
