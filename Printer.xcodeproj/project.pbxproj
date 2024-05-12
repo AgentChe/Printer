@@ -63,6 +63,8 @@
 		A30715072BEEF0EE00667526 /* PrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715062BEEF0EE00667526 /* PrinterManager.swift */; };
 		A307150A2BEF4C0F00667526 /* PrinterConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715092BEF4C0F00667526 /* PrinterConnectedStatusCell.swift */; };
 		A307150C2BF072BD00667526 /* PrintTestFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A307150B2BF072BD00667526 /* PrintTestFileViewController.swift */; };
+		A307150E2BF0995200667526 /* PrintOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A307150D2BF0995200667526 /* PrintOptionsViewController.swift */; };
+		A30715102BF09D2000667526 /* PagesPerSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A307150F2BF09D2000667526 /* PagesPerSheetCell.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -229,6 +231,8 @@
 		A30715062BEEF0EE00667526 /* PrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterManager.swift; sourceTree = "<group>"; };
 		A30715092BEF4C0F00667526 /* PrinterConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A307150B2BF072BD00667526 /* PrintTestFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintTestFileViewController.swift; sourceTree = "<group>"; };
+		A307150D2BF0995200667526 /* PrintOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintOptionsViewController.swift; sourceTree = "<group>"; };
+		A307150F2BF09D2000667526 /* PagesPerSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesPerSheetCell.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -512,6 +516,13 @@
 			path = ConnectPrinter;
 			sourceTree = "<group>";
 		};
+		A30715112BF1522E00667526 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,6 +566,9 @@
 				A30715022BEDF62A00667526 /* NoPrinterCell.swift */,
 				A30714FC2BEDDFCB00667526 /* ConnectPrinterCell.swift */,
 				A307150B2BF072BD00667526 /* PrintTestFileViewController.swift */,
+				A307150D2BF0995200667526 /* PrintOptionsViewController.swift */,
+				A307150F2BF09D2000667526 /* PagesPerSheetCell.swift */,
+				A30715112BF1522E00667526 /* New Group */,
 				A30714FE2BEDF03600667526 /* AvaliablePrintersCell.swift */,
 				A377360B2BEC765A00FCD54F /* WiFi+Bluetooth */,
 				A37736082BEC703C00FCD54F /* ToggleViews */,
@@ -1258,6 +1272,8 @@
 				DEDF90DA2BD7B07C004340C0 /* RxActivityIndicator.swift in Sources */,
 				DEDF91262BD7B07C004340C0 /* SessionManager.swift in Sources */,
 				A355C2AD2BE09F820064E1F1 /* TabBarViewController.swift in Sources */,
+				A30715102BF09D2000667526 /* PagesPerSheetCell.swift in Sources */,
+				A307150E2BF0995200667526 /* PrintOptionsViewController.swift in Sources */,
 				A301E1892BE5448500A5F9EC /* QuadrilateralView.swift in Sources */,
 				A37736052BEC560800FCD54F /* BluetoothToggleView.swift in Sources */,
 				A301E1C42BE5448500A5F9EC /* CaptureSession+Orientation.swift in Sources */,

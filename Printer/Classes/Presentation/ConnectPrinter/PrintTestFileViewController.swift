@@ -13,7 +13,7 @@ class PrintTestFileViewController: UIViewController {
     private let imageView = UIImageView()
     private let headerLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let goToSettingsButton = UIButton(type: .system)
+    private let printButton = UIButton(type: .system)
     private let skipButton = UIButton(type: .system)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,15 +108,15 @@ class PrintTestFileViewController: UIViewController {
     }
 
     private func setupGoToSettingsButton() {
-        goToSettingsButton.setTitle("Print", for: .normal)
-        goToSettingsButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
-        goToSettingsButton.backgroundColor = Appearance.signatureBlue
-        goToSettingsButton.setTitleColor(.white, for: .normal)
-        goToSettingsButton.layer.cornerRadius = 24.scale
-        goToSettingsButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(goToSettingsButton)
+        printButton.setTitle("Print", for: .normal)
+        printButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
+        printButton.backgroundColor = Appearance.signatureBlue
+        printButton.setTitleColor(.white, for: .normal)
+        printButton.layer.cornerRadius = 24.scale
+        printButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(printButton)
 
-        goToSettingsButton.addTarget(self, action: #selector(openSettings), for: .touchUpInside)
+        printButton.addTarget(self, action: #selector(goToPrintConfigViewController), for: .touchUpInside)
         NSLayoutConstraint.activate([
             skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             skipButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -30.0.scale: -10.scale),
@@ -124,21 +124,19 @@ class PrintTestFileViewController: UIViewController {
             skipButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
         NSLayoutConstraint.activate([
-            goToSettingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            goToSettingsButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? 10.scale: 10.scale),
-            goToSettingsButton.widthAnchor.constraint(equalToConstant: 358.scale),
-            goToSettingsButton.heightAnchor.constraint(equalToConstant: 66.scale)
+            printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            printButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? 10.scale: 10.scale),
+            printButton.widthAnchor.constraint(equalToConstant: 358.scale),
+            printButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
        
     }
 
-    @objc private func openSettings() {
-        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-        if UIApplication.shared.canOpenURL(settingsUrl) {
-            UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
-        }
+    @objc private func goToPrintConfigViewController() {
+        present(PrintOptionsViewController(), animated: true)
+//        if let printer = PrinterManager.shared.getConnectedPrinter() {
+//            PrinterManager.shared.printDocumentDirectly(printer: printer, from: self)
+//        }
     }
 
     @objc private func requestCameraAccess() {

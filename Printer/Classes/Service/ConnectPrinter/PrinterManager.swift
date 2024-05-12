@@ -58,7 +58,6 @@ class PrinterManager {
         let printInfo = UIPrintInfo(dictionary: nil)
         printInfo.jobName = "My Document"
         printInfo.outputType = .general
-
         let printController = UIPrintInteractionController.shared
         printController.printInfo = printInfo
 
@@ -75,6 +74,31 @@ class PrinterManager {
                 print("Failed to print with \(printer.displayName): \(String(describing: error))")
             }
         }
+    }
+    
+    func printDocumentDirectly(printer: UIPrinter, from viewController: UIViewController) {
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.jobName = "My Document"
+        printInfo.outputType = .general
+
+        let printController = UIPrintInteractionController.shared
+        printController.printInfo = printInfo
+
+        let printFormatter = UIMarkupTextPrintFormatter(markupText: "<h1>Hello, world!</h1>")
+        printController.printFormatter = printFormatter
+
+        printController.printingItem = printer
+
+        // Set the printer without showing the UI
+        printController.print(to: printer, completionHandler: { (controller, completed, error) in
+            if completed {
+                print("Printed successfully with \(printer.displayName)!")
+            } else {
+                if let printError = error {
+                    print("Failed to print with \(printer.displayName): \(printError.localizedDescription)")
+                }
+            }
+        })
     }
 }
 extension PrinterManager {
@@ -159,5 +183,14 @@ extension PrinterManager {
     func isFirstTimePrinterSaved(_ url: URL) -> Bool {
         let savedPrinters = getSavedPrinters()
         return savedPrinters[url.absoluteString] == nil
+    }
+}
+extension PrinterManager {
+    // Function to get the currently connected printer
+    func getConnectedPrinter() -> UIPrinter? {
+        guard let url = currentlyConnectedPrinterURL else {
+            return nil
+        }
+        return UIPrinter(url: url)
     }
 }
