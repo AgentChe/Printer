@@ -103,3 +103,42 @@ extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDel
         return UICollectionViewCell()
     }
 }
+// MARK: - UICollectionViewDelegate
+extension AvaliablePrintersCell {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard foundPrinters.count != 0 else {
+            print("No printers are available or cell tapped is NoPrinterCell.")
+            return
+        }
+
+        let cell = collectionView.cellForItem(at: indexPath) as? PrinterCell
+        let selectedPrinter = foundPrinters[indexPath.item]
+
+        // Check the connection status of the printer
+        if cell?.connectionStatusLabel.text == "Not connected" {
+            // Connect to the printer if it is not currently connected
+            PrinterManager.shared.connectToPrinter(with: selectedPrinter.url) { [weak self] (printer, error) in
+                if let printer = printer {
+                    DispatchQueue.main.async {
+                        cell?.connectionStatusLabel.text = "Connected"
+                        print("Successfully connected to \(printer.displayName)")
+                    }
+                }
+                if let error = error {
+                    if let viewController4Alert = self?.parentViewController {
+                        PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
+                    }
+                    print("Error connecting to printer: \(error.localizedDescription)")
+                }
+                DispatchQueue.main.async {
+                    collectionView.reloadData()  // Refresh to update connection status labels
+                }
+            }
+        } else {
+            // Disconnect the printer if it is currently connected
+            PrinterManager.shared.disconnectPrinter()
+            cell?.connectionStatusLabel.text = "Not connected"
+            collectionView.reloadData()  // Refresh to update connection status labels
+        }
+    }
+}
