@@ -29,9 +29,12 @@ final class MainViewController: UIViewController {
                 print("Reconnected to the last printer: \(printer.displayName)")
                 self?.delegate?.reloadCollectionView()  // Update the UI as needed
                 // Here, you could initiate further actions, such as starting a print job
+               
             } else if let error = error {
+                // Retrieve the display name for the printer or use "Unknown" if not available
+                let printerName = printer?.displayName ?? "Unknown"
                 if let viewController4Alert = self {
-                    PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
+                    PrinterManager.shared.showAlertForErrorWithPrinter(printerName, viewController: viewController4Alert)
                 }
                 print("Error: \(error.localizedDescription)")
                 // Handle error (e.g., show an alert or update UI to reflect the error)

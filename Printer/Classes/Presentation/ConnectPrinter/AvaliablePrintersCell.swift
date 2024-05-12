@@ -110,27 +110,27 @@ extension AvaliablePrintersCell {
             print("No printers are available or cell tapped is NoPrinterCell.")
             return
         }
-
+        
         let cell = collectionView.cellForItem(at: indexPath) as? PrinterCell
         let selectedPrinter = foundPrinters[indexPath.item]
-
+        
         // Check the connection status of the printer
         if cell?.connectionStatusLabel.text == "Not connected" {
             // Connect to the printer if it is not currently connected
             PrinterManager.shared.connectToPrinter(with: selectedPrinter.url) { [weak self] (printer, error) in
-                if let printer = printer {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if let printer = printer {
                         cell?.connectionStatusLabel.text = "Connected"
                         print("Successfully connected to \(printer.displayName)")
+                       
                     }
-                }
-                if let error = error {
-                    if let viewController4Alert = self?.parentViewController {
-                        PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
+                    if let error = error {
+                        if let viewController4Alert = self?.parentViewController {
+                            let printerName = printer?.displayName ?? "Unknown"
+                            PrinterManager.shared.showAlertForErrorWithPrinter(printerName, viewController: viewController4Alert)
+                        }
+                        print("Error connecting to printer: \(error.localizedDescription)")
                     }
-                    print("Error connecting to printer: \(error.localizedDescription)")
-                }
-                DispatchQueue.main.async {
                     collectionView.reloadData()  // Refresh to update connection status labels
                 }
             }

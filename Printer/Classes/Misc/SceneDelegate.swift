@@ -27,7 +27,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 if let tabBarVCS = tabBarVC.viewControllers {
                     if let mainVCNavVC = tabBarVCS[0] as? UINavigationController {
                         if let mainViewController = mainVCNavVC.viewControllers.first as? MainViewController {
-                            PrinterManager.shared.connectToLastConnectedPrinter { [weak self] printer, error in
+                            PrinterManager.shared.connectToLastConnectedPrinter { [weak self] printer, error  in
                                 if let printer = printer {
                                     print("Reconnected to the last printer: \(printer.displayName)")
                                     mainViewController.delegate?.reloadCollectionView()  // Update the UI as needed

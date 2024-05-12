@@ -53,7 +53,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     }()
     let addPrinterButton: UIButton = {
         let button = UIButton(type: .system)
-
+        
         // Create and configure a UIButton.Configuration instance
         var config = UIButton.Configuration.filled()
         config.title = "New printer"
@@ -67,16 +67,16 @@ class ConnectPrinterCell: UICollectionViewCell {
             outgoing.font = Fonts.SFProDisplay.medium(size: 16)
             return outgoing
         }
-
+        
         // Apply the configuration to the button
         button.configuration = config
         button.layer.cornerRadius = 23
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(selectPrinter), for: .touchUpInside) // Assuming selectPrinter is the selector method
-
+        
         // Adjust title position using a padding configuration
         button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: -1.7, leading: 0, bottom: 0, trailing: 0)
-
+        
         return button
     }()
     @objc func closeButtonTapped() {
@@ -90,47 +90,55 @@ class ConnectPrinterCell: UICollectionViewCell {
                 if let printer = printerPickerController.selectedPrinter {
                     print("Printer name: \(printer.displayName)")
                     print("Printer URL: \(printer.url)")
+                    
+                    let isFirstTimeSaved =  PrinterManager.shared.isFirstTimePrinterSaved(printer.url)
                     PrinterManager.shared.savePrinter(url: printer.url, displayName: printer.displayName)
-                 
+                    
                     PrinterManager.shared.connectToPrinter(with: printer.url) { printer, error in
-                          if let printer = printer {
-                              print("Ready to print with \(printer.displayName)")
+                        if let printer = printer {
+                            print("Ready to print with \(printer.displayName)")
+                            self?.delegate?.reloadCollectionView()
+                            if isFirstTimeSaved {
+                                print("First time connection to \(printer.displayName)")
+                            }
                             
-                              self?.delegate?.reloadCollectionView()
-                              // Start printing process here if required
-                              // Proceed to set up the print job here
-                              
-                          }
+                            if let viewController4Print = self?.parentViewController {
+                                let printTestFileVC = PrintTestFileViewController()
+                                printTestFileVC.modalPresentationStyle = .fullScreen
+                                viewController4Print.present(printTestFileVC, animated: true, completion: nil)
+                                //PrinterManager.shared.printDocument(printer: printer, from: viewController4Print)
+                            }
+                        }
                         if let error = error {
-                              if let viewController4Alert = self?.parentViewController {
-                                  PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
-                              }
-                              print("Error: \(error.localizedDescription)")
-                          }
-                      }
+                            if let viewController4Alert = self?.parentViewController {
+                                PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
+                            }
+                            print("Error: \(error.localizedDescription)")
+                        }
+                    }
                     
                 }
             }
         }
     }
     let availablePrintersLabel: UILabel = {
-          let label = UILabel()
-          label.text = "Available Printers"
-          label.font = Fonts.SFProDisplay.bold(size: 24) // Assuming the font and size from your description
-          label.textColor = .black
-          label.textAlignment = .left
-          return label
-      }()
+        let label = UILabel()
+        label.text = "Available Printers"
+        label.font = Fonts.SFProDisplay.bold(size: 24) // Assuming the font and size from your description
+        label.textColor = .black
+        label.textAlignment = .left
+        return label
+    }()
     let instructionLabel: UILabel = {
-           let label = UILabel()
-           label.text = "If you don’t see your printer here, please check the connections and reboot it (power reset) and try again."
-           label.font = Fonts.SFProDisplay.medium(size: 15)
-           label.textColor = .gray
-           label.numberOfLines = 3
-           label.textAlignment = .left
-           return label
-       }()
-       
+        let label = UILabel()
+        label.text = "If you don’t see your printer here, please check the connections and reboot it (power reset) and try again."
+        label.font = Fonts.SFProDisplay.medium(size: 15)
+        label.textColor = .gray
+        label.numberOfLines = 3
+        label.textAlignment = .left
+        return label
+    }()
+    
     let showCompatiblePrinterListButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSAttributedString(string: "Printer compatible list", attributes: [
@@ -159,7 +167,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     deinit {
         connectionCheckTimer?.invalidate()
     }
- 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Appearance.mainViewBackground
@@ -221,17 +229,17 @@ class ConnectPrinterCell: UICollectionViewCell {
             addPrinterButton.widthAnchor.constraint(equalToConstant: 144.scale),
             addPrinterButton.heightAnchor.constraint(equalToConstant: 50.scale),
             
-           
+            
             availablePrintersLabel.topAnchor.constraint(equalTo: addPrinterButton.bottomAnchor, constant: 25.scale),
             availablePrintersLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.scale),
             availablePrintersLabel.widthAnchor.constraint(equalToConstant: 270.scale),
             availablePrintersLabel.heightAnchor.constraint(equalToConstant: 29.scale),
-
+            
             instructionLabel.topAnchor.constraint(equalTo: availablePrintersLabel.bottomAnchor, constant: 10.scale),
             instructionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.scale),
             instructionLabel.widthAnchor.constraint(equalToConstant: 348.scale),
             instructionLabel.heightAnchor.constraint(equalToConstant: 64.scale),
-
+            
             showCompatiblePrinterListButton.topAnchor.constraint(equalTo: instructionLabel.bottomAnchor, constant: 0.scale),
             showCompatiblePrinterListButton.leadingAnchor.constraint(equalTo: instructionLabel.leadingAnchor),
             showCompatiblePrinterListButton.widthAnchor.constraint(equalToConstant: 200.scale), // Adjust width as necessary

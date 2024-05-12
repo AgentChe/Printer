@@ -82,24 +82,24 @@ extension PrinterManager {
     func connectToPrinter(with url: URL, completion: @escaping (UIPrinter?, Error?) -> Void) {
         let savedPrinters = getSavedPrinters()
 
-        guard let displayName = savedPrinters[url.absoluteString] else {
-            completion(nil, NSError(domain: "PrinterManagerError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Printer not found."]))
-            return
-        }
+          guard let displayName = savedPrinters[url.absoluteString] else {
+              completion(nil, NSError(domain: "PrinterManagerError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Printer not found."]))
+              return
+          }
 
-        let printer = UIPrinter(url: url)
-        printer.contactPrinter { [self] success in
-            if success {
-                self.lastConnectedPrinter = url
-                self.currentlyConnectedPrinterURL = url
-                completion(printer, nil)
-            } else {
-                self.currentlyConnectedPrinterURL = nil
-                completion(nil, NSError(domain: "PrinterManagerError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to contact printer."]))
-                
-            }
-        }
-    }
+          let printer = UIPrinter(url: url)
+          printer.contactPrinter { [self] success in
+              if success {
+                  self.lastConnectedPrinter = url
+                  self.currentlyConnectedPrinterURL = url
+                  completion(printer, nil)
+              } else {
+                  
+                  self.currentlyConnectedPrinterURL = nil
+                  completion(nil, NSError(domain: "PrinterManagerError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to contact printer."]))
+              }
+          }
+      }
     func disconnectPrinter() {
         self.currentlyConnectedPrinterURL = nil
     }
@@ -145,11 +145,19 @@ extension PrinterManager {
         // Retrieve the last connected printer URL
         guard let lastPrinterURL = self.lastConnectedPrinter else {
             let error = NSError(domain: "PrinterManagerError", code: 404, userInfo: [NSLocalizedDescriptionKey: "No previously connected printer found."])
-            completion(nil, error)
+            completion(nil, error)  // The false indicates that this is not a first time connection (though irrelevant as there's an error)
             return
         }
 
         // Connect to the printer using the retrieved URL
-        connectToPrinter(with: lastPrinterURL, completion: completion)
+        connectToPrinter(with: lastPrinterURL) { (printer, error) in
+            completion(printer, error)
+        }
+    }}
+extension PrinterManager {
+    // Method to check if a printer is being saved for the first time
+    func isFirstTimePrinterSaved(_ url: URL) -> Bool {
+        let savedPrinters = getSavedPrinters()
+        return savedPrinters[url.absoluteString] == nil
     }
 }
