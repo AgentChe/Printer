@@ -84,7 +84,6 @@ extension PrinterManager {
 
         guard let displayName = savedPrinters[url.absoluteString] else {
             completion(nil, NSError(domain: "PrinterManagerError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Printer not found."]))
-            showAlertForErrorWithPrinter("Unknown")
             return
         }
 
@@ -97,7 +96,7 @@ extension PrinterManager {
             } else {
                 self.currentlyConnectedPrinterURL = nil
                 completion(nil, NSError(domain: "PrinterManagerError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to contact printer."]))
-                showAlertForErrorWithPrinter(displayName)
+                
             }
         }
     }
@@ -124,30 +123,19 @@ extension PrinterManager {
 }
 extension PrinterManager {
     // Function to show an alert using the scene delegate for the active scene
-    func showAlertForErrorWithPrinter(_ printerName: String) {
+    func showAlertForErrorWithPrinter(_ printerName: String, viewController: UIViewController) {
         // Dispatch to the main thread to ensure UI updates are performed safely
         DispatchQueue.main.async {
-            let alertTitle = "Printer Error"
-            let alertMessage = "Printer \(printerName) is not connected. Something went wrong."
+            let alertTitle = "Printer \(printerName) is not connected."
+            let alertMessage = "Something went wrong. Please check all connections and try again."
             let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
             
             // Add an "OK" button to dismiss the alert
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
-            // Get the active UIWindowScene
-            guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene else {
-                print("No active window scene found")
-                return
-            }
-            
-            // Get the root view controller of the window scene
-            guard let rootViewController = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
-                print("No key window found for the active scene")
-                return
-            }
             
             // Present the alert
-            rootViewController.present(alertController, animated: true, completion: nil)
+            viewController.present(alertController, animated: true, completion: nil)
         }
     }
 }

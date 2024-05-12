@@ -7,7 +7,7 @@
 
 import UIKit
 final class PrinterConnectedStatusCell: UICollectionViewCell {
- 
+    
     static let identifier = "PrinterConnectedStatusCell"
     
     // Use the existing subviews from MainView
@@ -30,7 +30,7 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         return label
     }()
     
-   
+    
     
     private let changePrinterButton: UIButton = {
         let button = UIButton()
@@ -41,7 +41,7 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18)
         // Use UIFont to set the font and size according to your design
         button.setTitleColor(Appearance.signatureBlue, for: .normal)
-
+        
         
         // Set the target-action for the button tap event
         button.addTarget(self, action: #selector(addPrinterButtonTapped), for: .touchUpInside)
@@ -60,16 +60,16 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         return button
     }()
     override init(frame: CGRect) {
-         super.init(frame: frame)
-         
-         // Add subviews to the content view of the cell
-         addSubview(printerImageView)
-         addSubview(titleLabel)
-         addSubview(changePrinterButton)
+        super.init(frame: frame)
+        
+        // Add subviews to the content view of the cell
+        addSubview(printerImageView)
+        addSubview(titleLabel)
+        addSubview(changePrinterButton)
         // addSubview(compatibleListButton)
-         setupLayout()
+        setupLayout()
         backgroundColor = .clear
-     }
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,10 +80,10 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             // Printer image view constraints
             // Compatible list button constraints
-//            compatibleListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
-//            compatibleListButton.topAnchor.constraint(equalTo: topAnchor, constant: (spacing / 4).scale),
-//            compatibleListButton.widthAnchor.constraint(equalToConstant: 130.scale), // Same width as add printer button
-//            compatibleListButton.heightAnchor.constraint(equalToConstant: 21.scale), // Same height as add printer button
+            //            compatibleListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
+            //            compatibleListButton.topAnchor.constraint(equalTo: topAnchor, constant: (spacing / 4).scale),
+            //            compatibleListButton.widthAnchor.constraint(equalToConstant: 130.scale), // Same width as add printer button
+            //            compatibleListButton.heightAnchor.constraint(equalToConstant: 21.scale), // Same height as add printer button
             
             printerImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             printerImageView.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
@@ -118,13 +118,13 @@ extension PrinterConnectedStatusCell {
             let connectPrinterVC = ConnectPrinterViewController()
             connectPrinterVC.modalPresentationStyle = .fullScreen // Set the presentation style to fullscreen
             rootViewController.present(connectPrinterVC, animated: true)
-          }
-
+        }
         
-       
+        
+        
     }
     
     @objc private func compatibleListButtonTapped() {
-       // delegate?.didTapCompatibleList()
+        // delegate?.didTapCompatibleList()
     }
 }

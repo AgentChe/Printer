@@ -95,12 +95,16 @@ class ConnectPrinterCell: UICollectionViewCell {
                     PrinterManager.shared.connectToPrinter(with: printer.url) { printer, error in
                           if let printer = printer {
                               print("Ready to print with \(printer.displayName)")
+                            
                               self?.delegate?.reloadCollectionView()
                               // Start printing process here if required
                               // Proceed to set up the print job here
                               
-                          } else if let error = error {
-                              
+                          }
+                        if let error = error {
+                              if let viewController4Alert = self?.parentViewController {
+                                  PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
+                              }
                               print("Error: \(error.localizedDescription)")
                           }
                       }

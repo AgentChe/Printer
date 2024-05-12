@@ -30,6 +30,9 @@ final class MainViewController: UIViewController {
                 self?.delegate?.reloadCollectionView()  // Update the UI as needed
                 // Here, you could initiate further actions, such as starting a print job
             } else if let error = error {
+                if let viewController4Alert = self {
+                    PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
+                }
                 print("Error: \(error.localizedDescription)")
                 // Handle error (e.g., show an alert or update UI to reflect the error)
             }
