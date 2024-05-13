@@ -11,6 +11,17 @@ import UIKit
 class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     var options = ["Option 1", "Option 2", "Option 3"] // Example data
     var previews: [UIImage] = [UIImage(named:"PreviewExample")!,UIImage(named:"PreviewExample")!,UIImage(named:"PreviewExample")!]
+    
+    private let topBarImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named:"Grabber"))
+         // imageView.backgroundColor = .gray // Assuming you want a gray bar
+          imageView.alpha = 1.0  // Set opacity to 0 as specified
+          //imageView.layer.cornerRadius = 2.5
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+         // imageView.clipsToBounds = true
+          return imageView
+      }()
+    
     private let printOptionsTitle: UILabel = {
         let label = UILabel()
         label.text = "Print Options"
@@ -90,9 +101,17 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         view.addSubview(previewLabel)
         view.addSubview(previewCollectionView)
         view.addSubview(printButton)
-        
+        view.addSubview(topBarImageView)
+       
         NSLayoutConstraint.activate([
-            printOptionsTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.scale),
+            topBarImageView.widthAnchor.constraint(equalToConstant: 36.scale),
+            topBarImageView.heightAnchor.constraint(equalToConstant: 5.scale),
+            topBarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 4.scale),
+            topBarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+      
+        NSLayoutConstraint.activate([
+            printOptionsTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24.scale),
             printOptionsTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             printOptionsTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             printOptionsTitle.heightAnchor.constraint(equalToConstant: 30.scale)
