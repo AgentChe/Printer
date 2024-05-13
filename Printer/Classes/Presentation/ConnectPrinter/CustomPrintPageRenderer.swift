@@ -42,22 +42,44 @@ class CustomPrintPageRenderer: UIPrintPageRenderer {
                 let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
                 let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
                 let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
-                drawText(in: virtualPageRect, text: "This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly. \(currentCopy + 1)")
+                drawText(in: virtualPageRect, text: "Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.Copy \(currentCopy + 1): This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.", cols: cols, rows: rows)
                 currentCopy += 1
             }
         }
     }
 
-    private func drawText(in rect: CGRect, text: String) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 12),  // Adjust font size if necessary
-            .foregroundColor: UIColor.black,
-            .paragraphStyle: paragraphStyle
-        ]
+    private func drawText(in rect: CGRect, text: String, cols: Int, rows: Int) {
+        // Определяем начальный размер шрифта на основе размера области и количества столбцов и строк
+        var fontSize = min(12, max(rect.width, rect.height) / CGFloat(cols * rows)) // Начальный размер шрифта
+        var attributes: [NSAttributedString.Key: Any]
+        var textSize: CGSize
+        var fits: Bool
+
+        // Цикл для уменьшения размера шрифта до тех пор, пока текст не поместится в область
+        repeat {
+            attributes = [
+                .font: UIFont.systemFont(ofSize: CGFloat(fontSize)),
+                .paragraphStyle: NSMutableParagraphStyle()
+            ]
+            (attributes[.paragraphStyle] as! NSMutableParagraphStyle).alignment = .center
+
+            // Используем boundingRect для расчета размера текста с текущими настройками шрифта
+            textSize = (text as NSString).boundingRect(with: CGSize(width: rect.width - 20, height: CGFloat.greatestFiniteMagnitude),
+                                                       options: .usesLineFragmentOrigin,
+                                                       attributes: attributes,
+                                                       context: nil).size
+
+            // Проверяем, помещается ли текст в заданную высоту и ширину
+            fits = textSize.height <= rect.height - 20 && textSize.width <= rect.width - 20
+            if !fits {
+                fontSize -= 0.5  // Уменьшаем размер шрифта на 0.5 пункта за итерацию
+            }
+        } while !fits && fontSize > 1  // Устанавливаем новый более мелкий минимальный порог для размера шрифта
+
+        // Определяем положение текста в области
+        let textRect = CGRect(x: rect.origin.x + 10, y: rect.origin.y + (rect.height - textSize.height) / 2,
+                              width: rect.width - 20, height: textSize.height)
         let attributedString = NSAttributedString(string: text, attributes: attributes)
-        let textRect = rect.insetBy(dx: 10, dy: 10)  // Adjust text positioning within each virtual page
         attributedString.draw(in: textRect)
     }
 }
