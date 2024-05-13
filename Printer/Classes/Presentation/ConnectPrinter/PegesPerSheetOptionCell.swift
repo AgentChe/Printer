@@ -6,9 +6,12 @@
 //
 
 import UIKit
+protocol PegesPerSheetOptionCellDelegate: AnyObject {
+    func pagesPerSheetOptionCell(cell: PegesPerSheetOptionCell, didChangePagesPerSheetTo pages: Int)
+}
 class PegesPerSheetOptionCell: UICollectionViewCell {
     static let identifier = "PagesPerSheetOptionCell"
-    
+    weak var delegate: PegesPerSheetOptionCellDelegate?
     // UI Components
     let layout = UICollectionViewFlowLayout()
     let pagesPerSheetLabel = UILabel()
@@ -51,6 +54,7 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
         pagesPerSheetCollectionView.delegate = self
         pagesPerSheetCollectionView.dataSource = self
         
+        pagesPerSheetCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
         addSubview(pagesPerSheetCollectionView)
     }
     
@@ -89,6 +93,8 @@ extension PegesPerSheetOptionCell: UICollectionViewDelegate, UICollectionViewDat
         // Select the tapped cell
         if let cell = collectionView.cellForItem(at: indexPath) as? PagesPerSheetCell {
             cell.isSelected = true
+            let selectedPages = pagesOptions[indexPath.item]
+            delegate?.pagesPerSheetOptionCell(cell: self, didChangePagesPerSheetTo: selectedPages)
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

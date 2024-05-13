@@ -194,3 +194,32 @@ extension PrinterManager {
         return UIPrinter(url: url)
     }
 }
+extension PrinterManager {
+    func directPrintUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int) {
+        let printController = UIPrintInteractionController.shared
+
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.jobName = "Direct Print Job"
+        printInfo.outputType = .general  // Adjust based on content
+        printInfo.orientation = .portrait
+        printInfo.duplex = .longEdge
+
+        let renderer = CustomPrintPageRenderer()
+        renderer.copies = copies*pagesPerSheet
+        renderer.pagesPerSheet = pagesPerSheet
+
+        printController.printPageRenderer = renderer
+        printController.printInfo = printInfo
+
+        // Print directly to the printer
+        printController.print(to: printer, completionHandler: { _, completed, error in
+            if completed {
+                print("Printed successfully with \(printer.displayName)!")
+            } else {
+                if let printError = error {
+                    print("Failed to print with \(printer.displayName): \(printError.localizedDescription)")
+                }
+            }
+        })
+    }
+}

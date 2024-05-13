@@ -70,6 +70,7 @@
 		A30715192BF19F7E00667526 /* CenteredFlowLayoutForPreviewsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715182BF19F7E00667526 /* CenteredFlowLayoutForPreviewsCollectionView.swift */; };
 		A307151B2BF1BDFF00667526 /* CopiesOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A307151A2BF1BDFF00667526 /* CopiesOptionCell.swift */; };
 		A307151D2BF1BF6E00667526 /* PegesPerSheetOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A307151C2BF1BF6E00667526 /* PegesPerSheetOptionCell.swift */; };
+		A30715202BF1EC5C00667526 /* CustomPrintPageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A307151F2BF1EC5C00667526 /* CustomPrintPageRenderer.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -243,6 +244,7 @@
 		A30715182BF19F7E00667526 /* CenteredFlowLayoutForPreviewsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenteredFlowLayoutForPreviewsCollectionView.swift; sourceTree = "<group>"; };
 		A307151A2BF1BDFF00667526 /* CopiesOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopiesOptionCell.swift; sourceTree = "<group>"; };
 		A307151C2BF1BF6E00667526 /* PegesPerSheetOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegesPerSheetOptionCell.swift; sourceTree = "<group>"; };
+		A307151F2BF1EC5C00667526 /* CustomPrintPageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPrintPageRenderer.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -583,6 +585,7 @@
 				A307151A2BF1BDFF00667526 /* CopiesOptionCell.swift */,
 				A307151C2BF1BF6E00667526 /* PegesPerSheetOptionCell.swift */,
 				A30715182BF19F7E00667526 /* CenteredFlowLayoutForPreviewsCollectionView.swift */,
+				A307151F2BF1EC5C00667526 /* CustomPrintPageRenderer.swift */,
 				A30715112BF1522E00667526 /* New Group */,
 				A30714FE2BEDF03600667526 /* AvaliablePrintersCell.swift */,
 				A377360B2BEC765A00FCD54F /* WiFi+Bluetooth */,
@@ -1186,6 +1189,7 @@
 				A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */,
 				DEDF90EE2BD7B07C004340C0 /* APIRequestBody.swift in Sources */,
 				A301E0752BE437DD00A5F9EC /* ScanViewController.swift in Sources */,
+				A30715202BF1EC5C00667526 /* CustomPrintPageRenderer.swift in Sources */,
 				DEDF91B52BD95E7C004340C0 /* Currency.swift in Sources */,
 				DEDF918A2BD9542D004340C0 /* MainViewController.swift in Sources */,
 				A301E18A2BE5448500A5F9EC /* VisionRectangleDetector.swift in Sources */,

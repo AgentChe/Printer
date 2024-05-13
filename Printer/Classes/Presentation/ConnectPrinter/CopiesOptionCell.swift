@@ -8,7 +8,7 @@
 import UIKit
 class CopiesOptionCell: UICollectionViewCell {
     static let identifier = "CopiesOptionCell"
-    
+    weak var delegate: CopiesOptionCellDelegate?
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +85,9 @@ class CopiesOptionCell: UICollectionViewCell {
     }
     
     @objc private func stepperValueChanged(_ sender: UIStepper) {
+        let newCount = Int(sender.value)
         countLabel.text = String(format: "%d", Int(sender.value))
+        delegate?.copiesOptionCell(cell: self, didChangeCopiesTo: newCount)
     }
     
     func configure(with title: String, count: Int) {
