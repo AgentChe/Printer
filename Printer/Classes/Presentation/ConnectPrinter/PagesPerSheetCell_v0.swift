@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class PagesPerSheetCell: UICollectionViewCell {
+class PagesPerSheetCell_v0: UICollectionViewCell {
     var imageBgView: UIView!
     var imageView: UIImageView!
     var label: UILabel!
@@ -87,6 +87,6 @@ class PagesPerSheetCell: UICollectionViewCell {
     }
 }
 
-extension PagesPerSheetCell {
+extension PagesPerSheetCell_v0 {
     static let reuseIdentifier = "PagesPerSheetCell"
 }

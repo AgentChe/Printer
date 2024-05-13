@@ -8,7 +8,7 @@
 import UIKit
 
 
-class PrintOptionsViewController: UIViewController {
+class PrintOptionsViewController_v0: UIViewController {
     // UI Components
     let layout = UICollectionViewFlowLayout()
     
@@ -80,7 +80,7 @@ class PrintOptionsViewController: UIViewController {
         pagesPerSheetCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         pagesPerSheetCollectionView.backgroundColor = .clear
         pagesPerSheetCollectionView.allowsMultipleSelection = false
-        pagesPerSheetCollectionView.register(PagesPerSheetCell.self, forCellWithReuseIdentifier: "PagesPerSheetCell")
+        pagesPerSheetCollectionView.register(PagesPerSheetCell_v0.self, forCellWithReuseIdentifier: "PagesPerSheetCell")
         pagesPerSheetCollectionView.delegate = self
         pagesPerSheetCollectionView.dataSource = self
         
@@ -134,30 +134,30 @@ class PrintOptionsViewController: UIViewController {
     }
 }
 
-extension PrintOptionsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PrintOptionsViewController_v0: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pagesOptions.count
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
            // Iterate through all cells and update their selected state
            for cell in collectionView.visibleCells {
-               if let customCell = cell as? PagesPerSheetCell {
+               if let customCell = cell as? PagesPerSheetCell_v0 {
                    customCell.isSelected = false  // Deselect all cells
                }
            }
            // Select the tapped cell
-           if let cell = collectionView.cellForItem(at: indexPath) as? PagesPerSheetCell {
+           if let cell = collectionView.cellForItem(at: indexPath) as? PagesPerSheetCell_v0 {
                cell.isSelected = true
            }
        }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? PagesPerSheetCell {
+        if let cell = collectionView.cellForItem(at: indexPath) as? PagesPerSheetCell_v0 {
             cell.isSelected = false
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PagesPerSheetCell", for: indexPath) as? PagesPerSheetCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PagesPerSheetCell", for: indexPath) as? PagesPerSheetCell_v0 else {
             return UICollectionViewCell()
         }
         
