@@ -38,6 +38,8 @@ class CenteredFlowLayoutForPreviewsCollectionView: UICollectionViewFlowLayout {
         //because blinking buggy efffect occurs
         if let candidateAttributes = candidateAttributes {
             var newOffset = CGPoint(x: candidateAttributes.center.x - halfWidth, y: proposedContentOffset.y)
+            print("newOffset: \(newOffset)")
+
             if newOffset.x <= 0 {
                 newOffset.x = 0
             }
@@ -46,7 +48,7 @@ class CenteredFlowLayoutForPreviewsCollectionView: UICollectionViewFlowLayout {
             }
             
             scrollToContentOffset(collectionView: collectionView, mass: 1.0, stiffness: 400.0, damping: 3000.0, initialVelocity: CGVector(dx: velocity.x, dy: 0), targetOffset: newOffset)
-            return newOffset
+             return newOffset
         } else {
             return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
         }
