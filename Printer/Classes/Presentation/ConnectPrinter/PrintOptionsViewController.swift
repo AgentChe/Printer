@@ -81,8 +81,10 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     }()
     @objc func handlePrintButton() {
         if let printer = PrinterManager.shared.getConnectedPrinter() {
-            PrinterManager.shared.directPrintUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet)
-          } else {
+           // PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, text: "Для исправления проблемы наложения текста при печати 16 копий на одном листе, когда текст оказывается слишком большим для выделенных областей, можно использовать более адаптивный подход к определению размера шрифта. В этом случае нам нужно обеспечить, что текст полностью умещается в заданной области, и если необходимо, уменьшить размер шрифта даже ниже предыдущего минимального порога в 6 пунктов, или же изменить методику расчёта размера шрифта, чтобы он динамически адаптировался к размеру области.")
+            
+            PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies:self.copies, pagesPerSheet: self.pagesPerSheet, image: UIImage(named: "Printer.Access")!)
+        } else {
               print("Printer is not configured or unavailable.")
           }
     }
