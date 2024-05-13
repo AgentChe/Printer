@@ -48,15 +48,15 @@ class PrinterOptionCell: UICollectionViewCell {
         contentView.addSubview(lineView)
 
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0.scale),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
-            detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            detailLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -0.scale),
             detailLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             // Constraints for the line view
-            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
+            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 0.scale),
+            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -0.scale),
             lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             lineView.heightAnchor.constraint(equalToConstant: 0.4)  // Height of the line
         ])

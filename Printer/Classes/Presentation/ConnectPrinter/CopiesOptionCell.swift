@@ -60,18 +60,18 @@ class CopiesOptionCell: UICollectionViewCell {
         contentView.addSubview(stepper)
         
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0.scale),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor,constant: -4.scale),
             
-            countLabel.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -8),
-            countLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            countLabel.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -8.scale),
+            countLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor,constant: -4.scale),
             
-            stepper.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            stepper.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stepper.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -0.scale),
+            stepper.centerYAnchor.constraint(equalTo: contentView.centerYAnchor,constant: -4.scale),
             
             // Constraints for the line view
-            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
+            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 0.scale),
+            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -0.scale),
             lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             lineView.heightAnchor.constraint(equalToConstant: 0.4)  // Height of the line
         ])
