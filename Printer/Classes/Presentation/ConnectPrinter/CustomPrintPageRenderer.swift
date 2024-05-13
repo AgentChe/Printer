@@ -25,19 +25,26 @@ class CustomPrintPageRenderer: UIPrintPageRenderer {
         let startCopyIndex = pageIndex * pagesPerSheet
         let endCopyIndex = min(startCopyIndex + pagesPerSheet, copies) - 1
 
-        // Calculate dimensions for each virtual page within the physical page
-        let virtualPageHeight = printableRect.height / CGFloat(pagesPerSheet)
-        let virtualPageWidth = printableRect.width
+        // Determine the number of rows and columns
+        let cols = Int(ceil(sqrt(Double(pagesPerSheet))))
+        let rows = Int(ceil(Double(pagesPerSheet) / Double(cols)))
 
-        for copyIndex in startCopyIndex...endCopyIndex {
-            let offset = CGFloat(copyIndex - startCopyIndex) * virtualPageHeight
-            let virtualPageRect = CGRect(
-                x: printableRect.origin.x,
-                y: printableRect.origin.y + offset,
-                width: virtualPageWidth,
-                height: virtualPageHeight
-            )
-            drawText(in: virtualPageRect, text: "Text for copy \(copyIndex + 1)")
+        // Calculate dimensions for each virtual page within the physical page
+        let virtualPageWidth = printableRect.width / CGFloat(cols)
+        let virtualPageHeight = printableRect.height / CGFloat(rows)
+
+        var currentCopy = startCopyIndex
+        for row in 0..<rows {
+            for col in 0..<cols {
+                if currentCopy > endCopyIndex {
+                    break
+                }
+                let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
+                let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
+                let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
+                drawText(in: virtualPageRect, text: "This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly.This approach should now correctly map the number of virtual pages per physical sheet and draw the specified number of copies accordingly. If this still doesn't resolve the issue, consider examining the setup in which the renderer is used, including the print initiation context, to ensure it's being used correctly. \(currentCopy + 1)")
+                currentCopy += 1
+            }
         }
     }
 
@@ -45,12 +52,12 @@ class CustomPrintPageRenderer: UIPrintPageRenderer {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 18),
+            .font: UIFont.systemFont(ofSize: 12),  // Adjust font size if necessary
             .foregroundColor: UIColor.black,
             .paragraphStyle: paragraphStyle
         ]
         let attributedString = NSAttributedString(string: text, attributes: attributes)
-        let textRect = rect.insetBy(dx: 10, dy: 10)
+        let textRect = rect.insetBy(dx: 10, dy: 10)  // Adjust text positioning within each virtual page
         attributedString.draw(in: textRect)
     }
 }
