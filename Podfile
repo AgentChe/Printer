@@ -11,7 +11,8 @@ target 'Printer' do
   pod 'RxCocoa'
   
   pod 'Alamofire'
-  
+  pod 'GoogleSignIn'
+pod 'GoogleAPIClientForREST/Drive'
   pod 'SwiftyStoreKit'
 
   pod 'OtterScaleiOS', :git => "https://github.com/AgentChe/OtterScaleiOS.git"
