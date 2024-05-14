@@ -195,7 +195,7 @@ extension PrinterManager {
     }
 }
 extension PrinterManager {
-    func directPrintTextUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, text: String) {
+    func directPrintTextUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int,renderer: CustomPrintTextPageRenderer) {
         let printController = UIPrintInteractionController.shared
 
         let printInfo = UIPrintInfo(dictionary: nil)
@@ -204,10 +204,10 @@ extension PrinterManager {
         printInfo.orientation = .portrait
         printInfo.duplex = .longEdge
 
-        let renderer = CustomPrintTextPageRenderer()
+     //   let renderer = CustomPrintTextPageRenderer()
         renderer.copies = copies*pagesPerSheet
         renderer.pagesPerSheet = pagesPerSheet
-        renderer.printText = text // Установка текста для печати
+        //renderer.printText = text // Установка текста для печати
 
         printController.printPageRenderer = renderer
         printController.printInfo = printInfo
@@ -224,7 +224,7 @@ extension PrinterManager {
     }
 }
 extension PrinterManager {
-    func directPrintImageUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, image: UIImage) {
+    func directPrintImageUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, image: UIImage, renderer: CustomPrintImagePageRenderer) {
         let printController = UIPrintInteractionController.shared
 
         let printInfo = UIPrintInfo(dictionary: nil)
@@ -233,7 +233,7 @@ extension PrinterManager {
         printInfo.orientation = .portrait
         printInfo.duplex = .longEdge
 
-        let renderer = CustomPrintImagePageRenderer()
+       
         renderer.copies = copies * pagesPerSheet
         renderer.pagesPerSheet = pagesPerSheet
         renderer.printImage = image  // Setting the image for printing

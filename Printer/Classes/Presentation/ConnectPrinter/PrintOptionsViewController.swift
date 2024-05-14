@@ -11,6 +11,7 @@ protocol CopiesOptionCellDelegate: AnyObject {
     func copiesOptionCell(cell: CopiesOptionCell, didChangeCopiesTo count: Int)
 }
 class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
+    var textRenderer : CustomPrintTextPageRenderer!
     var options = ["Option 1", "Option 2", "Option 3"] // Example data
     var previews: [UIImage] = [UIImage(named:"PreviewExample")!]
     var copies: Int = 1
@@ -83,7 +84,8 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         if let printer = PrinterManager.shared.getConnectedPrinter() {
            // PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, text: "Для исправления проблемы наложения текста при печати 16 копий на одном листе, когда текст оказывается слишком большим для выделенных областей, можно использовать более адаптивный подход к определению размера шрифта. В этом случае нам нужно обеспечить, что текст полностью умещается в заданной области, и если необходимо, уменьшить размер шрифта даже ниже предыдущего минимального порога в 6 пунктов, или же изменить методику расчёта размера шрифта, чтобы он динамически адаптировался к размеру области.")
             
-            PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies:self.copies, pagesPerSheet: self.pagesPerSheet, image: UIImage(named: "Printer.Access")!)
+           // PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies:self.copies, pagesPerSheet: self.pagesPerSheet, image: UIImage(named: "Printer.Access")!)
+            PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: 1, pagesPerSheet: 1, renderer: textRenderer)
         } else {
               print("Printer is not configured or unavailable.")
           }
