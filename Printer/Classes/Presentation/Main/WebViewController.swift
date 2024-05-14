@@ -2,10 +2,11 @@ import UIKit
 import WebKit
 
 final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate {
-    
+
     private let webView = WKWebView()
     private let toolbar = UIToolbar()
-    
+    private let addressTextFieldHeight: CGFloat = 44.0  // Height of the addressTextField
+
     private lazy var addressTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter URL"
@@ -33,6 +34,8 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         return button
     }()
     
+    private var toolbarBottomConstraint: NSLayoutConstraint!
+
     override func loadView() {
         view = UIView()
         view.addSubview(webView)
@@ -40,7 +43,9 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         
         webView.translatesAutoresizingMaskIntoConstraints = false
         toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.alpha = 1
+        
+        toolbarBottomConstraint = toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.topAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -49,7 +54,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
             
             toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            toolbarBottomConstraint
         ])
     }
     
@@ -59,6 +64,9 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         setupNavigationBar()
         setupToolbar()
         loadInitialWebPage()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func setupNavigationBar() {
@@ -124,6 +132,34 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         printController.printInfo = printInfo
         printController.printFormatter = webView.viewPrintFormatter()
         printController.present(animated: true, completionHandler: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            
+            let keyboardHeight = keyboardFrame.height
+            toolbarBottomConstraint.constant = -keyboardHeight + (ScreenSize.isIphoneXFamily ? addressTextField.frame.height:0)
+            
+            UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve << 16), animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+           let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
+            
+            toolbarBottomConstraint.constant = 0
+            
+            UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve << 16), animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
