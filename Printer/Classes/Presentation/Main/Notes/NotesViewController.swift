@@ -153,16 +153,17 @@ class NotesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Select the first font cell by default
-        let defaultFontIndexPath = IndexPath(item: 0, section: 0)
-        fontCollectionView.selectItem(at: defaultFontIndexPath, animated: false, scrollPosition: [])
-        collectionView(fontCollectionView, didSelectItemAt: defaultFontIndexPath)
-        
-        // Select the first alignment cell by default
-        let defaultAlignIndexPath = IndexPath(item: 0, section: 0)
-        alignCollectionView.selectItem(at: defaultAlignIndexPath, animated: false, scrollPosition: [])
-        collectionView(alignCollectionView, didSelectItemAt: defaultAlignIndexPath)
+        delay(0.1) { [self] in
+            // Select the first font cell by default
+            let defaultFontIndexPath = IndexPath(item: 0, section: 0)
+            fontCollectionView.selectItem(at: defaultFontIndexPath, animated: false, scrollPosition: [])
+            collectionView(fontCollectionView, didSelectItemAt: defaultFontIndexPath)
+            
+            // Select the first alignment cell by default
+            let defaultAlignIndexPath = IndexPath(item: 0, section: 0)
+            alignCollectionView.selectItem(at: defaultAlignIndexPath, animated: false, scrollPosition: [])
+            collectionView(alignCollectionView, didSelectItemAt: defaultAlignIndexPath)
+        }
     }
     
     @objc private func dismissViewController() {
