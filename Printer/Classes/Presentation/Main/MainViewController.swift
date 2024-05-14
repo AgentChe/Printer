@@ -103,6 +103,14 @@ extension MainViewController: MainViewDelegate {
             openDocumentPicker()
         case "Web Pages":
             print("Selected Web Pages action")
+            
+            let webVC = WebViewController()
+            webVC.hidesBottomBarWhenPushed = true // Hide the tab bar
+            let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+            navigationItem.backBarButtonItem = backButton
+            // Hide the toolbar before the transition
+            
+            navigationController?.pushViewController(webVC, animated: true)
         case "Notes":
             print("Selected Notes action")
             let notesVC = NotesViewController()

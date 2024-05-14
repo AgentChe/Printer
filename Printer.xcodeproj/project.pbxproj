@@ -78,6 +78,7 @@
 		A30EF7B92BF3BB1200B93D6F /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */; };
 		A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */; };
 		A30EF7BE2BF3C02100B93D6F /* AlignCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */; };
+		A30EF7C12BF40F7600B93D6F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7C02BF40F7600B93D6F /* WebViewController.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -259,6 +260,7 @@
 		A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
 		A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignCell.swift; sourceTree = "<group>"; };
+		A30EF7C02BF40F7600B93D6F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -573,6 +575,13 @@
 				A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */,
 			);
 			path = Notes;
+			sourceTree = "<group>";
+		};
+		A30EF7BF2BF40F4F00B93D6F /* WebPages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WebPages;
 			sourceTree = "<group>";
 		};
 		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
@@ -997,11 +1006,13 @@
 			isa = PBXGroup;
 			children = (
 				DEDF91892BD9542D004340C0 /* MainViewController.swift */,
+				A30EF7C02BF40F7600B93D6F /* WebViewController.swift */,
 				DEDF918D2BD95438004340C0 /* MainView.swift */,
 				A30715262BF379D600667526 /* Files */,
 				A30715232BF3798E00667526 /* Photos */,
 				A30EF7B52BF3B05C00B93D6F /* Dropbox */,
 				A30EF7BA2BF3BB3700B93D6F /* Notes */,
+				A30EF7BF2BF40F4F00B93D6F /* WebPages */,
 				A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
 				A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */,
@@ -1266,6 +1277,7 @@
 				DEDF90EB2BD7B07C004340C0 /* UITapGestureRecognizer+Extension.swift in Sources */,
 				A30714FD2BEDDFCB00667526 /* ConnectPrinterCell.swift in Sources */,
 				A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */,
+				A30EF7C12BF40F7600B93D6F /* WebViewController.swift in Sources */,
 				DEDF90ED2BD7B07C004340C0 /* DefaultRequestWrapper.swift in Sources */,
 				DEDF90E92BD7B07C004340C0 /* UIDevice+Extension.swift in Sources */,
 				DEDF91202BD7B07C004340C0 /* IAPErrorHelper.swift in Sources */,

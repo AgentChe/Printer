@@ -87,12 +87,24 @@ class NotesViewController: UIViewController {
         attributedText.append(userText)
         textView.attributedText = attributedText
 
+        let fontLabel = UILabel()
+        fontLabel.text = "Font"
+        fontLabel.font = Fonts.SFProDisplay.bold(size: 17)
+        fontLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(fontLabel)
+
         fontCollectionView.translatesAutoresizingMaskIntoConstraints = false
         fontCollectionView.backgroundColor = .clear
         fontCollectionView.dataSource = self
         fontCollectionView.delegate = self
         fontCollectionView.register(FontCell.self, forCellWithReuseIdentifier: FontCell.identifier)
         view.addSubview(fontCollectionView)
+
+        let alignLabel = UILabel()
+        alignLabel.text = "Align"
+        alignLabel.font = Fonts.SFProDisplay.bold(size: 17)
+        alignLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(alignLabel)
 
         alignCollectionView.translatesAutoresizingMaskIntoConstraints = false
         alignCollectionView.backgroundColor = .clear
@@ -109,40 +121,50 @@ class NotesViewController: UIViewController {
         printButton.layer.cornerRadius = 24
         printButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(printButton)
-        
-        setupConstraints(titleLabel: titleLabel, dismissButton: dismissButton, printButton: printButton)
-        
+
+        setupConstraints(titleLabel: titleLabel, dismissButton: dismissButton, fontLabel: fontLabel, alignLabel: alignLabel, printButton: printButton)
+
         // Add tap gesture recognizer to the view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideTextView(_:)))
         tapGesture.cancelsTouchesInView = false // Allow touches to pass through
         view.addGestureRecognizer(tapGesture)
     }
 
-    private func setupConstraints(titleLabel: UILabel, dismissButton: UIButton, printButton: UIButton) {
+    private func setupConstraints(titleLabel: UILabel, dismissButton: UIButton, fontLabel: UILabel, alignLabel: UILabel, printButton: UIButton) {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
+
             dismissButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             dismissButton.widthAnchor.constraint(equalToConstant: 18),
             dismissButton.heightAnchor.constraint(equalToConstant: 20),
-            
+
             textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             textView.widthAnchor.constraint(equalToConstant: 361),
             textView.heightAnchor.constraint(equalToConstant: 312),
             textView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            fontCollectionView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 16),
+
+            fontLabel.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 10),
+            fontLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            fontLabel.widthAnchor.constraint(equalToConstant: 38),
+            fontLabel.heightAnchor.constraint(equalToConstant: 20),
+
+            fontCollectionView.topAnchor.constraint(equalTo: fontLabel.bottomAnchor, constant: 16),
             fontCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             fontCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             fontCollectionView.heightAnchor.constraint(equalToConstant: 50),
-            
-            alignCollectionView.topAnchor.constraint(equalTo: fontCollectionView.bottomAnchor, constant: 16),
+
+            alignLabel.topAnchor.constraint(equalTo: fontCollectionView.bottomAnchor, constant: 16),
+            alignLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            alignLabel.widthAnchor.constraint(equalToConstant: 42),
+            alignLabel.heightAnchor.constraint(equalToConstant: 20),
+
+            alignCollectionView.topAnchor.constraint(equalTo: alignLabel.bottomAnchor, constant: 10),
             alignCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             alignCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             alignCollectionView.heightAnchor.constraint(equalToConstant: 50),
-            
+
             // Print button constraints
             printButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             printButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -158,18 +180,18 @@ class NotesViewController: UIViewController {
             let defaultFontIndexPath = IndexPath(item: 0, section: 0)
             fontCollectionView.selectItem(at: defaultFontIndexPath, animated: false, scrollPosition: [])
             collectionView(fontCollectionView, didSelectItemAt: defaultFontIndexPath)
-            
+
             // Select the first alignment cell by default
             let defaultAlignIndexPath = IndexPath(item: 0, section: 0)
             alignCollectionView.selectItem(at: defaultAlignIndexPath, animated: false, scrollPosition: [])
             collectionView(alignCollectionView, didSelectItemAt: defaultAlignIndexPath)
         }
     }
-    
+
     @objc private func dismissViewController() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @objc private func handleTapOutsideTextView(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: view)
         if !textView.frame.contains(location) {
@@ -186,7 +208,7 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
             return alignments.count
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == fontCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FontCell.identifier, for: indexPath) as! FontCell
@@ -200,24 +222,24 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
             return cell
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == fontCollectionView {
             let selectedFont = fonts[indexPath.item]
-            
+
             // Update the font of the entire textView content with consistent size and weight differences
             let largeFontSize: CGFloat = 24
             let smallFontSize: CGFloat = 17
-            
+
             let largeFont: UIFont
             let smallFont: UIFont
-            
+
             if let customFontLarge = UIFont(name: selectedFont, size: largeFontSize) {
                 largeFont = customFontLarge
             } else {
                 largeFont = UIFont.boldSystemFont(ofSize: largeFontSize)
             }
-            
+
             if let customFontSmall = UIFont(name: selectedFont, size: smallFontSize) {
                 smallFont = customFontSmall
             } else {
@@ -248,7 +270,7 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
             textView.textAlignment = selectedAlignment
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == fontCollectionView {
             let fontName = fonts[indexPath.item]
