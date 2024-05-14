@@ -38,7 +38,7 @@ final class MainViewController: UIViewController {
             } else if let error = error {
                 let printerName = printer?.displayName ?? "Unknown"
                 if let viewController4Alert = self {
-                    PrinterManager.shared.showAlertForErrorWithPrinter(printerName, viewController: viewController4Alert)
+                    //  PrinterManager.shared.showAlertForErrorWithPrinter(printerName, viewController: viewController4Alert)
                 }
                 print("Error: \(error.localizedDescription)")
             }
@@ -91,6 +91,8 @@ extension MainViewController {
 }
 
 extension MainViewController: MainViewDelegate {
+    
+    
     func didSelectQuickAction(_ action: QuickAction) {
         switch action.title {
         case "Photos":
@@ -103,23 +105,14 @@ extension MainViewController: MainViewDelegate {
             print("Selected Web Pages action")
         case "Notes":
             print("Selected Notes action")
-        case "Google Drive":
+            let notesVC = NotesViewController()
+            notesVC.modalPresentationStyle = .fullScreen
+            present(notesVC, animated: true, completion: nil)
+        case "Google Disk":
             print("Selected Google Drive action")
         case "Dropbox":
             print("Selected Dropbox action")
-            if DropboxClientsManager.authorizedClient == nil {
-                       let scopeRequest = ScopeRequest(scopeType: .user, scopes: ["account_info.read"], includeGrantedScopes: false)
-                       DropboxClientsManager.authorizeFromControllerV2(
-                           UIApplication.shared,
-                           controller: self,
-                           loadingStatusDelegate: nil,
-                           openURL: { (url: URL) -> Void in UIApplication.shared.open(url, options: [:], completionHandler: nil) },
-                           scopeRequest: scopeRequest
-                       )
-                   } else {
-                       // The user is already authorized, proceed with API calls
-                       listDropboxFiles()
-                   }
+            openDropbox()
         case "Email":
             print("Selected Email action")
         case "Test Print":
@@ -128,17 +121,7 @@ extension MainViewController: MainViewDelegate {
             break
         }
     }
-    func listDropboxFiles() {
-          DropboxClientsManager.authorizedClient?.files.listFolder(path: "").response { response, error in
-              if let result = response {
-                  for entry in result.entries {
-                      print(entry.name)
-                  }
-              } else if let error = error {
-                  print(error)
-              }
-          }
-      }
+    
     func didTapAddPrinter() {
         // Handle add printer action
     }

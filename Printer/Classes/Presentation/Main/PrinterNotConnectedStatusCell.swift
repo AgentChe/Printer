@@ -12,10 +12,11 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
     
     // Use the existing subviews from MainView
     let printerImageView: UIImageView = {
-        let printerImage = UIImage(named: "Printer.Checked")
+        let printerImage = UIImage(named: "Printer.Сhecked")
         let imageView = UIImageView(image: printerImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
     }()
     

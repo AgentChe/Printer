@@ -74,6 +74,10 @@
 		A30715222BF210B200667526 /* CustomPrintImagePageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715212BF210B200667526 /* CustomPrintImagePageRenderer.swift */; };
 		A30715252BF379A100667526 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715242BF379A100667526 /* Photos.swift */; };
 		A30715282BF379E000667526 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715272BF379E000667526 /* Files.swift */; };
+		A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B62BF3B07300B93D6F /* Dropbox.swift */; };
+		A30EF7B92BF3BB1200B93D6F /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */; };
+		A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */; };
+		A30EF7BE2BF3C02100B93D6F /* AlignCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -251,6 +255,10 @@
 		A30715212BF210B200667526 /* CustomPrintImagePageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPrintImagePageRenderer.swift; sourceTree = "<group>"; };
 		A30715242BF379A100667526 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		A30715272BF379E000667526 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
+		A30EF7B62BF3B07300B93D6F /* Dropbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropbox.swift; sourceTree = "<group>"; };
+		A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
+		A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignCell.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -547,6 +555,24 @@
 				A30715272BF379E000667526 /* Files.swift */,
 			);
 			path = Files;
+			sourceTree = "<group>";
+		};
+		A30EF7B52BF3B05C00B93D6F /* Dropbox */ = {
+			isa = PBXGroup;
+			children = (
+				A30EF7B62BF3B07300B93D6F /* Dropbox.swift */,
+			);
+			path = Dropbox;
+			sourceTree = "<group>";
+		};
+		A30EF7BA2BF3BB3700B93D6F /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */,
+				A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */,
+				A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */,
+			);
+			path = Notes;
 			sourceTree = "<group>";
 		};
 		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
@@ -971,9 +997,11 @@
 			isa = PBXGroup;
 			children = (
 				DEDF91892BD9542D004340C0 /* MainViewController.swift */,
+				DEDF918D2BD95438004340C0 /* MainView.swift */,
 				A30715262BF379D600667526 /* Files */,
 				A30715232BF3798E00667526 /* Photos */,
-				DEDF918D2BD95438004340C0 /* MainView.swift */,
+				A30EF7B52BF3B05C00B93D6F /* Dropbox */,
+				A30EF7BA2BF3BB3700B93D6F /* Notes */,
 				A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
 				A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */,
@@ -1197,6 +1225,7 @@
 				A301E18D2BE5448500A5F9EC /* ZoomGestureController.swift in Sources */,
 				A301E1862BE5448500A5F9EC /* EditScanCornerView.swift in Sources */,
 				A377357F2BE868C900FCD54F /* CenteredFlowLayout.swift in Sources */,
+				A30EF7BE2BF3C02100B93D6F /* AlignCell.swift in Sources */,
 				DEDF90E82BD7B07C004340C0 /* UIColor+Extension.swift in Sources */,
 				A301E1C22BE5448500A5F9EC /* CaptureSession+Flash.swift in Sources */,
 				DEDF910D2BD7B07C004340C0 /* SplashReceiptValidationObserver.swift in Sources */,
@@ -1303,6 +1332,7 @@
 				A301E1C82BE5E0AC00A5F9EC /* ImageManager.swift in Sources */,
 				DEDF90E12BD7B07C004340C0 /* PaddingLabel.swift in Sources */,
 				DEDF90FE2BD7B07C004340C0 /* AppDelegate.swift in Sources */,
+				A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */,
 				DEDF91A32BD9565E004340C0 /* PaygateViewModel.swift in Sources */,
 				A30715252BF379A100667526 /* Photos.swift in Sources */,
 				DEDF90F72BD7B07C004340C0 /* NumberLaunches.swift in Sources */,
@@ -1334,9 +1364,11 @@
 				A301E18C2BE5448500A5F9EC /* EditScanViewController.swift in Sources */,
 				DEDF90E72BD7B07C004340C0 /* UIApplication+Extension.swift in Sources */,
 				DEDF910E2BD7B07C004340C0 /* SplashView.swift in Sources */,
+				A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */,
 				A301E1872BE5448500A5F9EC /* Error.swift in Sources */,
 				DEDF90D52BD7B07C004340C0 /* BranchManager.swift in Sources */,
 				DEDF919E2BD9565E004340C0 /* PaygateProductButton.swift in Sources */,
+				A30EF7B92BF3BB1200B93D6F /* NotesViewController.swift in Sources */,
 				A301E19A2BE5448500A5F9EC /* Transformable.swift in Sources */,
 				DEDF919B2BD9565E004340C0 /* DefaultPaygate.swift in Sources */,
 				A301E1C12BE5448500A5F9EC /* CaptureSession.swift in Sources */,
