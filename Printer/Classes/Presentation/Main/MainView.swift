@@ -68,23 +68,7 @@ protocol MainViewDelegate: AnyObject {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: 0.scale)
         ])
     }
-//    func updatePrinterStatus(_ status: PrinterStatus?) {
-//        if let printerStatus = status, printerStatus.isConnected {
-//            // Обновляем изображение и текст для подключенного принтера
-//            printerImageView.image = UIImage(named: "connectedPrinterImage") // имя картинки подключенного принтера
-//            titleLabel.text = "My printer"
-//            subtitleLabel.text = "Printer \(printerStatus.name ?? "") is connected"
-//            addPrinterButton.isHidden = true
-//            compatibleListButton.isHidden = true
-//        } else {
-//            // Обновляем изображение и текст для состояния без принтера
-//            printerImageView.image = UIImage(named: "defaultPrinterImage") // имя картинки по умолчанию
-//            titleLabel.text = "My printer"
-//            subtitleLabel.text = "No printer was added"
-//            addPrinterButton.isHidden = false
-//            compatibleListButton.isHidden = false
-//        }
-//    }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -137,6 +121,15 @@ extension MainView: UICollectionViewDataSource {
         }
 }
 
+// MARK: - UICollectionViewDelegate
+extension MainView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            let action = quickActions[indexPath.row]
+            delegate?.didSelectQuickAction(action)
+        }
+    }
+}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension MainView: UICollectionViewDelegateFlowLayout {

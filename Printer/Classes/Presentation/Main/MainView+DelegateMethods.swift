@@ -11,7 +11,7 @@ extension MainView {
         if let parentViewController = parentViewController {
             if let mainViewController = parentViewController as? MainViewController {
                 let navigationController = mainViewController.navigationController
-                print("CollectionView offset: \(collectionView.contentOffset)")
+                //print("CollectionView offset: \(collectionView.contentOffset)")
                 let threshold: CGFloat = -94.scale // Or any value that works for your layout
                 // Check the offset and adjust the shadow accordingly
                 if scrollView.contentOffset.y > threshold {

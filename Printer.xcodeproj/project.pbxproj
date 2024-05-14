@@ -1483,6 +1483,8 @@
 				INFOPLIST_FILE = Printer/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to compatible devices, allowing for the transfer of data between your device and Bluetooth-enabled peripherals like printers and wearables.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to scan documents.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to allow you to save photos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to select photos for printing.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -1519,6 +1521,8 @@
 				INFOPLIST_FILE = Printer/Info.plist;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This app uses Bluetooth to connect to compatible devices, allowing for the transfer of data between your device and Bluetooth-enabled peripherals like printers and wearables.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires camera access to scan documents.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to allow you to save photos.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to select photos for printing.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

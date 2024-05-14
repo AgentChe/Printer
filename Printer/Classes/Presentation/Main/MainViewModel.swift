@@ -23,7 +23,7 @@ final class MainViewModel {
             QuickAction(title: "Photos", 
                         detail: "Print from gallery",
                         icon: UIImage(named: "QuickActions.Photos")),
-            QuickAction(title: "Documents", 
+            QuickAction(title: "Files", 
                         detail: "Print PDFs and docs",
                         icon: UIImage(named: "QuickActions.Documents")),
             QuickAction(title: "Web Pages", 
