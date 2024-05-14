@@ -9,6 +9,7 @@ import UIKit
 import MobileCoreServices
 import UniformTypeIdentifiers
 import PhotosUI
+import SwiftyDropbox
 
 final class MainViewController: UIViewController {
     
@@ -106,6 +107,19 @@ extension MainViewController: MainViewDelegate {
             print("Selected Google Drive action")
         case "Dropbox":
             print("Selected Dropbox action")
+            if DropboxClientsManager.authorizedClient == nil {
+                       let scopeRequest = ScopeRequest(scopeType: .user, scopes: ["account_info.read"], includeGrantedScopes: false)
+                       DropboxClientsManager.authorizeFromControllerV2(
+                           UIApplication.shared,
+                           controller: self,
+                           loadingStatusDelegate: nil,
+                           openURL: { (url: URL) -> Void in UIApplication.shared.open(url, options: [:], completionHandler: nil) },
+                           scopeRequest: scopeRequest
+                       )
+                   } else {
+                       // The user is already authorized, proceed with API calls
+                       listDropboxFiles()
+                   }
         case "Email":
             print("Selected Email action")
         case "Test Print":
@@ -114,7 +128,17 @@ extension MainViewController: MainViewDelegate {
             break
         }
     }
-    
+    func listDropboxFiles() {
+          DropboxClientsManager.authorizedClient?.files.listFolder(path: "").response { response, error in
+              if let result = response {
+                  for entry in result.entries {
+                      print(entry.name)
+                  }
+              } else if let error = error {
+                  print(error)
+              }
+          }
+      }
     func didTapAddPrinter() {
         // Handle add printer action
     }
@@ -124,4 +148,3 @@ extension MainViewController: MainViewDelegate {
     }
 }
 
- 

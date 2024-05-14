@@ -518,14 +518,6 @@
 			path = WeScan;
 			sourceTree = "<group>";
 		};
-		A30714FB2BED9F1F00667526 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Sources;
-			path = Sources/Sources;
-			sourceTree = "<group>";
-		};
 		A30715082BEEF17500667526 /* ConnectPrinter */ = {
 			isa = PBXGroup;
 			children = (
@@ -911,7 +903,6 @@
 			children = (
 				DEDF90992BD7B07C004340C0 /* Misc */,
 				DEDF90C12BD7B07C004340C0 /* Presentation */,
-				A30714FB2BED9F1F00667526 /* Sources */,
 				DEDF90D22BD7B07C004340C0 /* Service */,
 			);
 			path = Classes;

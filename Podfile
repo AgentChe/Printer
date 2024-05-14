@@ -16,7 +16,7 @@ pod 'GoogleAPIClientForREST/Drive'
   pod 'SwiftyStoreKit'
 
   pod 'OtterScaleiOS', :git => "https://github.com/AgentChe/OtterScaleiOS.git"
-  
+  pod 'SwiftyDropbox'
   pod 'FBSDKCoreKit'
   pod 'Amplitude-iOS'
   pod 'Branch'

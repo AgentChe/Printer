@@ -7,6 +7,7 @@
 
 import UIKit
 import OtterScaleiOS
+import SwiftyDropbox
 
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +20,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         OtterScale.shared.initialize(host: GlobalDefinitions.otterScaleHost, apiKey: GlobalDefinitions.otterScaleApiKey)
         
         PurchaseValidationObserver.shared.startObserve()
-        
+        DropboxClientsManager.setupWithAppKey("fuxs23rugn88jl2")
         IAPManager.initialize()
+        
         
         return true
     }
@@ -32,10 +34,40 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         FacebookManager.shared.application(app, open: url, options: options)
         BranchManager.shared.application(app, open: url, options: options)
+        let oauthCompletion: DropboxOAuthCompletion = { authResult in
+            if let authResult = authResult {
+                switch authResult {
+                case .success:
+                    print("Success! User is logged into Dropbox.")
+                case .cancel:
+                    print("Authorization flow was manually canceled by user!")
+                case .error(_, let description):
+                    print("Error: \(String(describing: description))")
+                }
+            }
+        }
+        
+        let canHandleUrl = DropboxClientsManager.handleRedirectURL(
+            url,
+            backgroundSessionIdentifier: "com.yourapp.backgroundSession",
+            completion: oauthCompletion
+        )
+     
+
         
         return true
     }
-    
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+           DropboxClientsManager.handleEventsForBackgroundURLSession(
+               with: identifier,
+               creationInfos: [],
+               completionHandler: completionHandler,
+               requestsToReconnect: { requestResults in
+                   // Handle reconnection if needed
+                   self.processReconnect(requestResults: requestResults)
+               }
+           )
+       }
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         BranchManager.shared.application(continue: userActivity)
         
@@ -54,4 +86,39 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         PushNotificationsManager.shared.application(didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
     }
   
+    private func processReconnect(requestResults: [Result<DropboxBaseRequestBox, ReconnectionError>]) {
+        let successfulRequests = requestResults.compactMap { result -> DropboxBaseRequestBox? in
+            switch result {
+            case .success(let requestBox):
+                return requestBox
+            case .failure(let error):
+                print("Reconnection error: \(error)")
+                return nil
+            }
+        }
+        
+        for request in successfulRequests {
+            switch request {
+            case .download(let downloadRequest):
+                downloadRequest.response { response, error in
+                    if let response = response {
+                        print("Download success: \(response)")
+                    } else if let error = error {
+                        print("Download error: \(error)")
+                    }
+                }
+            case .upload(let uploadRequest):
+                uploadRequest.response { response, error in
+                    if let response = response {
+                        print("Upload success: \(response)")
+                    } else if let error = error {
+                        print("Upload error: \(error)")
+                    }
+                }
+            // Handle other request types if necessary
+            default:
+                break
+            }
+        }
+    }
 }
