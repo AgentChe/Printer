@@ -6,15 +6,15 @@ import UIKit
 class CustomPrintImagePageRenderer: UIPrintPageRenderer {
     var copies: Int = 1
     var pagesPerSheet: Int = 1
-    var printImage: UIImage = UIImage() // Default image to print
+    var printImages: [UIImage] = [] // Updated to handle multiple images
 
     override var numberOfPages: Int {
-        return Int(ceil(Double(copies) / Double(pagesPerSheet)))
+        return Int(ceil(Double(printImages.count * copies) / Double(pagesPerSheet)))
     }
 
     override func drawPage(at pageIndex: Int, in printableRect: CGRect) {
         let startCopyIndex = pageIndex * pagesPerSheet
-        let endCopyIndex = min(startCopyIndex + pagesPerSheet, copies) - 1
+        let endCopyIndex = min(startCopyIndex + pagesPerSheet, printImages.count * copies) - 1
 
         let cols = Int(ceil(sqrt(Double(pagesPerSheet))))
         let rows = Int(ceil(Double(pagesPerSheet) / Double(cols)))
@@ -28,10 +28,12 @@ class CustomPrintImagePageRenderer: UIPrintPageRenderer {
                 if currentCopy > endCopyIndex {
                     break
                 }
+                let imageIndex = currentCopy % printImages.count
+                let image = printImages[imageIndex]
                 let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
                 let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
                 let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
-                drawImage(in: virtualPageRect, image: printImage)
+                drawImage(in: virtualPageRect, image: image)
                 currentCopy += 1
             }
         }

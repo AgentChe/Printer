@@ -87,7 +87,8 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
             }
             for imageRenderer in imageRenderers {
                 imageRenderer.pagesPerSheet = self.pagesPerSheet
-                PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, image: imageRenderer.printImage, renderer: imageRenderer)
+                imageRenderer.copies = self.copies // Ensure the correct number of copies is set
+                PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, images: imageRenderer.printImages, renderer: imageRenderer)
             }
         } else {
             print("Printer is not configured or unavailable.")
@@ -172,14 +173,21 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         }
         for imageRenderer in imageRenderers {
             imageRenderer.pagesPerSheet = self.pagesPerSheet // Update pagesPerSheet for image renderer
-            let pdfData = imageRenderer.pdfData()
-            if let previewImage = imageRenderer.createImageFromPDFData(pdfData: pdfData) {
-                previews.append(previewImage)
+            for image in imageRenderer.printImages {
+                let individualImageRenderer = CustomPrintImagePageRenderer()
+                individualImageRenderer.pagesPerSheet = imageRenderer.pagesPerSheet
+                individualImageRenderer.copies = imageRenderer.copies
+                individualImageRenderer.printImages = [image]
+
+                let pdfData = individualImageRenderer.pdfData()
+                if let previewImage = individualImageRenderer.createImageFromPDFData(pdfData: pdfData) {
+                    previews.append(previewImage)
+                }
             }
         }
         previewCollectionView.reloadData()
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionView {
             return options.count

@@ -10,22 +10,10 @@ import MobileCoreServices
 import UniformTypeIdentifiers
 import PhotosUI
 
+ 
 // Photos
-// Photos
-extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
-        guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        // Handle the selected image
-        print("Selected image: \(selectedImage)")
-        navigateToPrintOptionsViewController(with: selectedImage)
-    }
+extension MainViewController: PHPickerViewControllerDelegate {
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-        print("Image picker was cancelled")
-    }
-    
     func checkPhotoLibraryPermission() {
         let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         switch status {
@@ -43,7 +31,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
             fatalError("Unknown photo library authorization status")
         }
     }
-    
+
     private func handlePhotoLibraryAuthorizationStatus(_ status: PHAuthorizationStatus) {
         switch status {
         case .authorized, .limited:
@@ -51,21 +39,22 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         case .restricted, .denied:
             showAlertForPhotoLibraryAccess()
         case .notDetermined:
-            // This case should not happen since we handle notDetermined case separately
-            break
+            break // This case should not happen since we handle notDetermined case separately
         @unknown default:
             fatalError("Unknown photo library authorization status")
         }
     }
-    
+
     private func openPhotoLibrary() {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.mediaTypes = [UTType.image.identifier]
-        present(imagePicker, animated: true, completion: nil)
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 0 // 0 means no limit for selection
+
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true, completion: nil)
     }
-    
+
     private func showAlertForPhotoLibraryAccess() {
         let alert = UIAlertController(title: "Photo Library Access Denied",
                                       message: "Please enable access to the photo library in the Settings app to select photos.",
@@ -78,11 +67,36 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         }))
         present(alert, animated: true, completion: nil)
     }
-    
-    private func navigateToPrintOptionsViewController(with image: UIImage) {
+
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        var selectedImages: [UIImage] = []
+        let itemProviders = results.map { $0.itemProvider }
+
+        let dispatchGroup = DispatchGroup()
+
+        for itemProvider in itemProviders {
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                dispatchGroup.enter()
+                itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
+                    if let image = object as? UIImage {
+                        selectedImages.append(image)
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            self.navigateToPrintOptionsViewController(with: selectedImages)
+        }
+    }
+
+    private func navigateToPrintOptionsViewController(with images: [UIImage]) {
         let imageRenderer = CustomPrintImagePageRenderer()
-        imageRenderer.printImage = image
-        
+        imageRenderer.printImages = images
+
         let printOptionsViewController = PrintOptionsViewController()
         printOptionsViewController.imageRenderers = [imageRenderer]
         present(printOptionsViewController, animated: true, completion: nil)

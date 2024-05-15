@@ -224,7 +224,7 @@ extension PrinterManager {
     }
 }
 extension PrinterManager {
-    func directPrintImageUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, image: UIImage, renderer: CustomPrintImagePageRenderer) {
+    func directPrintImageUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, images: [UIImage], renderer: CustomPrintImagePageRenderer) {
         let printController = UIPrintInteractionController.shared
 
         let printInfo = UIPrintInfo(dictionary: nil)
@@ -233,20 +233,19 @@ extension PrinterManager {
         printInfo.orientation = .portrait
         printInfo.duplex = .longEdge
 
-       
         renderer.copies = copies * pagesPerSheet
         renderer.pagesPerSheet = pagesPerSheet
-        renderer.printImage = image  // Setting the image for printing
+        renderer.printImages = images  // Setting the images for printing
 
         printController.printPageRenderer = renderer
         printController.printInfo = printInfo
 
         printController.print(to: printer, completionHandler: { _, completed, error in
             if completed {
-                print("Image printed successfully with \(printer.displayName)!")
+                print("Images printed successfully with \(printer.displayName)!")
             } else {
                 if let printError = error {
-                    print("Failed to print image with \(printer.displayName): \(printError.localizedDescription)")
+                    print("Failed to print images with \(printer.displayName): \(printError.localizedDescription)")
                 }
             }
         })
