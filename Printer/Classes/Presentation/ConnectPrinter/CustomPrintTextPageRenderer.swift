@@ -8,7 +8,7 @@ import UIKit
 class CustomPrintTextPageRenderer: UIPrintPageRenderer {
     var copies: Int = 1
     var pagesPerSheet: Int = 1
-    var printText: String = "Default text to print"  // Новое свойство для текста
+    var printText: String = "Default text to print"  // Text to print
     var textAlignment: NSTextAlignment = .left  // Default alignment is left
 
     override init() {
@@ -40,31 +40,33 @@ class CustomPrintTextPageRenderer: UIPrintPageRenderer {
                 let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
                 let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
                 let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
-                drawText(in: virtualPageRect, text: printText, cols: cols, rows: rows, alignment: textAlignment)
+                drawText(in: virtualPageRect, text: printText, alignment: textAlignment)
                 currentCopy += 1
             }
         }
     }
 
-    private func drawText(in rect: CGRect, text: String, cols: Int, rows: Int, alignment: NSTextAlignment) {
-        var fontSize = min(12, max(rect.width, rect.height) / CGFloat(cols * rows))
+    private func drawText(in rect: CGRect, text: String, alignment: NSTextAlignment) {
+        var fontSize = min(12, max(rect.width, rect.height) / 4)  // Start with a font size
         var attributes: [NSAttributedString.Key: Any]
         var textSize: CGSize
         var fits: Bool
 
         repeat {
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = alignment  // Set alignment based on the parameter
+            paragraphStyle.alignment = alignment
 
             attributes = [
                 .font: UIFont.systemFont(ofSize: CGFloat(fontSize)),
                 .paragraphStyle: paragraphStyle
             ]
 
-            textSize = (text as NSString).boundingRect(with: CGSize(width: rect.width - 20, height: CGFloat.greatestFiniteMagnitude),
-                                                       options: .usesLineFragmentOrigin,
-                                                       attributes: attributes,
-                                                       context: nil).size
+            textSize = (text as NSString).boundingRect(
+                with: CGSize(width: rect.width - 20, height: CGFloat.greatestFiniteMagnitude),
+                options: .usesLineFragmentOrigin,
+                attributes: attributes,
+                context: nil
+            ).size
 
             fits = textSize.height <= rect.height - 20 && textSize.width <= rect.width - 20
             if !fits {
@@ -73,8 +75,12 @@ class CustomPrintTextPageRenderer: UIPrintPageRenderer {
         } while !fits && fontSize > 2
 
         let topMargin: CGFloat = 10  // Adjust this value if more margin is needed
-        let textRect = CGRect(x: rect.origin.x + 10, y: rect.origin.y + topMargin,
-                              width: rect.width - 20, height: textSize.height)
+        let textRect = CGRect(
+            x: rect.origin.x + 10,
+            y: rect.origin.y + topMargin,
+            width: rect.width - 20,
+            height: textSize.height
+        )
         let attributedString = NSAttributedString(string: text, attributes: attributes)
         attributedString.draw(in: textRect)
     }

@@ -1,11 +1,3 @@
-//
-//  PrintOptionsViewController_v1.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/13/24.
-//
-
-
 // PrintOptionsViewController.swift
 // Printer
 
@@ -94,6 +86,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                 PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, renderer: textRenderer)
             }
             for imageRenderer in imageRenderers {
+                imageRenderer.pagesPerSheet = self.pagesPerSheet
                 PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, image: imageRenderer.printImage, renderer: imageRenderer)
             }
         } else {
@@ -178,7 +171,11 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
             }
         }
         for imageRenderer in imageRenderers {
-            previews.append(imageRenderer.printImage) // Directly add the image to previews
+            imageRenderer.pagesPerSheet = self.pagesPerSheet // Update pagesPerSheet for image renderer
+            let pdfData = imageRenderer.pdfData()
+            if let previewImage = imageRenderer.createImageFromPDFData(pdfData: pdfData) {
+                previews.append(previewImage)
+            }
         }
         previewCollectionView.reloadData()
     }

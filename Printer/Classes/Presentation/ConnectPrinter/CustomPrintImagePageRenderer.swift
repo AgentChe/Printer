@@ -1,11 +1,8 @@
-//
-//  CustomPrintImagePageRenderer.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/13/24.
-//
+// CustomPrintImagePageRenderer.swift
+// Printer
 
 import UIKit
+
 class CustomPrintImagePageRenderer: UIPrintPageRenderer {
     var copies: Int = 1
     var pagesPerSheet: Int = 1
@@ -42,35 +39,18 @@ class CustomPrintImagePageRenderer: UIPrintPageRenderer {
 
     private func drawImage(in rect: CGRect, image: UIImage) {
         let imageSize = image.size
-        let targetWidth = rect.width - 20
-        let targetHeight = rect.height - 20
-        var scaleFactor: CGFloat
+        let scaleFactor = min(rect.width / imageSize.width, rect.height / imageSize.height)
 
-        // Determine the scale factor that maintains aspect ratio and fits within the target rectangle.
-        if imageSize.width > imageSize.height {
-            scaleFactor = targetWidth / imageSize.width
-        } else {
-            scaleFactor = targetHeight / imageSize.height
-        }
-
-        // Adjust the scale factor if the scaled image exceeds the target rectangle's bounds.
         let scaledWidth = imageSize.width * scaleFactor
         let scaledHeight = imageSize.height * scaleFactor
-        if scaledWidth > targetWidth {
-            scaleFactor = targetWidth / imageSize.width
-        }
-        if scaledHeight > targetHeight {
-            scaleFactor = targetHeight / imageSize.height
-        }
 
-        // Calculate the image rectangle, centered within the target rectangle.
-        let scaledImageRect = CGRect(
+        let imageRect = CGRect(
             x: rect.origin.x + (rect.width - scaledWidth) / 2,
-            y: rect.origin.y + (rect.height - scaledHeight) / 2,
+            y: rect.origin.y, // Pin to the top of the virtual page rect
             width: scaledWidth,
             height: scaledHeight
         )
 
-        image.draw(in: scaledImageRect)
+        image.draw(in: imageRect)
     }
 }
