@@ -11,19 +11,21 @@ import UniformTypeIdentifiers
 import PhotosUI
 
 // Photos
+// Photos
 extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
         // Handle the selected image
         print("Selected image: \(selectedImage)")
-        // Add your code to handle the image (e.g., print the image)
+        navigateToPrintOptionsViewController(with: selectedImage)
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
         print("Image picker was cancelled")
     }
+    
     func checkPhotoLibraryPermission() {
         let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
         switch status {
@@ -77,4 +79,12 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         present(alert, animated: true, completion: nil)
     }
     
+    private func navigateToPrintOptionsViewController(with image: UIImage) {
+        let imageRenderer = CustomPrintImagePageRenderer()
+        imageRenderer.printImage = image
+        
+        let printOptionsViewController = PrintOptionsViewController()
+        printOptionsViewController.imageRenderers = [imageRenderer]
+        present(printOptionsViewController, animated: true, completion: nil)
+    }
 }

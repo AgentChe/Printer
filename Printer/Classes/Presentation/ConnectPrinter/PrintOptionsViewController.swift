@@ -6,6 +6,9 @@
 //
 
 
+// PrintOptionsViewController.swift
+// Printer
+
 import UIKit
 
 protocol CopiesOptionCellDelegate: AnyObject {
@@ -15,6 +18,7 @@ protocol CopiesOptionCellDelegate: AnyObject {
 class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var textRenderers: [CustomPrintTextPageRenderer] = [] // Ensure this is initialized appropriately
+    var imageRenderers: [CustomPrintImagePageRenderer] = [] // For handling image renderers
     var options = ["Option 1", "Option 2", "Option 3"] // Example data
     var previews: [UIImage] = []
     var copies: Int = 1
@@ -88,6 +92,9 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         if let printer = PrinterManager.shared.getConnectedPrinter() {
             for textRenderer in textRenderers {
                 PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, renderer: textRenderer)
+            }
+            for imageRenderer in imageRenderers {
+                PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, image: imageRenderer.printImage, renderer: imageRenderer)
             }
         } else {
             print("Printer is not configured or unavailable.")
@@ -169,6 +176,9 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
             if let previewImage = textRenderer.createImageFromPDFData(pdfData: pdfData) {
                 previews.append(previewImage)
             }
+        }
+        for imageRenderer in imageRenderers {
+            previews.append(imageRenderer.printImage) // Directly add the image to previews
         }
         previewCollectionView.reloadData()
     }
