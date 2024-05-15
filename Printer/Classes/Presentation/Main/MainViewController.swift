@@ -115,6 +115,7 @@ extension MainViewController: MainViewDelegate {
             print("Selected Notes action")
             let notesVC = NotesViewController()
             notesVC.modalPresentationStyle = .fullScreen
+            notesVC.delegate = self
             present(notesVC, animated: true, completion: nil)
         case "Google Disk":
             print("Selected Google Drive action")
@@ -145,3 +146,8 @@ extension MainViewController: MainViewDelegate {
     }
 }
 
+extension MainViewController: NotesViewControllerDelegate {
+    func notesViewController(_ controller: NotesViewController, didSaveFormattedText text: NSAttributedString) {
+        // Handle the formatted text if needed in MainViewController
+    }
+}

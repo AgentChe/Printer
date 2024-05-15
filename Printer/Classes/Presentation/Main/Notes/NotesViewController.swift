@@ -6,9 +6,19 @@
 //
 
 import UIKit
+protocol NotesViewControllerDelegate: AnyObject {
+    func notesViewController(_ controller: NotesViewController, didSaveFormattedText text: NSAttributedString)
+}
 
 class NotesViewController: UIViewController {
-
+    weak var delegate: NotesViewControllerDelegate?
+    @objc private func dismissViewController() {
+         // Send the formatted text to the delegate before dismissing
+         delegate?.notesViewController(self, didSaveFormattedText: textView.attributedText)
+         dismiss(animated: true, completion: nil)
+     }
+    
+    
     private let textView = UITextView()
     private let fontCollectionView: UICollectionView
     private let alignCollectionView: UICollectionView
@@ -39,7 +49,27 @@ class NotesViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    @objc private func printButtonTapped() {
+          let printController = UIPrintInteractionController.shared
+          let printInfo = UIPrintInfo(dictionary: nil)
+          printInfo.outputType = .general
+          printInfo.jobName = "Print Note"
+          printController.printInfo = printInfo
 
+          let formatter = UISimpleTextPrintFormatter(attributedText: textView.attributedText)
+          formatter.startPage = 0
+          formatter.contentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
+          formatter.maximumContentWidth = 6 * 72
+          printController.printFormatter = formatter
+
+          printController.present(animated: true, completionHandler: { printController, completed, error in
+              if !completed, let error = error {
+                  print("Failed to print: \(error.localizedDescription)")
+              } else {
+                  print("Print completed")
+              }
+          })
+      }
     private func setupViews() {
         view.backgroundColor = Appearance.mainViewBackground
 
@@ -84,6 +114,7 @@ class NotesViewController: UIViewController {
                 .paragraphStyle: paragraphStyle
             ]
         )
+        
         attributedText.append(userText)
         textView.attributedText = attributedText
 
@@ -118,6 +149,7 @@ class NotesViewController: UIViewController {
         printButton.backgroundColor = UIColor(red: 0.18, green: 0.36, blue: 1.00, alpha: 1.00)
         printButton.setTitleColor(.white, for: .normal)
         printButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
         printButton.layer.cornerRadius = 24
         printButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(printButton)
@@ -188,10 +220,7 @@ class NotesViewController: UIViewController {
         }
     }
 
-    @objc private func dismissViewController() {
-        dismiss(animated: true, completion: nil)
-    }
-
+   
     @objc private func handleTapOutsideTextView(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: view)
         if !textView.frame.contains(location) {

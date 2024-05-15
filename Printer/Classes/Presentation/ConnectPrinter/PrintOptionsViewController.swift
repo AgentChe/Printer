@@ -16,6 +16,19 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     var copies: Int = 1
     var pagesPerSheet: Int = 1
     
+    var formattedText: NSAttributedString?
+    func notesViewController(_ controller: NotesViewController, didSaveFormattedText text: NSAttributedString) {
+           self.formattedText = text
+           handleFormattedText(text) // Prepare the text for printing
+       }
+    private func handleFormattedText(_ text: NSAttributedString) {
+           let renderer = CustomPrintTextPageRenderer()
+           renderer.printText = text.string // Convert NSAttributedString to String
+           textRenderers.append(renderer) // Add the renderer to the textRenderers array
+           generatePreviews() // Regenerate previews with the new text
+       }
+
+    
     private let topBarImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Grabber"))
         imageView.alpha = 1.0
@@ -173,6 +186,8 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         }
         for imageRenderer in imageRenderers {
             imageRenderer.pagesPerSheet = self.pagesPerSheet // Update pagesPerSheet for image renderer
+            imageRenderer.copies = self.copies // Set the correct number of copies
+
             for image in imageRenderer.printImages {
                 let individualImageRenderer = CustomPrintImagePageRenderer()
                 individualImageRenderer.pagesPerSheet = imageRenderer.pagesPerSheet

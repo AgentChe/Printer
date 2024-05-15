@@ -7,9 +7,10 @@
 import UIKit
 class CustomPrintTextPageRenderer: UIPrintPageRenderer {
     var copies: Int = 1
-    var pagesPerSheet: Int = 1
-    var printText: String = "Default text to print"  // Text to print
-    var textAlignment: NSTextAlignment = .left  // Default alignment is left
+     var pagesPerSheet: Int = 1
+     var printText: String = "Default text to print"  // This should be replaced with attributed text handling
+     var attributedPrintText: NSAttributedString? // New variable for attributed text
+     var textAlignment: NSTextAlignment = .left  // Default alignment is left
 
     override init() {
         super.init()
@@ -33,17 +34,21 @@ class CustomPrintTextPageRenderer: UIPrintPageRenderer {
 
         var currentCopy = startCopyIndex
         for row in 0..<rows {
-            for col in 0..<cols {
-                if currentCopy > endCopyIndex {
-                    break
-                }
-                let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
-                let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
-                let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
-                drawText(in: virtualPageRect, text: printText, alignment: textAlignment)
-                currentCopy += 1
-            }
-        }
+                  for col in 0..<cols {
+                      if currentCopy > endCopyIndex {
+                          break
+                      }
+                      let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
+                      let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
+                      let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
+                      if let attributedText = attributedPrintText {
+                          drawAttributedText(in: virtualPageRect, text: attributedText)
+                      } else {
+                          drawText(in: virtualPageRect, text: printText, alignment: textAlignment)
+                      }
+                      currentCopy += 1
+                  }
+              }
     }
 
     private func drawText(in rect: CGRect, text: String, alignment: NSTextAlignment) {
@@ -83,6 +88,11 @@ class CustomPrintTextPageRenderer: UIPrintPageRenderer {
         )
         let attributedString = NSAttributedString(string: text, attributes: attributes)
         attributedString.draw(in: textRect)
+    }
+    private func drawAttributedText(in rect: CGRect, text: NSAttributedString) {
+        // Similar implementation to drawText but with attributed text
+        let textRect = rect.insetBy(dx: 10, dy: 10)
+        text.draw(in: textRect)
     }
 }
 extension UIPrintPageRenderer {
