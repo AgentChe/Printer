@@ -168,11 +168,9 @@ Enjoy your printed fun! 😊
 """
         // Generate preview image
         
-        let pdfData = textRenderer.pdfData()
-        let previewImage  = textRenderer.createImageFromPDFData(pdfData: pdfData)!
+        
         let printOptionsViewController = PrintOptionsViewController()
-        printOptionsViewController.previews = [previewImage]
-        printOptionsViewController.textRenderer = textRenderer
+        printOptionsViewController.textRenderers = [textRenderer]
         present(printOptionsViewController , animated: true)
         //        if let printer = PrinterManager.shared.getConnectedPrinter() {
         //            PrinterManager.shared.printDocumentDirectly(printer: printer, from: self)

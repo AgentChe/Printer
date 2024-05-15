@@ -7,22 +7,23 @@
 
 
 import UIKit
+
 protocol CopiesOptionCellDelegate: AnyObject {
     func copiesOptionCell(cell: CopiesOptionCell, didChangeCopiesTo count: Int)
 }
-class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    var textRenderer : CustomPrintTextPageRenderer!
+
+class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    var textRenderers: [CustomPrintTextPageRenderer] = [] // Ensure this is initialized appropriately
     var options = ["Option 1", "Option 2", "Option 3"] // Example data
-    var previews: [UIImage] = [UIImage(named:"PreviewExample")!]
+    var previews: [UIImage] = []
     var copies: Int = 1
     var pagesPerSheet: Int = 1
+    
     private let topBarImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named:"Grabber"))
-        // imageView.backgroundColor = .gray // Assuming you want a gray bar
-        imageView.alpha = 1.0  // Set opacity to 0 as specified
-        //imageView.layer.cornerRadius = 2.5
+        let imageView = UIImageView(image: UIImage(named: "Grabber"))
+        imageView.alpha = 1.0
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        // imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -57,39 +58,42 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     private let previewCollectionView: UICollectionView = {
         let layout = CenteredFlowLayoutForPreviewsCollectionView()
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 0, left: (ScreenSize.width - 154)/2, bottom: 0, right:  (ScreenSize.width - 154)/2)
-        layout.scrollDirection = .horizontal // Set the scroll direction to horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.width - 154) / 2, bottom: 0, right: (UIScreen.main.bounds.width - 154) / 2)
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.showsHorizontalScrollIndicator = false // Optional: Hide the horizontal scroll indicator
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
     private let printButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Print", for: .normal)
-        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
-        button.backgroundColor = Appearance.signatureBlue
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        button.backgroundColor = UIColor.systemBlue
         button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 24.scale
+        button.layer.cornerRadius = 24
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handlePrintButton), for: .touchUpInside)
         return button
     }()
+    
     @objc func handlePrintButton() {
         if let printer = PrinterManager.shared.getConnectedPrinter() {
-           // PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, text: "Для исправления проблемы наложения текста при печати 16 копий на одном листе, когда текст оказывается слишком большим для выделенных областей, можно использовать более адаптивный подход к определению размера шрифта. В этом случае нам нужно обеспечить, что текст полностью умещается в заданной области, и если необходимо, уменьшить размер шрифта даже ниже предыдущего минимального порога в 6 пунктов, или же изменить методику расчёта размера шрифта, чтобы он динамически адаптировался к размеру области.")
-            
-           // PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies:self.copies, pagesPerSheet: self.pagesPerSheet, image: UIImage(named: "Printer.Access")!)
-            PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: 1, pagesPerSheet: 1, renderer: textRenderer)
+            for textRenderer in textRenderers {
+                PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, renderer: textRenderer)
+            }
         } else {
-              print("Printer is not configured or unavailable.")
-          }
+            print("Printer is not configured or unavailable.")
+        }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Appearance.mainViewBackground
@@ -103,6 +107,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         previewCollectionView.register(PreviewCell.self, forCellWithReuseIdentifier: PreviewCell.identifier)
         
         setupUI()
+        generatePreviews() // Generate previews when the view loads
     }
     
     private func setupUI() {
@@ -114,53 +119,65 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         view.addSubview(topBarImageView)
         
         NSLayoutConstraint.activate([
-            topBarImageView.widthAnchor.constraint(equalToConstant: 36.scale),
-            topBarImageView.heightAnchor.constraint(equalToConstant: 5.scale),
-            topBarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 4.scale),
+            topBarImageView.widthAnchor.constraint(equalToConstant: 36),
+            topBarImageView.heightAnchor.constraint(equalToConstant: 5),
+            topBarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 4),
             topBarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            printOptionsTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24.scale),
+            printOptionsTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
             printOptionsTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             printOptionsTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            printOptionsTitle.heightAnchor.constraint(equalToConstant: 30.scale)
+            printOptionsTitle.heightAnchor.constraint(equalToConstant: 30)
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: printOptionsTitle.bottomAnchor, constant: 20.scale),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 10.scale),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -10.scale),
-            collectionView.heightAnchor.constraint(equalToConstant: 293.scale)
+            collectionView.topAnchor.constraint(equalTo: printOptionsTitle.bottomAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            collectionView.heightAnchor.constraint(equalToConstant: 293)
         ])
         
         NSLayoutConstraint.activate([
-            previewLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20.scale),
+            previewLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
             previewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            previewLabel.widthAnchor.constraint(equalToConstant: 96.scale),
-            previewLabel.heightAnchor.constraint(equalToConstant: 29.scale)
+            previewLabel.widthAnchor.constraint(equalToConstant: 96),
+            previewLabel.heightAnchor.constraint(equalToConstant: 29)
         ])
         
         NSLayoutConstraint.activate([
-            previewCollectionView.topAnchor.constraint(equalTo: previewLabel.bottomAnchor, constant: 20.scale),
+            previewCollectionView.topAnchor.constraint(equalTo: previewLabel.bottomAnchor, constant: 20),
             previewCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             previewCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            previewCollectionView.heightAnchor.constraint(equalToConstant: 226.scale) // Height for the preview collection view
+            previewCollectionView.heightAnchor.constraint(equalToConstant: 226)
         ])
+        
         NSLayoutConstraint.activate([
-            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: 20.scale),
+            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: 5),
             printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            printButton.widthAnchor.constraint(equalToConstant: 358.scale),
-            printButton.heightAnchor.constraint(equalToConstant: 66.scale)
+            printButton.widthAnchor.constraint(equalToConstant: 358),
+            printButton.heightAnchor.constraint(equalToConstant: 66)
         ])
+    }
+    
+    private func generatePreviews() {
+        previews.removeAll() // Clear existing previews
+        for textRenderer in textRenderers {
+            textRenderer.pagesPerSheet = self.pagesPerSheet // Update pagesPerSheet before generating the preview
+            let pdfData = textRenderer.pdfData()
+            if let previewImage = textRenderer.createImageFromPDFData(pdfData: pdfData) {
+                previews.append(previewImage)
+            }
+        }
+        previewCollectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionView {
             return options.count
         } else if collectionView == self.previewCollectionView {
-            // Return the count for the preview items
-            return previews.count // Assume you have a similar array for previews
+            return previews.count
         }
         return 0
     }
@@ -172,14 +189,13 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterOptionCell.identifier, for: indexPath) as? PrinterOptionCell else {
                     return UICollectionViewCell()
                 }
-                if PrinterManager.shared.currentlyConnectedPrinterURL != nil {
-                    let currentlyConnectedPrinterURL = PrinterManager.shared.currentlyConnectedPrinterURL!
-                    let printerName = PrinterManager.shared.getPrinterName(for: currentlyConnectedPrinterURL)!
-                    let cleanedPrinterName = printerName.filter { $0 != "\"" }  // Remove all " characters
-                    let truncatedPrinterName = String(cleanedPrinterName.prefix(10))  // Keep only the first 10 characters
-                    print(truncatedPrinterName)
-                    cell.configure(with: "Printer", detail: "\(truncatedPrinterName)")
-                    return cell
+                if let currentlyConnectedPrinterURL = PrinterManager.shared.currentlyConnectedPrinterURL {
+                    if let printerName = PrinterManager.shared.getPrinterName(for: currentlyConnectedPrinterURL) {
+                        let cleanedPrinterName = printerName.filter { $0 != "\"" }
+                        let truncatedPrinterName = String(cleanedPrinterName.prefix(10))
+                        cell.configure(with: "Printer", detail: "\(truncatedPrinterName)")
+                        return cell
+                    }
                 } else {
                     cell.configure(with: "Printer", detail: "not selected")
                 }
@@ -189,7 +205,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CopiesOptionCell.identifier, for: indexPath) as? CopiesOptionCell else {
                     return UICollectionViewCell()
                 }
-                cell.configure(with: "Copy",count: 1)
+                cell.configure(with: "Copy", count: 1)
                 cell.delegate = self
                 return cell
                 
@@ -201,14 +217,13 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                 return cell
                 
             default:
-                return UICollectionViewCell()  // Return an empty cell if none of the cases match
+                return UICollectionViewCell()
             }
         } else if collectionView == self.previewCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else {
                 return UICollectionViewCell()
             }
-            // Configure the cell with preview-specific data
-            cell.configure(with: previews[indexPath.row], description: "page \(indexPath.item+1) of \(previews.count)") // Assume configuration method
+            cell.configure(with: previews[indexPath.row], description: "page \(indexPath.item + 1) of \(previews.count)")
             return cell
         }
         return UICollectionViewCell()
@@ -218,29 +233,31 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         if collectionView == self.collectionView {
             print("Selected Option: \(options[indexPath.row])")
         } else if collectionView == self.previewCollectionView {
-            print("Selected Preview: \(previews[indexPath.row])") // Log preview selection
+            print("Selected Preview: \(previews[indexPath.row])")
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.collectionView {
-            return CGSize(width: 326, height: indexPath.row == 2 ? 136 : 64) // Sizes for the main options
+            return CGSize(width: 326, height: indexPath.row == 2 ? 136 : 64)
         } else if collectionView == self.previewCollectionView {
-            // Define sizes for the preview collection view items
-            return CGSize(width: 154, height: 200) // Example size for all preview cells
+            return CGSize(width: 154, height: 200)
         }
         return CGSize.zero
     }
 }
+
 extension PrintOptionsViewController: CopiesOptionCellDelegate {
     func copiesOptionCell(cell: CopiesOptionCell, didChangeCopiesTo count: Int) {
         self.copies = count
         print("Updated copies to \(count)")
     }
 }
+
 extension PrintOptionsViewController: PegesPerSheetOptionCellDelegate {
     func pagesPerSheetOptionCell(cell: PegesPerSheetOptionCell, didChangePagesPerSheetTo pages: Int) {
         self.pagesPerSheet = pages
         print("Updated pages per sheet to \(pages)")
+        generatePreviews() // Regenerate previews when pages per sheet option changes
     }
 }

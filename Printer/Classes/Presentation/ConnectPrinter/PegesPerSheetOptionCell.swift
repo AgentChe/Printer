@@ -6,12 +6,15 @@
 //
 
 import UIKit
+
 protocol PegesPerSheetOptionCellDelegate: AnyObject {
     func pagesPerSheetOptionCell(cell: PegesPerSheetOptionCell, didChangePagesPerSheetTo pages: Int)
 }
+
 class PegesPerSheetOptionCell: UICollectionViewCell {
     static let identifier = "PagesPerSheetOptionCell"
     weak var delegate: PegesPerSheetOptionCellDelegate?
+    
     // UI Components
     let layout = UICollectionViewFlowLayout()
     let pagesPerSheetLabel = UILabel()
@@ -34,18 +37,18 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
     func setupLabels() {
         // Set up the 'Pages per sheet' label
         pagesPerSheetLabel.text = "Pages per sheet"
-        pagesPerSheetLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)  // SF Pro weight 590 is close to UIFontWeightSemibold
+        pagesPerSheetLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         pagesPerSheetLabel.textAlignment = .left
-        pagesPerSheetLabel.textColor = .black  // Assuming a black color for visibility
+        pagesPerSheetLabel.textColor = .black
         pagesPerSheetLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(pagesPerSheetLabel)
     }
     
     func setupCollectionView() {
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 44.scale, height: 68.scale)  // Adjust the cell size as needed
-        layout.minimumInteritemSpacing = 15.scale  // Set minimum spacing between cells, adjust as needed
-        layout.minimumLineSpacing = 15.scale
+        layout.itemSize = CGSize(width: 44, height: 68)
+        layout.minimumInteritemSpacing = 12
+        layout.minimumLineSpacing = 12
         
         pagesPerSheetCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         pagesPerSheetCollectionView.backgroundColor = .clear
@@ -65,16 +68,16 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             // Pages per sheet label constraints
-            pagesPerSheetLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10.scale),
+            pagesPerSheetLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             pagesPerSheetLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             pagesPerSheetLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pagesPerSheetLabel.heightAnchor.constraint(equalToConstant: 20.scale),
+            pagesPerSheetLabel.heightAnchor.constraint(equalToConstant: 20),
             
             // Collection view constraints updated to be below the label
-            pagesPerSheetCollectionView.topAnchor.constraint(equalTo: pagesPerSheetLabel.bottomAnchor, constant: 20.scale),
+            pagesPerSheetCollectionView.topAnchor.constraint(equalTo: pagesPerSheetLabel.bottomAnchor, constant: 20),
             pagesPerSheetCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             pagesPerSheetCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pagesPerSheetCollectionView.heightAnchor.constraint(equalToConstant: 70.scale)
+            pagesPerSheetCollectionView.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
 }
@@ -83,20 +86,20 @@ extension PegesPerSheetOptionCell: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pagesOptions.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Iterate through all cells and update their selected state
         for cell in collectionView.visibleCells {
             if let customCell = cell as? PagesPerSheetCell {
-                customCell.isSelected = false  // Deselect all cells
+                customCell.isSelected = false
             }
         }
-        // Select the tapped cell
         if let cell = collectionView.cellForItem(at: indexPath) as? PagesPerSheetCell {
             cell.isSelected = true
             let selectedPages = pagesOptions[indexPath.item]
             delegate?.pagesPerSheetOptionCell(cell: self, didChangePagesPerSheetTo: selectedPages)
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? PagesPerSheetCell {
             cell.isSelected = false
@@ -134,6 +137,3 @@ extension PegesPerSheetOptionCell: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
 }
-
-
-
