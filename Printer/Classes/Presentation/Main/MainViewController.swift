@@ -123,6 +123,9 @@ extension MainViewController: MainViewDelegate {
             openDropbox()
         case "Email":
             print("Selected Email action")
+            let mailVC = MailViewController()
+            mailVC.modalPresentationStyle = .fullScreen
+            present(mailVC, animated: true, completion: nil)
         case "Test Print":
             print("Selected Test Print action")
         default:

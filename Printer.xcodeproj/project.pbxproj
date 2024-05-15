@@ -79,6 +79,8 @@
 		A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */; };
 		A30EF7BE2BF3C02100B93D6F /* AlignCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */; };
 		A30EF7C12BF40F7600B93D6F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7C02BF40F7600B93D6F /* WebViewController.swift */; };
+		A33EB8132BF4557500616190 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8122BF4557500616190 /* MailViewController.swift */; };
+		A33EB8152BF455B100616190 /* StepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8142BF455B100616190 /* StepCell.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -261,6 +263,8 @@
 		A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
 		A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignCell.swift; sourceTree = "<group>"; };
 		A30EF7C02BF40F7600B93D6F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		A33EB8122BF4557500616190 /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
+		A33EB8142BF455B100616190 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -582,6 +586,14 @@
 			children = (
 			);
 			path = WebPages;
+			sourceTree = "<group>";
+		};
+		A33EB8112BF4556400616190 /* Email */ = {
+			isa = PBXGroup;
+			children = (
+				A33EB8122BF4557500616190 /* MailViewController.swift */,
+			);
+			path = Email;
 			sourceTree = "<group>";
 		};
 		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
@@ -1009,12 +1021,14 @@
 				A30EF7C02BF40F7600B93D6F /* WebViewController.swift */,
 				DEDF918D2BD95438004340C0 /* MainView.swift */,
 				A30715262BF379D600667526 /* Files */,
+				A33EB8112BF4556400616190 /* Email */,
 				A30715232BF3798E00667526 /* Photos */,
 				A30EF7B52BF3B05C00B93D6F /* Dropbox */,
 				A30EF7BA2BF3BB3700B93D6F /* Notes */,
 				A30EF7BF2BF40F4F00B93D6F /* WebPages */,
 				A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
+				A33EB8142BF455B100616190 /* StepCell.swift */,
 				A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */,
 				A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */,
 				A30715092BEF4C0F00667526 /* PrinterConnectedStatusCell.swift */,
@@ -1323,6 +1337,7 @@
 				A30715012BEDF61300667526 /* PrinterCell.swift in Sources */,
 				DEDF91232BD7B07C004340C0 /* ProductPrice.swift in Sources */,
 				DEDF90F62BD7B07C004340C0 /* Fonts.swift in Sources */,
+				A33EB8132BF4557500616190 /* MailViewController.swift in Sources */,
 				DEDF90E32BD7B07C004340C0 /* TapAreaButton.swift in Sources */,
 				A37735FE2BEC470100FCD54F /* ConnectPrinterViewController.swift in Sources */,
 				DEDF91A02BD9565E004340C0 /* PaygateView.swift in Sources */,
@@ -1334,6 +1349,7 @@
 				A30715152BF18CF900667526 /* PrinterOptionCell.swift in Sources */,
 				A377360A2BEC756800FCD54F /* Wi-fi(Network).swift in Sources */,
 				DEDF919D2BD9565E004340C0 /* PaygateInfoCell.swift in Sources */,
+				A33EB8152BF455B100616190 /* StepCell.swift in Sources */,
 				A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */,
 				DEDF90EF2BD7B07C004340C0 /* RestAPITransport.swift in Sources */,
 				A301E1BF2BE5448500A5F9EC /* ScannerViewController.swift in Sources */,
