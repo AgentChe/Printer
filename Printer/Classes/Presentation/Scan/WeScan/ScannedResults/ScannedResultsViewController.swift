@@ -13,7 +13,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         let layout = CenteredFlowLayout()
         layout.itemSize = CGSize(width: 325.scale, height: 459.scale)
         layout.scrollDirection = .horizontal
-        let sideInset = (ScreenSize.width.scale - 325.scale)/2 + layout.minimumLineSpacing
+        let sideInset = (ScreenSize.width.scale - 325.scale) / 2 + layout.minimumLineSpacing
         layout.sectionInset = UIEdgeInsets(top: 0, left: sideInset, bottom: 0, right: sideInset)
         return UICollectionView(frame: .zero, collectionViewLayout: layout)
     }()
@@ -41,7 +41,6 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
-        
         view.addSubview(collectionView)
         view.addSubview(printButton)
         view.addSubview(saveButton)
@@ -49,7 +48,10 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         setupCollectionView()
         setupButtons()
         setupNavigationBar()
+        
+        printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
     }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         let tabBarVC = findRootTabBarController()
@@ -60,14 +62,12 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
-        //collectionView.isPagingEnabled = true
-        //collectionView.decelerationRate = .fast
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         collectionView.backgroundColor = .white
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor,constant: ScreenSize.isIphoneXFamily ? 10.scale : 20.scale),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: ScreenSize.isIphoneXFamily ? 10.scale : 20.scale),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
@@ -78,50 +78,45 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.bottomAnchor.constraint(equalTo: printButton.topAnchor, constant:ScreenSize.isIphoneXFamily ? -10.scale:-20.scale),
+            collectionView.bottomAnchor.constraint(equalTo: printButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? -10.scale : -20.scale),
             printButton.widthAnchor.constraint(equalToConstant: 358.scale),
             printButton.heightAnchor.constraint(equalToConstant: 68.scale),
             printButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            printButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -105.scale:-50.scale),
+            printButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -105.scale : -50.scale),
             
             saveButton.heightAnchor.constraint(equalToConstant: 50),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:ScreenSize.isIphoneXFamily ? -50.scale:0.scale)
+            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -50.scale : 0.scale)
         ])
     }
-    
+
     private func setupNavigationBar() {
         self.title = "Scan \(formattedCurrentDate())"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
     }
+
     private func formattedCurrentDate() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yy" // You can change this to "MM-dd-yyyy", etc., based on your preference.
+        dateFormatter.dateFormat = "dd-MM-yy"
         return dateFormatter.string(from: Date())
     }
-    @objc private func shareTapped() {
-        var itemsToShare = [Any]()  // Create an array to hold the items to share
 
-        // Collect images from the data source
+    @objc private func shareTapped() {
+        var itemsToShare = [Any]()
         for scanResult in ImageManager.shared.imageScans {
             if let image = scanResult.enhancedScan?.image {
                 itemsToShare.append(image)
             }
         }
-
-        // Check if there are items to share
         if itemsToShare.isEmpty {
             showAlert(with: "No Images", message: "There are no images to share.")
             return
         }
-
-        // Add a descriptive text to the share items
-        let message = "Sharing \(itemsToShare.count) image\(itemsToShare.count > 1 ? "s":"")."
-        itemsToShare.insert(message, at: 0)  // Add the message as the first item to share
-
-        // Create and present the activity view controller
+        let message = "Sharing \(itemsToShare.count) image\(itemsToShare.count > 1 ? "s" : "")."
+        itemsToShare.insert(message, at: 0)
+        
         let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view  // For iPads
+        activityViewController.popoverPresentationController?.sourceView = self.view
         self.present(activityViewController, animated: true, completion: nil)
     }
 
@@ -131,9 +126,17 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         self.present(alert, animated: true)
     }
 
-    
+    @objc private func printButtonTapped() {
+        let printOptionsVC = PrintOptionsViewController()
+        let images = ImageManager.shared.imageScans.compactMap { $0.enhancedScan?.image }
+        let imageRenderer = CustomPrintImagePageRenderer()
+        imageRenderer.printImages = images
+        printOptionsVC.imageRenderers = [imageRenderer]
+        present(printOptionsVC, animated: true, completion: nil)
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ImageManager.shared.getImageScansCount() // Number of items
+        return ImageManager.shared.getImageScansCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -143,5 +146,5 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         cell.collectionView = collectionView
         cell.parentVC = self
         return cell
-    }}
- 
+    }
+}
