@@ -9,26 +9,15 @@ protocol CopiesOptionCellDelegate: AnyObject {
 
 class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var textRenderers: [CustomPrintTextPageRenderer] = [] // Ensure this is initialized appropriately
-    var imageRenderers: [CustomPrintImagePageRenderer] = [] // For handling image renderers
-    var options = ["Option 1", "Option 2", "Option 3"] // Example data
+    var textRenderers: [CustomPrintTextPageRenderer] = []
+    var imageRenderers: [CustomPrintImagePageRenderer] = []
+    var options = ["Option 1", "Option 2", "Option 3"]
     var previews: [UIImage] = []
     var copies: Int = 1
     var pagesPerSheet: Int = 1
     
     var formattedText: NSAttributedString?
-    func notesViewController(_ controller: NotesViewController, didSaveFormattedText text: NSAttributedString) {
-           self.formattedText = text
-           handleFormattedText(text) // Prepare the text for printing
-       }
-    private func handleFormattedText(_ text: NSAttributedString) {
-           let renderer = CustomPrintTextPageRenderer()
-           renderer.printText = text.string // Convert NSAttributedString to String
-           textRenderers.append(renderer) // Add the renderer to the textRenderers array
-           generatePreviews() // Regenerate previews with the new text
-       }
 
-    
     private let topBarImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Grabber"))
         imageView.alpha = 1.0
@@ -100,7 +89,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
             }
             for imageRenderer in imageRenderers {
                 imageRenderer.pagesPerSheet = self.pagesPerSheet
-                imageRenderer.copies = self.copies // Ensure the correct number of copies is set
+                imageRenderer.copies = self.copies
                 PrinterManager.shared.directPrintImageUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, images: imageRenderer.printImages, renderer: imageRenderer)
             }
         } else {
@@ -121,7 +110,8 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         previewCollectionView.register(PreviewCell.self, forCellWithReuseIdentifier: PreviewCell.identifier)
         
         setupUI()
-        generatePreviews() // Generate previews when the view loads
+        generatePreviews()
+        handleFormattedText(formattedText) // Generate previews when the view loads
     }
     
     private func setupUI() {
@@ -175,25 +165,31 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         ])
     }
     
+    private func handleFormattedText(_ text: NSAttributedString?) {
+        guard let text = text else { return }
+        let renderer = CustomPrintTextPageRenderer()
+        renderer.attributedPrintText = text // Set attributed text
+        textRenderers.append(renderer)
+        generatePreviews()
+    }
+    
     private func generatePreviews() {
         previews.removeAll() // Clear existing previews
         for textRenderer in textRenderers {
-            textRenderer.pagesPerSheet = self.pagesPerSheet // Update pagesPerSheet before generating the preview
+            textRenderer.pagesPerSheet = self.pagesPerSheet
             let pdfData = textRenderer.pdfData()
             if let previewImage = textRenderer.createImageFromPDFData(pdfData: pdfData) {
                 previews.append(previewImage)
             }
         }
         for imageRenderer in imageRenderers {
-            imageRenderer.pagesPerSheet = self.pagesPerSheet // Update pagesPerSheet for image renderer
-            imageRenderer.copies = self.copies // Set the correct number of copies
-
+            imageRenderer.pagesPerSheet = self.pagesPerSheet
+            imageRenderer.copies = self.copies
             for image in imageRenderer.printImages {
                 let individualImageRenderer = CustomPrintImagePageRenderer()
                 individualImageRenderer.pagesPerSheet = imageRenderer.pagesPerSheet
                 individualImageRenderer.copies = imageRenderer.copies
                 individualImageRenderer.printImages = [image]
-
                 let pdfData = individualImageRenderer.pdfData()
                 if let previewImage = individualImageRenderer.createImageFromPDFData(pdfData: pdfData) {
                     previews.append(previewImage)

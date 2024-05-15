@@ -1,24 +1,11 @@
-//
-//  NotesViewController.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/14/24.
-//
-
 import UIKit
+
 protocol NotesViewControllerDelegate: AnyObject {
     func notesViewController(_ controller: NotesViewController, didSaveFormattedText text: NSAttributedString)
 }
 
 class NotesViewController: UIViewController {
-    weak var delegate: NotesViewControllerDelegate?
-    @objc private func dismissViewController() {
-         // Send the formatted text to the delegate before dismissing
-         delegate?.notesViewController(self, didSaveFormattedText: textView.attributedText)
-         dismiss(animated: true, completion: nil)
-     }
-    
-    
+
     private let textView = UITextView()
     private let fontCollectionView: UICollectionView
     private let alignCollectionView: UICollectionView
@@ -26,6 +13,8 @@ class NotesViewController: UIViewController {
 
     private let fonts = ["Arial", "Times New Roman", "Sf Pro"]
     private let alignments: [NSTextAlignment] = [.left, .center, .right, .justified]
+
+    weak var delegate: NotesViewControllerDelegate?
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         let fontLayout = UICollectionViewFlowLayout()
@@ -49,27 +38,7 @@ class NotesViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    @objc private func printButtonTapped() {
-          let printController = UIPrintInteractionController.shared
-          let printInfo = UIPrintInfo(dictionary: nil)
-          printInfo.outputType = .general
-          printInfo.jobName = "Print Note"
-          printController.printInfo = printInfo
 
-          let formatter = UISimpleTextPrintFormatter(attributedText: textView.attributedText)
-          formatter.startPage = 0
-          formatter.contentInsets = UIEdgeInsets(top: 72, left: 72, bottom: 72, right: 72)
-          formatter.maximumContentWidth = 6 * 72
-          printController.printFormatter = formatter
-
-          printController.present(animated: true, completionHandler: { printController, completed, error in
-              if !completed, let error = error {
-                  print("Failed to print: \(error.localizedDescription)")
-              } else {
-                  print("Print completed")
-              }
-          })
-      }
     private func setupViews() {
         view.backgroundColor = Appearance.mainViewBackground
 
@@ -79,7 +48,6 @@ class NotesViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
 
-        // Add dismiss button with image
         let dismissButton = UIButton(type: .system)
         let closeImage = UIImage(named: "Paygate.Close")?.withRenderingMode(.alwaysOriginal)
         dismissButton.setImage(closeImage, for: .normal)
@@ -96,14 +64,13 @@ class NotesViewController: UIViewController {
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         view.addSubview(textView)
 
-        // Set the attributed text for the textView
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4 // Adjust this value as needed
+        paragraphStyle.lineSpacing = 4
 
         let attributedText = NSMutableAttributedString(
             string: "AA\n",
             attributes: [
-                .font: UIFont.boldSystemFont(ofSize: 24), // Larger font size for AA
+                .font: UIFont.boldSystemFont(ofSize: 24),
                 .paragraphStyle: paragraphStyle
             ]
         )
@@ -114,7 +81,6 @@ class NotesViewController: UIViewController {
                 .paragraphStyle: paragraphStyle
             ]
         )
-        
         attributedText.append(userText)
         textView.attributedText = attributedText
 
@@ -144,21 +110,19 @@ class NotesViewController: UIViewController {
         alignCollectionView.register(AlignCell.self, forCellWithReuseIdentifier: AlignCell.identifier)
         view.addSubview(alignCollectionView)
 
-        // Add print button
         printButton.setTitle("Print", for: .normal)
         printButton.backgroundColor = UIColor(red: 0.18, green: 0.36, blue: 1.00, alpha: 1.00)
         printButton.setTitleColor(.white, for: .normal)
         printButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
         printButton.layer.cornerRadius = 24
         printButton.translatesAutoresizingMaskIntoConstraints = false
+        printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
         view.addSubview(printButton)
 
         setupConstraints(titleLabel: titleLabel, dismissButton: dismissButton, fontLabel: fontLabel, alignLabel: alignLabel, printButton: printButton)
 
-        // Add tap gesture recognizer to the view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideTextView(_:)))
-        tapGesture.cancelsTouchesInView = false // Allow touches to pass through
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
 
@@ -197,7 +161,6 @@ class NotesViewController: UIViewController {
             alignCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             alignCollectionView.heightAnchor.constraint(equalToConstant: 50),
 
-            // Print button constraints
             printButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             printButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
@@ -208,24 +171,32 @@ class NotesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delay(0.1) { [self] in
-            // Select the first font cell by default
             let defaultFontIndexPath = IndexPath(item: 0, section: 0)
             fontCollectionView.selectItem(at: defaultFontIndexPath, animated: false, scrollPosition: [])
             collectionView(fontCollectionView, didSelectItemAt: defaultFontIndexPath)
 
-            // Select the first alignment cell by default
             let defaultAlignIndexPath = IndexPath(item: 0, section: 0)
             alignCollectionView.selectItem(at: defaultAlignIndexPath, animated: false, scrollPosition: [])
             collectionView(alignCollectionView, didSelectItemAt: defaultAlignIndexPath)
         }
     }
 
-   
+    @objc private func dismissViewController() {
+        delegate?.notesViewController(self, didSaveFormattedText: textView.attributedText)
+        dismiss(animated: true, completion: nil)
+    }
+
     @objc private func handleTapOutsideTextView(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: view)
         if !textView.frame.contains(location) {
             textView.resignFirstResponder()
         }
+    }
+
+    @objc private func printButtonTapped() {
+        let printOptionsVC = PrintOptionsViewController()
+        printOptionsVC.formattedText = textView.attributedText
+        present(printOptionsVC, animated: true, completion: nil)
     }
 }
 
@@ -255,8 +226,6 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == fontCollectionView {
             let selectedFont = fonts[indexPath.item]
-
-            // Update the font of the entire textView content with consistent size and weight differences
             let largeFontSize: CGFloat = 24
             let smallFontSize: CGFloat = 17
 
@@ -276,12 +245,12 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }
 
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 4 // Adjust this value as needed
+            paragraphStyle.lineSpacing = 4
 
             let attributedText = NSMutableAttributedString(
                 string: "AA\n",
                 attributes: [
-                    .font: largeFont, // Larger font size for AA
+                    .font: largeFont,
                     .paragraphStyle: paragraphStyle
                 ]
             )
