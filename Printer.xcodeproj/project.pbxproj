@@ -81,6 +81,7 @@
 		A30EF7C12BF40F7600B93D6F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7C02BF40F7600B93D6F /* WebViewController.swift */; };
 		A33EB8132BF4557500616190 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8122BF4557500616190 /* MailViewController.swift */; };
 		A33EB8152BF455B100616190 /* StepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8142BF455B100616190 /* StepCell.swift */; };
+		A33EB8172BF4A7A900616190 /* DropboxFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8162BF4A7A900616190 /* DropboxFilesViewController.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
 		A355C2A82BE090B60064E1F1 /* MainView+DelegateMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */; };
@@ -265,6 +266,7 @@
 		A30EF7C02BF40F7600B93D6F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		A33EB8122BF4557500616190 /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		A33EB8142BF455B100616190 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
+		A33EB8162BF4A7A900616190 /* DropboxFilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropboxFilesViewController.swift; path = /Users/nkhsnv/Documents/Printer/Printer/Classes/Presentation/Main/Dropbox/DropboxFilesViewController.swift; sourceTree = "<absolute>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView+DelegateMethods.swift"; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 		A30EF7B52BF3B05C00B93D6F /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
+				A33EB8162BF4A7A900616190 /* DropboxFilesViewController.swift */,
 				A30EF7B62BF3B07300B93D6F /* Dropbox.swift */,
 			);
 			path = Dropbox;
@@ -1391,6 +1394,7 @@
 				A301E1C02BE5448500A5F9EC /* ShutterButton.swift in Sources */,
 				A301E18C2BE5448500A5F9EC /* EditScanViewController.swift in Sources */,
 				DEDF90E72BD7B07C004340C0 /* UIApplication+Extension.swift in Sources */,
+				A33EB8172BF4A7A900616190 /* DropboxFilesViewController.swift in Sources */,
 				DEDF910E2BD7B07C004340C0 /* SplashView.swift in Sources */,
 				A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */,
 				A301E1872BE5448500A5F9EC /* Error.swift in Sources */,
