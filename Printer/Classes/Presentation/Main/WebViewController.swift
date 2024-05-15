@@ -6,10 +6,11 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     private let webView = WKWebView()
     private let toolbar = UIToolbar()
     private let addressTextFieldHeight: CGFloat = 44.0  // Height of the addressTextField
+    private let addressTextFieldWidth: CGFloat = 250.0  // Desired width for the addressTextField
 
     private lazy var addressTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter URL"
+        textField.placeholder = "Enter URL or search query"
         textField.borderStyle = .roundedRect
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
@@ -17,18 +18,22 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         textField.returnKeyType = .go
         textField.clearButtonMode = .whileEditing
         textField.delegate = self
+        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    
     private lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(goBack))
         button.isEnabled = false
         return button
     }()
+    
     private lazy var forwardButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: #selector(goForward))
         button.isEnabled = false
         return button
     }()
+    
     private lazy var reloadButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadPage))
         return button
@@ -47,7 +52,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         toolbarBottomConstraint = toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -96,7 +101,12 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     private func setupToolbar() {
         let addressBar = UIBarButtonItem(customView: addressTextField)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        toolbar.items = [backButton, forwardButton, flexibleSpace, addressBar, flexibleSpace, reloadButton]
+        
+        NSLayoutConstraint.activate([
+            addressTextField.widthAnchor.constraint(equalToConstant: addressTextFieldWidth)
+        ])
+        
+        toolbar.items = [backButton, forwardButton, addressBar, reloadButton]
     }
     
     private func loadInitialWebPage() {
@@ -141,7 +151,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
            let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
             
             let keyboardHeight = keyboardFrame.height
-            toolbarBottomConstraint.constant = -keyboardHeight + (ScreenSize.isIphoneXFamily ? addressTextField.frame.height:0)
+            toolbarBottomConstraint.constant = -keyboardHeight + (ScreenSize.isIphoneXFamily ? addressTextField.frame.height : 0)
             
             UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve << 16), animations: {
                 self.view.layoutIfNeeded()
@@ -163,12 +173,44 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let urlString = textField.text, let url = URL(string: urlString) {
-            let request = URLRequest(url: url)
-            webView.load(request)
+        if let urlString = textField.text {
+            processAddressInput(urlString)
         }
         textField.resignFirstResponder()
         return true
+    }
+    
+    private func processAddressInput(_ input: String) {
+        let trimmedInput = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        // Check if the input contains ".com"
+        if trimmedInput.contains(".com") {
+            var urlString = trimmedInput
+            
+            // If no scheme, add "https://"
+            if !urlString.hasPrefix("http://") && !urlString.hasPrefix("https://") {
+                urlString = "https://" + urlString
+            }
+            
+            if let url = URL(string: urlString) {
+                loadURL(url)
+            }
+        } else {
+            // If the input is not a URL with ".com", perform a Google search
+            performGoogleSearch(query: trimmedInput)
+        }
+    }
+    
+    private func loadURL(_ url: URL) {
+        let request = URLRequest(url: url)
+        webView.load(request)
+    }
+    
+    private func performGoogleSearch(query: String) {
+        let searchQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        if let searchURL = URL(string: "https://www.google.com/search?q=\(searchQuery)") {
+            loadURL(searchURL)
+        }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
