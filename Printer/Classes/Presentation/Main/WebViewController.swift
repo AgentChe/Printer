@@ -66,9 +66,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         
         toolbarBottomConstraint = toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         
-        // Determine the toolbar height based on the device type
-        let isIphoneXOrLater = UIDevice.current.userInterfaceIdiom == .phone && (UIScreen.main.nativeBounds.height >= 2436)
-        let toolbarHeight: CGFloat = ScreenSize.isIphoneXFamily ? 55.0 : 55.0
+        let toolbarHeight: CGFloat = 55.0
         
         toolbarHeightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
         
@@ -129,7 +127,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
             addressTextField.heightAnchor.constraint(equalToConstant: addressTextFieldHeight)
         ])
         
-        toolbar.items = [backButton, forwardButton, addressBar, reloadButton]
+        toolbar.items = [backButton, forwardButton, flexibleSpace, addressBar, flexibleSpace, reloadButton]
     }
     
     private func loadInitialWebPage() {
@@ -206,11 +204,9 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     private func processAddressInput(_ input: String) {
         let trimmedInput = input.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        // Check if the input contains ".com"
         if trimmedInput.contains(".com") {
             var urlString = trimmedInput
             
-            // If no scheme, add "https://"
             if !urlString.hasPrefix("http://") && !urlString.hasPrefix("https://") {
                 urlString = "https://" + urlString
             }
@@ -219,7 +215,6 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
                 loadURL(url)
             }
         } else {
-            // If the input is not a URL with ".com", perform a Google search
             performGoogleSearch(query: trimmedInput)
         }
     }
