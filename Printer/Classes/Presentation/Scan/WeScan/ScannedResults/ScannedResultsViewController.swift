@@ -50,6 +50,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         setupNavigationBar()
         
         printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -134,6 +135,38 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         printOptionsVC.imageRenderers = [imageRenderer]
         present(printOptionsVC, animated: true, completion: nil)
     }
+    
+    @objc private func saveButtonTapped() {
+        let images = ImageManager.shared.imageScans.compactMap { $0.enhancedScan?.image }
+        if images.isEmpty {
+            showAlert(with: "No Images", message: "There are no images to save.")
+            return
+        }
+        saveImagesToFiles(images: images)
+    }
+
+    private func saveImagesToFiles(images: [UIImage]) {
+        var temporaryURLs = [URL]()
+        for (index, image) in images.enumerated() {
+            if let data = image.jpegData(compressionQuality: 1.0) {
+                let temporaryDirectoryURL = FileManager.default.temporaryDirectory
+                let fileName = "Image_\(index).jpeg"
+                let temporaryURL = temporaryDirectoryURL.appendingPathComponent(fileName)
+                do {
+                    try data.write(to: temporaryURL)
+                    temporaryURLs.append(temporaryURL)
+                } catch {
+                    print("Error writing image to temporary file: \(error)")
+                }
+            }
+        }
+
+        if !temporaryURLs.isEmpty {
+            let documentPicker = UIDocumentPickerViewController(forExporting: temporaryURLs, asCopy: true)
+            documentPicker.delegate = self
+            present(documentPicker, animated: true, completion: nil)
+        }
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return ImageManager.shared.getImageScansCount()
@@ -148,3 +181,16 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         return cell
     }
 }
+
+extension ScannedResultsViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        for url in urls {
+            print("Saved to: \(url)")
+        }
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        print("Document picker was cancelled")
+    }
+}
+
