@@ -128,6 +128,9 @@ extension MainViewController: MainViewDelegate {
             present(mailVC, animated: true, completion: nil)
         case "Test Print":
             print("Selected Test Print action")
+            let printTestFileVC = PrintTestFileViewController()
+            printTestFileVC.modalPresentationStyle = .fullScreen
+            self.present(printTestFileVC, animated: true, completion: nil)
         default:
             break
         }
