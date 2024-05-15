@@ -5,13 +5,13 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
 
     private let webView = WKWebView()
     private let toolbar = UIToolbar()
-    private let addressTextFieldHeight: CGFloat = 44.0  // Height of the addressTextField
-    private let addressTextFieldWidth: CGFloat = 250.0  // Desired width for the addressTextField
+    private let addressTextFieldHeight: CGFloat = 37.0  // Height of the addressTextField
+    private let addressTextFieldWidth: CGFloat = 270.0  // Desired width for the addressTextField
 
     private lazy var addressTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter URL or search query"
-        textField.borderStyle = .roundedRect
+        textField.backgroundColor = .white  // Set background color to white
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .URL
@@ -19,27 +19,42 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         textField.clearButtonMode = .whileEditing
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Set corner radius and shadow
+        textField.layer.cornerRadius = 15
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowOffset = CGSize(width: 0, height: 0)
+        textField.layer.shadowOpacity = 0.15
+        textField.layer.shadowRadius = 4
+        textField.layer.masksToBounds = false
+        
+        // Add padding inside the text field
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+        
         return textField
     }()
     
     private lazy var backButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.backward"), style: .plain, target: self, action: #selector(goBack))
-        button.isEnabled = false
+        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.resized(to: CGSize(width: 16, height: 20)), style: .plain, target: self, action: #selector(goBack))
+        button.tintColor = webView.canGoBack ? .blue : .gray
         return button
     }()
     
     private lazy var forwardButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.forward"), style: .plain, target: self, action: #selector(goForward))
-        button.isEnabled = false
+        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.right")?.resized(to: CGSize(width: 16, height: 20)), style: .plain, target: self, action: #selector(goForward))
+        button.tintColor = webView.canGoForward ? .blue : .gray
         return button
     }()
     
     private lazy var reloadButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .plain, target: self, action: #selector(reloadPage))
+        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise")?.resized(to: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(reloadPage))
         return button
     }()
     
     private var toolbarBottomConstraint: NSLayoutConstraint!
+    private var toolbarHeightConstraint: NSLayoutConstraint!
 
     override func loadView() {
         view = UIView()
@@ -51,6 +66,12 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         
         toolbarBottomConstraint = toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         
+        // Determine the toolbar height based on the device type
+        let isIphoneXOrLater = UIDevice.current.userInterfaceIdiom == .phone && (UIScreen.main.nativeBounds.height >= 2436)
+        let toolbarHeight: CGFloat = ScreenSize.isIphoneXFamily ? 55.0 : 55.0
+        
+        toolbarHeightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
+        
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -59,6 +80,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
             
             toolbar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             toolbar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            toolbarHeightConstraint,
             toolbarBottomConstraint
         ])
     }
@@ -103,7 +125,8 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
         NSLayoutConstraint.activate([
-            addressTextField.widthAnchor.constraint(equalToConstant: addressTextFieldWidth)
+            addressTextField.widthAnchor.constraint(equalToConstant: addressTextFieldWidth),
+            addressTextField.heightAnchor.constraint(equalToConstant: addressTextFieldHeight)
         ])
         
         toolbar.items = [backButton, forwardButton, addressBar, reloadButton]
@@ -151,7 +174,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
            let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt {
             
             let keyboardHeight = keyboardFrame.height
-            toolbarBottomConstraint.constant = -keyboardHeight + (ScreenSize.isIphoneXFamily ? addressTextField.frame.height : 0)
+            toolbarBottomConstraint.constant = -keyboardHeight + (UIDevice.current.userInterfaceIdiom == .phone && (UIScreen.main.nativeBounds.height >= 2436) ? addressTextField.frame.height : 0)
             
             UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions(rawValue: curve << 16), animations: {
                 self.view.layoutIfNeeded()
@@ -215,8 +238,8 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         addressTextField.text = webView.url?.absoluteString
-        backButton.isEnabled = webView.canGoBack
-        forwardButton.isEnabled = webView.canGoForward
+        backButton.tintColor = webView.canGoBack ? .blue : .gray
+        forwardButton.tintColor = webView.canGoForward ? .blue : .gray
     }
 }
 
