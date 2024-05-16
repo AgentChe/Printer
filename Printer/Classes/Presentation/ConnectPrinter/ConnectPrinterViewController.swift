@@ -23,7 +23,9 @@ protocol ConnectPrinterCellDelegate: AnyObject {
 class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     var foundPrinters: [UIPrinter]!
     private var collectionView: UICollectionView!
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         foundPrinters = PrinterManager.shared.retrieveAllPrinters()
@@ -59,7 +61,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item % 2 == 0 {
-            return CGSize(width: collectionView.bounds.width, height: 630.scale)
+            return CGSize(width: collectionView.bounds.width, height: 540.scale)
         } else {
             let printerManager = PrinterManager.shared
             if printerManager.hasSavedPrinters() {
@@ -91,6 +93,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AvaliablePrintersCell.availablePrintersCellKey, for: indexPath) as! AvaliablePrintersCell
             cell.foundPrinters = foundPrinters
+            cell.delegate = self
             cell.collectionView.reloadData()
             // Configure cell
             return cell

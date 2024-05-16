@@ -198,7 +198,7 @@ class ConnectPrinterCell: UICollectionViewCell {
         addSubview(closeButton)
         addSubview(bluetoothToggleView)
         addSubview(wifiToggleView)
-        addSubview(addPrinterButton)
+       // addSubview(addPrinterButton)
         addSubview(availablePrintersLabel)
         addSubview(instructionLabel)
         addSubview(showCompatiblePrinterListButton)
@@ -231,12 +231,12 @@ class ConnectPrinterCell: UICollectionViewCell {
             wifiToggleView.widthAnchor.constraint(equalToConstant: 358.scale),
             wifiToggleView.heightAnchor.constraint(equalToConstant: 79.scale),
 
-            addPrinterButton.topAnchor.constraint(equalTo: wifiToggleView.bottomAnchor, constant: 32.scale),
-            addPrinterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addPrinterButton.widthAnchor.constraint(equalToConstant: 144.scale),
-            addPrinterButton.heightAnchor.constraint(equalToConstant: 50.scale),
+//            addPrinterButton.topAnchor.constraint(equalTo: wifiToggleView.bottomAnchor, constant: 32.scale),
+//            addPrinterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            addPrinterButton.widthAnchor.constraint(equalToConstant: 144.scale),
+//            addPrinterButton.heightAnchor.constraint(equalToConstant: 50.scale),
 
-            availablePrintersLabel.topAnchor.constraint(equalTo: addPrinterButton.bottomAnchor, constant: 25.scale),
+            availablePrintersLabel.topAnchor.constraint(equalTo: wifiToggleView.bottomAnchor, constant: 25.scale),
             availablePrintersLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.scale),
             availablePrintersLabel.widthAnchor.constraint(equalToConstant: 270.scale),
             availablePrintersLabel.heightAnchor.constraint(equalToConstant: 29.scale),

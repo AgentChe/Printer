@@ -8,7 +8,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
     var collectionView: UICollectionView!
     private var actionButton: UIButton! // Define the button
     var foundPrinters: [UIPrinter] = []
-    
+    weak var delegate: ConnectPrinterCellDelegate?
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
@@ -48,12 +48,50 @@ class AvaliablePrintersCell: UICollectionViewCell {
         actionButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Set font size and weight
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         actionButton.backgroundColor = .clear
+        actionButton.addTarget(self, action: #selector(selectPrinter), for: .touchUpInside)
         addSubview(actionButton)
         
         NSLayoutConstraint.activate([
             actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 3.scale),
             actionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
+    }
+    @objc func selectPrinter() {
+        let printerPicker = UIPrinterPickerController(initiallySelectedPrinter: nil)
+
+        printerPicker.present(animated: true) { [weak self] (printerPickerController, userDidSelect, error) in
+            if userDidSelect {
+                if let printer = printerPickerController.selectedPrinter {
+                    print("Printer name: \(printer.displayName)")
+                    print("Printer URL: \(printer.url)")
+
+                    let isFirstTimeSaved = PrinterManager.shared.isFirstTimePrinterSaved(printer.url)
+                    PrinterManager.shared.savePrinter(url: printer.url, displayName: printer.displayName)
+
+                    PrinterManager.shared.connectToPrinter(with: printer.url) { printer, error in
+                        if let printer = printer {
+                            print("Ready to print with \(printer.displayName)")
+                            self?.delegate?.reloadCollectionView()
+                            if isFirstTimeSaved {
+                                print("First time connection to \(printer.displayName)")
+                            }
+
+                            if let viewController4Print = self?.parentViewController {
+                                let printTestFileVC = PrintTestFileViewController()
+                                printTestFileVC.modalPresentationStyle = .fullScreen
+                                viewController4Print.present(printTestFileVC, animated: true, completion: nil)
+                            }
+                        }
+                        if let error = error {
+                            if let viewController4Alert = self?.parentViewController {
+                                PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: viewController4Alert)
+                            }
+                            print("Error: \(error.localizedDescription)")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
