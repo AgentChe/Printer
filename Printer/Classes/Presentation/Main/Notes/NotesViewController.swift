@@ -45,6 +45,7 @@ class NotesViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("NotesViewController.Title", comment: "")
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        titleLabel.textColor = Appearance.black // Set the title color to Appearance.black
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
 
@@ -56,11 +57,11 @@ class NotesViewController: UIViewController {
         view.addSubview(dismissButton)
 
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = .white
+        textView.backgroundColor = Appearance.white // Use Appearance.white
         textView.layer.cornerRadius = 20
         textView.layer.borderWidth = 0
         textView.layer.opacity = 1
-        textView.textColor = .gray
+        textView.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         view.addSubview(textView)
 
@@ -111,8 +112,8 @@ class NotesViewController: UIViewController {
         view.addSubview(alignCollectionView)
 
         printButton.setTitle(NSLocalizedString("NotesViewController.Print", comment: ""), for: .normal)
-        printButton.backgroundColor = UIColor(red: 0.18, green: 0.36, blue: 1.00, alpha: 1.00)
-        printButton.setTitleColor(.white, for: .normal)
+        printButton.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
+        printButton.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
         printButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         printButton.layer.cornerRadius = 24
         printButton.translatesAutoresizingMaskIntoConstraints = false
