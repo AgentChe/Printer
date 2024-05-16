@@ -1,6 +1,16 @@
 import UIKit
 
 class MailViewController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
+    private let statusBarBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -30,12 +40,26 @@ class MailViewController: UIViewController {
         view.backgroundColor = Appearance.mainViewBackground // Set background color to Appearance.mainViewBackground
         title = NSLocalizedString("MailViewController.Title", comment: "")
         
+         
         setupCollectionView()
         setupCloseButton()
+        setupStatusBarBackgroundView()
+    }
+    
+    private func setupStatusBarBackgroundView() {
+        view.addSubview(statusBarBackgroundView)
+        
+        // Constraints for the status bar background view
+        NSLayoutConstraint.activate([
+            statusBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statusBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            statusBarBackgroundView.heightAnchor.constraint(equalToConstant: UIApplication.shared.statusBarFrame.height)
+        ])
     }
     
     private func setupCollectionView() {
-        view.addSubview(collectionView)
+        view.insertSubview(collectionView, belowSubview: closeButton)
         collectionView.dataSource = self
         collectionView.delegate = self
         
