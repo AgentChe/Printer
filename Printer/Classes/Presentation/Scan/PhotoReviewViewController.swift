@@ -4,6 +4,9 @@
 import UIKit
 
 class PhotoReviewViewController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     var capturedImage: UIImage?
     var imageView: UIImageView!
     var keepButton: UIButton!

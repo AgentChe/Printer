@@ -15,30 +15,33 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else {
             return
         }
+  
         //DropboxClientsManager.unlinkClients()
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = SplashViewController.make()
         window?.makeKeyAndVisible()
+        
+        
     }
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-         let oauthCompletion: DropboxOAuthCompletion = {
-             if let authResult = $0 {
-                 switch authResult {
-                 case .success:
-                     print("Success! User is logged into Dropbox.")
-                 case .cancel:
-                     print("Authorization flow was manually canceled by user!")
-                 case .error(_, let description):
-                     print("Error: \(description)")
-                 }
-             }
-         }
-         for context in URLContexts {
-             if DropboxClientsManager.handleRedirectURL(context.url, includeBackgroundClient: false, completion: oauthCompletion) {
-                 break
-             }
-         }
-     }
+        let oauthCompletion: DropboxOAuthCompletion = {
+            if let authResult = $0 {
+                switch authResult {
+                case .success:
+                    print("Success! User is logged into Dropbox.")
+                case .cancel:
+                    print("Authorization flow was manually canceled by user!")
+                case .error(_, let description):
+                    print("Error: \(description)")
+                }
+            }
+        }
+        for context in URLContexts {
+            if DropboxClientsManager.handleRedirectURL(context.url, includeBackgroundClient: false, completion: oauthCompletion) {
+                break
+            }
+        }
+    }
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called as the scene is about to move from active to inactive state.
         // This can occur due to temporary interruptions (ex: an incoming phone call).

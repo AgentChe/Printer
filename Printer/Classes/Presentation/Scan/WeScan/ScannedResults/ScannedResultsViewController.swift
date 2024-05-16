@@ -4,7 +4,9 @@
 import UIKit
 
 class ScannedResultsViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     let collectionView: UICollectionView = {
         let layout = CenteredFlowLayout()
         layout.itemSize = CGSize(width: 325.scale, height: 459.scale)

@@ -54,6 +54,8 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 	<key>branch_key</key>
 	<string></string>
 </dict>

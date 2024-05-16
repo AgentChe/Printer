@@ -8,10 +8,13 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
+
         // Initialize all your view controllers
         let mainVC = MainViewController.make()
         let scanVC = ScanViewController()
@@ -35,9 +38,9 @@ class TabBarController: UITabBarController {
         
         // Add them as children of the tab bar controller
         self.viewControllers = [
-            UINavigationController(rootViewController: mainVC),
+            NavigationController(rootViewController: mainVC),
             scanVC,
-            UINavigationController(rootViewController: settingsVC)
+            NavigationController(rootViewController: settingsVC)
         ]
         
         // Customizing the Tab Bar's appearance (optional)

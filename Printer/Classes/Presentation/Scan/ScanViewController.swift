@@ -10,6 +10,9 @@ import AVFoundation
 
 
 class ScanViewController: UIViewController, ImageScannerControllerDelegate {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         

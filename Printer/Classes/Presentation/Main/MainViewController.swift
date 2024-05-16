@@ -12,7 +12,6 @@ import PhotosUI
 import SwiftyDropbox
 
 final class MainViewController: UIViewController {
-    
     private let viewModel = MainViewModel()
     private lazy var mainView = MainView()
     weak var delegate: ConnectPrinterCellDelegate?
@@ -30,7 +29,6 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         delegate = mainView
         mainView.delegate = self
-        
         PrinterManager.shared.connectToLastConnectedPrinter { [weak self] printer, error in
             if let printer = printer {
                 print("Reconnected to the last printer: \(printer.displayName)")

@@ -4,7 +4,9 @@
 import UIKit
 
 class SeekForAccesToScanViewController: UIViewController {
-
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     // UI Components
     private let dismissButton = UIButton(type: .system)
     private let imageView = UIImageView()

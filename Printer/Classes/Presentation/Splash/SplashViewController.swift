@@ -15,7 +15,9 @@ final class SplashViewController: UIViewController {
     override func loadView() {
         view = mainView
     }
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
