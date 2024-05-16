@@ -1,9 +1,5 @@
-//
-//  WiFiToggleView.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/9/24.
-//
+// WiFiToggleView.swift
+// Printer
 
 import UIKit
 
@@ -14,6 +10,7 @@ class WifiToggleView: UIView {
         let imageView = UIImageView(image: UIImage(named: "ToggleView.WiFi"))
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = Appearance.black // Use Appearance.black
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -21,8 +18,9 @@ class WifiToggleView: UIView {
     private let WiFiLabel: UILabel = {
         let label = UILabel()
         label.text = "Wi-fi"
-        label.font = Fonts.SFProDisplay.regular(size: 17) // Customize the font size as needed
+        label.font = Fonts.SFProDisplay.regular(size: 17.scale) // Customize the font size as needed
         label.textColor = Appearance.black // Use Appearance.black
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -30,6 +28,7 @@ class WifiToggleView: UIView {
     private let WiFiSwitch: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ToggleView.SwitchOff")) // Default to off state
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -37,7 +36,7 @@ class WifiToggleView: UIView {
         super.init(frame: frame)
         setupViews()
         backgroundColor = Appearance.white // Use Appearance.white
-        layer.cornerRadius = 24
+        layer.cornerRadius = 24.scale
     }
     
     required init?(coder: NSCoder) {
@@ -49,10 +48,6 @@ class WifiToggleView: UIView {
         addSubview(WiFiIcon)
         addSubview(WiFiLabel)
         addSubview(WiFiSwitch)
-        
-        WiFiIcon.translatesAutoresizingMaskIntoConstraints = false
-        WiFiLabel.translatesAutoresizingMaskIntoConstraints = false
-        WiFiSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             WiFiIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30.scale),

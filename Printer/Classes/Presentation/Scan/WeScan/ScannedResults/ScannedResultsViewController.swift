@@ -1,9 +1,5 @@
-//
 //  ScannedResultsViewController.swift
 //  Printer
-//
-//  Created by Niiaz Khasanov on 5/5/24.
-//
 
 import UIKit
 
@@ -21,25 +17,27 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
     let printButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Print file", for: .normal)
-        button.backgroundColor = Appearance.signatureBlue
-        button.layer.cornerRadius = 24
-        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17)
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = Appearance.signatureBlue // Use Appearance signature color
+        button.layer.cornerRadius = 24.scale
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
+        button.setTitleColor(Appearance.white, for: .normal) // Use Appearance white
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Save to files", for: .normal)
-        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17)
-        button.setTitleColor(Appearance.signatureBlue, for: .normal)
-        button.backgroundColor = UIColor.clear
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
+        button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance signature color
+        button.backgroundColor = .clear
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = Appearance.white // Use Appearance white
         
         view.addSubview(collectionView)
         view.addSubview(printButton)
@@ -64,7 +62,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Appearance.white // Use Appearance white
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -75,9 +73,6 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
     }
 
     private func setupButtons() {
-        printButton.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             collectionView.bottomAnchor.constraint(equalTo: printButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? -10.scale : -20.scale),
             printButton.widthAnchor.constraint(equalToConstant: 358.scale),
@@ -85,7 +80,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
             printButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             printButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -105.scale : -50.scale),
             
-            saveButton.heightAnchor.constraint(equalToConstant: 50),
+            saveButton.heightAnchor.constraint(equalToConstant: 50.scale),
             saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -50.scale : 0.scale)
         ])
@@ -193,4 +188,3 @@ extension ScannedResultsViewController: UIDocumentPickerDelegate {
         print("Document picker was cancelled")
     }
 }
-

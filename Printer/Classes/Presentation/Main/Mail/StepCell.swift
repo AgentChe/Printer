@@ -12,21 +12,21 @@ class StepCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.bold(size: 19) // Set custom font
+        label.font = Fonts.SFProDisplay.bold(size: 19.scale) // Set custom font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
+        label.font = Fonts.SFProDisplay.medium(size: 17.scale) // Set custom font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.regular(size: 16) // Set custom font
+        label.font = Fonts.SFProDisplay.regular(size: 16.scale) // Set custom font
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -48,26 +48,26 @@ class StepCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             // Title Label Constraints
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20.scale),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.scale),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.scale),
             
             // Subtitle Label Constraints
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10.scale),
+            subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.scale),
+            subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.scale),
             
             // Description Label Constraints
-            descriptionLabel.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 10),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            descriptionLabel.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 10.scale),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.scale),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.scale),
             
             // Image View Constraints
-            imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
-            imageView.heightAnchor.constraint(equalToConstant: 150) // Adjust height as needed
+            imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20.scale),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.scale),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.scale),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.scale),
+            imageView.heightAnchor.constraint(equalToConstant: 150.scale) // Adjust height as needed
         ])
     }
     

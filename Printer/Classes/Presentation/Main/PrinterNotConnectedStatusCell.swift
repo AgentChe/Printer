@@ -23,7 +23,7 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "No printer was added"
-        label.font = Fonts.SFProDisplay.bold(size: 19)
+        label.font = Fonts.SFProDisplay.bold(size: 19.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -32,7 +32,7 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
     let subtitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Check your internet connection or add another one"
-        label.font = Fonts.SFProDisplay.regular(size: 16)
+        label.font = Fonts.SFProDisplay.regular(size: 16.scale)
         label.textColor = Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -44,12 +44,12 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = Appearance.signatureBlue // Use Appearance signature blue color
         button.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
-        button.titleLabel?.font = Fonts.SFProDisplay.semiBold(size: 18)
-        button.layer.cornerRadius = 24
+        button.titleLabel?.font = Fonts.SFProDisplay.semiBold(size: 18.scale)
+        button.layer.cornerRadius = 24.scale
         button.isUserInteractionEnabled = true
         button.layer.shadowColor = Appearance.signatureBlue?.cgColor
-        button.layer.shadowOffset = CGSize(width: 0, height: 0)
-        button.layer.shadowRadius = 6
+        button.layer.shadowOffset = CGSize(width: 0.scale, height: 0.scale)
+        button.layer.shadowRadius = 6.scale
         button.layer.shadowOpacity = 0.4
         
         button.addTarget(self, action: #selector(addPrinterButtonTapped), for: .touchUpInside)
@@ -61,7 +61,7 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("Compatible list", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18)
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18.scale)
         button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance signature blue color
         button.addTarget(self, action: #selector(compatibleListButtonTapped), for: .touchUpInside)
         return button
@@ -84,8 +84,8 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        let spacing = CGFloat(10.0) // The space you want between elements
-        let buttonHeight = CGFloat(63.0) // The height of the buttons
+        let spacing = CGFloat(10.0).scale // The space you want between elements
+        let buttonHeight = CGFloat(63.0).scale // The height of the buttons
         
         NSLayoutConstraint.activate([
             // Printer image view constraints
@@ -106,7 +106,7 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
             addPrinterButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             addPrinterButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: (2 * spacing).scale),
             addPrinterButton.widthAnchor.constraint(equalToConstant: 361.scale),
-            addPrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight.scale),
+            addPrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight),
             
             // Compatible list button constraints
             compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),

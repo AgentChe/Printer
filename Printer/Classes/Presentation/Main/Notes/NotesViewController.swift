@@ -19,14 +19,14 @@ class NotesViewController: UIViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         let fontLayout = UICollectionViewFlowLayout()
         fontLayout.scrollDirection = .horizontal
-        fontLayout.minimumLineSpacing = 10
+        fontLayout.minimumLineSpacing = 10.scale
         fontLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 
         fontCollectionView = UICollectionView(frame: .zero, collectionViewLayout: fontLayout)
 
         let alignLayout = UICollectionViewFlowLayout()
         alignLayout.scrollDirection = .horizontal
-        alignLayout.minimumLineSpacing = 10
+        alignLayout.minimumLineSpacing = 10.scale
 
         alignCollectionView = UICollectionView(frame: .zero, collectionViewLayout: alignLayout)
 
@@ -44,7 +44,7 @@ class NotesViewController: UIViewController {
 
         let titleLabel = UILabel()
         titleLabel.text = NSLocalizedString("NotesViewController.Title", comment: "")
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18.scale)
         titleLabel.textColor = Appearance.black // Set the title color to Appearance.black
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
@@ -58,27 +58,27 @@ class NotesViewController: UIViewController {
 
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = Appearance.white // Use Appearance.white
-        textView.layer.cornerRadius = 20
+        textView.layer.cornerRadius = 20.scale
         textView.layer.borderWidth = 0
         textView.layer.opacity = 1
         textView.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        textView.textContainerInset = UIEdgeInsets(top: 16.scale, left: 16.scale, bottom: 16.scale, right: 16.scale)
         view.addSubview(textView)
 
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 4
+        paragraphStyle.lineSpacing = 4.scale
 
         let attributedText = NSMutableAttributedString(
             string: "AA\n",
             attributes: [
-                .font: UIFont.boldSystemFont(ofSize: 24),
+                .font: UIFont.boldSystemFont(ofSize: 24.scale),
                 .paragraphStyle: paragraphStyle
             ]
         )
         let userText = NSAttributedString(
             string: NSLocalizedString("NotesViewController.SampleText", comment: ""),
             attributes: [
-                .font: UIFont.systemFont(ofSize: 17, weight: .medium),
+                .font: UIFont.systemFont(ofSize: 17.scale, weight: .medium),
                 .paragraphStyle: paragraphStyle
             ]
         )
@@ -87,7 +87,7 @@ class NotesViewController: UIViewController {
 
         let fontLabel = UILabel()
         fontLabel.text = NSLocalizedString("NotesViewController.Font", comment: "")
-        fontLabel.font = Fonts.SFProDisplay.bold(size: 17)
+        fontLabel.font = Fonts.SFProDisplay.bold(size: 17.scale)
         fontLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fontLabel)
 
@@ -100,7 +100,7 @@ class NotesViewController: UIViewController {
 
         let alignLabel = UILabel()
         alignLabel.text = NSLocalizedString("NotesViewController.Align", comment: "")
-        alignLabel.font = Fonts.SFProDisplay.bold(size: 17)
+        alignLabel.font = Fonts.SFProDisplay.bold(size: 17.scale)
         alignLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(alignLabel)
 
@@ -114,8 +114,8 @@ class NotesViewController: UIViewController {
         printButton.setTitle(NSLocalizedString("NotesViewController.Print", comment: ""), for: .normal)
         printButton.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
         printButton.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
-        printButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        printButton.layer.cornerRadius = 24
+        printButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18.scale)
+        printButton.layer.cornerRadius = 24.scale
         printButton.translatesAutoresizingMaskIntoConstraints = false
         printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
         view.addSubview(printButton)
@@ -129,43 +129,43 @@ class NotesViewController: UIViewController {
 
     private func setupConstraints(titleLabel: UILabel, dismissButton: UIButton, fontLabel: UILabel, alignLabel: UILabel, printButton: UIButton) {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.scale),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             dismissButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            dismissButton.widthAnchor.constraint(equalToConstant: 18),
-            dismissButton.heightAnchor.constraint(equalToConstant: 20),
+            dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.scale),
+            dismissButton.widthAnchor.constraint(equalToConstant: 18.scale),
+            dismissButton.heightAnchor.constraint(equalToConstant: 20.scale),
 
-            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
-            textView.widthAnchor.constraint(equalToConstant: 361),
-            textView.heightAnchor.constraint(equalToConstant: 312),
+            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16.scale),
+            textView.widthAnchor.constraint(equalToConstant: 361.scale),
+            textView.heightAnchor.constraint(equalToConstant: 312.scale),
             textView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            fontLabel.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 10),
-            fontLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            fontLabel.widthAnchor.constraint(equalToConstant: 38),
-            fontLabel.heightAnchor.constraint(equalToConstant: 20),
+            fontLabel.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 10.scale),
+            fontLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.scale),
+            fontLabel.widthAnchor.constraint(equalToConstant: 38.scale),
+            fontLabel.heightAnchor.constraint(equalToConstant: 20.scale),
 
-            fontCollectionView.topAnchor.constraint(equalTo: fontLabel.bottomAnchor, constant: 16),
-            fontCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            fontCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            fontCollectionView.heightAnchor.constraint(equalToConstant: 50),
+            fontCollectionView.topAnchor.constraint(equalTo: fontLabel.bottomAnchor, constant: 16.scale),
+            fontCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.scale),
+            fontCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.scale),
+            fontCollectionView.heightAnchor.constraint(equalToConstant: 50.scale),
 
-            alignLabel.topAnchor.constraint(equalTo: fontCollectionView.bottomAnchor, constant: 16),
-            alignLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            alignLabel.widthAnchor.constraint(equalToConstant: 42),
-            alignLabel.heightAnchor.constraint(equalToConstant: 20),
+            alignLabel.topAnchor.constraint(equalTo: fontCollectionView.bottomAnchor, constant: 16.scale),
+            alignLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.scale),
+            alignLabel.widthAnchor.constraint(equalToConstant: 42.scale),
+            alignLabel.heightAnchor.constraint(equalToConstant: 20.scale),
 
-            alignCollectionView.topAnchor.constraint(equalTo: alignLabel.bottomAnchor, constant: 10),
-            alignCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            alignCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            alignCollectionView.heightAnchor.constraint(equalToConstant: 50),
+            alignCollectionView.topAnchor.constraint(equalTo: alignLabel.bottomAnchor, constant: 10.scale),
+            alignCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.scale),
+            alignCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.scale),
+            alignCollectionView.heightAnchor.constraint(equalToConstant: 50.scale),
 
-            printButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            printButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
-            printButton.heightAnchor.constraint(equalToConstant: 68)
+            printButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.scale),
+            printButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.scale),
+            printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.scale),
+            printButton.heightAnchor.constraint(equalToConstant: 68.scale)
         ])
     }
 
@@ -227,8 +227,8 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == fontCollectionView {
             let selectedFont = fonts[indexPath.item]
-            let largeFontSize: CGFloat = 24
-            let smallFontSize: CGFloat = 17
+            let largeFontSize: CGFloat = 24.scale
+            let smallFontSize: CGFloat = 17.scale
 
             let largeFont: UIFont
             let smallFont: UIFont
@@ -246,7 +246,7 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
             }
 
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 4
+            paragraphStyle.lineSpacing = 4.scale
 
             let attributedText = NSMutableAttributedString(
                 string: "AA\n",
@@ -273,10 +273,10 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == fontCollectionView {
             let fontName = fonts[indexPath.item]
-            let size = (fontName as NSString).size(withAttributes: [.font: UIFont.systemFont(ofSize: 16)])
-            return CGSize(width: size.width + 20, height: 40)
+            let size = (fontName as NSString).size(withAttributes: [.font: UIFont.systemFont(ofSize: 16.scale)])
+            return CGSize(width: size.width + 20.scale, height: 40.scale)
         } else {
-            return CGSize(width: 62, height: 44)
+            return CGSize(width: 62.scale, height: 44.scale)
         }
     }
 }

@@ -1,9 +1,5 @@
-//
-//  SettingsTableViewCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 4/30/24.
-//
+// SettingsTableViewCell.swift
+// Printer
 
 import UIKit
 
@@ -15,7 +11,7 @@ class SettingsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Cell styling
-        self.textLabel?.font = UIFont.systemFont(ofSize: 17) // Set as needed
+        self.textLabel?.font = UIFont.systemFont(ofSize: 17.scale) // Set as needed
         self.textLabel?.textColor = Appearance.black // Use Appearance.black
         self.selectionStyle = .none
         backgroundColor = Appearance.white // Use Appearance.white
@@ -33,8 +29,8 @@ class SettingsTableViewCell: UITableViewCell {
         contentView.addSubview(customSeparator)
 
         NSLayoutConstraint.activate([
-            customSeparator.heightAnchor.constraint(equalToConstant: 1),
-            customSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15), // Adjust insets as needed
+            customSeparator.heightAnchor.constraint(equalToConstant: 1.scale),
+            customSeparator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15.scale), // Adjust insets as needed
             customSeparator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             customSeparator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
@@ -48,10 +44,10 @@ class SettingsTableViewCell: UITableViewCell {
         contentView.addSubview(customDisclosureIndicator)
 
         NSLayoutConstraint.activate([
-            customDisclosureIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            customDisclosureIndicator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.scale),
             customDisclosureIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            customDisclosureIndicator.widthAnchor.constraint(equalToConstant: 12),
-            customDisclosureIndicator.heightAnchor.constraint(equalToConstant: 20)
+            customDisclosureIndicator.widthAnchor.constraint(equalToConstant: 12.scale),
+            customDisclosureIndicator.heightAnchor.constraint(equalToConstant: 20.scale)
         ])
     }
 
@@ -65,7 +61,7 @@ class SettingsTableViewCell: UITableViewCell {
 
     // Call this method to round corners for specific cells
     func roundCorners(top: Bool, bottom: Bool) {
-        self.layer.cornerRadius = 24 // Set your desired radius
+        self.layer.cornerRadius = 24.scale // Set your desired radius
         self.layer.maskedCorners = []
         if top {
             self.layer.maskedCorners.insert(.layerMinXMinYCorner)

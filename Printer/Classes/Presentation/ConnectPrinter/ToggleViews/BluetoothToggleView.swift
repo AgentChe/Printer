@@ -1,9 +1,5 @@
-//
-//  BluetoothToggleView.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/9/24.
-//
+// BluetoothToggleView.swift
+// Printer
 
 import UIKit
 
@@ -14,6 +10,7 @@ class BluetoothToggleView: UIView {
         let imageView = UIImageView(image: UIImage(named: "ToggleView.Bluetooth"))
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = Appearance.black // Use Appearance.black
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -21,8 +18,9 @@ class BluetoothToggleView: UIView {
     private let bluetoothLabel: UILabel = {
         let label = UILabel()
         label.text = "Bluetooth"
-        label.font = Fonts.SFProDisplay.regular(size: 17) // Customize the font size as needed
+        label.font = Fonts.SFProDisplay.regular(size: 17.scale) // Customize the font size as needed
         label.textColor = Appearance.black // Use Appearance.black
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -30,6 +28,7 @@ class BluetoothToggleView: UIView {
     private let bluetoothSwitch: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ToggleView.SwitchOff")) // Default to off state
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -37,7 +36,7 @@ class BluetoothToggleView: UIView {
         super.init(frame: frame)
         setupViews()
         backgroundColor = Appearance.white // Use Appearance.white
-        layer.cornerRadius = 24
+        layer.cornerRadius = 24.scale
     }
     
     required init?(coder: NSCoder) {
@@ -49,10 +48,6 @@ class BluetoothToggleView: UIView {
         addSubview(bluetoothIcon)
         addSubview(bluetoothLabel)
         addSubview(bluetoothSwitch)
-        
-        bluetoothIcon.translatesAutoresizingMaskIntoConstraints = false
-        bluetoothLabel.translatesAutoresizingMaskIntoConstraints = false
-        bluetoothSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             bluetoothIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30.scale),

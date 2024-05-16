@@ -5,8 +5,8 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
 
     private let webView = WKWebView()
     private let toolbar = UIToolbar()
-    private let addressTextFieldHeight: CGFloat = 37.0  // Height of the addressTextField
-    private let addressTextFieldWidth: CGFloat = 270.0  // Desired width for the addressTextField
+    private let addressTextFieldHeight: CGFloat = 37.0.scale  // Height of the addressTextField
+    private let addressTextFieldWidth: CGFloat = 270.0.scale  // Desired width for the addressTextField
 
     private lazy var addressTextField: UITextField = {
         let textField = UITextField()
@@ -22,15 +22,15 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         // Set corner radius and shadow
-        textField.layer.cornerRadius = 15
+        textField.layer.cornerRadius = 15.scale
         textField.layer.shadowColor = Appearance.black.cgColor
-        textField.layer.shadowOffset = CGSize(width: 0, height: 0)
+        textField.layer.shadowOffset = CGSize(width: 0.scale, height: 0.scale)
         textField.layer.shadowOpacity = 0.15
-        textField.layer.shadowRadius = 4
+        textField.layer.shadowRadius = 4.scale
         textField.layer.masksToBounds = false
         
         // Add padding inside the text field
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: textField.frame.height))
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10.scale, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
         
@@ -38,19 +38,19 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     }()
     
     private lazy var backButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.resized(to: CGSize(width: 16, height: 20)), style: .plain, target: self, action: #selector(goBack))
+        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.resized(to: CGSize(width: 16.scale, height: 20.scale)), style: .plain, target: self, action: #selector(goBack))
         button.tintColor = webView.canGoBack ? Appearance.signatureBlue : .gray
         return button
     }()
     
     private lazy var forwardButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.right")?.resized(to: CGSize(width: 16, height: 20)), style: .plain, target: self, action: #selector(goForward))
+        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.right")?.resized(to: CGSize(width: 16.scale, height: 20.scale)), style: .plain, target: self, action: #selector(goForward))
         button.tintColor = webView.canGoForward ? Appearance.signatureBlue : .gray
         return button
     }()
     
     private lazy var reloadButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise")?.resized(to: CGSize(width: 20, height: 20)), style: .plain, target: self, action: #selector(reloadPage))
+        let button = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise")?.resized(to: CGSize(width: 20.scale, height: 20.scale)), style: .plain, target: self, action: #selector(reloadPage))
         return button
     }()
     
@@ -67,7 +67,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         
         toolbarBottomConstraint = toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         
-        let toolbarHeight: CGFloat = 55.0
+        let toolbarHeight: CGFloat = 55.0.scale
         
         toolbarHeightConstraint = toolbar.heightAnchor.constraint(equalToConstant: toolbarHeight)
         
@@ -98,7 +98,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     private func setupNavigationBar() {
         title = "Web Pages"
         navigationItem.largeTitleDisplayMode = .never
-        let printButton = UIBarButtonItem(image: UIImage(named: "PrinterCell.Printer")?.resized(to: CGSize(width: 24, height: 24)), style: .plain, target: self, action: #selector(printWebPage))
+        let printButton = UIBarButtonItem(image: UIImage(named: "PrinterCell.Printer")?.resized(to: CGSize(width: 24.scale, height: 24.scale)), style: .plain, target: self, action: #selector(printWebPage))
         navigationItem.rightBarButtonItem = printButton
         
         if #available(iOS 15.0, *) {

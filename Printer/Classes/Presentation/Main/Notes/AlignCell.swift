@@ -12,7 +12,7 @@ class AlignCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = .black 
+        imageView.tintColor = .black
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -20,15 +20,15 @@ class AlignCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(imageView)
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderWidth = 2
+        contentView.layer.cornerRadius = 10.scale
+        contentView.layer.borderWidth = 2.scale
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.backgroundColor = .white
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 24),
-            imageView.heightAnchor.constraint(equalToConstant: 24)
+            imageView.widthAnchor.constraint(equalToConstant: 24.scale),
+            imageView.heightAnchor.constraint(equalToConstant: 24.scale)
         ])
     }
     

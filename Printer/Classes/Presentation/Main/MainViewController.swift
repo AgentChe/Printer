@@ -56,11 +56,11 @@ final class MainViewController: UIViewController {
             appearance.backgroundColor = Appearance.mainViewBackground
             appearance.titleTextAttributes = [
                 .foregroundColor: Appearance.black,
-                .font: Fonts.SFProDisplay.medium(size: 17) // Replace system font with custom font
+                .font: Fonts.SFProDisplay.medium(size: 17.scale) // Replace system font with custom font
             ]
             appearance.largeTitleTextAttributes = [
                 .foregroundColor: Appearance.black,
-                .font: Fonts.SFProDisplay.bold(size: 34) // Replace system font with custom font
+                .font: Fonts.SFProDisplay.bold(size: 34.scale) // Replace system font with custom font
             ]
             appearance.shadowColor = nil
             
@@ -70,12 +70,12 @@ final class MainViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = Appearance.white
             navigationController?.navigationBar.titleTextAttributes = [
                 .foregroundColor: Appearance.black,
-                .font: Fonts.SFProDisplay.medium(size: 17) // Replace system font with custom font
+                .font: Fonts.SFProDisplay.medium(size: 17.scale) // Replace system font with custom font
             ]
             navigationController?.navigationBar.isTranslucent = false
             navigationController?.navigationBar.largeTitleTextAttributes = [
                 .foregroundColor: Appearance.black,
-                .font: Fonts.SFProDisplay.bold(size: 34) // Replace system font with custom font
+                .font: Fonts.SFProDisplay.bold(size: 34.scale) // Replace system font with custom font
             ]
         }
         navigationController?.navigationBar.shadowImage = UIImage()

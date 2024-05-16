@@ -1,6 +1,3 @@
-// PrintOptionsViewController.swift
-// Printer
-
 import UIKit
 
 protocol CopiesOptionCellDelegate: AnyObject {
@@ -28,7 +25,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     private let printOptionsTitle: UILabel = {
         let label = UILabel()
         label.text = "Print Options"
-        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        label.font = Fonts.SFProDisplay.bold(size: 24.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,12 +34,12 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        layout.minimumLineSpacing = 10.scale
+        layout.minimumInteritemSpacing = 10.scale
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 10.scale, bottom: 0, right: 10.scale)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = Appearance.white // Use Appearance.white
-        collectionView.layer.cornerRadius = 20
+        collectionView.layer.cornerRadius = 20.scale
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -50,7 +47,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     private let previewLabel: UILabel = {
         let label = UILabel()
         label.text = "Preview"
-        label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
+        label.font = Fonts.SFProDisplay.bold(size: 24.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,9 +56,9 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     
     private let previewCollectionView: UICollectionView = {
         let layout = CenteredFlowLayoutForPreviewsCollectionView()
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-        layout.sectionInset = UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.width - 154) / 2, bottom: 0, right: (UIScreen.main.bounds.width - 154) / 2)
+        layout.minimumLineSpacing = 10.scale
+        layout.minimumInteritemSpacing = 10.scale
+        layout.sectionInset = UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.width - 154.scale) / 2, bottom: 0, right: (UIScreen.main.bounds.width - 154.scale) / 2)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
@@ -73,10 +70,10 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     private let printButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Print", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
         button.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
         button.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
-        button.layer.cornerRadius = 24
+        button.layer.cornerRadius = 24.scale
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handlePrintButton), for: .touchUpInside)
         return button
@@ -123,45 +120,45 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         view.addSubview(topBarImageView)
         
         NSLayoutConstraint.activate([
-            topBarImageView.widthAnchor.constraint(equalToConstant: 36),
-            topBarImageView.heightAnchor.constraint(equalToConstant: 5),
-            topBarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 4),
+            topBarImageView.widthAnchor.constraint(equalToConstant: 36.scale),
+            topBarImageView.heightAnchor.constraint(equalToConstant: 5.scale),
+            topBarImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 4.scale),
             topBarImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            printOptionsTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            printOptionsTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24.scale),
             printOptionsTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             printOptionsTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            printOptionsTitle.heightAnchor.constraint(equalToConstant: 30)
+            printOptionsTitle.heightAnchor.constraint(equalToConstant: 30.scale)
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: printOptionsTitle.bottomAnchor, constant: 20),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            collectionView.heightAnchor.constraint(equalToConstant: 293)
+            collectionView.topAnchor.constraint(equalTo: printOptionsTitle.bottomAnchor, constant: 20.scale),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10.scale),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10.scale),
+            collectionView.heightAnchor.constraint(equalToConstant: 293.scale)
         ])
         
         NSLayoutConstraint.activate([
-            previewLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+            previewLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20.scale),
             previewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            previewLabel.widthAnchor.constraint(equalToConstant: 96),
-            previewLabel.heightAnchor.constraint(equalToConstant: 29)
+            previewLabel.widthAnchor.constraint(equalToConstant: 96.scale),
+            previewLabel.heightAnchor.constraint(equalToConstant: 29.scale)
         ])
         
         NSLayoutConstraint.activate([
-            previewCollectionView.topAnchor.constraint(equalTo: previewLabel.bottomAnchor, constant: 20),
+            previewCollectionView.topAnchor.constraint(equalTo: previewLabel.bottomAnchor, constant: 20.scale),
             previewCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             previewCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            previewCollectionView.heightAnchor.constraint(equalToConstant: 226)
+            previewCollectionView.heightAnchor.constraint(equalToConstant: 226.scale)
         ])
         
         NSLayoutConstraint.activate([
-            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: 5),
+            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: 5.scale),
             printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            printButton.widthAnchor.constraint(equalToConstant: 358),
-            printButton.heightAnchor.constraint(equalToConstant: 66)
+            printButton.widthAnchor.constraint(equalToConstant: 358.scale),
+            printButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
     }
     
@@ -265,9 +262,9 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.collectionView {
-            return CGSize(width: 326, height: indexPath.row == 2 ? 136 : 64)
+            return CGSize(width: 326.scale, height: indexPath.row == 2 ? 136.scale : 64.scale)
         } else if collectionView == self.previewCollectionView {
-            return CGSize(width: 154, height: 200)
+            return CGSize(width: 154.scale, height: 200.scale)
         }
         return CGSize.zero
     }

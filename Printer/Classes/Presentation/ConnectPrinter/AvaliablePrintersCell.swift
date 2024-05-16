@@ -1,13 +1,8 @@
-//
-//  AvaliablePrintersCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/10/24.
-//
+// AvaliablePrintersCell.swift
+// Printer
 
 import UIKit
 
-// Define your custom cell classes
 class AvaliablePrintersCell: UICollectionViewCell {
     static let availablePrintersCellKey = "availablePrintersCellKey"
     var collectionView: UICollectionView!
@@ -50,7 +45,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         actionButton = UIButton(type: .system)
         actionButton.setTitle("Don't see your device?", for: .normal)
         actionButton.setTitleColor(Appearance.signatureBlue, for: .normal)
-        actionButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17) // Set font size and weight
+        actionButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Set font size and weight
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         actionButton.backgroundColor = .clear
         addSubview(actionButton)
@@ -65,12 +60,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
 extension AvaliablePrintersCell: UICollectionViewDelegateFlowLayout {
     // Specify the size for each item
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if foundPrinters.count != 0 {
-            // You can adjust the width and height according to your needs
-            return CGSize(width: 358.scale, height: 92.scale)
-        } else {
-            return CGSize(width: 358.scale, height: 150.scale)
-        }
+        return CGSize(width: 358.scale, height: foundPrinters.isEmpty ? 150.scale : 92.scale)
     }
 }
 
@@ -81,18 +71,18 @@ extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if !foundPrinters.isEmpty {
+        if foundPrinters.isEmpty {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell else {
+                return UICollectionViewCell()
+            }
+            return cell
+        } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell else {
                 return UICollectionViewCell()
             }
             let printerURL = foundPrinters[indexPath.item].url
             cell.printerName.text = PrinterManager.shared.getPrinterName(for: printerURL)
             cell.connectionStatusLabel.text = printerURL == PrinterManager.shared.currentlyConnectedPrinterURL ? "Connected" : "Not connected"
-            return cell
-        } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell else {
-                return UICollectionViewCell()
-            }
             return cell
         }
     }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 class FontCell: UICollectionViewCell {
     static let identifier = "FontCell"
     
@@ -20,8 +21,8 @@ class FontCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(label)
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderWidth = 2
+        contentView.layer.cornerRadius = 10.scale
+        contentView.layer.borderWidth = 2.scale
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.backgroundColor = .white
         NSLayoutConstraint.activate([
@@ -42,6 +43,6 @@ class FontCell: UICollectionViewCell {
     
     func configure(with fontName: String) {
         label.text = fontName
-        label.font = UIFont(name: fontName, size: 16)
+        label.font = UIFont(name: fontName, size: 16.scale)
     }
 }

@@ -1,9 +1,5 @@
-//
-//  PegesPerSheetOptionCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/13/24.
-//
+// PegesPerSheetOptionCell.swift
+// Printer
 
 import UIKit
 
@@ -37,7 +33,7 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
     func setupLabels() {
         // Set up the 'Pages per sheet' label
         pagesPerSheetLabel.text = "Pages per sheet"
-        pagesPerSheetLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        pagesPerSheetLabel.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font with .scale
         pagesPerSheetLabel.textAlignment = .left
         pagesPerSheetLabel.textColor = Appearance.black // Set text color to Appearance.black
         pagesPerSheetLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -46,9 +42,9 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
     
     func setupCollectionView() {
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 44, height: 68)
-        layout.minimumInteritemSpacing = 12
-        layout.minimumLineSpacing = 12
+        layout.itemSize = CGSize(width: 44.scale, height: 68.scale)
+        layout.minimumInteritemSpacing = 12.scale
+        layout.minimumLineSpacing = 12.scale
         
         pagesPerSheetCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         pagesPerSheetCollectionView.backgroundColor = .clear
@@ -68,16 +64,16 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             // Pages per sheet label constraints
-            pagesPerSheetLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            pagesPerSheetLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10.scale),
             pagesPerSheetLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             pagesPerSheetLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pagesPerSheetLabel.heightAnchor.constraint(equalToConstant: 20),
+            pagesPerSheetLabel.heightAnchor.constraint(equalToConstant: 20.scale),
             
             // Collection view constraints updated to be below the label
-            pagesPerSheetCollectionView.topAnchor.constraint(equalTo: pagesPerSheetLabel.bottomAnchor, constant: 20),
+            pagesPerSheetCollectionView.topAnchor.constraint(equalTo: pagesPerSheetLabel.bottomAnchor, constant: 20.scale),
             pagesPerSheetCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             pagesPerSheetCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            pagesPerSheetCollectionView.heightAnchor.constraint(equalToConstant: 70)
+            pagesPerSheetCollectionView.heightAnchor.constraint(equalToConstant: 70.scale)
         ])
     }
 }

@@ -24,7 +24,7 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "Printer 1234 is connected"
         label.numberOfLines = 0
-        label.font = Fonts.SFProDisplay.bold(size: 19)
+        label.font = Fonts.SFProDisplay.bold(size: 19.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -37,7 +37,7 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .clear
         button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance.signatureBlue
-        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18)
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18.scale)
         button.addTarget(self, action: #selector(addPrinterButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -46,7 +46,7 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         let button = UIButton()
         button.setTitle("Compatible list", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18)
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18.scale)
         button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance.signatureBlue
         button.addTarget(self, action: #selector(compatibleListButtonTapped), for: .touchUpInside)
         return button
@@ -69,8 +69,8 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        let spacing = CGFloat(10.0.scale) // The space you want between elements
-        let buttonHeight = CGFloat(20.0.scale) // The height of the buttons
+        let spacing = CGFloat(10.0).scale // The space you want between elements
+        let buttonHeight = CGFloat(20.0).scale // The height of the buttons
         
         NSLayoutConstraint.activate([
             // Printer image view constraints
@@ -88,7 +88,7 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
             changePrinterButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             changePrinterButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: (1.2 * spacing).scale),
             changePrinterButton.widthAnchor.constraint(equalToConstant: 361.scale),
-            changePrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight.scale),
+            changePrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight),
             
             // Compatible list button constraints
             compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -96,8 +96,6 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
             compatibleListButton.widthAnchor.constraint(equalTo: changePrinterButton.widthAnchor),
             compatibleListButton.heightAnchor.constraint(equalTo: changePrinterButton.heightAnchor)
         ])
-        
-        // If you're using custom scaling, replace the CGFloat constants with your `.scale` adjusted values.
     }
 }
 

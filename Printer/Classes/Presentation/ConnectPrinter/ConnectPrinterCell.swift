@@ -15,7 +15,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     let headerLabel: UILabel = {
         let label = UILabel()
         label.text = "Check your connection"
-        label.font = Fonts.SFProDisplay.bold(size: 24) // UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.font = Fonts.SFProDisplay.bold(size: 24.scale) // UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +26,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     let detailLabel: UILabel = {
         let label = UILabel()
         label.text = "Make sure your phone and printer are connected to the same Wi-Fi network or bluetooth turned on for both devices"
-        label.font = Fonts.SFProDisplay.medium(size: 15) // UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = Fonts.SFProDisplay.medium(size: 15.scale) // UIFont.systemFont(ofSize: 15, weight: .medium)
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.textAlignment = .left
         label.numberOfLines = 4  // Allow multiple lines
@@ -71,18 +71,18 @@ class ConnectPrinterCell: UICollectionViewCell {
         // Custom font setup
         config.titleTextAttributesTransformer = UIConfigurationTextAttributesTransformer { incoming in
             var outgoing = incoming
-            outgoing.font = Fonts.SFProDisplay.medium(size: 16)
+            outgoing.font = Fonts.SFProDisplay.medium(size: 16.scale)
             return outgoing
         }
 
         // Apply the configuration to the button
         button.configuration = config
-        button.layer.cornerRadius = 23
+        button.layer.cornerRadius = 23.scale
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(selectPrinter), for: .touchUpInside) // Assuming selectPrinter is the selector method
 
         // Adjust title position using a padding configuration
-        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: -1.7, leading: 0, bottom: 0, trailing: 0)
+        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: -1.7.scale, leading: 0, bottom: 0, trailing: 0)
 
         return button
     }()
@@ -132,7 +132,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     let availablePrintersLabel: UILabel = {
         let label = UILabel()
         label.text = "Available Printers"
-        label.font = Fonts.SFProDisplay.bold(size: 24) // Assuming the font and size from your description
+        label.font = Fonts.SFProDisplay.bold(size: 24.scale) // Assuming the font and size from your description
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -142,7 +142,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     let instructionLabel: UILabel = {
         let label = UILabel()
         label.text = "If you don’t see your printer here, please check the connections and reboot it (power reset) and try again."
-        label.font = Fonts.SFProDisplay.medium(size: 15)
+        label.font = Fonts.SFProDisplay.medium(size: 15.scale)
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.numberOfLines = 3
         label.textAlignment = .left
@@ -153,7 +153,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     let showCompatiblePrinterListButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSAttributedString(string: "Printer compatible list", attributes: [
-            .font: Fonts.SFProDisplay.medium(size: 16),
+            .font: Fonts.SFProDisplay.medium(size: 16.scale),
             .foregroundColor: UIColor.systemBlue,
             .kern: 0.2 // Set kerning
         ])

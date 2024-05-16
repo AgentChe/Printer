@@ -21,7 +21,7 @@ class NoPrinterCell: UICollectionViewCell {
     
     private let noPrintersLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
+        label.font = Fonts.SFProDisplay.medium(size: 17.scale) // Set custom font
         label.text = "No Printers Added"
         label.textAlignment = .center
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor

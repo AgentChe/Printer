@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 protocol StatusChangeDelegate: AnyObject {
     func changeWIFIToOn()
     func changeWIFIToOff()
@@ -13,14 +14,14 @@ protocol StatusChangeDelegate: AnyObject {
     func changeBTHToOff()
 }
 
-
 protocol ConnectPrinterCellDelegate: AnyObject {
     func getCollectionView() -> UICollectionView?
     func reloadCollectionView()
     func dismissViewController()
 }
-class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    var foundPrinters:[UIPrinter]!
+
+class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    var foundPrinters: [UIPrinter]!
     private var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -28,6 +29,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
         foundPrinters = PrinterManager.shared.retrieveAllPrinters()
         setupCollectionView()
     }
+
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -52,6 +54,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+
     // MARK: UICollectionViewDelegateFlowLayout methods
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -61,7 +64,7 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
             let printerManager = PrinterManager.shared
             if printerManager.hasSavedPrinters() {
                 let foundPrintersCount = CGFloat(foundPrinters.count)
-                return CGSize(width: collectionView.bounds.width, height:60.scale + (20+92).scale)//*foundPrintersCount)
+                return CGSize(width: collectionView.bounds.width, height: (60 + (20 + 92) * foundPrintersCount).scale)
             } else {
                 return CGSize(width: collectionView.bounds.width, height: 193.4.scale)
             }
@@ -99,14 +102,15 @@ extension ConnectPrinterViewController: ConnectPrinterCellDelegate {
     func getCollectionView() -> UICollectionView? {
         return self.collectionView
     }
+    
     func reloadCollectionView() {
         DispatchQueue.main.async {
             self.foundPrinters = PrinterManager.shared.retrieveAllPrinters()
             self.collectionView.reloadData()
         }
     }
+    
     func dismissViewController() {
-      
         dismiss(animated: true, completion: nil)
     }
 }

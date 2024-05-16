@@ -1,11 +1,5 @@
-//
-//  PagesPerSheetCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/12/24.
-//
-
 import UIKit
+
 class PagesPerSheetCell: UICollectionViewCell {
     var imageBgView: UIView!
     var imageView: UIImageView!
@@ -48,7 +42,7 @@ class PagesPerSheetCell: UICollectionViewCell {
         // Setting up the background view for the image
         imageBgView = UIView()
         imageBgView.backgroundColor = UIColor(red: 243/255.0, green: 245/255.0, blue: 253/255.0, alpha: 1) // #F3F5FD
-        imageBgView.layer.cornerRadius = 12
+        imageBgView.layer.cornerRadius = 12.scale
         imageBgView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageBgView)
         
@@ -61,7 +55,8 @@ class PagesPerSheetCell: UICollectionViewCell {
         // Setting up the label below the image background view
         label = UILabel()
         label.textAlignment = .center
-        label.font = Fonts.SFProDisplay.medium(size: 15)
+        label.font = Fonts.SFProDisplay.medium(size: 15.scale) // Custom font
+        label.textColor = Appearance.black // Set text color to Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(label)
         

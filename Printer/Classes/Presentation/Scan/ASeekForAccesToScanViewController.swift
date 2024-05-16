@@ -1,9 +1,6 @@
-//
-//  AllowAccesToScanViewController.swift
+//  SeekForAccesToScanViewController.swift
 //  Printer
-//
-//  Created by Niiaz Khasanov on 5/7/24.
-//
+
 import UIKit
 
 class SeekForAccesToScanViewController: UIViewController {
@@ -19,7 +16,7 @@ class SeekForAccesToScanViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Appearance.white // Use Appearance.white
         setupUI()
     }
 
@@ -35,8 +32,8 @@ class SeekForAccesToScanViewController: UIViewController {
     private func setupDismissButton() {
         let dismissImage = UIImage(named: "SeekForAccess.Dismiss")?.withRenderingMode(.alwaysTemplate)
         dismissButton.setImage(dismissImage, for: .normal)
-        dismissButton.tintColor = .black  // Set the color to black
-        dismissButton.imageView?.contentMode = .scaleAspectFit  // Ensure the image is aspect fill
+        dismissButton.tintColor = Appearance.black  // Use Appearance.black
+        dismissButton.imageView?.contentMode = .scaleAspectFit  // Ensure the image is aspect fit
         dismissButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dismissButton)
@@ -48,6 +45,7 @@ class SeekForAccesToScanViewController: UIViewController {
             dismissButton.heightAnchor.constraint(equalToConstant: 17.scale)
         ])
     }
+
     @objc private func dismissViewController() {
         dismiss(animated: true, completion: nil)
     }
@@ -59,7 +57,7 @@ class SeekForAccesToScanViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: ScreenSize.isIphoneXFamily ?  70.scale: 20.scale),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: ScreenSize.isIphoneXFamily ? 70.scale : 20.scale),
             imageView.widthAnchor.constraint(equalToConstant: 346.scale),
             imageView.heightAnchor.constraint(equalToConstant: 282.scale)
         ])
@@ -67,14 +65,15 @@ class SeekForAccesToScanViewController: UIViewController {
 
     private func setupLabels() {
         headerLabel.text = "Allow access to scan"
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        headerLabel.font = Fonts.SFProDisplay.bold(size: 24.scale) // Custom font
+        headerLabel.textColor = Appearance.black // Use Appearance.black
         headerLabel.textAlignment = .center
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
 
         descriptionLabel.text = "In order to scan anything you need to give permission in settings to choose photos."
-        descriptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        descriptionLabel.textColor = UIColor.black.withAlphaComponent(0.6)
+        descriptionLabel.font = Fonts.SFProDisplay.medium(size: 16.scale) // Custom font
+        descriptionLabel.textColor = Appearance.black.withAlphaComponent(0.6)
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 3
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +93,6 @@ class SeekForAccesToScanViewController: UIViewController {
     }
 
     private func setupSettingsAccess() {
-        
         settingsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(settingsView)
 
@@ -107,11 +105,9 @@ class SeekForAccesToScanViewController: UIViewController {
     }
 
     private func setupCameraAccess() {
-        // Remove autoresizing constraints and add the button to the view
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cameraView)
 
-        // Activate constraints
         NSLayoutConstraint.activate([
             cameraView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             cameraView.topAnchor.constraint(equalTo: settingsView.bottomAnchor, constant: 16.scale),
@@ -122,9 +118,9 @@ class SeekForAccesToScanViewController: UIViewController {
 
     private func setupGoToSettingsButton() {
         goToSettingsButton.setTitle("Go to Settings", for: .normal)
-        goToSettingsButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
+        goToSettingsButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
         goToSettingsButton.backgroundColor = Appearance.signatureBlue
-        goToSettingsButton.setTitleColor(.white, for: .normal)
+        goToSettingsButton.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
         goToSettingsButton.layer.cornerRadius = 24.scale
         goToSettingsButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(goToSettingsButton)
@@ -133,7 +129,7 @@ class SeekForAccesToScanViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             goToSettingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            goToSettingsButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -125.scale: -90.scale),
+            goToSettingsButton.topAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -125.scale : -90.scale),
             goToSettingsButton.widthAnchor.constraint(equalToConstant: 358.scale),
             goToSettingsButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
@@ -152,6 +148,7 @@ class SeekForAccesToScanViewController: UIViewController {
         // Implement logic to request camera access here
     }
 }
+
 class CustomView: UIView {
     private let iconImageView = UIImageView()
     private let titleLabel = UILabel()
@@ -182,6 +179,8 @@ class CustomView: UIView {
         // Setup the Label
         titleLabel.text = labelText
         titleLabel.textAlignment = .left
+        titleLabel.font = Fonts.SFProDisplay.regular(size: 17) // Custom font
+        titleLabel.textColor = Appearance.black // Set text color to Appearance.black
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
         
@@ -196,7 +195,7 @@ class CustomView: UIView {
         // Define constraints for Label
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10.scale),
-            titleLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor, constant: 0),
+            titleLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor),
             titleLabel.widthAnchor.constraint(equalToConstant: 200.scale),
             titleLabel.heightAnchor.constraint(equalToConstant: 60.scale)
         ])

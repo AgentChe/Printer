@@ -72,14 +72,14 @@ class PrintTestFileViewController: UIViewController {
 
     private func setupLabels() {
         headerLabel.text = "Want to print a test file?"
-        headerLabel.font = Fonts.SFProDisplay.bold(size: 24) // Custom font
+        headerLabel.font = Fonts.SFProDisplay.bold(size: 24.scale) // Custom font
         headerLabel.textAlignment = .center
         headerLabel.textColor = Appearance.black // Use Appearance.black for header text
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
         
         descriptionLabel.text = "To make sure you have a good connection print a test with this image."
-        descriptionLabel.font = Fonts.SFProDisplay.regular(size: 18) // Custom font
+        descriptionLabel.font = Fonts.SFProDisplay.regular(size: 18.scale) // Custom font
         descriptionLabel.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 3
@@ -123,7 +123,7 @@ class PrintTestFileViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            printButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? 10.scale : 10.scale),
+            printButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? -10.scale : -10.scale),
             printButton.widthAnchor.constraint(equalToConstant: 358.scale),
             printButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])

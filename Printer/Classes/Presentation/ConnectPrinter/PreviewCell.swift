@@ -1,11 +1,5 @@
-//
-//  PreviewCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/13/24.
-//
-
 import UIKit
+
 class PreviewCell: UICollectionViewCell {
     static let identifier = "PreviewCellIdentifier"
 
@@ -20,8 +14,8 @@ class PreviewCell: UICollectionViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = UIColor(red: 79/255, green: 79/255, blue: 79/255, alpha: 1)
+        label.font = Fonts.SFProDisplay.regular(size: 15.scale) // Custom font
+        label.textColor = Appearance.black // Set color to Appearance.black
         label.text = "page 1 of 3"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -35,12 +29,12 @@ class PreviewCell: UICollectionViewCell {
             previewImageView.topAnchor.constraint(equalTo: topAnchor),
             previewImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             previewImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            previewImageView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -8), // Adjust the spacing as needed
+            previewImageView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -8.scale), // Adjust the spacing as needed
             
             descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 20) // Adjust the height as needed
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 20.scale) // Adjust the height as needed
         ])
     }
 

@@ -13,14 +13,14 @@ final class QuickActionCell: UICollectionViewCell {
     private let iconContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = Appearance.signatureBlue?.withAlphaComponent(0.12) // Light blue background from Appearance
-        view.layer.cornerRadius = 12 // The corner radius for rounded corners
+        view.layer.cornerRadius = 12.scale // The corner radius for rounded corners
         view.translatesAutoresizingMaskIntoConstraints = false
         
         // Drop shadow configuration
         view.layer.shadowColor = Appearance.black.cgColor
         view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        view.layer.shadowRadius = 4
+        view.layer.shadowOffset = CGSize(width: 0.scale, height: 2.scale)
+        view.layer.shadowRadius = 4.scale
         view.layer.masksToBounds = false
         
         return view
@@ -35,7 +35,7 @@ final class QuickActionCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.semiBold(size: 19) // Set custom font
+        label.font = Fonts.SFProDisplay.semiBold(size: 19.scale) // Set custom font
         label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +43,7 @@ final class QuickActionCell: UICollectionViewCell {
     
     private let detailLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.regular(size: 16) // Set custom font
+        label.font = Fonts.SFProDisplay.regular(size: 16.scale) // Set custom font
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,7 +52,7 @@ final class QuickActionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Appearance.white // Use Appearance.white
-        layer.cornerRadius = 20
+        layer.cornerRadius = 20.scale
         clipsToBounds = true
         setupViews()
         setupLayout()

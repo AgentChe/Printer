@@ -1,9 +1,5 @@
-//
-//  CopiesOptionCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/13/24.
-//
+// CopiesOptionCell.swift
+// Printer
 
 import UIKit
 
@@ -15,7 +11,7 @@ class CopiesOptionCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        label.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font with .scale
         label.textColor = Appearance.black // Set text color to Appearance.black
         return label
     }()
@@ -24,7 +20,7 @@ class CopiesOptionCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.font = Fonts.SFProDisplay.regular(size: 16.scale) // Custom font with .scale
         label.textColor = Appearance.black // Set text color to Appearance.black
         return label
     }()
@@ -76,11 +72,11 @@ class CopiesOptionCell: UICollectionViewCell {
             lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0.scale),
             lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -0.scale),
             lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            lineView.heightAnchor.constraint(equalToConstant: 0.4)  // Height of the line
+            lineView.heightAnchor.constraint(equalToConstant: 0.4.scale)  // Height of the line
         ])
         
         contentView.backgroundColor = Appearance.white // Set background color to Appearance.white
-        contentView.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = 10.scale
     }
     
     private func setupBindings() {

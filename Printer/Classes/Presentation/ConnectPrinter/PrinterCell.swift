@@ -13,14 +13,14 @@ class PrinterCell: UICollectionViewCell {
     private let iconContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = Appearance.mainViewBackground // Use Appearance.mainViewBackground
-        view.layer.cornerRadius = 12 // The corner radius for rounded corners
+        view.layer.cornerRadius = 12.scale // The corner radius for rounded corners
         view.translatesAutoresizingMaskIntoConstraints = false
         
         // Drop shadow configuration
         view.layer.shadowColor = Appearance.black.cgColor // Use Appearance.black for shadow
         view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        view.layer.shadowRadius = 4
+        view.layer.shadowOffset = CGSize(width: 0.scale, height: 2.scale)
+        view.layer.shadowRadius = 4.scale
         view.layer.masksToBounds = false
         
         return view
@@ -55,7 +55,7 @@ class PrinterCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = Appearance.white // Use Appearance.white
-        layer.cornerRadius = 20
+        layer.cornerRadius = 20.scale
         clipsToBounds = true
         setupViews()
         setupLayout()

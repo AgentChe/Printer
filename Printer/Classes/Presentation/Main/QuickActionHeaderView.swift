@@ -10,9 +10,9 @@ import UIKit
 class QuickActionHeaderView: UICollectionReusableView {
     static let identifier = "QuickActionHeaderView"
 
-     let titleLabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.medium(size: 16)
+        label.font = Fonts.SFProDisplay.medium(size: 16.scale)
         label.text = NSLocalizedString("QuickActionHeaderView.Title", comment: "")
         label.textColor = Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false

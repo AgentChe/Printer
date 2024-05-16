@@ -32,7 +32,7 @@ class MainView: UIView {
         cv.register(PrinterNotConnectedStatusCell.self, forCellWithReuseIdentifier: PrinterNotConnectedStatusCell.identifier)
         cv.register(PrinterConnectedStatusCell.self, forCellWithReuseIdentifier: PrinterConnectedStatusCell.identifier)
         cv.register(QuickActionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: QuickActionHeaderView.identifier)
-        cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: CGFloat(15), right: 0)
+        cv.contentInset = UIEdgeInsets(top: 0.scale, left: 0.scale, bottom: 15.scale, right: 0.scale)
         cv.dataSource = self
         cv.delegate = self
         cv.backgroundColor = .clear
@@ -102,7 +102,7 @@ extension MainView: UICollectionViewDataSource {
             }
             let action = quickActions[indexPath.row]
             cell.configure(with: action)
-           // cell.titleLabel.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
+            //cell.titleLabel.font = Fonts.SFProDisplay.medium(size: 17.scale) // Set custom font
             return cell
         }
     }
@@ -113,7 +113,7 @@ extension MainView: UICollectionViewDataSource {
             if indexPath.section == 1 { // We only want a header for the second section
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: QuickActionHeaderView.identifier, for: indexPath) as! QuickActionHeaderView
                 // Configure your header if needed
-              //  header.titleLabel.font = Fonts.SFProDisplay.bold(size: 17) // Set custom font for header
+                header.titleLabel.font = Fonts.SFProDisplay.bold(size: 17.scale) // Set custom font for header
                 return header
             }
             // If you don't want a header for other sections, you should create a default UICollectionReusableView here
