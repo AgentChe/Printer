@@ -90,12 +90,10 @@ extension MainView: UICollectionViewDataSource {
                 let cleanedPrinterName = printerName.filter { $0 != "\"" }  // Remove all " characters
                 let truncatedPrinterName = String(cleanedPrinterName.prefix(10))  // Keep only the first 10 characters
                 cell.titleLabel.text = String(format: NSLocalizedString("MainView.PrinterConnected", comment: ""), truncatedPrinterName)
-                cell.titleLabel.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterNotConnectedStatusCell.identifier, for: indexPath) as! PrinterNotConnectedStatusCell
                 cell.titleLabel.text = NSLocalizedString("MainView.PrinterNotConnected", comment: "")
-                cell.titleLabel.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
                 return cell
             }
         } else {

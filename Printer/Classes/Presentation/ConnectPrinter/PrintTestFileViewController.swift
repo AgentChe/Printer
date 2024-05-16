@@ -1,11 +1,5 @@
-//
-//  PrintTestFileViewController.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/12/24.
-//
-
 import UIKit
+
 class PrintTestFileViewController: UIViewController {
     
     // UI Components
@@ -15,9 +9,10 @@ class PrintTestFileViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let printButton = UIButton(type: .system)
     private let skipButton = UIButton(type: .system)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Appearance.white // Use Appearance.white for background
         setupUI()
     }
     
@@ -27,8 +22,8 @@ class PrintTestFileViewController: UIViewController {
         setupLabels()
         setupSkipButton()
         setupPrintButton()
-        
     }
+
     private func setupSkipButton() {
         skipButton.setTitle("Skip", for: .normal)
         skipButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
@@ -40,11 +35,12 @@ class PrintTestFileViewController: UIViewController {
         
         skipButton.addTarget(self, action: #selector(skipAction), for: .touchUpInside)
     }
+
     private func setupDismissButton() {
         let dismissImage = UIImage(named: "SeekForAccess.Dismiss")?.withRenderingMode(.alwaysTemplate)
         dismissButton.setImage(dismissImage, for: .normal)
-        dismissButton.tintColor = .black  // Set the color to black
-        dismissButton.imageView?.contentMode = .scaleAspectFit  // Ensure the image is aspect fill
+        dismissButton.tintColor = Appearance.black // Set the color to Appearance.black
+        dismissButton.imageView?.contentMode = .scaleAspectFit // Ensure the image is aspect fit
         dismissButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dismissButton)
@@ -56,10 +52,11 @@ class PrintTestFileViewController: UIViewController {
             dismissButton.heightAnchor.constraint(equalToConstant: 17.scale)
         ])
     }
+
     @objc private func dismissViewController() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     private func setupImageView() {
         imageView.image = UIImage(named: "Printer.TestPrint") // Ensure this asset is added in your Xcode project
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,22 +64,23 @@ class PrintTestFileViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: ScreenSize.isIphoneXFamily ?  143.scale: 70.scale),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: ScreenSize.isIphoneXFamily ? 143.scale : 70.scale),
             imageView.widthAnchor.constraint(equalToConstant: 346.scale),
             imageView.heightAnchor.constraint(equalToConstant: 346.scale)
         ])
     }
-    
+
     private func setupLabels() {
         headerLabel.text = "Want to print a test file?"
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        headerLabel.font = Fonts.SFProDisplay.bold(size: 24) // Custom font
         headerLabel.textAlignment = .center
+        headerLabel.textColor = Appearance.black // Use Appearance.black for header text
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
         
         descriptionLabel.text = "To make sure you have a good connection print a test with this image."
-        descriptionLabel.font = Fonts.SFProDisplay.regular(size: 18)
-        descriptionLabel.textColor = UIColor.black.withAlphaComponent(0.6)
+        descriptionLabel.font = Fonts.SFProDisplay.regular(size: 18) // Custom font
+        descriptionLabel.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         descriptionLabel.textAlignment = .center
         descriptionLabel.numberOfLines = 3
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -90,48 +88,47 @@ class PrintTestFileViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             headerLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            headerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 30.scale: 10.scale),
+            headerLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 85.scale : 30.scale),
             headerLabel.widthAnchor.constraint(equalToConstant: 358.scale),
             headerLabel.heightAnchor.constraint(equalToConstant: 29.scale),
             
             descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            descriptionLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 17.scale),
+            descriptionLabel.topAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: 12.scale),
             descriptionLabel.widthAnchor.constraint(equalToConstant: 358.scale),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 50.scale)
         ])
     }
-    
-    
+
     @objc private func skipAction() {
-        // Add logic for what happens when the "Skip" button is pressed
         dismiss(animated: true, completion: nil)
     }
-    
+
     private func setupPrintButton() {
         printButton.setTitle("Print", for: .normal)
         printButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
-        printButton.backgroundColor = Appearance.signatureBlue
-        printButton.setTitleColor(.white, for: .normal)
+        printButton.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
+        printButton.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
         printButton.layer.cornerRadius = 24.scale
         printButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(printButton)
         
         printButton.addTarget(self, action: #selector(goToPrintConfigViewController), for: .touchUpInside)
+        
         NSLayoutConstraint.activate([
             skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            skipButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -30.0.scale: -10.scale),
+            skipButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -30.0.scale : -10.scale),
             skipButton.widthAnchor.constraint(equalToConstant: 358.scale),
             skipButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
+        
         NSLayoutConstraint.activate([
             printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            printButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? 10.scale: 10.scale),
+            printButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? 10.scale : 10.scale),
             printButton.widthAnchor.constraint(equalToConstant: 358.scale),
             printButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
-        
     }
-    
+
     @objc private func goToPrintConfigViewController() {
         let textRenderer = CustomPrintTextPageRenderer()
         textRenderer.printText = """
@@ -166,19 +163,12 @@ Here are some fun things to print:
 
 Enjoy your printed fun! 😊
 """
-        // Generate preview image
-        
-        
         let printOptionsViewController = PrintOptionsViewController()
         printOptionsViewController.textRenderers = [textRenderer]
-        present(printOptionsViewController , animated: true)
-        //        if let printer = PrinterManager.shared.getConnectedPrinter() {
-        //            PrinterManager.shared.printDocumentDirectly(printer: printer, from: self)
-        //        }
+        present(printOptionsViewController, animated: true)
     }
     
     @objc private func requestCameraAccess() {
         // Implement logic to request camera access here
     }
 }
-
