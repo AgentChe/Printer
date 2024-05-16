@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 class PrinterOptionCell: UICollectionViewCell {
     static let identifier = "PrinterOptionCell"
 
@@ -14,6 +15,7 @@ class PrinterOptionCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        label.textColor = Appearance.black // Set text color to Appearance.black
         return label
     }()
 
@@ -22,7 +24,7 @@ class PrinterOptionCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
         label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        label.textColor = .gray
+        label.textColor = Appearance.subtitleLabelColor // Set text color to Appearance.subtitleLabelColor
         return label
     }()
 
@@ -55,13 +57,13 @@ class PrinterOptionCell: UICollectionViewCell {
             detailLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             // Constraints for the line view
-            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 0.scale),
-            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -0.scale),
+            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0.scale),
+            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -0.scale),
             lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             lineView.heightAnchor.constraint(equalToConstant: 0.4)  // Height of the line
         ])
 
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = Appearance.white // Set background color to Appearance.white
         contentView.layer.cornerRadius = 10
     }
     
@@ -70,4 +72,3 @@ class PrinterOptionCell: UICollectionViewCell {
         detailLabel.text = detail
     }
 }
-

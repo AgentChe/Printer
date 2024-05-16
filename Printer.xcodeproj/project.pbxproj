@@ -582,6 +582,7 @@
 		A30EF7BF2BF40F4F00B93D6F /* WebPages */ = {
 			isa = PBXGroup;
 			children = (
+				A30EF7C02BF40F7600B93D6F /* WebViewController.swift */,
 			);
 			path = WebPages;
 			sourceTree = "<group>";
@@ -1022,7 +1023,6 @@
 				A30EF7BA2BF3BB3700B93D6F /* Notes */,
 				A30EF7BF2BF40F4F00B93D6F /* WebPages */,
 				DEDF91892BD9542D004340C0 /* MainViewController.swift */,
-				A30EF7C02BF40F7600B93D6F /* WebViewController.swift */,
 				DEDF918D2BD95438004340C0 /* MainView.swift */,
 				A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,

@@ -1,22 +1,23 @@
 //
 //  QuickActionCell.swift
-//  
+//
 //
 //  Created by Niiaz Khasanov on 4/29/24.
 //
 
 import UIKit
+
 final class QuickActionCell: UICollectionViewCell {
     static let identifier = "QuickActionCell"
     
     private let iconContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.12) // Light blue background
+        view.backgroundColor = Appearance.signatureBlue?.withAlphaComponent(0.12) // Light blue background from Appearance
         view.layer.cornerRadius = 12 // The corner radius for rounded corners
         view.translatesAutoresizingMaskIntoConstraints = false
         
         // Drop shadow configuration
-        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowColor = Appearance.black.cgColor
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
@@ -35,6 +36,7 @@ final class QuickActionCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,14 +44,14 @@ final class QuickActionCell: UICollectionViewCell {
     private let detailLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .gray
+        label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white // Use the Appearance framework or your theme settings to set this
+        backgroundColor = Appearance.white // Use Appearance.white
         layer.cornerRadius = 20
         clipsToBounds = true
         setupViews()
@@ -89,7 +91,7 @@ final class QuickActionCell: UICollectionViewCell {
             // Detail Label Constraints
             detailLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             detailLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 00.scale)
+            detailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 0.scale)
         ])
     }
     

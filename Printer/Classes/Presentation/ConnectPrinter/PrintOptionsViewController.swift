@@ -29,7 +29,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         let label = UILabel()
         label.text = "Print Options"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = .black
+        label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -41,7 +41,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = Appearance.white // Use Appearance.white
         collectionView.layer.cornerRadius = 20
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -51,7 +51,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         let label = UILabel()
         label.text = "Preview"
         label.font = UIFont(name: "SFProDisplay-Bold", size: 24)
-        label.textColor = .black
+        label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -74,8 +74,8 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         let button = UIButton(type: .system)
         button.setTitle("Print", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
-        button.backgroundColor = UIColor.systemBlue
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
+        button.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
         button.layer.cornerRadius = 24
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handlePrintButton), for: .touchUpInside)

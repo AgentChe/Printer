@@ -72,7 +72,7 @@
 
 // MARK: MainView
 "MainView.PrinterConnected" = "Printer %@ is connected";
-"MainView.PrinterNotConnected" = "No printer connected. Please connect to a printer to start printing.";
+"MainView.PrinterNotConnected" = "No printer connected.";
 // MARK: PrinterConnectedStatusCell
 "PrinterConnectedStatusCell.PrinterConnected" = "Printer %@ is connected";
 "PrinterConnectedStatusCell.ChangePrinter" = "Change printer";

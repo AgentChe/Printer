@@ -54,17 +54,17 @@ final class MainViewController: UIViewController {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = Appearance.mainViewBackground
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+            appearance.titleTextAttributes = [.foregroundColor: Appearance.black]
+            appearance.largeTitleTextAttributes = [.foregroundColor: Appearance.black]
             appearance.shadowColor = nil
             
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
         } else {
-            navigationController?.navigationBar.barTintColor = .white
-            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+            navigationController?.navigationBar.barTintColor = Appearance.white
+            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Appearance.black]
             navigationController?.navigationBar.isTranslucent = false
-            navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+            navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: Appearance.black]
         }
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -107,7 +107,6 @@ extension MainViewController: MainViewDelegate {
             let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             navigationItem.backBarButtonItem = backButton
             // Hide the toolbar before the transition
-            
             navigationController?.pushViewController(webVC, animated: true)
         case NSLocalizedString("MainViewController.Action.Notes", comment: ""):
             print("Selected Notes action")

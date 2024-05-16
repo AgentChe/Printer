@@ -12,12 +12,14 @@ final class DropboxFilesViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "DropboxFileCell")
+        tableView.backgroundColor = Appearance.mainViewBackground // Set table view background color
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = NSLocalizedString("DropboxFilesViewController.Title", comment: "")
+        view.backgroundColor = Appearance.mainViewBackground // Set view background color
         view.addSubview(tableView)
         tableView.frame = view.bounds
         tableView.dataSource = self
@@ -49,6 +51,8 @@ extension DropboxFilesViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DropboxFileCell", for: indexPath)
         cell.textLabel?.text = files[indexPath.row].name
+        cell.textLabel?.textColor = Appearance.black // Set text color to Appearance.black
+        cell.backgroundColor = Appearance.white // Set cell background color to Appearance.white
         return cell
     }
     

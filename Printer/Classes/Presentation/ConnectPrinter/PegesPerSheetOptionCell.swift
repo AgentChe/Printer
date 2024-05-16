@@ -39,7 +39,7 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
         pagesPerSheetLabel.text = "Pages per sheet"
         pagesPerSheetLabel.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         pagesPerSheetLabel.textAlignment = .left
-        pagesPerSheetLabel.textColor = .black
+        pagesPerSheetLabel.textColor = Appearance.black // Set text color to Appearance.black
         pagesPerSheetLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(pagesPerSheetLabel)
     }

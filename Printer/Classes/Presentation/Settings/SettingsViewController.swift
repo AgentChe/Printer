@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class SettingsViewController: UIViewController {
     
     var tableView: UITableView!
@@ -29,8 +28,8 @@ class SettingsViewController: UIViewController {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = Appearance.mainViewBackground
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black] // Large title color
+            appearance.titleTextAttributes = [.foregroundColor: Appearance.black]
+            appearance.largeTitleTextAttributes = [.foregroundColor: Appearance.black] // Large title color
             appearance.shadowColor = nil
             
             // Set the appearance for when the view controller is shown
@@ -39,15 +38,16 @@ class SettingsViewController: UIViewController {
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
         } else {
             // Style the navigation bar for earlier iOS versions
-            navigationController?.navigationBar.barTintColor = .white
-            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+            navigationController?.navigationBar.barTintColor = Appearance.white
+            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Appearance.black]
             navigationController?.navigationBar.isTranslucent = false
-            navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.black] // Large title color
+            navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: Appearance.black] // Large title color
         }
         // Remove the shadow line for all versions
         navigationController?.navigationBar.shadowImage = UIImage()
         // Set the navigation bar's background image to a blank/empty image
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        
         setupTableView()
     }
     
@@ -75,7 +75,7 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64.scale // Set the height of each cell to 60 points
+        return 64.scale // Set the height of each cell to 64 points
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,9 +85,11 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTableViewCell.identifier, for: indexPath) as! SettingsTableViewCell
         cell.textLabel?.text = settingsOptions[indexPath.row]
-        // Style the cell
+        cell.textLabel?.textColor = Appearance.black // Use Appearance.black
+        cell.backgroundColor = Appearance.white // Use Appearance.white
         return cell
     }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Cast the cell to your custom cell class
         guard let cell = cell as? SettingsTableViewCell else { return }
@@ -112,7 +114,7 @@ extension SettingsViewController: UITableViewDataSource {
     }
 }
 
-extension SettingsViewController:UITableViewDelegate {
+extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

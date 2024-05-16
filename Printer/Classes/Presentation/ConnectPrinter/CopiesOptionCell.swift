@@ -6,14 +6,17 @@
 //
 
 import UIKit
+
 class CopiesOptionCell: UICollectionViewCell {
     static let identifier = "CopiesOptionCell"
     weak var delegate: CopiesOptionCellDelegate?
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        label.textColor = Appearance.black // Set text color to Appearance.black
         return label
     }()
     
@@ -22,6 +25,7 @@ class CopiesOptionCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = Appearance.black // Set text color to Appearance.black
         return label
     }()
     
@@ -54,29 +58,28 @@ class CopiesOptionCell: UICollectionViewCell {
         // Adding the line view to the contentView
         contentView.addSubview(lineView)
         
-        
         contentView.addSubview(titleLabel)
         contentView.addSubview(countLabel)
         contentView.addSubview(stepper)
         
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0.scale),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor,constant: -4.scale),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -4.scale),
             
             countLabel.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -8.scale),
-            countLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor,constant: -4.scale),
+            countLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -4.scale),
             
             stepper.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -0.scale),
-            stepper.centerYAnchor.constraint(equalTo: contentView.centerYAnchor,constant: -4.scale),
+            stepper.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -4.scale),
             
             // Constraints for the line view
-            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 0.scale),
-            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -0.scale),
+            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0.scale),
+            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -0.scale),
             lineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             lineView.heightAnchor.constraint(equalToConstant: 0.4)  // Height of the line
         ])
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = Appearance.white // Set background color to Appearance.white
         contentView.layer.cornerRadius = 10
     }
     
@@ -86,7 +89,7 @@ class CopiesOptionCell: UICollectionViewCell {
     
     @objc private func stepperValueChanged(_ sender: UIStepper) {
         let newCount = Int(sender.value)
-        countLabel.text = String(format: "%d", Int(sender.value))
+        countLabel.text = String(format: "%d", newCount)
         delegate?.copiesOptionCell(cell: self, didChangeCopiesTo: newCount)
     }
     

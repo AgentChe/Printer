@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 final class PrinterConnectedStatusCell: UICollectionViewCell {
     
     static let identifier = "PrinterConnectedStatusCell"
@@ -24,28 +25,20 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         label.text = "Printer 1234 is connected"
         label.numberOfLines = 0
         label.font = Fonts.SFProDisplay.bold(size: 19)
+        label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        // Set the style for the title label
         return label
     }()
-    
-    
     
     private let changePrinterButton: UIButton = {
         let button = UIButton()
         button.setTitle("Change printer", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .clear // Use a color picker to get the exact color
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .clear
+        button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance.signatureBlue
         button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18)
-        // Use UIFont to set the font and size according to your design
-        button.setTitleColor(Appearance.signatureBlue, for: .normal)
-        
-        
-        // Set the target-action for the button tap event
         button.addTarget(self, action: #selector(addPrinterButtonTapped), for: .touchUpInside)
-        
         return button
     }()
     
@@ -54,11 +47,11 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         button.setTitle("Compatible list", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18)
-        // Настройте стиль кнопки и действие
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance.signatureBlue
         button.addTarget(self, action: #selector(compatibleListButtonTapped), for: .touchUpInside)
         return button
     }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -66,25 +59,21 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         addSubview(printerImageView)
         addSubview(titleLabel)
         addSubview(changePrinterButton)
-        // addSubview(compatibleListButton)
+        addSubview(compatibleListButton)
         setupLayout()
-        backgroundColor = .clear
+        backgroundColor = Appearance.background // Use Appearance.background
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     private func setupLayout() {
         let spacing = CGFloat(10.0.scale) // The space you want between elements
         let buttonHeight = CGFloat(20.0.scale) // The height of the buttons
         
         NSLayoutConstraint.activate([
             // Printer image view constraints
-            // Compatible list button constraints
-            //            compatibleListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
-            //            compatibleListButton.topAnchor.constraint(equalTo: topAnchor, constant: (spacing / 4).scale),
-            //            compatibleListButton.widthAnchor.constraint(equalToConstant: 130.scale), // Same width as add printer button
-            //            compatibleListButton.heightAnchor.constraint(equalToConstant: 21.scale), // Same height as add printer button
-            
             printerImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             printerImageView.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
             printerImageView.widthAnchor.constraint(equalToConstant: 130.scale), // Adjust multiplier for the desired width
@@ -95,36 +84,34 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
             titleLabel.topAnchor.constraint(equalTo: printerImageView.bottomAnchor, constant: spacing),
             titleLabel.widthAnchor.constraint(equalToConstant: 361.scale),
             
-            
-            // Add printer button constraints
+            // Change printer button constraints
             changePrinterButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            changePrinterButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: (1.2*spacing).scale),
+            changePrinterButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: (1.2 * spacing).scale),
             changePrinterButton.widthAnchor.constraint(equalToConstant: 361.scale),
             changePrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight.scale),
             
-            
+            // Compatible list button constraints
+            compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            compatibleListButton.topAnchor.constraint(equalTo: changePrinterButton.bottomAnchor, constant: spacing),
+            compatibleListButton.widthAnchor.constraint(equalTo: changePrinterButton.widthAnchor),
+            compatibleListButton.heightAnchor.constraint(equalTo: changePrinterButton.heightAnchor)
         ])
         
         // If you're using custom scaling, replace the CGFloat constants with your `.scale` adjusted values.
     }
-    // Initialize and set up the layout for subviews here...
 }
+
 extension PrinterConnectedStatusCell {
     // MARK: - Actions
     @objc private func addPrinterButtonTapped() {
-        //delegate?.didTapAddPrinter()
-        
         if let rootViewController = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController {
             let connectPrinterVC = ConnectPrinterViewController()
-            connectPrinterVC.modalPresentationStyle = .fullScreen // Set the presentation style to fullscreen
+            connectPrinterVC.modalPresentationStyle = .fullScreen
             rootViewController.present(connectPrinterVC, animated: true)
         }
-        
-        
-        
     }
     
     @objc private func compatibleListButtonTapped() {
-        // delegate?.didTapCompatibleList()
+        // Implement the action for the compatible list button
     }
 }

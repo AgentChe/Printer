@@ -10,6 +10,7 @@ class MailViewController: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(StepCell.self, forCellWithReuseIdentifier: StepCell.identifier)
+        cv.backgroundColor = Appearance.mainViewBackground // Set background color to Appearance.mainViewBackground
         return cv
     }()
     
@@ -26,7 +27,7 @@ class MailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Appearance.mainViewBackground // Set background color to Appearance.mainViewBackground
         title = NSLocalizedString("MailViewController.Title", comment: "")
         
         setupCollectionView()

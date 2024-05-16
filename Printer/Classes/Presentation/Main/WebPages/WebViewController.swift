@@ -11,7 +11,8 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     private lazy var addressTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter URL or search query"
-        textField.backgroundColor = .white  // Set background color to white
+        textField.backgroundColor = Appearance.white  // Set background color to Appearance.white
+        textField.textColor = Appearance.black  // Set text color to Appearance.black
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .URL
@@ -22,7 +23,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
         
         // Set corner radius and shadow
         textField.layer.cornerRadius = 15
-        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowColor = Appearance.black.cgColor
         textField.layer.shadowOffset = CGSize(width: 0, height: 0)
         textField.layer.shadowOpacity = 0.15
         textField.layer.shadowRadius = 4
@@ -38,13 +39,13 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     
     private lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.left")?.resized(to: CGSize(width: 16, height: 20)), style: .plain, target: self, action: #selector(goBack))
-        button.tintColor = webView.canGoBack ? .blue : .gray
+        button.tintColor = webView.canGoBack ? Appearance.signatureBlue : .gray
         return button
     }()
     
     private lazy var forwardButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "chevron.right")?.resized(to: CGSize(width: 16, height: 20)), style: .plain, target: self, action: #selector(goForward))
-        button.tintColor = webView.canGoForward ? .blue : .gray
+        button.tintColor = webView.canGoForward ? Appearance.signatureBlue : .gray
         return button
     }()
     
@@ -104,14 +105,14 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = Appearance.mainViewBackground
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+            appearance.titleTextAttributes = [.foregroundColor: Appearance.black]
             appearance.shadowColor = nil
             
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
         } else {
-            navigationController?.navigationBar.barTintColor = .white
-            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+            navigationController?.navigationBar.barTintColor = Appearance.white
+            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Appearance.black]
             navigationController?.navigationBar.isTranslucent = false
         }
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -119,6 +120,7 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     }
     
     private func setupToolbar() {
+        toolbar.backgroundColor = Appearance.mainViewBackground // Set toolbar background color
         let addressBar = UIBarButtonItem(customView: addressTextField)
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
@@ -233,8 +235,8 @@ final class WebViewController: UIViewController, UITextFieldDelegate, WKNavigati
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         addressTextField.text = webView.url?.absoluteString
-        backButton.tintColor = webView.canGoBack ? .blue : .gray
-        forwardButton.tintColor = webView.canGoForward ? .blue : .gray
+        backButton.tintColor = webView.canGoBack ? Appearance.signatureBlue : .gray
+        forwardButton.tintColor = webView.canGoForward ? Appearance.signatureBlue : .gray
     }
 }
 
