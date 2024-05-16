@@ -53,7 +53,7 @@
 // MARK: MainViewController
 "MainViewController.Title" = "My printer";
 "MainViewController.Action.Photos" = "Photos";
-"MainViewController.Action.Files" = "Files";
+"MainViewController.Action.Files" = "Documents";
 "MainViewController.Action.WebPages" = "Web Pages";
 "MainViewController.Action.Notes" = "Notes";
 "MainViewController.Action.GoogleDrive" = "Google Drive";

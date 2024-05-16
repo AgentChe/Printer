@@ -51,8 +51,6 @@ class AlignCell: UICollectionViewCell {
             imageName = "text.aligncenter"
         case .right:
             imageName = "text.alignright"
-        case .justified:
-            imageName = "text.justify"
         default:
             break
         }

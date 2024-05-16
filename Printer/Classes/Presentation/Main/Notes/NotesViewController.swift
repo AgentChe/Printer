@@ -12,7 +12,7 @@ class NotesViewController: UIViewController {
     private let printButton = UIButton()
 
     private let fonts = ["Arial", "Times New Roman", "SF Pro"]
-    private let alignments: [NSTextAlignment] = [.left, .center, .right, .justified]
+    private let alignments: [NSTextAlignment] = [.left, .center, .right]
 
     weak var delegate: NotesViewControllerDelegate?
 
@@ -88,6 +88,7 @@ class NotesViewController: UIViewController {
         let fontLabel = UILabel()
         fontLabel.text = NSLocalizedString("NotesViewController.Font", comment: "")
         fontLabel.font = Fonts.SFProDisplay.bold(size: 17.scale)
+        fontLabel.textColor = Appearance.black // Set the title color to Appearance.black
         fontLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fontLabel)
 
@@ -102,6 +103,7 @@ class NotesViewController: UIViewController {
         alignLabel.text = NSLocalizedString("NotesViewController.Align", comment: "")
         alignLabel.font = Fonts.SFProDisplay.bold(size: 17.scale)
         alignLabel.translatesAutoresizingMaskIntoConstraints = false
+        alignLabel.textColor = Appearance.black // Set the title color to Appearance.black
         view.addSubview(alignLabel)
 
         alignCollectionView.translatesAutoresizingMaskIntoConstraints = false
