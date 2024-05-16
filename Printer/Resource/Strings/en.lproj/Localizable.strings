@@ -60,6 +60,7 @@
 "MainViewController.Action.Dropbox" = "Dropbox";
 "MainViewController.Action.Email" = "Email";
 "MainViewController.Action.TestPrint" = "Test Print";
+
 // MARK: MainViewModel
 "MainViewModel.Action.Photos.Detail" = "Print from gallery";
 "MainViewModel.Action.Files.Detail" = "Print PDFs and docs";
@@ -73,15 +74,18 @@
 // MARK: MainView
 "MainView.PrinterConnected" = "Printer %@ is connected";
 "MainView.PrinterNotConnected" = "No printer connected.";
+
 // MARK: PrinterConnectedStatusCell
 "PrinterConnectedStatusCell.PrinterConnected" = "Printer %@ is connected";
 "PrinterConnectedStatusCell.ChangePrinter" = "Change printer";
 "PrinterConnectedStatusCell.CompatibleList" = "Compatible list";
+
 // MARK: PrinterNotConnectedStatusCell
 "PrinterNotConnectedStatusCell.NoPrinter" = "No printer was added";
 "PrinterNotConnectedStatusCell.CheckConnection" = "Check your internet connection or add another one";
 "PrinterNotConnectedStatusCell.AddPrinter" = "Add printer";
 "PrinterNotConnectedStatusCell.CompatibleList" = "Compatible list";
+
 // MARK: MailViewController
 "MailViewController.Title" = "Email";
 "MailViewController.Step1.Title" = "Step 1";
@@ -96,25 +100,30 @@
 "MailViewController.Step4.Title" = "Step 4";
 "MailViewController.Step4.Subtitle" = "Print attachment";
 "MailViewController.Step4.Description" = "In our app tap Print button on the document preview page and follow the further instructions on the screen to set up printing";
+
 // MARK: Photos
 "Photos.PhotoLibraryAccessDenied.Title" = "Photo Library Access Denied";
 "Photos.PhotoLibraryAccessDenied.Message" = "Please enable access to the photo library in the Settings app to select photos.";
 "Photos.PhotoLibraryAccessDenied.OK" = "OK";
 "Photos.PhotoLibraryAccessDenied.Settings" = "Settings";
+
 // MARK: DropboxFilesViewController
 "DropboxFilesViewController.Title" = "Dropbox Files";
 "DropboxFilesViewController.Fetching" = "Fetching Dropbox files...";
 "DropboxFilesViewController.FilesFetched" = "Files fetched: %d";
 "DropboxFilesViewController.ErrorFetching" = "Error fetching files: %@";
 "DropboxFilesViewController.NoErrorNoResult" = "No error, no result. Something went wrong.";
+
 // MARK: Dropbox
 "Dropbox.ErrorDownloadingFile" = "Error downloading Dropbox file: %@";
 "Dropbox.ErrorWritingFile" = "Error writing file to temporary directory: %@";
+
 // MARK: NotesViewController
 "NotesViewController.Title" = "Note";
 "NotesViewController.Font" = "Font";
 "NotesViewController.Align" = "Align";
 "NotesViewController.Print" = "Print";
 "NotesViewController.SampleText" = "User's text";
+
 // MARK: QuickActionHeaderView
 "QuickActionHeaderView.Title" = "QUICK ACTIONS";

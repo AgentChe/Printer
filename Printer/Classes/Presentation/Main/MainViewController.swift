@@ -110,6 +110,14 @@ extension MainViewController: MainViewDelegate {
         case NSLocalizedString("MainViewController.Action.Files", comment: ""):
             print("Selected Files action")
             openDocumentPicker()
+            
+//            if SessionManager().hasActiveSubscriptions() {
+//                openDocumentPicker()
+//            } else {
+//                let vc = PaygateViewController.make()
+//                present(vc, animated: true)
+//            }
+            
         case NSLocalizedString("MainViewController.Action.WebPages", comment: ""):
             print("Selected Web Pages action")
             let webVC = WebViewController()
