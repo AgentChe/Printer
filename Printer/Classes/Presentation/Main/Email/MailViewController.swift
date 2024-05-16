@@ -27,7 +27,7 @@ class MailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Email"
+        title = NSLocalizedString("MailViewController.Title", comment: "")
         
         setupCollectionView()
         setupCloseButton()
@@ -84,13 +84,33 @@ extension MailViewController: UICollectionViewDataSource, UICollectionViewDelega
     private func getStepData(for index: Int) -> StepData {
         switch index {
         case 0:
-            return StepData(title: "Step 1", subtitle: "Find mail", description: "Find needed email in any email client", image: UIImage(named: "Email.FindMail"))
+            return StepData(
+                title: NSLocalizedString("MailViewController.Step1.Title", comment: ""),
+                subtitle: NSLocalizedString("MailViewController.Step1.Subtitle", comment: ""),
+                description: NSLocalizedString("MailViewController.Step1.Description", comment: ""),
+                image: UIImage(named: "Email.FindMail")
+            )
         case 1:
-            return StepData(title: "Step 2", subtitle: "Open attachment", description: "Find attachment at the bottom of your email and tap top open preview", image: UIImage(named: "Email.OpenAttachment"))
+            return StepData(
+                title: NSLocalizedString("MailViewController.Step2.Title", comment: ""),
+                subtitle: NSLocalizedString("MailViewController.Step2.Subtitle", comment: ""),
+                description: NSLocalizedString("MailViewController.Step2.Description", comment: ""),
+                image: UIImage(named: "Email.OpenAttachment")
+            )
         case 2:
-            return StepData(title: "Step 3", subtitle: "Share attachment", description: "Tap Share button in attachment preview screen. Scroll share action sheet and find Copy to Printer App", image: UIImage(named: "Email.ShareAttachment"))
+            return StepData(
+                title: NSLocalizedString("MailViewController.Step3.Title", comment: ""),
+                subtitle: NSLocalizedString("MailViewController.Step3.Subtitle", comment: ""),
+                description: NSLocalizedString("MailViewController.Step3.Description", comment: ""),
+                image: UIImage(named: "Email.ShareAttachment")
+            )
         case 3:
-            return StepData(title: "Step 4", subtitle: "Print attachment", description: "In our app tap Print button on the document preview page and follow the further instructions on the screen to set up printing", image: UIImage(named: "Email.PrintAttachment"))
+            return StepData(
+                title: NSLocalizedString("MailViewController.Step4.Title", comment: ""),
+                subtitle: NSLocalizedString("MailViewController.Step4.Subtitle", comment: ""),
+                description: NSLocalizedString("MailViewController.Step4.Description", comment: ""),
+                image: UIImage(named: "Email.PrintAttachment")
+            )
         default:
             return StepData(title: "", subtitle: "", description: "", image: nil)
         }

@@ -43,7 +43,7 @@ final class MainViewController: UIViewController {
                 print("Error: \(error.localizedDescription)")
             }
         }
-        title = "My printer"
+        title = NSLocalizedString("MainViewController.Title", comment: "")
         
         // Enable large titles
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -92,16 +92,15 @@ extension MainViewController {
 
 extension MainViewController: MainViewDelegate {
     
-    
     func didSelectQuickAction(_ action: QuickAction) {
         switch action.title {
-        case "Photos":
+        case NSLocalizedString("MainViewController.Action.Photos", comment: ""):
             print("Selected Photos action")
             checkPhotoLibraryPermission()
-        case "Files":
+        case NSLocalizedString("MainViewController.Action.Files", comment: ""):
             print("Selected Files action")
             openDocumentPicker()
-        case "Web Pages":
+        case NSLocalizedString("MainViewController.Action.WebPages", comment: ""):
             print("Selected Web Pages action")
             let webVC = WebViewController()
             webVC.hidesBottomBarWhenPushed = true // Hide the tab bar
@@ -110,23 +109,23 @@ extension MainViewController: MainViewDelegate {
             // Hide the toolbar before the transition
             
             navigationController?.pushViewController(webVC, animated: true)
-        case "Notes":
+        case NSLocalizedString("MainViewController.Action.Notes", comment: ""):
             print("Selected Notes action")
             let notesVC = NotesViewController()
             notesVC.modalPresentationStyle = .fullScreen
             notesVC.delegate = self
             present(notesVC, animated: true, completion: nil)
-        case "Google Disk":
+        case NSLocalizedString("MainViewController.Action.GoogleDrive", comment: ""):
             print("Selected Google Drive action")
-        case "Dropbox":
+        case NSLocalizedString("MainViewController.Action.Dropbox", comment: ""):
             print("Selected Dropbox action")
             openDropbox()
-        case "Email":
+        case NSLocalizedString("MainViewController.Action.Email", comment: ""):
             print("Selected Email action")
             let mailVC = MailViewController()
             mailVC.modalPresentationStyle = .fullScreen
             present(mailVC, animated: true, completion: nil)
-        case "Test Print":
+        case NSLocalizedString("MainViewController.Action.TestPrint", comment: ""):
             print("Selected Test Print action")
             let printTestFileVC = PrintTestFileViewController()
             printTestFileVC.modalPresentationStyle = .fullScreen

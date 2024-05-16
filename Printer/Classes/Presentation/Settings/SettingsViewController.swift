@@ -112,23 +112,26 @@ extension SettingsViewController: UITableViewDataSource {
     }
 }
 
-extension SettingsViewController: UITableViewDelegate {
+extension SettingsViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Handle cell selection
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let settingsWebViewController = SettingsWebViewController()
         
         switch indexPath.row {
         case 0:
             // Contact us action
-            break
+            settingsWebViewController.url = GlobalDefinitions.contactUsUrl
         case 1:
             // Terms of Use action
-            break
+            settingsWebViewController.url = GlobalDefinitions.termsOfUseUrl
         case 2:
             // Privacy Policy action
-            break
+            settingsWebViewController.url = GlobalDefinitions.privacyPolicyUrl
         default:
-            break
+            return
         }
+        
+        navigationController?.pushViewController(settingsWebViewController, animated: true)
     }
 }

@@ -11,7 +11,7 @@ class NotesViewController: UIViewController {
     private let alignCollectionView: UICollectionView
     private let printButton = UIButton()
 
-    private let fonts = ["Arial", "Times New Roman", "Sf Pro"]
+    private let fonts = ["Arial", "Times New Roman", "SF Pro"]
     private let alignments: [NSTextAlignment] = [.left, .center, .right, .justified]
 
     weak var delegate: NotesViewControllerDelegate?
@@ -43,7 +43,7 @@ class NotesViewController: UIViewController {
         view.backgroundColor = Appearance.mainViewBackground
 
         let titleLabel = UILabel()
-        titleLabel.text = "Note"
+        titleLabel.text = NSLocalizedString("NotesViewController.Title", comment: "")
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
@@ -75,7 +75,7 @@ class NotesViewController: UIViewController {
             ]
         )
         let userText = NSAttributedString(
-            string: "User's text",
+            string: NSLocalizedString("NotesViewController.SampleText", comment: ""),
             attributes: [
                 .font: UIFont.systemFont(ofSize: 17, weight: .medium),
                 .paragraphStyle: paragraphStyle
@@ -85,7 +85,7 @@ class NotesViewController: UIViewController {
         textView.attributedText = attributedText
 
         let fontLabel = UILabel()
-        fontLabel.text = "Font"
+        fontLabel.text = NSLocalizedString("NotesViewController.Font", comment: "")
         fontLabel.font = Fonts.SFProDisplay.bold(size: 17)
         fontLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(fontLabel)
@@ -98,7 +98,7 @@ class NotesViewController: UIViewController {
         view.addSubview(fontCollectionView)
 
         let alignLabel = UILabel()
-        alignLabel.text = "Align"
+        alignLabel.text = NSLocalizedString("NotesViewController.Align", comment: "")
         alignLabel.font = Fonts.SFProDisplay.bold(size: 17)
         alignLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(alignLabel)
@@ -110,7 +110,7 @@ class NotesViewController: UIViewController {
         alignCollectionView.register(AlignCell.self, forCellWithReuseIdentifier: AlignCell.identifier)
         view.addSubview(alignCollectionView)
 
-        printButton.setTitle("Print", for: .normal)
+        printButton.setTitle(NSLocalizedString("NotesViewController.Print", comment: ""), for: .normal)
         printButton.backgroundColor = UIColor(red: 0.18, green: 0.36, blue: 1.00, alpha: 1.00)
         printButton.setTitleColor(.white, for: .normal)
         printButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -255,7 +255,7 @@ extension NotesViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 ]
             )
             let userText = NSAttributedString(
-                string: "User's text",
+                string: NSLocalizedString("NotesViewController.SampleText", comment: ""),
                 attributes: [
                     .font: smallFont,
                     .paragraphStyle: paragraphStyle

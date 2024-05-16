@@ -17,7 +17,7 @@ final class DropboxFilesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Dropbox Files"
+        title = NSLocalizedString("DropboxFilesViewController.Title", comment: "")
         view.addSubview(tableView)
         tableView.frame = view.bounds
         tableView.dataSource = self
@@ -26,16 +26,16 @@ final class DropboxFilesViewController: UIViewController {
     }
     
     private func fetchDropboxFiles() {
-        print("Fetching Dropbox files...")
+        print(NSLocalizedString("DropboxFilesViewController.Fetching", comment: ""))
         DropboxClientsManager.authorizedClient?.files.listFolder(path: "").response { [weak self] response, error in
             if let result = response {
-                print("Files fetched: \(result.entries.count)")
+                print(String(format: NSLocalizedString("DropboxFilesViewController.FilesFetched", comment: ""), result.entries.count))
                 self?.files = result.entries
                 self?.tableView.reloadData()
             } else if let error = error {
-                print("Error fetching files: \(error)")
+                print(String(format: NSLocalizedString("DropboxFilesViewController.ErrorFetching", comment: ""), error.localizedDescription))
             } else {
-                print("No error, no result. Something went wrong.")
+                print(NSLocalizedString("DropboxFilesViewController.NoErrorNoResult", comment: ""))
             }
         }
     }

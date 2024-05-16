@@ -6,13 +6,14 @@
 //
 
 import UIKit
+
 class QuickActionHeaderView: UICollectionReusableView {
     static let identifier = "QuickActionHeaderView"
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.SFProDisplay.medium(size: 16)
-        label.text = "QUICK ACTIONS"
+        label.text = NSLocalizedString("QuickActionHeaderView.Title", comment: "")
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

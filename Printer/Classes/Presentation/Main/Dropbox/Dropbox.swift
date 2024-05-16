@@ -1,10 +1,3 @@
-//
-//  Dropbox.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/14/24.
-//
-
 import UIKit
 import MobileCoreServices
 import UniformTypeIdentifiers
@@ -31,17 +24,17 @@ extension MainViewController: DropboxFilesViewControllerDelegate {
                     printController.printingItem = temporaryFileURL
                     printController.present(animated: true, completionHandler: nil)
                 } catch {
-                    print("Error writing file to temporary directory: \(error)")
+                    print(String(format: NSLocalizedString("Dropbox.ErrorWritingFile", comment: ""), error.localizedDescription))
                 }
             } else if let error = error {
-                print("Error downloading Dropbox file: \(error)")
+                print(String(format: NSLocalizedString("Dropbox.ErrorDownloadingFile", comment: ""), error.localizedDescription))
             }
         }
     }
 }
+
 extension MainViewController {
     func openDropbox() {
-        
         if DropboxClientsManager.authorizedClient == nil {
             let scopeRequest = ScopeRequest(scopeType: .user, scopes: ["account_info.read", "files.content.read", "files.metadata.read"], includeGrantedScopes: false)
             DropboxClientsManager.authorizeFromControllerV2(

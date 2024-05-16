@@ -10,7 +10,6 @@ import MobileCoreServices
 import UniformTypeIdentifiers
 import PhotosUI
 
- 
 // Photos
 extension MainViewController: PHPickerViewControllerDelegate {
 
@@ -56,11 +55,13 @@ extension MainViewController: PHPickerViewControllerDelegate {
     }
 
     private func showAlertForPhotoLibraryAccess() {
-        let alert = UIAlertController(title: "Photo Library Access Denied",
-                                      message: "Please enable access to the photo library in the Settings app to select photos.",
-                                      preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { _ in
+        let alert = UIAlertController(
+            title: NSLocalizedString("Photos.PhotoLibraryAccessDenied.Title", comment: ""),
+            message: NSLocalizedString("Photos.PhotoLibraryAccessDenied.Message", comment: ""),
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Photos.PhotoLibraryAccessDenied.OK", comment: ""), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Photos.PhotoLibraryAccessDenied.Settings", comment: ""), style: .default, handler: { _ in
             if let appSettings = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(appSettings)
             }
