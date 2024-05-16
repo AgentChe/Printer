@@ -25,7 +25,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     private let printOptionsTitle: UILabel = {
         let label = UILabel()
         label.text = "Print Options"
-        label.font = Fonts.SFProDisplay.bold(size: 24.scale)
+        label.font = ScreenSize.isIphoneXFamily ? Fonts.SFProDisplay.bold(size: 24.scale) : Fonts.SFProDisplay.bold(size: 20.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +47,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     private let previewLabel: UILabel = {
         let label = UILabel()
         label.text = "Preview"
-        label.font = Fonts.SFProDisplay.bold(size: 24.scale)
+        label.font = ScreenSize.isIphoneXFamily ? Fonts.SFProDisplay.bold(size: 24.scale) : Fonts.SFProDisplay.bold(size: 20.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         let layout = CenteredFlowLayoutForPreviewsCollectionView()
         layout.minimumLineSpacing = 10.scale
         layout.minimumInteritemSpacing = 10.scale
-        layout.sectionInset = UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.width - 154.scale) / 2, bottom: 0, right: (UIScreen.main.bounds.width - 154.scale) / 2)
+        layout.sectionInset = ScreenSize.isIphoneXFamily ? UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.width - 154.scale) / 2, bottom: 0, right: (UIScreen.main.bounds.width - 154.scale) / 2) : UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.width - (154*0.9).scale) / 2, bottom: 0, right: (UIScreen.main.bounds.width - (154*0.9).scale) / 2)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
@@ -73,7 +73,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
         button.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
         button.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
-        button.layer.cornerRadius = 24.scale
+        button.layer.cornerRadius = ScreenSize.isIphoneXFamily ?  24.scale : 18.scale
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handlePrintButton), for: .touchUpInside)
         return button
@@ -134,31 +134,31 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: printOptionsTitle.bottomAnchor, constant: 20.scale),
+            collectionView.topAnchor.constraint(equalTo: printOptionsTitle.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 20.scale : 10.scale),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10.scale),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10.scale),
             collectionView.heightAnchor.constraint(equalToConstant: 293.scale)
         ])
         
         NSLayoutConstraint.activate([
-            previewLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20.scale),
+            previewLabel.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant:ScreenSize.isIphoneXFamily ? 20.scale : 5.scale ),
             previewLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             previewLabel.widthAnchor.constraint(equalToConstant: 96.scale),
             previewLabel.heightAnchor.constraint(equalToConstant: 29.scale)
         ])
         
         NSLayoutConstraint.activate([
-            previewCollectionView.topAnchor.constraint(equalTo: previewLabel.bottomAnchor, constant: 20.scale),
+            previewCollectionView.topAnchor.constraint(equalTo: previewLabel.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 20.scale : 5.scale ),
             previewCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             previewCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            previewCollectionView.heightAnchor.constraint(equalToConstant: 226.scale)
+            previewCollectionView.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 226.scale : 177.scale)
         ])
         
         NSLayoutConstraint.activate([
-            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: 5.scale),
+            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 5.scale : 10.scale),
             printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            printButton.widthAnchor.constraint(equalToConstant: 358.scale),
-            printButton.heightAnchor.constraint(equalToConstant: 66.scale)
+            printButton.widthAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 358.scale : 330.scale),
+            printButton.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 66.scale : 56.scale)
         ])
     }
     
@@ -264,7 +264,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         if collectionView == self.collectionView {
             return CGSize(width: 326.scale, height: indexPath.row == 2 ? 136.scale : 64.scale)
         } else if collectionView == self.previewCollectionView {
-            return CGSize(width: 154.scale, height: 200.scale)
+            return ScreenSize.isIphoneXFamily ? CGSize(width: 154.scale, height: 200.scale) : CGSize(width: 154*0.9.scale, height: 200*0.9.scale)
         }
         return CGSize.zero
     }

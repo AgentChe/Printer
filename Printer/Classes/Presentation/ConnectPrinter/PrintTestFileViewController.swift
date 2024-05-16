@@ -123,7 +123,7 @@ class PrintTestFileViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            printButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? -10.scale : -10.scale),
+            printButton.bottomAnchor.constraint(equalTo: skipButton.topAnchor, constant: ScreenSize.isIphoneXFamily ? -10.scale : 10.scale),
             printButton.widthAnchor.constraint(equalToConstant: 358.scale),
             printButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])

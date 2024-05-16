@@ -29,12 +29,12 @@ class PreviewCell: UICollectionViewCell {
             previewImageView.topAnchor.constraint(equalTo: topAnchor),
             previewImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             previewImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            previewImageView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -8.scale), // Adjust the spacing as needed
+            previewImageView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant:ScreenSize.isIphoneXFamily ? -8.scale : -8.scale), // Adjust the spacing as needed
             
             descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 20.scale) // Adjust the height as needed
+            descriptionLabel.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 20.scale : 20.scale) // Adjust the height as needed
         ])
     }
 
