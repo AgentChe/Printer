@@ -131,5 +131,11 @@ extension PrinterNotConnectedStatusCell {
     
     @objc private func compatibleListButtonTapped() {
         // Implement the action for the compatible list button
+         
+        if let rootViewController = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController {
+            let brandsVC = NavigationController(rootViewController:BrandsTableViewController())
+            rootViewController.present(brandsVC, animated: true)
+        }
+        
     }
 }

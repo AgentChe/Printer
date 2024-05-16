@@ -101,6 +101,10 @@
 		A37736072BEC59FB00FCD54F /* WiFiToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37736062BEC59FB00FCD54F /* WiFiToggleView.swift */; };
 		A377360A2BEC756800FCD54F /* Wi-fi(Network).swift in Sources */ = {isa = PBXBuildFile; fileRef = A37736092BEC756800FCD54F /* Wi-fi(Network).swift */; };
 		A377360D2BEC768900FCD54F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377360C2BEC768900FCD54F /* BluetoothManager.swift */; };
+		A3C3B23F2BF666EB006CFEBC /* PrinterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B23E2BF666EB006CFEBC /* PrinterModel.swift */; };
+		A3C3B2412BF66707006CFEBC /* BrandsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2402BF66707006CFEBC /* BrandsTableViewController.swift */; };
+		A3C3B2432BF66722006CFEBC /* ModelsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2422BF66722006CFEBC /* ModelsTableViewController.swift */; };
+		A3C3B2452BF6676C006CFEBC /* PrinterModels.txt in Resources */ = {isa = PBXBuildFile; fileRef = A3C3B2442BF6676C006CFEBC /* PrinterModels.txt */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
 		DEDF90552BD7AF5D004340C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90542BD7AF5D004340C0 /* Assets.xcassets */; };
 		DEDF90582BD7AF5D004340C0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90572BD7AF5D004340C0 /* Base */; };
@@ -287,6 +291,10 @@
 		A37736062BEC59FB00FCD54F /* WiFiToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiToggleView.swift; sourceTree = "<group>"; };
 		A37736092BEC756800FCD54F /* Wi-fi(Network).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wi-fi(Network).swift"; sourceTree = "<group>"; };
 		A377360C2BEC768900FCD54F /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		A3C3B23E2BF666EB006CFEBC /* PrinterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterModel.swift; sourceTree = "<group>"; };
+		A3C3B2402BF66707006CFEBC /* BrandsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsTableViewController.swift; sourceTree = "<group>"; };
+		A3C3B2422BF66722006CFEBC /* ModelsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTableViewController.swift; sourceTree = "<group>"; };
+		A3C3B2442BF6676C006CFEBC /* PrinterModels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrinterModels.txt; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -674,6 +682,17 @@
 			path = "WiFi+Bluetooth";
 			sourceTree = "<group>";
 		};
+		A3C3B23D2BF666D2006CFEBC /* CompatibleList */ = {
+			isa = PBXGroup;
+			children = (
+				A3C3B23E2BF666EB006CFEBC /* PrinterModel.swift */,
+				A3C3B2402BF66707006CFEBC /* BrandsTableViewController.swift */,
+				A3C3B2442BF6676C006CFEBC /* PrinterModels.txt */,
+				A3C3B2422BF66722006CFEBC /* ModelsTableViewController.swift */,
+			);
+			path = CompatibleList;
+			sourceTree = "<group>";
+		};
 		C45561E149515E465BE877B2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1024,6 +1043,7 @@
 				A30EF7BA2BF3BB3700B93D6F /* Notes */,
 				A30EF7BF2BF40F4F00B93D6F /* WebPages */,
 				DEDF91892BD9542D004340C0 /* MainViewController.swift */,
+				A3C3B23D2BF666D2006CFEBC /* CompatibleList */,
 				DEDF918D2BD95438004340C0 /* MainView.swift */,
 				A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
@@ -1191,6 +1211,7 @@
 				A301E19D2BE5448500A5F9EC /* enhance@3x.png in Resources */,
 				DEDF90582BD7AF5D004340C0 /* Base in Resources */,
 				A301E1A12BE5448500A5F9EC /* flashUnavailable.png in Resources */,
+				A3C3B2452BF6676C006CFEBC /* PrinterModels.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1248,6 +1269,7 @@
 				A301E18D2BE5448500A5F9EC /* ZoomGestureController.swift in Sources */,
 				A301E1862BE5448500A5F9EC /* EditScanCornerView.swift in Sources */,
 				A377357F2BE868C900FCD54F /* CenteredFlowLayout.swift in Sources */,
+				A3C3B2432BF66722006CFEBC /* ModelsTableViewController.swift in Sources */,
 				A30EF7BE2BF3C02100B93D6F /* AlignCell.swift in Sources */,
 				DEDF90E82BD7B07C004340C0 /* UIColor+Extension.swift in Sources */,
 				A301E1C22BE5448500A5F9EC /* CaptureSession+Flash.swift in Sources */,
@@ -1322,6 +1344,7 @@
 				DEDF90D62BD7B07C004340C0 /* FacebookManager.swift in Sources */,
 				A301E1992BE5448500A5F9EC /* CaptureDevice.swift in Sources */,
 				DEDF90DD2BD7B07C004340C0 /* NavigationControllerSettings.swift in Sources */,
+				A3C3B2412BF66707006CFEBC /* BrandsTableViewController.swift in Sources */,
 				DEDF90E52BD7B07C004340C0 /* ObservableAndSingle+Extension.swift in Sources */,
 				A307150C2BF072BD00667526 /* PrintTestFileViewController.swift in Sources */,
 				DEDF90F32BD7B07C004340C0 /* ContentError.swift in Sources */,
@@ -1363,6 +1386,7 @@
 				DEDF91A32BD9565E004340C0 /* PaygateViewModel.swift in Sources */,
 				A30715252BF379A100667526 /* Photos.swift in Sources */,
 				DEDF90F72BD7B07C004340C0 /* NumberLaunches.swift in Sources */,
+				A3C3B23F2BF666EB006CFEBC /* PrinterModel.swift in Sources */,
 				A30715222BF210B200667526 /* CustomPrintImagePageRenderer.swift in Sources */,
 				DEDF90E42BD7B07C004340C0 /* Collection+Extension.swift in Sources */,
 				A301E1BE2BE5448500A5F9EC /* RectangleFeaturesFunnel.swift in Sources */,

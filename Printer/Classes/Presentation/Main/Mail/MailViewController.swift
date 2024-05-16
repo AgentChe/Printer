@@ -44,6 +44,7 @@ class MailViewController: UIViewController {
         setupCollectionView()
         setupCloseButton()
         setupStatusBarBackgroundView()
+        
     }
     
     private func setupStatusBarBackgroundView() {
