@@ -90,10 +90,12 @@ extension MainView: UICollectionViewDataSource {
                 let cleanedPrinterName = printerName.filter { $0 != "\"" }  // Remove all " characters
                 let truncatedPrinterName = String(cleanedPrinterName.prefix(10))  // Keep only the first 10 characters
                 cell.titleLabel.text = String(format: NSLocalizedString("MainView.PrinterConnected", comment: ""), truncatedPrinterName)
+                cell.titleLabel.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterNotConnectedStatusCell.identifier, for: indexPath) as! PrinterNotConnectedStatusCell
                 cell.titleLabel.text = NSLocalizedString("MainView.PrinterNotConnected", comment: "")
+                cell.titleLabel.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
                 return cell
             }
         } else {
@@ -102,6 +104,7 @@ extension MainView: UICollectionViewDataSource {
             }
             let action = quickActions[indexPath.row]
             cell.configure(with: action)
+           // cell.titleLabel.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
             return cell
         }
     }
@@ -112,6 +115,7 @@ extension MainView: UICollectionViewDataSource {
             if indexPath.section == 1 { // We only want a header for the second section
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: QuickActionHeaderView.identifier, for: indexPath) as! QuickActionHeaderView
                 // Configure your header if needed
+              //  header.titleLabel.font = Fonts.SFProDisplay.bold(size: 17) // Set custom font for header
                 return header
             }
             // If you don't want a header for other sections, you should create a default UICollectionReusableView here

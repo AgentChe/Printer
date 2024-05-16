@@ -12,7 +12,8 @@ class AvaliablePrintersCell: UICollectionViewCell {
     static let availablePrintersCellKey = "availablePrintersCellKey"
     var collectionView: UICollectionView!
     private var actionButton: UIButton! // Define the button
-    var foundPrinters:[UIPrinter] = []
+    var foundPrinters: [UIPrinter] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
@@ -26,12 +27,10 @@ class AvaliablePrintersCell: UICollectionViewCell {
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        
+        layout.minimumLineSpacing = 20.scale
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        layout.minimumLineSpacing = 20.scale
-        
         collectionView.register(PrinterCell.self, forCellWithReuseIdentifier: PrinterCell.identifier)
         collectionView.register(NoPrinterCell.self, forCellWithReuseIdentifier: NoPrinterCell.identifier)
         collectionView.dataSource = self
@@ -60,7 +59,9 @@ class AvaliablePrintersCell: UICollectionViewCell {
             actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 3.scale),
             actionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
-    }}
+    }
+}
+
 extension AvaliablePrintersCell: UICollectionViewDelegateFlowLayout {
     // Specify the size for each item
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -72,57 +73,53 @@ extension AvaliablePrintersCell: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //return 4 // Always return 4 cells
-        if foundPrinters.count != 0 {
-            return foundPrinters.count
-        } else {
-            return 1
-        }
+        return foundPrinters.isEmpty ? 1 : foundPrinters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if foundPrinters.count != 0 {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell {
-                let printerURL = foundPrinters[indexPath.item].url
-                cell.printerName.text = PrinterManager.shared.getPrinterName(for: printerURL)
-                if printerURL == PrinterManager.shared.currentlyConnectedPrinterURL {
-                    cell.connectionStatusLabel.text = "Connected"
-                } else {
-                    cell.connectionStatusLabel.text = "Not connected"
-                }
-                return cell
+        if !foundPrinters.isEmpty {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PrinterCell.identifier, for: indexPath) as? PrinterCell else {
+                return UICollectionViewCell()
             }
+            let printerURL = foundPrinters[indexPath.item].url
+            cell.printerName.text = PrinterManager.shared.getPrinterName(for: printerURL)
+            cell.connectionStatusLabel.text = printerURL == PrinterManager.shared.currentlyConnectedPrinterURL ? "Connected" : "Not connected"
+            return cell
         } else {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell {
-                return cell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell else {
+                return UICollectionViewCell()
             }
+            return cell
         }
-        return UICollectionViewCell()
     }
 }
+
 // MARK: - UICollectionViewDelegate
 extension AvaliablePrintersCell {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard foundPrinters.count != 0 else {
+        guard !foundPrinters.isEmpty else {
             print("No printers are available or cell tapped is NoPrinterCell.")
             return
         }
         
-        let cell = collectionView.cellForItem(at: indexPath) as? PrinterCell
-        let selectedPrinter = foundPrinters[indexPath.item]
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PrinterCell else {
+            return
+        }
         
-        // Check the connection status of the printer
-        if cell?.connectionStatusLabel.text == "Not connected" {
+        let selectedPrinter = foundPrinters[indexPath.item]
+        let isConnected = cell.connectionStatusLabel.text == "Connected"
+        
+        if !isConnected {
             // Connect to the printer if it is not currently connected
             PrinterManager.shared.connectToPrinter(with: selectedPrinter.url) { [weak self] (printer, error) in
                 DispatchQueue.main.async {
                     if let printer = printer {
-                        cell?.connectionStatusLabel.text = "Connected"
+                        cell.connectionStatusLabel.text = "Connected"
                         print("Successfully connected to \(printer.displayName)")
-                       
                     }
                     if let error = error {
                         if let viewController4Alert = self?.parentViewController {
@@ -137,7 +134,7 @@ extension AvaliablePrintersCell {
         } else {
             // Disconnect the printer if it is currently connected
             PrinterManager.shared.disconnectPrinter()
-            cell?.connectionStatusLabel.text = "Not connected"
+            cell.connectionStatusLabel.text = "Not connected"
             collectionView.reloadData()  // Refresh to update connection status labels
         }
     }

@@ -35,7 +35,7 @@ final class QuickActionCell: UICollectionViewCell {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        label.font = Fonts.SFProDisplay.semiBold(size: 19) // Set custom font
         label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +43,7 @@ final class QuickActionCell: UICollectionViewCell {
     
     private let detailLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.font = Fonts.SFProDisplay.regular(size: 16) // Set custom font
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

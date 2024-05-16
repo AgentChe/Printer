@@ -587,12 +587,13 @@
 			path = WebPages;
 			sourceTree = "<group>";
 		};
-		A33EB8112BF4556400616190 /* Email */ = {
+		A33EB8112BF4556400616190 /* Mail */ = {
 			isa = PBXGroup;
 			children = (
+				A33EB8142BF455B100616190 /* StepCell.swift */,
 				A33EB8122BF4557500616190 /* MailViewController.swift */,
 			);
-			path = Email;
+			path = Mail;
 			sourceTree = "<group>";
 		};
 		A355C2A42BE08F7F0064E1F1 /* Helpers */ = {
@@ -1017,7 +1018,7 @@
 			isa = PBXGroup;
 			children = (
 				A30715262BF379D600667526 /* Files */,
-				A33EB8112BF4556400616190 /* Email */,
+				A33EB8112BF4556400616190 /* Mail */,
 				A30715232BF3798E00667526 /* Photos */,
 				A30EF7B52BF3B05C00B93D6F /* Dropbox */,
 				A30EF7BA2BF3BB3700B93D6F /* Notes */,
@@ -1026,7 +1027,6 @@
 				DEDF918D2BD95438004340C0 /* MainView.swift */,
 				A355C2A92BE09B520064E1F1 /* QuickActionHeaderView.swift */,
 				A3692D252BE041A3006ADD60 /* MainViewModel.swift */,
-				A33EB8142BF455B100616190 /* StepCell.swift */,
 				A355C2A72BE090B60064E1F1 /* MainView+DelegateMethods.swift */,
 				A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */,
 				A30715092BEF4C0F00667526 /* PrinterConnectedStatusCell.swift */,

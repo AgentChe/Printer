@@ -13,6 +13,7 @@ class BluetoothToggleView: UIView {
     private let bluetoothIcon: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ToggleView.Bluetooth"))
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = Appearance.black // Use Appearance.black
         return imageView
     }()
     
@@ -20,7 +21,8 @@ class BluetoothToggleView: UIView {
     private let bluetoothLabel: UILabel = {
         let label = UILabel()
         label.text = "Bluetooth"
-        label.font = UIFont.systemFont(ofSize: 17) // Customize the font size as needed
+        label.font = Fonts.SFProDisplay.regular(size: 17) // Customize the font size as needed
+        label.textColor = Appearance.black // Use Appearance.black
         return label
     }()
     
@@ -34,7 +36,7 @@ class BluetoothToggleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        backgroundColor = .white
+        backgroundColor = Appearance.white // Use Appearance.white
         layer.cornerRadius = 24
     }
     
@@ -68,6 +70,7 @@ class BluetoothToggleView: UIView {
         ])
     }
 }
+
 extension BluetoothToggleView {
     // Method to update the Bluetooth switch image
     func updateSwitchImage(with imageName: String) {

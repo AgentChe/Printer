@@ -6,17 +6,18 @@
 //
 
 import UIKit
+
 class PrinterCell: UICollectionViewCell {
     static let identifier = "PrinterCellIdentifier"
 
     private let iconContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .clear//UIColor.systemBlue.withAlphaComponent(0.12) // Light blue background
+        view.backgroundColor = Appearance.mainViewBackground // Use Appearance.mainViewBackground
         view.layer.cornerRadius = 12 // The corner radius for rounded corners
         view.translatesAutoresizingMaskIntoConstraints = false
         
         // Drop shadow configuration
-        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowColor = Appearance.black.cgColor // Use Appearance.black for shadow
         view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
         view.layer.shadowRadius = 4
@@ -27,7 +28,7 @@ class PrinterCell: UICollectionViewCell {
     
     private let iconImageView: UIImageView = {
         let printerImage = UIImage(named: "PrinterCell.Printer")
-        let imageView = UIImageView(image:printerImage)
+        let imageView = UIImageView(image: printerImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -35,24 +36,25 @@ class PrinterCell: UICollectionViewCell {
     
     let printerName: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.scale, weight: .regular)
+        label.font = Fonts.SFProDisplay.regular(size: 17.scale) // Set custom font
         label.text = "Printer N1234"
+        label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-     let connectionStatusLabel: UILabel = {
+    let connectionStatusLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 17.scale, weight: .regular)
+        label.font = Fonts.SFProDisplay.regular(size: 17.scale) // Set custom font
         label.text = "Not connected"
-        label.textColor = .gray
+        label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white // Use the Appearance framework or your theme settings to set this
+        backgroundColor = Appearance.white // Use Appearance.white
         layer.cornerRadius = 20
         clipsToBounds = true
         setupViews()
@@ -102,4 +104,3 @@ class PrinterCell: UICollectionViewCell {
         connectionStatusLabel.text = action.detail // Assuming QuickAction now has a 'detail' property for additional text
     }
 }
- 

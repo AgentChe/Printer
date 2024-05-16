@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 class NoPrinterCell: UICollectionViewCell {
     static let identifier = "NoPrinterCellIdentifier"
     
@@ -14,16 +15,16 @@ class NoPrinterCell: UICollectionViewCell {
         let imageView = UIImageView(image: noPrinterImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        imageView.tintColor = Appearance.black // Use Appearance.black
         return imageView
     }()
     
-    private let noPrimtersLabel: UILabel = {
+    private let noPrintersLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.SFProDisplay.medium(size: 17)
+        label.font = Fonts.SFProDisplay.medium(size: 17) // Set custom font
         label.text = "No Printers Added"
         label.textAlignment = .center
-        label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
+        label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -40,7 +41,7 @@ class NoPrinterCell: UICollectionViewCell {
     private func setupViews() {
         backgroundColor = .clear
         addSubview(noPrinterImageView)
-        addSubview(noPrimtersLabel)
+        addSubview(noPrintersLabel)
         
         NSLayoutConstraint.activate([
             // Center the imageView in the cell
@@ -49,10 +50,10 @@ class NoPrinterCell: UICollectionViewCell {
             noPrinterImageView.widthAnchor.constraint(equalToConstant: 33.scale),
             noPrinterImageView.heightAnchor.constraint(equalToConstant: 29.scale),
             
-            noPrimtersLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            noPrimtersLabel.topAnchor.constraint(equalTo: noPrinterImageView.bottomAnchor, constant: 16.scale),
-            noPrimtersLabel.widthAnchor.constraint(equalTo: widthAnchor),
-            noPrimtersLabel.heightAnchor.constraint(equalToConstant: 20.scale)
+            noPrintersLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            noPrintersLabel.topAnchor.constraint(equalTo: noPrinterImageView.bottomAnchor, constant: 16.scale),
+            noPrintersLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            noPrintersLabel.heightAnchor.constraint(equalToConstant: 20.scale)
         ])
     }
 }

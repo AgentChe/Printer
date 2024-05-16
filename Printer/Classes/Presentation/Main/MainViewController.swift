@@ -54,17 +54,29 @@ final class MainViewController: UIViewController {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = Appearance.mainViewBackground
-            appearance.titleTextAttributes = [.foregroundColor: Appearance.black]
-            appearance.largeTitleTextAttributes = [.foregroundColor: Appearance.black]
+            appearance.titleTextAttributes = [
+                .foregroundColor: Appearance.black,
+                .font: Fonts.SFProDisplay.medium(size: 17) // Replace system font with custom font
+            ]
+            appearance.largeTitleTextAttributes = [
+                .foregroundColor: Appearance.black,
+                .font: Fonts.SFProDisplay.bold(size: 34) // Replace system font with custom font
+            ]
             appearance.shadowColor = nil
             
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
         } else {
             navigationController?.navigationBar.barTintColor = Appearance.white
-            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: Appearance.black]
+            navigationController?.navigationBar.titleTextAttributes = [
+                .foregroundColor: Appearance.black,
+                .font: Fonts.SFProDisplay.medium(size: 17) // Replace system font with custom font
+            ]
             navigationController?.navigationBar.isTranslucent = false
-            navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: Appearance.black]
+            navigationController?.navigationBar.largeTitleTextAttributes = [
+                .foregroundColor: Appearance.black,
+                .font: Fonts.SFProDisplay.bold(size: 34) // Replace system font with custom font
+            ]
         }
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

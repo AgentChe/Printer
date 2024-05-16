@@ -6,20 +6,23 @@
 //
 
 import UIKit
+
 class WifiToggleView: UIView {
     
-    // UIImageView for the Bluetooth icon
+    // UIImageView for the WiFi icon
     private let WiFiIcon: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "ToggleView.WiFi"))
         imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = Appearance.black // Use Appearance.black
         return imageView
     }()
     
-    // UILabel for the Bluetooth text
+    // UILabel for the WiFi text
     private let WiFiLabel: UILabel = {
         let label = UILabel()
         label.text = "Wi-fi"
-        label.font = UIFont.systemFont(ofSize: 17) // Customize the font size as needed
+        label.font = Fonts.SFProDisplay.regular(size: 17) // Customize the font size as needed
+        label.textColor = Appearance.black // Use Appearance.black
         return label
     }()
     
@@ -33,7 +36,7 @@ class WifiToggleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        backgroundColor = .white
+        backgroundColor = Appearance.white // Use Appearance.white
         layer.cornerRadius = 24
     }
     
@@ -67,6 +70,7 @@ class WifiToggleView: UIView {
         ])
     }
 }
+
 extension WifiToggleView {
     // Method to update the WiFi switch image
     func updateSwitchImage(with imageName: String) {
