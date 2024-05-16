@@ -5,7 +5,7 @@ class MailViewController: UIViewController {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 14.scale
+        layout.minimumLineSpacing = 14
         layout.minimumInteritemSpacing = 0
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -18,8 +18,8 @@ class MailViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "Paygate.Close"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 18.scale).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 20.scale).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
         button.alpha = 0.6
         button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         return button
@@ -51,8 +51,8 @@ class MailViewController: UIViewController {
         view.addSubview(closeButton)
         
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10.scale),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10.scale)
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
     }
     
@@ -79,7 +79,18 @@ extension MailViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 20.scale, height: 298.scale)
+        switch indexPath.item {
+        case 0:
+            return CGSize(width: collectionView.frame.width - 20, height: 298.scale)
+        case 1:
+            return CGSize(width: collectionView.frame.width - 20, height: 320.scale)
+        case 2:
+            return CGSize(width: collectionView.frame.width - 20, height: 320.scale)
+        case 3:
+            return CGSize(width: collectionView.frame.width - 20, height: 342.scale)
+        default:
+            return CGSize(width: collectionView.frame.width - 20, height: 320.scale)
+        }
     }
     
     private func getStepData(for index: Int) -> StepData {
