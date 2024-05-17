@@ -136,6 +136,6 @@ extension SettingsViewController: UITableViewDelegate {
             return
         }
         
-        navigationController?.pushViewController(settingsWebViewController, animated: true)
+        present(settingsWebViewController, animated: true, completion: nil)
     }
 }

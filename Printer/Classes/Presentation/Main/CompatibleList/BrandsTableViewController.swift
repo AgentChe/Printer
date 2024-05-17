@@ -25,7 +25,7 @@ class BrandsTableViewController: UITableViewController {
         
         // Set table view appearance
         tableView.backgroundColor = Appearance.white
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "cell")
         
         // Load printer data
         printerData = PrinterData(fileName: "PrinterModels")
@@ -40,7 +40,7 @@ class BrandsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
         let brand = printerData?.printers[indexPath.row].brand
         cell.textLabel?.text = brand
         cell.textLabel?.textColor = Appearance.black
@@ -59,5 +59,25 @@ class BrandsTableViewController: UITableViewController {
         navigationItem.backBarButtonItem = backButton
         
         navigationController?.pushViewController(modelsVC, animated: true)
+    }
+}
+
+class CustomTableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupAccessoryView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupAccessoryView()
+    }
+    
+    private func setupAccessoryView() {
+        let chevron = UIImage(systemName: "chevron.right")?.withRenderingMode(.alwaysTemplate)
+        let chevronImageView = UIImageView(image: chevron)
+        chevronImageView.tintColor = Appearance.signatureBlue
+        accessoryView = chevronImageView
     }
 }

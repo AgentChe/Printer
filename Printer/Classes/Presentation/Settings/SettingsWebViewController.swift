@@ -17,18 +17,19 @@ class SettingsWebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = Appearance.mainViewBackground
+       
         webView = WKWebView(frame: .zero)
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)
-        
+        webView.backgroundColor = Appearance.mainViewBackground
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
+        webView.layer.masksToBounds = true
         let request = URLRequest(url: url)
         webView.load(request)
         
