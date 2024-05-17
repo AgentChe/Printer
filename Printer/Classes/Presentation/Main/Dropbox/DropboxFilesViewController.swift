@@ -25,6 +25,12 @@ final class DropboxFilesViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         fetchDropboxFiles()
+
+        // Set title text color
+        if let navigationBar = navigationController?.navigationBar {
+            let titleAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: Appearance.black]
+            navigationBar.titleTextAttributes = titleAttributes
+        }
     }
     
     private func fetchDropboxFiles() {
