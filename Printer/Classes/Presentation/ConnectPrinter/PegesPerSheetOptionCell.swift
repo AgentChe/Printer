@@ -1,6 +1,3 @@
-// PegesPerSheetOptionCell.swift
-// Printer
-
 import UIKit
 
 protocol PegesPerSheetOptionCellDelegate: AnyObject {
@@ -32,7 +29,7 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
     
     func setupLabels() {
         // Set up the 'Pages per sheet' label
-        pagesPerSheetLabel.text = "Pages per sheet"
+        pagesPerSheetLabel.text = NSLocalizedString("PegesPerSheetOptionCell.Title", comment: "Pages per sheet")
         pagesPerSheetLabel.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font with .scale
         pagesPerSheetLabel.textAlignment = .left
         pagesPerSheetLabel.textColor = Appearance.black // Set text color to Appearance.black

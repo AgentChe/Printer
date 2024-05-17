@@ -1,3 +1,4 @@
+//
 //  ScannedResultsViewController.swift
 //  Printer
 
@@ -18,7 +19,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
     
     let printButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Print file", for: .normal)
+        button.setTitle(NSLocalizedString("ScannedResults.PrintFile", comment: "Print file"), for: .normal)
         button.backgroundColor = Appearance.signatureBlue // Use Appearance signature color
         button.layer.cornerRadius = 24.scale
         button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
@@ -29,7 +30,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
     
     let saveButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Save to files", for: .normal)
+        button.setTitle(NSLocalizedString("ScannedResults.SaveToFiles", comment: "Save to files"), for: .normal)
         button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
         button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance signature color
         button.backgroundColor = .clear
@@ -107,10 +108,10 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
             }
         }
         if itemsToShare.isEmpty {
-            showAlert(with: "No Images", message: "There are no images to share.")
+            showAlert(with: NSLocalizedString("ScannedResults.NoImagesTitle", comment: "No Images"), message: NSLocalizedString("ScannedResults.NoImagesMessage", comment: "There are no images to share."))
             return
         }
-        let message = "Sharing \(itemsToShare.count) image\(itemsToShare.count > 1 ? "s" : "")."
+        let message = String(format: NSLocalizedString("ScannedResults.SharingMessage", comment: "Sharing %d image(s)."), itemsToShare.count)
         itemsToShare.insert(message, at: 0)
         
         let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
@@ -120,7 +121,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
 
     private func showAlert(with title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("ScannedResults.OK", comment: "OK"), style: .default))
         self.present(alert, animated: true)
     }
 
@@ -136,7 +137,7 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
     @objc private func saveButtonTapped() {
         let images = ImageManager.shared.imageScans.compactMap { $0.enhancedScan?.image }
         if images.isEmpty {
-            showAlert(with: "No Images", message: "There are no images to save.")
+            showAlert(with: NSLocalizedString("ScannedResults.NoImagesTitle", comment: "No Images"), message: NSLocalizedString("ScannedResults.SaveNoImagesMessage", comment: "There are no images to save."))
             return
         }
         saveImagesToFiles(images: images)

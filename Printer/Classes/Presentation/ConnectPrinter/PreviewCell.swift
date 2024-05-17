@@ -16,7 +16,6 @@ class PreviewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.font = Fonts.SFProDisplay.regular(size: 15.scale) // Custom font
         label.textColor = Appearance.black // Set color to Appearance.black
-        label.text = "page 1 of 3"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -29,7 +28,7 @@ class PreviewCell: UICollectionViewCell {
             previewImageView.topAnchor.constraint(equalTo: topAnchor),
             previewImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             previewImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            previewImageView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant:ScreenSize.isIphoneXFamily ? -8.scale : -8.scale), // Adjust the spacing as needed
+            previewImageView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: ScreenSize.isIphoneXFamily ? -8.scale : -8.scale), // Adjust the spacing as needed
             
             descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -45,5 +44,11 @@ class PreviewCell: UICollectionViewCell {
     func configure(with image: UIImage, description: String) {
         previewImageView.image = image
         descriptionLabel.text = description
+    }
+
+    func configure(with image: UIImage, pageNumber: Int, totalPages: Int) {
+        previewImageView.image = image
+        let localizedDescription = String(format: NSLocalizedString("PreviewCell.Description", comment: "page %d of %d"), pageNumber, totalPages)
+        descriptionLabel.text = localizedDescription
     }
 }

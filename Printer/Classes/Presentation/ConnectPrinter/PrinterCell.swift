@@ -37,7 +37,7 @@ class PrinterCell: UICollectionViewCell {
     let printerName: UILabel = {
         let label = UILabel()
         label.font = Fonts.SFProDisplay.regular(size: 17.scale) // Set custom font
-        label.text = "Printer N1234"
+        label.text = NSLocalizedString("PrinterCell.PrinterName", comment: "Printer N1234")
         label.textColor = Appearance.black // Use Appearance.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -46,7 +46,7 @@ class PrinterCell: UICollectionViewCell {
     let connectionStatusLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.SFProDisplay.regular(size: 17.scale) // Set custom font
-        label.text = "Not connected"
+        label.text = NSLocalizedString("PrinterCell.ConnectionStatus.NotConnected", comment: "Not connected")
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

@@ -127,3 +127,89 @@
 
 // MARK: QuickActionHeaderView
 "QuickActionHeaderView.Title" = "QUICK ACTIONS";
+
+// MARK: SettingsViewController
+"Settings.Title" = "Settings";
+"Settings.ContactUs" = "Contact us";
+"Settings.TermsOfUse" = "Terms of Use";
+"Settings.PrivacyPolicy" = "Privacy Policy";
+
+// MARK: ScannedResultsViewController
+"ScannedResults.PrintFile" = "Print file";
+"ScannedResults.SaveToFiles" = "Save to files";
+"ScannedResults.NoImagesTitle" = "No Images";
+"ScannedResults.NoImagesMessage" = "There are no images to share.";
+"ScannedResults.SharingMessage" = "Sharing %d image(s).";
+"ScannedResults.SaveNoImagesMessage" = "There are no images to save.";
+"ScannedResults.OK" = "OK";
+
+// MARK: EditScanViewController
+"wescan.edit.button.next" = "Next";
+"wescan.scanning.cancel" = "Cancel";
+"wescan.edit.title" = "Scan";
+"wescan.edit.button.keepScan" = "Keep scan";
+"wescan.edit.button.retake" = "Retake";
+
+// MARK: SeekForAccesToScanViewController
+"SeekForAccess.Header" = "Allow access to scan";
+"SeekForAccess.Description" = "In order to scan anything you need to give permission in settings to choose photos.";
+"SeekForAccess.Settings" = "Go To Settings";
+"SeekForAccess.Camera" = "Allow access to Camera";
+"SeekForAccess.GoToSettingsButton" = "Go to Settings";
+
+// MARK: PhotoReviewViewController
+"PhotoReview.Title" = "Scan";
+"PhotoReview.KeepButton" = "Keep scan";
+"PhotoReview.RetakeButton" = "Retake";
+
+// MARK: ConnectPrinterViewController
+"ConnectPrinter.Title" = "Connect Printer";
+"ConnectPrinter.NoPrinters" = "No printers found";
+"ConnectPrinter.Connect" = "Connect";
+"ConnectPrinter.AvailablePrinters" = "Available Printers";
+
+// MARK: PrinterCell
+"PrinterCell.PrinterName" = "Printer N1234";
+"PrinterCell.ConnectionStatus.NotConnected" = "Not connected";
+
+// MARK: NoPrinterCell
+"NoPrinterCell.NoPrintersAdded" = "No Printers Added";
+
+// MARK: ConnectPrinterCell
+"ConnectPrinterCell.Header" = "Check your connection";
+"ConnectPrinterCell.Detail" = "Make sure your phone and printer are connected to the same Wi-Fi network or bluetooth turned on for both devices";
+"ConnectPrinterCell.NewPrinter" = "New printer";
+"ConnectPrinterCell.AvailablePrinters" = "Available Printers";
+"ConnectPrinterCell.Instruction" = "If you don’t see your printer here, please check the connections and reboot it (power reset) and try again.";
+"ConnectPrinterCell.CompatibleListButton" = "Printer compatible list";
+
+// MARK: PrintTestFileViewController
+"PrintTestFile.Header" = "Want to print a test file?";
+"PrintTestFile.Description" = "To make sure you have a good connection print a test with this image.";
+"PrintTestFile.SkipButton" = "Skip";
+"PrintTestFile.PrintButton" = "Print";
+
+// MARK: PrinterOptionCell
+"PrinterOptionCell.Title" = "Title";
+"PrinterOptionCell.Detail" = "Detail";
+
+// MARK: PreviewCell
+"PreviewCell.Description" = "page %d of %d";
+
+// MARK: PrintOptionsViewController
+"PrintOptions.Title" = "Print Options";
+"PrintOptions.Preview" = "Preview";
+"PrintOptions.PrintButton" = "Print";
+"PrintOptions.Printer" = "Printer";
+"PrintOptions.PrinterNotSelected" = "not selected";
+"PrintOptions.Copy" = "Copy";
+"PreviewCell.Description" = "page %d of %d";
+
+// MARK: PegesPerSheetOptionCell
+"PegesPerSheetOptionCell.Title" = "Pages per sheet";
+
+// MARK: AvaliablePrintersCell
+"AvaliablePrintersCell.NoDevice" = "Don't see your device?";
+"AvaliablePrintersCell.Connected" = "Connected";
+"AvaliablePrintersCell.NotConnected" = "Not connected";
+

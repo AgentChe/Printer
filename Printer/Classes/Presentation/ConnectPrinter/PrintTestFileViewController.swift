@@ -27,7 +27,7 @@ class PrintTestFileViewController: UIViewController {
     }
 
     private func setupSkipButton() {
-        skipButton.setTitle("Skip", for: .normal)
+        skipButton.setTitle(NSLocalizedString("PrintTestFile.SkipButton", comment: "Skip"), for: .normal)
         skipButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
         skipButton.backgroundColor = .clear
         skipButton.setTitleColor(Appearance.signatureBlue, for: .normal)
@@ -73,14 +73,14 @@ class PrintTestFileViewController: UIViewController {
     }
 
     private func setupLabels() {
-        headerLabel.text = "Want to print a test file?"
+        headerLabel.text = NSLocalizedString("PrintTestFile.Header", comment: "Want to print a test file?")
         headerLabel.font = Fonts.SFProDisplay.bold(size: 24.scale) // Custom font
         headerLabel.textAlignment = .center
         headerLabel.textColor = Appearance.black // Use Appearance.black for header text
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
         
-        descriptionLabel.text = "To make sure you have a good connection print a test with this image."
+        descriptionLabel.text = NSLocalizedString("PrintTestFile.Description", comment: "To make sure you have a good connection print a test with this image.")
         descriptionLabel.font = Fonts.SFProDisplay.regular(size: 18.scale) // Custom font
         descriptionLabel.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         descriptionLabel.textAlignment = .center
@@ -106,7 +106,7 @@ class PrintTestFileViewController: UIViewController {
     }
 
     private func setupPrintButton() {
-        printButton.setTitle("Print", for: .normal)
+        printButton.setTitle(NSLocalizedString("PrintTestFile.PrintButton", comment: "Print"), for: .normal)
         printButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
         printButton.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
         printButton.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white

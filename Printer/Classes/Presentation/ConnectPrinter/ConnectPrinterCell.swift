@@ -14,7 +14,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     // Create the header label
     let headerLabel: UILabel = {
         let label = UILabel()
-        label.text = "Check your connection"
+        label.text = NSLocalizedString("ConnectPrinterCell.Header", comment: "Check your connection")
         label.font = Fonts.SFProDisplay.bold(size: 24.scale) // UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .left
@@ -25,7 +25,7 @@ class ConnectPrinterCell: UICollectionViewCell {
     // Create the detail label
     let detailLabel: UILabel = {
         let label = UILabel()
-        label.text = "Make sure your phone and printer are connected to the same Wi-Fi network or bluetooth turned on for both devices"
+        label.text = NSLocalizedString("ConnectPrinterCell.Detail", comment: "Make sure your phone and printer are connected to the same Wi-Fi network or bluetooth turned on for both devices")
         label.font = Fonts.SFProDisplay.medium(size: 15.scale) // UIFont.systemFont(ofSize: 15, weight: .medium)
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.textAlignment = .left
@@ -63,7 +63,7 @@ class ConnectPrinterCell: UICollectionViewCell {
 
         // Create and configure a UIButton.Configuration instance
         var config = UIButton.Configuration.filled()
-        config.title = "New printer"
+        config.title = NSLocalizedString("ConnectPrinterCell.NewPrinter", comment: "New printer")
         config.baseForegroundColor = Appearance.white // Use Appearance.white
         config.baseBackgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
         config.cornerStyle = .medium // This can be adjusted to match your design requirements
@@ -131,7 +131,7 @@ class ConnectPrinterCell: UICollectionViewCell {
 
     let availablePrintersLabel: UILabel = {
         let label = UILabel()
-        label.text = "Available Printers"
+        label.text = NSLocalizedString("ConnectPrinterCell.AvailablePrinters", comment: "Available Printers")
         label.font = Fonts.SFProDisplay.bold(size: 24.scale) // Assuming the font and size from your description
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .left
@@ -141,7 +141,7 @@ class ConnectPrinterCell: UICollectionViewCell {
 
     let instructionLabel: UILabel = {
         let label = UILabel()
-        label.text = "If you don’t see your printer here, please check the connections and reboot it (power reset) and try again."
+        label.text = NSLocalizedString("ConnectPrinterCell.Instruction", comment: "If you don’t see your printer here, please check the connections and reboot it (power reset) and try again.")
         label.font = Fonts.SFProDisplay.medium(size: 15.scale)
         label.textColor = Appearance.subtitleLabelColor // Use Appearance.subtitleLabelColor
         label.numberOfLines = 3
@@ -152,7 +152,7 @@ class ConnectPrinterCell: UICollectionViewCell {
 
     let showCompatiblePrinterListButton: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSAttributedString(string: "Printer compatible list", attributes: [
+        let attributedTitle = NSAttributedString(string: NSLocalizedString("ConnectPrinterCell.CompatibleListButton", comment: "Printer compatible list"), attributes: [
             .font: Fonts.SFProDisplay.medium(size: 16.scale),
             .foregroundColor: UIColor.systemBlue,
             .kern: 0.2 // Set kerning
@@ -164,15 +164,15 @@ class ConnectPrinterCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
     @objc private func compatibleListButtonTapped() {
         // Implement the action for the compatible list button
-         
         if let rootViewController = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController {
-            let brandsVC = NavigationController(rootViewController:BrandsTableViewController())
+            let brandsVC = NavigationController(rootViewController: BrandsTableViewController())
             parentViewController?.present(brandsVC, animated: true)
         }
-        
     }
+
     var connectionCheckTimer: Timer?
     let wifi2ndManager = NetworkReachability()
     let bluetoothManager = BluetoothManager()
@@ -197,9 +197,7 @@ class ConnectPrinterCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = Appearance.mainViewBackground
         wifi2ndManager.delegate = self
-
         bluetoothManager.delegate = self
-
         setupConnectionCheckTimer()
 
         addSubview(headerLabel)
@@ -207,7 +205,6 @@ class ConnectPrinterCell: UICollectionViewCell {
         addSubview(closeButton)
         addSubview(bluetoothToggleView)
         addSubview(wifiToggleView)
-       // addSubview(addPrinterButton)
         addSubview(availablePrintersLabel)
         addSubview(instructionLabel)
         addSubview(showCompatiblePrinterListButton)

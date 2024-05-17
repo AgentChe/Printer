@@ -26,10 +26,16 @@ class ConnectPrinterViewController: UIViewController, UICollectionViewDelegate, 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         foundPrinters = PrinterManager.shared.retrieveAllPrinters()
         setupCollectionView()
+        setupNavigationBar()
+    }
+
+    private func setupNavigationBar() {
+        title = NSLocalizedString("ConnectPrinter.Title", comment: "Connect Printer")
     }
 
     private func setupCollectionView() {

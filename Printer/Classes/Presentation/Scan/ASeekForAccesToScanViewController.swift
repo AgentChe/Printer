@@ -1,3 +1,4 @@
+//
 //  SeekForAccesToScanViewController.swift
 //  Printer
 
@@ -12,8 +13,8 @@ class SeekForAccesToScanViewController: UIViewController {
     private let imageView = UIImageView()
     private let headerLabel = UILabel()
     private let descriptionLabel = UILabel()
-    private let settingsView = CustomView(frame: .zero, imageName: "SeekForAccess.Settings", labelText: "Go To Settings")
-    private let cameraView = CustomView(frame: .zero, imageName: "SeekForAccess.Camera", labelText: "Allow access to Camera")
+    private let settingsView = CustomView(frame: .zero, imageName: "SeekForAccess.Settings", labelText: NSLocalizedString("SeekForAccess.Settings", comment: "Go To Settings"))
+    private let cameraView = CustomView(frame: .zero, imageName: "SeekForAccess.Camera", labelText: NSLocalizedString("SeekForAccess.Camera", comment: "Allow access to Camera"))
     private let goToSettingsButton = UIButton(type: .system)
 
     override func viewDidLoad() {
@@ -66,14 +67,14 @@ class SeekForAccesToScanViewController: UIViewController {
     }
 
     private func setupLabels() {
-        headerLabel.text = "Allow access to scan"
+        headerLabel.text = NSLocalizedString("SeekForAccess.Header", comment: "Allow access to scan")
         headerLabel.font = Fonts.SFProDisplay.bold(size: 24.scale) // Custom font
         headerLabel.textColor = Appearance.black // Use Appearance.black
         headerLabel.textAlignment = .center
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(headerLabel)
 
-        descriptionLabel.text = "In order to scan anything you need to give permission in settings to choose photos."
+        descriptionLabel.text = NSLocalizedString("SeekForAccess.Description", comment: "In order to scan anything you need to give permission in settings to choose photos.")
         descriptionLabel.font = Fonts.SFProDisplay.medium(size: 16.scale) // Custom font
         descriptionLabel.textColor = Appearance.black.withAlphaComponent(0.6)
         descriptionLabel.textAlignment = .center
@@ -119,7 +120,7 @@ class SeekForAccesToScanViewController: UIViewController {
     }
 
     private func setupGoToSettingsButton() {
-        goToSettingsButton.setTitle("Go to Settings", for: .normal)
+        goToSettingsButton.setTitle(NSLocalizedString("SeekForAccess.GoToSettingsButton", comment: "Go to Settings"), for: .normal)
         goToSettingsButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
         goToSettingsButton.backgroundColor = Appearance.signatureBlue
         goToSettingsButton.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white

@@ -14,12 +14,16 @@ class SettingsViewController: UIViewController {
     var tableView: UITableView!
     
     // Assuming you have these settings somewhere
-    let settingsOptions = ["Contact us", "Terms of Use", "Privacy Policy"]
+    let settingsOptions = [
+        NSLocalizedString("Settings.ContactUs", comment: "Contact us"),
+        NSLocalizedString("Settings.TermsOfUse", comment: "Terms of Use"),
+        NSLocalizedString("Settings.PrivacyPolicy", comment: "Privacy Policy")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Appearance.mainViewBackground
-        title = "Settings"
+        title = NSLocalizedString("Settings.Title", comment: "Settings")
         
         // Enable large titles
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -135,7 +139,6 @@ extension SettingsViewController: UITableViewDelegate {
         default:
             return
         }
-        
         present(settingsWebViewController, animated: true, completion: nil)
     }
 }

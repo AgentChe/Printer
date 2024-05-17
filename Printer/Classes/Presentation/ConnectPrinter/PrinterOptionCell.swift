@@ -1,10 +1,3 @@
-//
-//  PrinterOptionCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/13/24.
-//
-
 import UIKit
 
 class PrinterOptionCell: UICollectionViewCell {

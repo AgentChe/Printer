@@ -24,7 +24,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     
     private let printOptionsTitle: UILabel = {
         let label = UILabel()
-        label.text = "Print Options"
+        label.text = NSLocalizedString("PrintOptions.Title", comment: "Print Options")
         label.font = ScreenSize.isIphoneXFamily ? Fonts.SFProDisplay.bold(size: 24.scale) : Fonts.SFProDisplay.bold(size: 20.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
@@ -46,7 +46,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     
     private let previewLabel: UILabel = {
         let label = UILabel()
-        label.text = "Preview"
+        label.text = NSLocalizedString("PrintOptions.Preview", comment: "Preview")
         label.font = ScreenSize.isIphoneXFamily ? Fonts.SFProDisplay.bold(size: 24.scale) : Fonts.SFProDisplay.bold(size: 20.scale)
         label.textColor = Appearance.black // Use Appearance.black
         label.textAlignment = .center
@@ -69,7 +69,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     
     private let printButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Print", for: .normal)
+        button.setTitle(NSLocalizedString("PrintOptions.PrintButton", comment: "Print"), for: .normal)
         button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale)
         button.backgroundColor = Appearance.signatureBlue // Use Appearance.signatureBlue
         button.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
@@ -216,11 +216,11 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                     if let printerName = PrinterManager.shared.getPrinterName(for: currentlyConnectedPrinterURL) {
                         let cleanedPrinterName = printerName.filter { $0 != "\"" }
                         let truncatedPrinterName = String(cleanedPrinterName.prefix(10))
-                        cell.configure(with: "Printer", detail: "\(truncatedPrinterName)")
+                        cell.configure(with: NSLocalizedString("PrintOptions.Printer", comment: "Printer"), detail: "\(truncatedPrinterName)")
                         return cell
                     }
                 } else {
-                    cell.configure(with: "Printer", detail: "not selected")
+                    cell.configure(with: NSLocalizedString("PrintOptions.Printer", comment: "Printer"), detail: NSLocalizedString("PrintOptions.PrinterNotSelected", comment: "not selected"))
                 }
                 return cell
                 
@@ -228,7 +228,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CopiesOptionCell.identifier, for: indexPath) as? CopiesOptionCell else {
                     return UICollectionViewCell()
                 }
-                cell.configure(with: "Copy", count: 1)
+                cell.configure(with: NSLocalizedString("PrintOptions.Copy", comment: "Copy"), count: 1)
                 cell.delegate = self
                 return cell
                 
@@ -246,7 +246,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PreviewCell.identifier, for: indexPath) as? PreviewCell else {
                 return UICollectionViewCell()
             }
-            cell.configure(with: previews[indexPath.row], description: "page \(indexPath.item + 1) of \(previews.count)")
+            cell.configure(with: previews[indexPath.row], pageNumber: indexPath.item + 1, totalPages: previews.count)
             return cell
         }
         return UICollectionViewCell()

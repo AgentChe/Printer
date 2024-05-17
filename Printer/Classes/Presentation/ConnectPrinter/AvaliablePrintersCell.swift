@@ -1,6 +1,3 @@
-// AvaliablePrintersCell.swift
-// Printer
-
 import UIKit
 
 class AvaliablePrintersCell: UICollectionViewCell {
@@ -9,28 +6,29 @@ class AvaliablePrintersCell: UICollectionViewCell {
     private var actionButton: UIButton! // Define the button
     var foundPrinters: [UIPrinter] = []
     weak var delegate: ConnectPrinterCellDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupCollectionView()
         setupActionButton()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 20.scale
-        
+
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.register(PrinterCell.self, forCellWithReuseIdentifier: PrinterCell.identifier)
         collectionView.register(NoPrinterCell.self, forCellWithReuseIdentifier: NoPrinterCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
+
         addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -40,22 +38,23 @@ class AvaliablePrintersCell: UICollectionViewCell {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-    
+
     private func setupActionButton() {
         actionButton = UIButton(type: .system)
-        actionButton.setTitle("Don't see your device?", for: .normal)
+        actionButton.setTitle(NSLocalizedString("AvaliablePrintersCell.NoDevice", comment: "Don't see your device?"), for: .normal)
         actionButton.setTitleColor(Appearance.signatureBlue, for: .normal)
         actionButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Set font size and weight
         actionButton.translatesAutoresizingMaskIntoConstraints = false
         actionButton.backgroundColor = .clear
         actionButton.addTarget(self, action: #selector(selectPrinter), for: .touchUpInside)
         addSubview(actionButton)
-        
+
         NSLayoutConstraint.activate([
             actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 3.scale),
             actionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
+
     @objc func selectPrinter() {
         let printerPicker = UIPrinterPickerController(initiallySelectedPrinter: nil)
 
@@ -107,7 +106,7 @@ extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return foundPrinters.isEmpty ? 1 : foundPrinters.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if foundPrinters.isEmpty {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NoPrinterCell.identifier, for: indexPath) as? NoPrinterCell else {
@@ -120,7 +119,7 @@ extension AvaliablePrintersCell: UICollectionViewDataSource, UICollectionViewDel
             }
             let printerURL = foundPrinters[indexPath.item].url
             cell.printerName.text = PrinterManager.shared.getPrinterName(for: printerURL)
-            cell.connectionStatusLabel.text = printerURL == PrinterManager.shared.currentlyConnectedPrinterURL ? "Connected" : "Not connected"
+            cell.connectionStatusLabel.text = printerURL == PrinterManager.shared.currentlyConnectedPrinterURL ? NSLocalizedString("AvaliablePrintersCell.Connected", comment: "Connected") : NSLocalizedString("AvaliablePrintersCell.NotConnected", comment: "Not connected")
             return cell
         }
     }
@@ -133,20 +132,20 @@ extension AvaliablePrintersCell {
             print("No printers are available or cell tapped is NoPrinterCell.")
             return
         }
-        
+
         guard let cell = collectionView.cellForItem(at: indexPath) as? PrinterCell else {
             return
         }
-        
+
         let selectedPrinter = foundPrinters[indexPath.item]
-        let isConnected = cell.connectionStatusLabel.text == "Connected"
-        
+        let isConnected = cell.connectionStatusLabel.text == NSLocalizedString("AvaliablePrintersCell.Connected", comment: "Connected")
+
         if !isConnected {
             // Connect to the printer if it is not currently connected
             PrinterManager.shared.connectToPrinter(with: selectedPrinter.url) { [weak self] (printer, error) in
                 DispatchQueue.main.async {
                     if let printer = printer {
-                        cell.connectionStatusLabel.text = "Connected"
+                        cell.connectionStatusLabel.text = NSLocalizedString("AvaliablePrintersCell.Connected", comment: "Connected")
                         print("Successfully connected to \(printer.displayName)")
                     }
                     if let error = error {
@@ -162,7 +161,7 @@ extension AvaliablePrintersCell {
         } else {
             // Disconnect the printer if it is currently connected
             PrinterManager.shared.disconnectPrinter()
-            cell.connectionStatusLabel.text = "Not connected"
+            cell.connectionStatusLabel.text = NSLocalizedString("AvaliablePrintersCell.NotConnected", comment: "Not connected")
             collectionView.reloadData()  // Refresh to update connection status labels
         }
     }

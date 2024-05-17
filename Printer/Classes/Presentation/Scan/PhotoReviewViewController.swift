@@ -1,3 +1,4 @@
+//
 //  PhotoReviewViewController.swift
 //  Printer
 
@@ -19,7 +20,7 @@ class PhotoReviewViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = Appearance.white // Use Appearance.white
-        title = "Scan"
+        title = NSLocalizedString("PhotoReview.Title", comment: "Scan")
         
         // Setting up the image view
         imageView = UIImageView()
@@ -42,7 +43,7 @@ class PhotoReviewViewController: UIViewController {
     private func setupButtons() {
         // Keep button
         keepButton = UIButton(type: .system)
-        keepButton.setTitle("Keep scan", for: .normal)
+        keepButton.setTitle(NSLocalizedString("PhotoReview.KeepButton", comment: "Keep scan"), for: .normal)
         keepButton.backgroundColor = Appearance.signatureBlue
         keepButton.setTitleColor(Appearance.white, for: .normal) // Use Appearance.white
         keepButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
@@ -54,7 +55,7 @@ class PhotoReviewViewController: UIViewController {
         
         // Retake button
         retakeButton = UIButton(type: .system)
-        retakeButton.setTitle("Retake", for: .normal)
+        retakeButton.setTitle(NSLocalizedString("PhotoReview.RetakeButton", comment: "Retake"), for: .normal)
         retakeButton.backgroundColor = .clear // Clear background
         retakeButton.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance.signatureBlue
         retakeButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 17.scale) // Custom font
