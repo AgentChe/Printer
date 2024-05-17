@@ -250,25 +250,18 @@ extension NotesCellContent: UICollectionViewDataSource, UICollectionViewDelegate
                 smallFont = UIFont.systemFont(ofSize: smallFontSize, weight: .medium)
             }
 
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = 4.scale
+            // Preserve existing attributes
+            let originalAttributedText = textView.attributedText
+            let mutableAttributedText = NSMutableAttributedString(attributedString: originalAttributedText!)
 
-            let attributedText = NSMutableAttributedString(
-                string: "AA\n",
-                attributes: [
-                    .font: largeFont,
-                    .paragraphStyle: paragraphStyle
-                ]
-            )
-            let userText = NSAttributedString(
-                string: NSLocalizedString("NotesViewController.SampleText", comment: ""),
-                attributes: [
-                    .font: smallFont,
-                    .paragraphStyle: paragraphStyle
-                ]
-            )
-            attributedText.append(userText)
-            textView.attributedText = attributedText
+            // Iterate through each range of the attributed text and update the font attribute
+            mutableAttributedText.enumerateAttribute(.font, in: NSRange(location: 0, length: mutableAttributedText.length), options: []) { value, range, _ in
+                let currentFont = value as! UIFont
+                let newFont = currentFont.pointSize == largeFontSize ? largeFont : smallFont
+                mutableAttributedText.addAttribute(.font, value: newFont, range: range)
+            }
+
+            textView.attributedText = mutableAttributedText
         } else if collectionView == alignCollectionView {
             let selectedAlignment = alignments[indexPath.item]
             textView.textAlignment = selectedAlignment
