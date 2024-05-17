@@ -46,7 +46,7 @@ class NoPrinterCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             // Center the imageView in the cell
             noPrinterImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            noPrinterImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0.scale),
+            noPrinterImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: ScreenSize.isIphoneXFamily ? 0.scale : 0.scale),
             noPrinterImageView.widthAnchor.constraint(equalToConstant: 33.scale),
             noPrinterImageView.heightAnchor.constraint(equalToConstant: 29.scale),
             

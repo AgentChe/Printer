@@ -33,7 +33,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60.scale), // Leave space for the button
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -120.scale), // Leave space for the button
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -97,7 +97,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
 extension AvaliablePrintersCell: UICollectionViewDelegateFlowLayout {
     // Specify the size for each item
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 358.scale, height: foundPrinters.isEmpty ? 150.scale : 92.scale)
+        return CGSize(width: 358.scale, height: foundPrinters.isEmpty ?  (ScreenSize.isIphoneXFamily ? 150.scale : 50.scale) :  92.scale)
     }
 }
 
