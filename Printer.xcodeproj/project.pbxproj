@@ -75,7 +75,7 @@
 		A30715252BF379A100667526 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715242BF379A100667526 /* Photos.swift */; };
 		A30715282BF379E000667526 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715272BF379E000667526 /* Files.swift */; };
 		A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B62BF3B07300B93D6F /* Dropbox.swift */; };
-		A30EF7B92BF3BB1200B93D6F /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */; };
+		A30EF7B92BF3BB1200B93D6F /* NotesCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */; };
 		A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */; };
 		A30EF7BE2BF3C02100B93D6F /* AlignCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */; };
 		A30EF7C12BF40F7600B93D6F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7C02BF40F7600B93D6F /* WebViewController.swift */; };
@@ -105,6 +105,8 @@
 		A3C3B2412BF66707006CFEBC /* BrandsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2402BF66707006CFEBC /* BrandsTableViewController.swift */; };
 		A3C3B2432BF66722006CFEBC /* ModelsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2422BF66722006CFEBC /* ModelsTableViewController.swift */; };
 		A3C3B2452BF6676C006CFEBC /* PrinterModels.txt in Resources */ = {isa = PBXBuildFile; fileRef = A3C3B2442BF6676C006CFEBC /* PrinterModels.txt */; };
+		A3C3B2832BF75816006CFEBC /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2822BF75816006CFEBC /* NotesCell.swift */; };
+		A3C3B2852BF75991006CFEBC /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2842BF75991006CFEBC /* NotesViewController.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
 		DEDF90552BD7AF5D004340C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90542BD7AF5D004340C0 /* Assets.xcassets */; };
 		DEDF90582BD7AF5D004340C0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90572BD7AF5D004340C0 /* Base */; };
@@ -265,7 +267,7 @@
 		A30715242BF379A100667526 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		A30715272BF379E000667526 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		A30EF7B62BF3B07300B93D6F /* Dropbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropbox.swift; sourceTree = "<group>"; };
-		A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCellContent.swift; sourceTree = "<group>"; };
 		A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
 		A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignCell.swift; sourceTree = "<group>"; };
 		A30EF7C02BF40F7600B93D6F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -295,6 +297,8 @@
 		A3C3B2402BF66707006CFEBC /* BrandsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsTableViewController.swift; sourceTree = "<group>"; };
 		A3C3B2422BF66722006CFEBC /* ModelsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTableViewController.swift; sourceTree = "<group>"; };
 		A3C3B2442BF6676C006CFEBC /* PrinterModels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrinterModels.txt; sourceTree = "<group>"; };
+		A3C3B2822BF75816006CFEBC /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
+		A3C3B2842BF75991006CFEBC /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -580,9 +584,11 @@
 		A30EF7BA2BF3BB3700B93D6F /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				A30EF7B82BF3BB1200B93D6F /* NotesViewController.swift */,
+				A3C3B2842BF75991006CFEBC /* NotesViewController.swift */,
 				A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */,
 				A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */,
+				A3C3B2822BF75816006CFEBC /* NotesCell.swift */,
+				A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -1385,6 +1391,8 @@
 				A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */,
 				DEDF91A32BD9565E004340C0 /* PaygateViewModel.swift in Sources */,
 				A30715252BF379A100667526 /* Photos.swift in Sources */,
+				A3C3B2832BF75816006CFEBC /* NotesCell.swift in Sources */,
+				A3C3B2852BF75991006CFEBC /* NotesViewController.swift in Sources */,
 				DEDF90F72BD7B07C004340C0 /* NumberLaunches.swift in Sources */,
 				A3C3B23F2BF666EB006CFEBC /* PrinterModel.swift in Sources */,
 				A30715222BF210B200667526 /* CustomPrintImagePageRenderer.swift in Sources */,
@@ -1420,7 +1428,7 @@
 				A301E1872BE5448500A5F9EC /* Error.swift in Sources */,
 				DEDF90D52BD7B07C004340C0 /* BranchManager.swift in Sources */,
 				DEDF919E2BD9565E004340C0 /* PaygateProductButton.swift in Sources */,
-				A30EF7B92BF3BB1200B93D6F /* NotesViewController.swift in Sources */,
+				A30EF7B92BF3BB1200B93D6F /* NotesCellContent.swift in Sources */,
 				A301E19A2BE5448500A5F9EC /* Transformable.swift in Sources */,
 				DEDF919B2BD9565E004340C0 /* DefaultPaygate.swift in Sources */,
 				A301E1C12BE5448500A5F9EC /* CaptureSession.swift in Sources */,

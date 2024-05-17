@@ -162,7 +162,7 @@ extension MainViewController: MainViewDelegate {
 }
 
 extension MainViewController: NotesViewControllerDelegate {
-    func notesViewController(_ controller: NotesViewController, didSaveFormattedText text: NSAttributedString) {
+    func notesViewController(_ controller: NotesCellContent, didSaveFormattedText text: NSAttributedString) {
         // Handle the formatted text if needed in MainViewController
     }
 }
