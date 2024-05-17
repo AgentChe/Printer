@@ -224,7 +224,7 @@ class ConnectPrinterCell: UICollectionViewCell {
             closeButtonHitArea.widthAnchor.constraint(equalToConstant: 68.scale), // 4 times the width of the button
             closeButtonHitArea.heightAnchor.constraint(equalToConstant: 68.scale), // 4 times the height of the button
 
-            headerLabel.topAnchor.constraint(equalTo: closeButtonHitArea.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 20.scale : -40.scale),
+            headerLabel.topAnchor.constraint(equalTo: closeButtonHitArea.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -40.scale : -40.scale),
             headerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.scale),
             headerLabel.widthAnchor.constraint(equalToConstant: 270.scale),
             headerLabel.heightAnchor.constraint(equalToConstant: 29.scale),
