@@ -11,6 +11,7 @@ class PrintTestFileViewController: UIViewController {
     private let descriptionLabel = UILabel()
     private let printButton = UIButton(type: .system)
     private let skipButton = UIButton(type: .system)
+    private let dismissButtonHitArea = UIView() // Add a UIView to expand tap area
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +46,26 @@ class PrintTestFileViewController: UIViewController {
         dismissButton.imageView?.contentMode = .scaleAspectFit // Ensure the image is aspect fit
         dismissButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(dismissButton)
+
+        dismissButtonHitArea.translatesAutoresizingMaskIntoConstraints = false
+        dismissButtonHitArea.backgroundColor = .clear
+        dismissButtonHitArea.addSubview(dismissButton)
+        view.addSubview(dismissButtonHitArea)
         
         NSLayoutConstraint.activate([
-            dismissButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10.scale),
-            dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23.scale),
+            dismissButton.leadingAnchor.constraint(equalTo: dismissButtonHitArea.centerXAnchor, constant: 15.scale),
+            dismissButton.centerYAnchor.constraint(equalTo: dismissButtonHitArea.centerYAnchor),
             dismissButton.widthAnchor.constraint(equalToConstant: 17.scale),
-            dismissButton.heightAnchor.constraint(equalToConstant: 17.scale)
+            dismissButton.heightAnchor.constraint(equalToConstant: 17.scale),
+
+            dismissButtonHitArea.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10.scale),
+            dismissButtonHitArea.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23.scale),
+            dismissButtonHitArea.widthAnchor.constraint(equalToConstant: 68.scale), // 4 times the width of the button
+            dismissButtonHitArea.heightAnchor.constraint(equalToConstant: 68.scale) // 4 times the height of the button
         ])
+        
+        let dismissButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
+        dismissButtonHitArea.addGestureRecognizer(dismissButtonTapGesture)
     }
 
     @objc private func dismissViewController() {

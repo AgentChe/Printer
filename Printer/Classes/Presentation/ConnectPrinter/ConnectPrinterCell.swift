@@ -1,10 +1,3 @@
-//
-//  ConnectPrinterCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/10/24.
-//
-
 import UIKit
 
 class ConnectPrinterCell: UICollectionViewCell {
@@ -44,6 +37,14 @@ class ConnectPrinterCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         return button
+    }()
+
+    // Invisible view to increase tap area of the close button
+    private let closeButtonHitArea: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
     }()
 
     let bluetoothToggleView: BluetoothToggleView = {
@@ -202,7 +203,8 @@ class ConnectPrinterCell: UICollectionViewCell {
 
         addSubview(headerLabel)
         addSubview(detailLabel)
-        addSubview(closeButton)
+        addSubview(closeButtonHitArea) // Add the hit area view first
+        closeButtonHitArea.addSubview(closeButton) // Add closeButton to closeButtonHitArea
         addSubview(bluetoothToggleView)
         addSubview(wifiToggleView)
         addSubview(availablePrintersLabel)
@@ -212,12 +214,17 @@ class ConnectPrinterCell: UICollectionViewCell {
         // Use AutoLayout to position the views
         let view = self
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.scale),
-            closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.scale),
+            closeButton.topAnchor.constraint(equalTo: closeButtonHitArea.topAnchor),
+            closeButton.trailingAnchor.constraint(equalTo: closeButtonHitArea.trailingAnchor),
             closeButton.widthAnchor.constraint(equalToConstant: 17.scale),
             closeButton.heightAnchor.constraint(equalToConstant: 17.scale),
 
-            headerLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20.scale),
+            closeButtonHitArea.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.scale),
+            closeButtonHitArea.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.scale),
+            closeButtonHitArea.widthAnchor.constraint(equalToConstant: 68.scale), // 4 times the width of the button
+            closeButtonHitArea.heightAnchor.constraint(equalToConstant: 68.scale), // 4 times the height of the button
+
+            headerLabel.topAnchor.constraint(equalTo: closeButtonHitArea.bottomAnchor, constant: 20.scale),
             headerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.scale),
             headerLabel.widthAnchor.constraint(equalToConstant: 270.scale),
             headerLabel.heightAnchor.constraint(equalToConstant: 29.scale),
@@ -257,6 +264,9 @@ class ConnectPrinterCell: UICollectionViewCell {
             showCompatiblePrinterListButton.widthAnchor.constraint(equalToConstant: 200.scale), // Adjust width as necessary
             showCompatiblePrinterListButton.heightAnchor.constraint(equalToConstant: 50.scale)
         ])
+
+        let closeButtonTapGesture = UITapGestureRecognizer(target: self, action: #selector(closeButtonTapped))
+        closeButtonHitArea.addGestureRecognizer(closeButtonTapGesture)
     }
 
     required init?(coder: NSCoder) {

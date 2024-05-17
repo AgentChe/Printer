@@ -59,6 +59,12 @@ class NotesCellContent: UIViewController {
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dismissButton)
 
+        // Invisible view to increase tap area of the dismiss button
+        let dismissButtonHitArea = UIView()
+        dismissButtonHitArea.translatesAutoresizingMaskIntoConstraints = false
+        dismissButtonHitArea.backgroundColor = .clear
+        view.addSubview(dismissButtonHitArea)
+
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = Appearance.white // Use Appearance.white
         textView.layer.cornerRadius = 20.scale
@@ -125,14 +131,14 @@ class NotesCellContent: UIViewController {
         printButton.addTarget(self, action: #selector(printButtonTapped), for: .touchUpInside)
         view.addSubview(printButton)
 
-        setupConstraints(titleLabel: titleLabel, dismissButton: dismissButton, fontLabel: fontLabel, alignLabel: alignLabel, printButton: printButton)
+        setupConstraints(titleLabel: titleLabel, dismissButton: dismissButton, dismissButtonHitArea: dismissButtonHitArea, fontLabel: fontLabel, alignLabel: alignLabel, printButton: printButton)
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapOutsideTextView(_:)))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
 
-    private func setupConstraints(titleLabel: UILabel, dismissButton: UIButton, fontLabel: UILabel, alignLabel: UILabel, printButton: UIButton) {
+    private func setupConstraints(titleLabel: UILabel, dismissButton: UIButton, dismissButtonHitArea: UIView, fontLabel: UILabel, alignLabel: UILabel, printButton: UIButton) {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.scale),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -141,6 +147,11 @@ class NotesCellContent: UIViewController {
             dismissButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.scale),
             dismissButton.widthAnchor.constraint(equalToConstant: 18.scale),
             dismissButton.heightAnchor.constraint(equalToConstant: 20.scale),
+
+            dismissButtonHitArea.centerYAnchor.constraint(equalTo: dismissButton.centerYAnchor),
+            dismissButtonHitArea.centerXAnchor.constraint(equalTo: dismissButton.centerXAnchor),
+            dismissButtonHitArea.widthAnchor.constraint(equalToConstant: 72.scale), // Four times the width of the button
+            dismissButtonHitArea.heightAnchor.constraint(equalToConstant: 80.scale), // Four times the height of the button
 
             textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16.scale),
             textView.widthAnchor.constraint(equalToConstant: 361.scale),
@@ -172,6 +183,10 @@ class NotesCellContent: UIViewController {
             printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.scale),
             printButton.heightAnchor.constraint(equalToConstant: 68.scale)
         ])
+
+        // Add tap gesture recognizer to the hit area
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissViewController))
+        dismissButtonHitArea.addGestureRecognizer(tapGesture)
     }
 
     override func viewDidLoad() {

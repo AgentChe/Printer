@@ -35,16 +35,22 @@ class MailViewController: UIViewController {
         return button
     }()
     
+    // Invisible view to increase tap area of the close button
+    private let closeButtonHitArea: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Appearance.mainViewBackground // Set background color to Appearance.mainViewBackground
         title = NSLocalizedString("MailViewController.Title", comment: "")
         
-         
         setupCollectionView()
         setupCloseButton()
         setupStatusBarBackgroundView()
-        
     }
     
     private func setupStatusBarBackgroundView() {
@@ -73,12 +79,26 @@ class MailViewController: UIViewController {
     }
     
     private func setupCloseButton() {
+        view.addSubview(closeButtonHitArea)
         view.addSubview(closeButton)
         
+        // Constraints for the close button hit area
+        NSLayoutConstraint.activate([
+            closeButtonHitArea.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
+            closeButtonHitArea.centerXAnchor.constraint(equalTo: closeButton.centerXAnchor),
+            closeButtonHitArea.widthAnchor.constraint(equalToConstant: 72), // Four times the width of the button
+            closeButtonHitArea.heightAnchor.constraint(equalToConstant: 80) // Four times the height of the button
+        ])
+        
+        // Constraints for the close button
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
+        
+        // Add tap gesture recognizer to the hit area
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(closeButtonTapped))
+        closeButtonHitArea.addGestureRecognizer(tapGesture)
     }
     
     @objc private func closeButtonTapped() {
