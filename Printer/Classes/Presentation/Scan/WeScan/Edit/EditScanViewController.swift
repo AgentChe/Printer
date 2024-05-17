@@ -186,7 +186,7 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
 
         let croppedImage = UIImage.from(ciImage: filteredImage)
         // Enhanced Image
-        let enhancedImage = filteredImage.applyingAdaptiveThreshold()?.withFixedOrientation()
+        let enhancedImage = filteredImage.applyingGrayscaleFilter()?.withFixedOrientation()
         let enhancedScan = enhancedImage.flatMap { ImageScannerScan(image: $0) }
 
         let results = ImageScannerResults(

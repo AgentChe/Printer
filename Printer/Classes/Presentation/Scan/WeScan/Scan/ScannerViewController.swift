@@ -1,26 +1,19 @@
-//
-//  ScannerViewController.swift
-//  WeScan
-//
-//  Created by Boris Emorine on 2/8/18.
-//  Copyright © 2018 WeTransfer. All rights reserved.
-//
-//  swiftlint:disable line_length
-
 import AVFoundation
 import UIKit
+
 func findRootTabBarController() -> UITabBarController? {
     guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-        let sceneDelegate = windowScene.delegate as? SceneDelegate else {
-            return nil
+          let sceneDelegate = windowScene.delegate as? SceneDelegate else {
+        return nil
     }
-    
+
     if let rootViewController = sceneDelegate.window?.rootViewController as? UITabBarController {
         return rootViewController
     } else {
         return nil
     }
 }
+
 /// The `ScannerViewController` offers an interface to give feedback to the user regarding quadrilaterals that are detected. It also gives the user the opportunity to capture an image with a detected rectangle.
 public final class ScannerViewController: UIViewController {
     let saveButton = UIButton(type: .system)
@@ -75,6 +68,19 @@ public final class ScannerViewController: UIViewController {
         return button
     }()
 
+    private lazy var filterButton: UIBarButtonItem = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "Scan.Filters"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        button.addTarget(self, action: #selector(applyFilter), for: .touchUpInside)
+        
+        let barButtonItem = UIBarButtonItem(customView: button)
+        return barButtonItem
+    }()
+
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true
@@ -101,8 +107,8 @@ public final class ScannerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange), name: Notification.Name.AVCaptureDeviceSubjectAreaDidChange, object: nil)
         setupSaveButton()
     }
+
     private func setupSaveButton() {
-        
         saveButton.setTitle("Save (1)", for: .normal)
         saveButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 16)
         saveButton.backgroundColor = Appearance.signatureBlue // Customize this color to match your UI
@@ -110,14 +116,12 @@ public final class ScannerViewController: UIViewController {
         saveButton.layer.cornerRadius = 16
         saveButton.clipsToBounds = true
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        
 
         view.addSubview(saveButton)
 
         // Constraints
         NSLayoutConstraint.activate([
-            
-            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20.scale),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.scale),
             saveButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor),
             saveButton.widthAnchor.constraint(equalToConstant: 103.scale),
             saveButton.heightAnchor.constraint(equalToConstant: 44.scale)
@@ -131,11 +135,11 @@ public final class ScannerViewController: UIViewController {
         print("Save button tapped")
         let scannedResultsVC = ScannedResultsViewController()
         navigationController?.pushViewController(scannedResultsVC, animated: true)
-        
+
         let tabBarVC = findRootTabBarController()
         tabBarVC?.tabBar.isHidden = true
-        
     }
+
     override public func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
@@ -146,18 +150,17 @@ public final class ScannerViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
 
         navigationController?.navigationBar.barStyle = .blackTranslucent
-        
+
         let backButton = UIBarButtonItem()
-          backButton.title = ""
-          navigationItem.backBarButtonItem = backButton
-        
+        backButton.title = ""
+        navigationItem.backBarButtonItem = backButton
+
         if ImageManager.shared.getImageScansCount() == 0 {
             saveButton.alpha = 0
         } else {
             saveButton.alpha = 1
             saveButton.setTitle("Save (\(ImageManager.shared.getImageScansCount()))", for: .normal)
         }
-        
     }
 
     override public func viewDidLayoutSubviews() {
@@ -194,7 +197,11 @@ public final class ScannerViewController: UIViewController {
 
     private func setupNavigationBar() {
         navigationItem.setLeftBarButton(flashButton, animated: false)
-        navigationItem.setRightBarButton(autoScanButton, animated: false)
+        
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        navigationItem.setRightBarButtonItems([autoScanButton, spacer], animated: false)
+        navigationItem.titleView = filterButton.customView
 
         if UIImagePickerController.isFlashAvailable(for: .rear) == false {
             let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
@@ -269,7 +276,7 @@ public final class ScannerViewController: UIViewController {
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
 
-        guard  let touch = touches.first else { return }
+        guard let touch = touches.first else { return }
         let touchPoint = touch.location(in: view)
         let convertedTouchPoint: CGPoint = videoPreviewLayer.captureDevicePointConverted(fromLayerPoint: touchPoint)
 
@@ -328,16 +335,20 @@ public final class ScannerViewController: UIViewController {
         }
     }
 
+    @objc private func applyFilter() {
+        // Implement the filter functionality
+        print("Filter button tapped")
+        // You can add your filter functionality here
+    }
+
     @objc private func cancelImageScannerController() {
         guard let imageScannerController = navigationController as? ImageScannerController else { return }
         imageScannerController.imageScannerDelegate?.imageScannerControllerDidCancel(imageScannerController)
     }
-
 }
 
 extension ScannerViewController: RectangleDetectionDelegateProtocol {
     func captureSessionManager(_ captureSessionManager: CaptureSessionManager, didFailWithError error: Error) {
-
         activityIndicator.stopAnimating()
         shutterButton.isUserInteractionEnabled = true
 
@@ -355,16 +366,14 @@ extension ScannerViewController: RectangleDetectionDelegateProtocol {
         activityIndicator.stopAnimating()
 
         let editVC = EditScanViewController(image: picture, quad: quad)
-         
-        
         navigationController?.pushViewController(editVC, animated: false)
-        
+
         let tabBarVC = findRootTabBarController()
         tabBarVC?.tabBar.isHidden = true
 
         shutterButton.isUserInteractionEnabled = true
     }
- 
+
     func captureSessionManager(_ captureSessionManager: CaptureSessionManager, didDetectQuad quad: Quadrilateral?, _ imageSize: CGSize) {
         guard let quad else {
             // If no quad has been detected, we remove the currently displayed on on the quadView.
@@ -389,5 +398,4 @@ extension ScannerViewController: RectangleDetectionDelegateProtocol {
 
         quadView.drawQuadrilateral(quad: transformedQuad, animated: true)
     }
-
 }

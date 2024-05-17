@@ -38,3 +38,28 @@ extension CIImage {
         }
     }
 }
+
+extension CIImage {
+    /// Applies a grayscale filter to the image.
+    func applyingGrayscaleFilter() -> UIImage? {
+        guard let colorKernel = CIColorKernel(source:
+            """
+            kernel vec4 grayscale(__sample pixel)
+            {
+                float gray = dot(pixel.rgb, vec3(0.299, 0.587, 0.114));
+                return vec4(gray, gray, gray, pixel.a);
+            }
+            """
+            ) else { return nil }
+
+        let arguments: [Any] = [self]
+
+        guard let grayCIImage = colorKernel.apply(extent: self.extent, arguments: arguments) else { return nil }
+
+        if let cgImage = CIContext(options: nil).createCGImage(grayCIImage, from: grayCIImage.extent) {
+            return UIImage(cgImage: cgImage)
+        } else {
+            return UIImage(ciImage: grayCIImage, scale: 1.0, orientation: .up)
+        }
+    }
+}
