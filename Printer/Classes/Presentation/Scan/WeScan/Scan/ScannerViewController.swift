@@ -38,7 +38,7 @@ public final class ScannerViewController: UIViewController {
     private lazy var shutterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "Scan.Capture"), for: .normal) // Set the image here
+        button.setImage(UIImage(named: "Scan.Capture"), for: .normal)
         button.addTarget(self, action: #selector(captureImage(_:)), for: .touchUpInside)
         return button
     }()
@@ -79,6 +79,24 @@ public final class ScannerViewController: UIViewController {
         
         let barButtonItem = UIBarButtonItem(customView: button)
         return barButtonItem
+    }()
+
+    private lazy var colorButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Color", style: .plain, target: self, action: #selector(applyColorFilter))
+        button.tintColor = Appearance.signatureBlue
+        return button
+    }()
+
+    private lazy var grayscaleButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Grayscale", style: .plain, target: self, action: #selector(applyGrayscaleFilter))
+        button.tintColor = Appearance.signatureBlue
+        return button
+    }()
+
+    private lazy var bwButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "B&W", style: .plain, target: self, action: #selector(applyBWFilter))
+        button.tintColor = Appearance.signatureBlue
+        return button
     }()
 
     private lazy var activityIndicator: UIActivityIndicatorView = {
@@ -336,9 +354,32 @@ public final class ScannerViewController: UIViewController {
     }
 
     @objc private func applyFilter() {
-        // Implement the filter functionality
-        print("Filter button tapped")
-        // You can add your filter functionality here
+        toggleFilterButtons(show: true)
+    }
+
+    @objc private func applyColorFilter() {
+        print("Color filter applied")
+        toggleFilterButtons(show: false)
+    }
+
+    @objc private func applyGrayscaleFilter() {
+        print("Grayscale filter applied")
+        toggleFilterButtons(show: false)
+    }
+
+    @objc private func applyBWFilter() {
+        print("B&W filter applied")
+        toggleFilterButtons(show: false)
+    }
+
+    private func toggleFilterButtons(show: Bool) {
+        if show {
+            navigationItem.setRightBarButtonItems([colorButton, grayscaleButton, bwButton], animated: true)
+        } else {
+            let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            navigationItem.setRightBarButtonItems([autoScanButton, spacer], animated: true)
+            navigationItem.titleView = filterButton.customView
+        }
     }
 
     @objc private func cancelImageScannerController() {
