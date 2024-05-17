@@ -1,7 +1,9 @@
 import UIKit
 
 class PrintTestFileViewController: UIViewController {
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
     // UI Components
     private let dismissButton = UIButton(type: .system)
     private let imageView = UIImageView()

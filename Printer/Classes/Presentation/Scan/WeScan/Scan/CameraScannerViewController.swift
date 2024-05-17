@@ -20,7 +20,9 @@ public protocol CameraScannerViewOutputDelegate: AnyObject {
 /// The `CameraScannerViewController` class is individual camera view include touch for focus, flash control,
 /// capture control and auto detect rectangle shape of object.
 public final class CameraScannerViewController: UIViewController {
-
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     /// The status of auto scan.
     public var isAutoScanEnabled: Bool = CaptureSession.current.isAutoScanEnabled {
         didSet {

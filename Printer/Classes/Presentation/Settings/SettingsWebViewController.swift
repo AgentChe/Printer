@@ -9,7 +9,9 @@ import UIKit
 import WebKit
 
 class SettingsWebViewController: UIViewController {
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     var webView: WKWebView!
     var url: URL!
     

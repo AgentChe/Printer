@@ -5,7 +5,9 @@ protocol NotesViewControllerDelegate: AnyObject {
 }
 
 class NotesViewController: UIViewController {
-
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
     private let textView = UITextView()
     private let fontCollectionView: UICollectionView
     private let alignCollectionView: UICollectionView

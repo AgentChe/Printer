@@ -24,6 +24,9 @@ func findRootTabBarController() -> UITabBarController? {
 /// The `ScannerViewController` offers an interface to give feedback to the user regarding quadrilaterals that are detected. It also gives the user the opportunity to capture an image with a detected rectangle.
 public final class ScannerViewController: UIViewController {
     let saveButton = UIButton(type: .system)
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     private var captureSessionManager: CaptureSessionManager?
     private let videoPreviewLayer = AVCaptureVideoPreviewLayer()
 

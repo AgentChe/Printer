@@ -8,7 +8,9 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     var tableView: UITableView!
     
     // Assuming you have these settings somewhere
