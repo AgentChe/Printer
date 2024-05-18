@@ -85,9 +85,11 @@ public final class ScannerViewController: UIViewController {
         return button
     }()
 
-    private lazy var grayscaleButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Grayscale", style: .plain, target: self, action: #selector(applyGrayscaleFilter))
+    private lazy var grayscaleButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Grayscale", for: .normal)
         button.tintColor = Appearance.signatureBlue
+        button.addTarget(self, action: #selector(applyGrayscaleFilter), for: .touchUpInside)
         return button
     }()
 
@@ -370,8 +372,10 @@ public final class ScannerViewController: UIViewController {
     private func toggleFilterButtons(show: Bool) {
         if show {
             navigationItem.setLeftBarButton(bwButton, animated: true)
-            navigationItem.setRightBarButtonItems([colorButton, grayscaleButton], animated: true)
+            navigationItem.setRightBarButtonItems([colorButton], animated: true)
             navigationItem.titleView = nil
+
+            navigationItem.titleView = grayscaleButton
         } else {
             navigationItem.setLeftBarButton(flashButton, animated: true)
             navigationItem.setRightBarButtonItems([autoScanButton], animated: true)
