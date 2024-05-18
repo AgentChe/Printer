@@ -68,7 +68,7 @@ public final class ScannerViewController: UIViewController {
         return button
     }()
 
-    private lazy var filterButton: UIBarButtonItem = {
+    private lazy var filterButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "Scan.Filters"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
@@ -76,9 +76,7 @@ public final class ScannerViewController: UIViewController {
         button.widthAnchor.constraint(equalToConstant: 24).isActive = true
         button.heightAnchor.constraint(equalToConstant: 24).isActive = true
         button.addTarget(self, action: #selector(applyFilter), for: .touchUpInside)
-        
-        let barButtonItem = UIBarButtonItem(customView: button)
-        return barButtonItem
+        return button
     }()
 
     private lazy var colorButton: UIBarButtonItem = {
@@ -215,7 +213,8 @@ public final class ScannerViewController: UIViewController {
 
     private func setupNavigationBar() {
         navigationItem.setLeftBarButton(flashButton, animated: false)
-        navigationItem.setRightBarButtonItems([autoScanButton, filterButton], animated: false)
+        navigationItem.setRightBarButtonItems([autoScanButton], animated: false)
+        navigationItem.titleView = filterButton
 
         if UIImagePickerController.isFlashAvailable(for: .rear) == false {
             let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
@@ -372,9 +371,11 @@ public final class ScannerViewController: UIViewController {
         if show {
             navigationItem.setLeftBarButton(bwButton, animated: true)
             navigationItem.setRightBarButtonItems([colorButton, grayscaleButton], animated: true)
+            navigationItem.titleView = nil
         } else {
             navigationItem.setLeftBarButton(flashButton, animated: true)
-            navigationItem.setRightBarButtonItems([autoScanButton, filterButton], animated: true)
+            navigationItem.setRightBarButtonItems([autoScanButton], animated: true)
+            navigationItem.titleView = filterButton
         }
     }
 
