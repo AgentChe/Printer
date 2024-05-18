@@ -20,6 +20,7 @@ public final class ScannerViewController: UIViewController {
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
+    var currentFilter: FilterType = .none
     private var captureSessionManager: CaptureSessionManager?
     private let videoPreviewLayer = AVCaptureVideoPreviewLayer()
 
@@ -355,18 +356,24 @@ public final class ScannerViewController: UIViewController {
         toggleFilterButtons(show: true)
     }
 
-    @objc private func applyColorFilter() {
-        print("Color filter applied")
+    @objc private func applyBWFilter() {
+        print("B&W filter applied")
+        currentFilter = .adaptiveThreshold
+        applyFilter()
         toggleFilterButtons(show: false)
     }
 
     @objc private func applyGrayscaleFilter() {
         print("Grayscale filter applied")
+        currentFilter = .grayscale
+        applyFilter()
         toggleFilterButtons(show: false)
     }
 
-    @objc private func applyBWFilter() {
-        print("B&W filter applied")
+    @objc private func applyColorFilter() {
+        print("Color filter applied")
+        currentFilter = .none
+        applyFilter()
         toggleFilterButtons(show: false)
     }
 
@@ -408,7 +415,7 @@ extension ScannerViewController: RectangleDetectionDelegateProtocol {
     func captureSessionManager(_ captureSessionManager: CaptureSessionManager, didCapturePicture picture: UIImage, withQuad quad: Quadrilateral?) {
         activityIndicator.stopAnimating()
 
-        let editVC = EditScanViewController(image: picture, quad: quad)
+        let editVC = EditScanViewController(image: picture, quad: quad, filterType: currentFilter)
         navigationController?.pushViewController(editVC, animated: false)
 
         let tabBarVC = findRootTabBarController()

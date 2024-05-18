@@ -7,9 +7,12 @@
 //
 
 import CoreImage
-import Foundation
 import UIKit
-
+enum FilterType {
+    case none
+    case grayscale
+    case adaptiveThreshold
+}
 extension CIImage {
     /// Applies an AdaptiveThresholding filter to the image, which enhances the image and makes it completely gray scale
     func applyingAdaptiveThreshold() -> UIImage? {

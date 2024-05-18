@@ -13,6 +13,7 @@ import UIKit
 final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate {
     var keepButton: UIButton!
     var retakeButton: UIButton!
+    private var filterType: FilterType
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -68,10 +69,12 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
 
     // MARK: - Life Cycle
 
-    init(image: UIImage, quad: Quadrilateral?, rotateImage: Bool = true) {
+    init(image: UIImage, quad: Quadrilateral?, rotateImage: Bool = true, filterType: FilterType = .adaptiveThreshold) {
         self.image = rotateImage ? image.applyingPortraitOrientation() : image
         self.quad = quad ?? EditScanViewController.defaultQuad(forImage: image)
+        self.filterType = filterType
         super.init(nibName: nil, bundle: nil)
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -159,7 +162,6 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
         self.navigationController?.popViewController(animated: true)
     }
     @objc func keepButtonTapped() {
-        // Add your action code here
         guard let quad = quadView.quad,
             let ciImage = CIImage(image: image) else {
                 if let imageScannerController = navigationController as? ImageScannerController {
@@ -184,20 +186,29 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
             "inputBottomRight": CIVector(cgPoint: cartesianScaledQuad.topRight)
         ])
 
-        let croppedImage = UIImage.from(ciImage: filteredImage)
-        // Enhanced Image
-        let enhancedImage = filteredImage.applyingGrayscaleFilter()?.withFixedOrientation()
-        let enhancedScan = enhancedImage.flatMap { ImageScannerScan(image: $0) }
+        var finalImage: UIImage? = UIImage.from(ciImage: filteredImage)
+
+        switch filterType {
+        case .none:
+            break
+        case .grayscale:
+            finalImage = filteredImage.applyingGrayscaleFilter()
+        case .adaptiveThreshold:
+            finalImage = filteredImage.applyingAdaptiveThreshold()
+        }
+
+        let enhancedScan = finalImage.flatMap { ImageScannerScan(image: $0) }
 
         let results = ImageScannerResults(
             detectedRectangle: scaledQuad,
             originalScan: ImageScannerScan(image: image),
-            croppedScan: ImageScannerScan(image: croppedImage),
+            croppedScan: ImageScannerScan(image: finalImage ?? UIImage()),
             enhancedScan: enhancedScan
         )
         ImageManager.shared.addImageScans(results)
         self.navigationController?.popViewController(animated: true)
     }
+
     private func setupConstraints() {
         let imageViewConstraints = [
             imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: ScreenSize.isIphoneXFamily ? -150.scale:-100.scale),
@@ -294,21 +305,30 @@ final class EditScanViewController: UIViewController,UIGestureRecognizerDelegate
             "inputBottomRight": CIVector(cgPoint: cartesianScaledQuad.topRight)
         ])
 
-        let croppedImage = UIImage.from(ciImage: filteredImage)
-        // Enhanced Image
-        let enhancedImage = filteredImage.applyingAdaptiveThreshold()?.withFixedOrientation()
-        let enhancedScan = enhancedImage.flatMap { ImageScannerScan(image: $0) }
+        var finalImage: UIImage? = UIImage.from(ciImage: filteredImage)
+
+        switch filterType {
+        case .none:
+            break
+        case .grayscale:
+            finalImage = filteredImage.applyingGrayscaleFilter()
+        case .adaptiveThreshold:
+            finalImage = filteredImage.applyingAdaptiveThreshold()
+        }
+
+        let enhancedScan = finalImage.flatMap { ImageScannerScan(image: $0) }
 
         let results = ImageScannerResults(
             detectedRectangle: scaledQuad,
             originalScan: ImageScannerScan(image: image),
-            croppedScan: ImageScannerScan(image: croppedImage),
+            croppedScan: ImageScannerScan(image: finalImage ?? UIImage()),
             enhancedScan: enhancedScan
         )
         ImageManager.shared.addImageScans(results)
         let reviewViewController = ReviewViewController(results: results)
         navigationController?.pushViewController(reviewViewController, animated: true)
     }
+
 
     private func displayQuad() {
         let imageSize = image.size
