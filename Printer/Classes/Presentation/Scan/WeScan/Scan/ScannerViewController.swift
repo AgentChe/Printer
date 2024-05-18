@@ -17,10 +17,11 @@ func findRootTabBarController() -> UITabBarController? {
 /// The `ScannerViewController` offers an interface to give feedback to the user regarding quadrilaterals that are detected. It also gives the user the opportunity to capture an image with a detected rectangle.
 public final class ScannerViewController: UIViewController {
     let saveButton = UIButton(type: .system)
+    let imageButton = UIButton()
     public override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
-    var currentFilter: FilterType = .none
+    var currentFilter: FilterType = .adaptiveThreshold
     private var captureSessionManager: CaptureSessionManager?
     private let videoPreviewLayer = AVCaptureVideoPreviewLayer()
 
@@ -131,23 +132,48 @@ public final class ScannerViewController: UIViewController {
     private func setupSaveButton() {
         saveButton.setTitle("Save (1)", for: .normal)
         saveButton.titleLabel?.font = Fonts.SFProDisplay.medium(size: 16)
-        saveButton.backgroundColor = Appearance.signatureBlue // Customize this color to match your UI
+        saveButton.backgroundColor = Appearance.signatureBlue
         saveButton.tintColor = .white
         saveButton.layer.cornerRadius = 16
         saveButton.clipsToBounds = true
         saveButton.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addSubview(saveButton)
+//        if let lastImage = ImageManager.shared.imageScans.last?.originalScan.image {
+//            imageButton.setImage(lastImage, for: .normal)
+//        }
+//        imageButton.imageView?.contentMode = .scaleAspectFill
+        imageButton.layer.cornerRadius = 8
+        imageButton.clipsToBounds = true
+        imageButton.translatesAutoresizingMaskIntoConstraints = false
+        imageButton.addTarget(self, action: #selector(imageButtonTapped), for: .touchUpInside)
 
-        // Constraints
+        view.addSubview(saveButton)
+        view.addSubview(imageButton)
+
         NSLayoutConstraint.activate([
-            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.scale),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             saveButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor),
-            saveButton.widthAnchor.constraint(equalToConstant: 103.scale),
-            saveButton.heightAnchor.constraint(equalToConstant: 44.scale)
+            saveButton.widthAnchor.constraint(equalToConstant: 103),
+            saveButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            imageButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            imageButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor),
+            imageButton.widthAnchor.constraint(equalToConstant: 44),
+            imageButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        updateButtonVisibility()
+    }
+ 
+    @objc private func imageButtonTapped() {
+        // Implement the save functionality
+        print("Save button tapped")
+        let scannedResultsVC = ScannedResultsViewController()
+        navigationController?.pushViewController(scannedResultsVC, animated: true)
+
+        let tabBarVC = findRootTabBarController()
+        tabBarVC?.tabBar.isHidden = true
     }
 
     @objc private func saveButtonTapped() {
@@ -175,14 +201,23 @@ public final class ScannerViewController: UIViewController {
         backButton.title = ""
         navigationItem.backBarButtonItem = backButton
 
-        if ImageManager.shared.getImageScansCount() == 0 {
-            saveButton.alpha = 0
+        updateButtonVisibility()
+        saveButton.setTitle("Save (\(ImageManager.shared.getImageScansCount()))", for: .normal)
+        if let lastImage = ImageManager.shared.imageScans.last?.croppedScan.image {
+            imageButton.setImage(lastImage, for: .normal)
+            imageButton.imageView?.contentMode = .scaleAspectFill
         } else {
-            saveButton.alpha = 1
-            saveButton.setTitle("Save (\(ImageManager.shared.getImageScansCount()))", for: .normal)
+            imageButton.setImage(nil, for: .normal)
         }
     }
 
+
+    private func updateButtonVisibility() {
+        let imageCount = ImageManager.shared.getImageScansCount()
+        saveButton.alpha = imageCount > 0 ? 1 : 0
+        
+        imageButton.alpha = imageCount > 0 ? 1 : 0
+    }
     override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
