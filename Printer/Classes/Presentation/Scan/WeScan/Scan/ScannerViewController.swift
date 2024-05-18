@@ -88,6 +88,7 @@ public final class ScannerViewController: UIViewController {
     private lazy var grayscaleButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Grayscale", for: .normal)
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18)
         button.tintColor = Appearance.signatureBlue
         button.addTarget(self, action: #selector(applyGrayscaleFilter), for: .touchUpInside)
         return button
