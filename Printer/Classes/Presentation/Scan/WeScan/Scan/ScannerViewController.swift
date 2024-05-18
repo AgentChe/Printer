@@ -215,11 +215,7 @@ public final class ScannerViewController: UIViewController {
 
     private func setupNavigationBar() {
         navigationItem.setLeftBarButton(flashButton, animated: false)
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        navigationItem.setRightBarButtonItems([autoScanButton, spacer], animated: false)
-        navigationItem.titleView = filterButton.customView
+        navigationItem.setRightBarButtonItems([autoScanButton, filterButton], animated: false)
 
         if UIImagePickerController.isFlashAvailable(for: .rear) == false {
             let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
@@ -374,11 +370,11 @@ public final class ScannerViewController: UIViewController {
 
     private func toggleFilterButtons(show: Bool) {
         if show {
-            navigationItem.setRightBarButtonItems([colorButton, grayscaleButton, bwButton], animated: true)
+            navigationItem.setLeftBarButton(bwButton, animated: true)
+            navigationItem.setRightBarButtonItems([colorButton, grayscaleButton], animated: true)
         } else {
-            let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            navigationItem.setRightBarButtonItems([autoScanButton, spacer], animated: true)
-            navigationItem.titleView = filterButton.customView
+            navigationItem.setLeftBarButton(flashButton, animated: true)
+            navigationItem.setRightBarButtonItems([autoScanButton, filterButton], animated: true)
         }
     }
 
