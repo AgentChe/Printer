@@ -35,6 +35,7 @@
                 ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.jpeg&quot; OR
                 ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.png&quot; OR
                 ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;com.adobe.pdf&quot; OR 
+                ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.url&quot; OR
                 ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.text&quot; OR
                  ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;org.openxmlformats.wordprocessingml.document&quot;
             ).@count == $extensionItem.attachments.@count
