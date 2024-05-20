@@ -86,19 +86,78 @@ class ActionViewController: UIViewController {
                 DispatchQueue.main.async {
                     if let url = item as? URL {
                         NSLog("Image URL: \(url)")
-                        if let image = UIImage(data: try! Data(contentsOf: url)) {
-                            self.imageView.image = image
-                            self.completeExtension()
+                        do {
+                            let imageData = try Data(contentsOf: url)
+                            if let image = UIImage(data: imageData) {
+                                self.imageView.image = image
+                                if let savedURL = self.saveImageToSharedContainer(image: image) {
+                                    self.redirectToApp(with: savedURL)
+                                }
+                            } else {
+                                NSLog("Failed to create image from data at URL: \(url)")
+                            }
+                        } catch {
+                            NSLog("Error loading image data from URL: \(error.localizedDescription)")
                         }
                     } else if let image = item as? UIImage {
                         self.imageView.image = image
-                        self.completeExtension()
+                        if let savedURL = self.saveImageToSharedContainer(image: image) {
+                            self.redirectToApp(with: savedURL)
+                        }
                     } else {
                         NSLog("Unexpected image item type")
                     }
                 }
             }
         }
+    }
+    
+    private func redirectToApp(with fileURL: URL) {
+        var components = URLComponents(string: "db-fuxs23rugn88jl2://")
+        components?.queryItems = [
+            URLQueryItem(name: "fileURL", value: fileURL.absoluteString)
+        ]
+        
+        guard let url = components?.url else {
+            NSLog("Failed to construct URL")
+            return
+        }
+
+        // Attempt to open the URL to switch to the main app
+        var responder: UIResponder? = self
+        while responder != nil {
+            if let application = responder as? UIApplication {
+                NSLog("UIApplication found, opening URL")
+                application.perform(#selector(UIApplication.open(_:options:completionHandler:)), with: url, with: nil)
+                break
+            }
+            responder = responder?.next
+        }
+
+        // Complete the request after attempting to open your app
+        self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
+    }
+
+    func saveImageToSharedContainer(image: UIImage) -> URL? {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
+            NSLog("Failed to get container URL")
+            return nil
+        }
+        let fileName = UUID().uuidString + ".png"
+        let fileURL = containerURL.appendingPathComponent(fileName)
+
+        do {
+            if let data = image.pngData() {
+                try data.write(to: fileURL)
+                NSLog("Image saved to shared container: \(fileURL)")
+                return fileURL
+            } else {
+                NSLog("Failed to generate PNG data from image")
+            }
+        } catch {
+            NSLog("Error saving image: \(error.localizedDescription)")
+        }
+        return nil
     }
 
     private func handleURL(provider: NSItemProvider) {
@@ -148,7 +207,7 @@ class ActionViewController: UIViewController {
         if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
             NSLog("URL points to image")
             self.imageView.image = image
-            self.completeExtension()
+          //  self.completeExtension()
         } else {
             NSLog("URL does not point to image data")
             // Handle other types of URL content if necessary

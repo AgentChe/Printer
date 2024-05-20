@@ -316,6 +316,8 @@
 		A3632CD72BFB04910000967E /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		A3632CDA2BFB04910000967E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		A3632CDC2BFB04910000967E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3632CE32BFBA18C0000967E /* Printer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Printer.entitlements; sourceTree = "<group>"; };
+		A3632CE42BFBA1F90000967E /* go.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = go.entitlements; sourceTree = "<group>"; };
 		A3692D242BE041A3006ADD60 /* QuickActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
 		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedResultsViewController.swift; sourceTree = "<group>"; };
@@ -683,6 +685,7 @@
 		A3632CD42BFB04910000967E /* go */ = {
 			isa = PBXGroup;
 			children = (
+				A3632CE42BFBA1F90000967E /* go.entitlements */,
 				A3632CD52BFB04910000967E /* Media.xcassets */,
 				A3632CD72BFB04910000967E /* ActionViewController.swift */,
 				A3632CD92BFB04910000967E /* MainInterface.storyboard */,
@@ -786,6 +789,7 @@
 		DEDF904A2BD7AF5B004340C0 /* Printer */ = {
 			isa = PBXGroup;
 			children = (
+				A3632CE32BFBA18C0000967E /* Printer.entitlements */,
 				DEDF90D32BD7B07C004340C0 /* Classes */,
 				DEDF905F2BD7AF67004340C0 /* Resource */,
 			);
@@ -1571,6 +1575,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExpandIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = go/go.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1593,7 +1598,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "train.chair.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "train.chair.com.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1607,6 +1612,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = ExpandIcon;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_ENTITLEMENTS = go/go.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1625,7 +1631,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "train.chair.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "train.chair.com.--PRODUCT-NAME-rfc1034identifier-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1759,6 +1765,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Printer/Printer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NVL5EUMWM;
@@ -1779,7 +1786,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = train.chair;
+				PRODUCT_BUNDLE_IDENTIFIER = train.chair.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1798,6 +1805,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Printer/Printer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2NVL5EUMWM;
@@ -1818,7 +1826,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = train.chair;
+				PRODUCT_BUNDLE_IDENTIFIER = train.chair.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
