@@ -90,6 +90,11 @@
 		A355C2AD2BE09F820064E1F1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2AC2BE09F820064E1F1 /* TabBarViewController.swift */; };
 		A355C2B02BE0A70E0064E1F1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2AF2BE0A70E0064E1F1 /* SettingsViewController.swift */; };
 		A355C2B22BE0A8F50064E1F1 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2B12BE0A8F50064E1F1 /* SettingsTableViewCell.swift */; };
+		A3632CD32BFB04910000967E /* UniformTypeIdentifiers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A32BF62A2BF99C3E00E88CCA /* UniformTypeIdentifiers.framework */; };
+		A3632CD62BFB04910000967E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3632CD52BFB04910000967E /* Media.xcassets */; };
+		A3632CD82BFB04910000967E /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3632CD72BFB04910000967E /* ActionViewController.swift */; };
+		A3632CDB2BFB04910000967E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A3632CDA2BFB04910000967E /* Base */; };
+		A3632CDF2BFB04910000967E /* go.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A3632CD22BFB04910000967E /* go.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D242BE041A3006ADD60 /* QuickActionCell.swift */; };
 		A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D252BE041A3006ADD60 /* MainViewModel.swift */; };
 		A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */; };
@@ -196,9 +201,32 @@
 		DEDF91B52BD95E7C004340C0 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91B42BD95E7C004340C0 /* Currency.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A3632CDD2BFB04910000967E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEDF90402BD7AF5B004340C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A3632CD12BFB04910000967E;
+			remoteInfo = go;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A32BF6382BF99C3E00E88CCA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A3632CDF2BFB04910000967E /* go.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Printer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9EF54F7D944796B29C00D6D5 /* Pods-Printer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.release.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.release.xcconfig"; sourceTree = "<group>"; };
 		A301E0742BE437DD00A5F9EC /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		A301E0762BE44FE700A5F9EC /* PhotoReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReviewViewController.swift; sourceTree = "<group>"; };
 		A301E1232BE5448500A5F9EC /* CIRectangleDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIRectangleDetector.swift; sourceTree = "<group>"; };
@@ -271,6 +299,7 @@
 		A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
 		A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignCell.swift; sourceTree = "<group>"; };
 		A30EF7C02BF40F7600B93D6F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		A32BF62A2BF99C3E00E88CCA /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		A33EB8122BF4557500616190 /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		A33EB8142BF455B100616190 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
 		A33EB8162BF4A7A900616190 /* DropboxFilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropboxFilesViewController.swift; path = /Users/nkhsnv/Documents/Printer/Printer/Classes/Presentation/Main/Dropbox/DropboxFilesViewController.swift; sourceTree = "<absolute>"; };
@@ -282,6 +311,11 @@
 		A355C2AC2BE09F820064E1F1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		A355C2AF2BE0A70E0064E1F1 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A355C2B12BE0A8F50064E1F1 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
+		A3632CD22BFB04910000967E /* go.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = go.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3632CD52BFB04910000967E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		A3632CD72BFB04910000967E /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
+		A3632CDA2BFB04910000967E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		A3632CDC2BFB04910000967E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3692D242BE041A3006ADD60 /* QuickActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
 		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedResultsViewController.swift; sourceTree = "<group>"; };
@@ -299,6 +333,7 @@
 		A3C3B2442BF6676C006CFEBC /* PrinterModels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrinterModels.txt; sourceTree = "<group>"; };
 		A3C3B2822BF75816006CFEBC /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
 		A3C3B2842BF75991006CFEBC /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		B8E14D044AF96B2AD10E26B3 /* Pods-Printer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.debug.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.debug.xcconfig"; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -387,10 +422,18 @@
 		DEDF91A52BD958AF004340C0 /* PaygateOptionConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateOptionConfig.swift; sourceTree = "<group>"; };
 		DEDF91A62BD958AF004340C0 /* PaygateOptionLineComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateOptionLineComponent.swift; sourceTree = "<group>"; };
 		DEDF91B42BD95E7C004340C0 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
-		EBD428E27FB94E5A14865F74 /* Pods-Printer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.debug.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.debug.xcconfig"; sourceTree = "<group>"; };
+		F23409BB661F52E9F007BD41 /* Pods-Printer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.release.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A3632CCF2BFB04910000967E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3632CD32BFB04910000967E /* UniformTypeIdentifiers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEDF90452BD7AF5B004340C0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -406,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */,
+				A32BF62A2BF99C3E00E88CCA /* UniformTypeIdentifiers.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -636,6 +680,17 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		A3632CD42BFB04910000967E /* go */ = {
+			isa = PBXGroup;
+			children = (
+				A3632CD52BFB04910000967E /* Media.xcassets */,
+				A3632CD72BFB04910000967E /* ActionViewController.swift */,
+				A3632CD92BFB04910000967E /* MainInterface.storyboard */,
+				A3632CDC2BFB04910000967E /* Info.plist */,
+			);
+			path = go;
+			sourceTree = "<group>";
+		};
 		A377357B2BE7F0EC00FCD54F /* ScannedResults */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,11 +754,11 @@
 			path = CompatibleList;
 			sourceTree = "<group>";
 		};
-		C45561E149515E465BE877B2 /* Pods */ = {
+		D12BE66B0569619793379E9D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EBD428E27FB94E5A14865F74 /* Pods-Printer.debug.xcconfig */,
-				9EF54F7D944796B29C00D6D5 /* Pods-Printer.release.xcconfig */,
+				B8E14D044AF96B2AD10E26B3 /* Pods-Printer.debug.xcconfig */,
+				F23409BB661F52E9F007BD41 /* Pods-Printer.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -712,9 +767,10 @@
 			isa = PBXGroup;
 			children = (
 				DEDF904A2BD7AF5B004340C0 /* Printer */,
+				A3632CD42BFB04910000967E /* go */,
 				DEDF90492BD7AF5B004340C0 /* Products */,
-				C45561E149515E465BE877B2 /* Pods */,
 				8EBCE5D3282CBEDE082769B5 /* Frameworks */,
+				D12BE66B0569619793379E9D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -722,6 +778,7 @@
 			isa = PBXGroup;
 			children = (
 				DEDF90482BD7AF5B004340C0 /* Printer.app */,
+				A3632CD22BFB04910000967E /* go.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1114,6 +1171,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A3632CD12BFB04910000967E /* go */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A3632CE22BFB04910000967E /* Build configuration list for PBXNativeTarget "go" */;
+			buildPhases = (
+				A3632CCE2BFB04910000967E /* Sources */,
+				A3632CCF2BFB04910000967E /* Frameworks */,
+				A3632CD02BFB04910000967E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = go;
+			productName = go;
+			productReference = A3632CD22BFB04910000967E /* go.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DEDF90472BD7AF5B004340C0 /* Printer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DEDF905C2BD7AF5D004340C0 /* Build configuration list for PBXNativeTarget "Printer" */;
@@ -1123,14 +1197,14 @@
 				DEDF90452BD7AF5B004340C0 /* Frameworks */,
 				DEDF90462BD7AF5B004340C0 /* Resources */,
 				17CF1B2AE2977DD334CAA3D7 /* [CP] Embed Pods Frameworks */,
+				A32BF6382BF99C3E00E88CCA /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A3632CDE2BFB04910000967E /* PBXTargetDependency */,
 			);
 			name = Printer;
-			packageProductDependencies = (
-			);
 			productName = Printer;
 			productReference = DEDF90482BD7AF5B004340C0 /* Printer.app */;
 			productType = "com.apple.product-type.application";
@@ -1145,6 +1219,9 @@
 				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
+					A3632CD12BFB04910000967E = {
+						CreatedOnToolsVersion = 15.3;
+					};
 					DEDF90472BD7AF5B004340C0 = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -1178,18 +1255,26 @@
 				ja,
 			);
 			mainGroup = DEDF903F2BD7AF5B004340C0;
-			packageReferences = (
-			);
 			productRefGroup = DEDF90492BD7AF5B004340C0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				DEDF90472BD7AF5B004340C0 /* Printer */,
+				A3632CD12BFB04910000967E /* go */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A3632CD02BFB04910000967E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3632CD62BFB04910000967E /* Media.xcassets in Resources */,
+				A3632CDB2BFB04910000967E /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEDF90462BD7AF5B004340C0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1266,6 +1351,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A3632CCE2BFB04910000967E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3632CD82BFB04910000967E /* ActionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DEDF90442BD7AF5B004340C0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1437,7 +1530,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A3632CDE2BFB04910000967E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A3632CD12BFB04910000967E /* go */;
+			targetProxy = A3632CDD2BFB04910000967E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		A3632CD92BFB04910000967E /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A3632CDA2BFB04910000967E /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		DEDF90562BD7AF5D004340C0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1457,6 +1566,73 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A3632CE02BFB04910000967E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = ExpandIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2NVL5EUMWM;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = go/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "train.chair.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A3632CE12BFB04910000967E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = ExpandIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2NVL5EUMWM;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = go/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "train.chair.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		DEDF905A2BD7AF5D004340C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1509,7 +1685,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1566,7 +1742,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1578,8 +1754,9 @@
 		};
 		DEDF905D2BD7AF5D004340C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EBD428E27FB94E5A14865F74 /* Pods-Printer.debug.xcconfig */;
+			baseConfigurationReference = B8E14D044AF96B2AD10E26B3 /* Pods-Printer.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1616,8 +1793,9 @@
 		};
 		DEDF905E2BD7AF5D004340C0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EF54F7D944796B29C00D6D5 /* Pods-Printer.release.xcconfig */;
+			baseConfigurationReference = F23409BB661F52E9F007BD41 /* Pods-Printer.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -1655,6 +1833,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A3632CE22BFB04910000967E /* Build configuration list for PBXNativeTarget "go" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A3632CE02BFB04910000967E /* Debug */,
+				A3632CE12BFB04910000967E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DEDF90432BD7AF5B004340C0 /* Build configuration list for PBXProject "Printer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
