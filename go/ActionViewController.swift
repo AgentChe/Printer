@@ -62,10 +62,14 @@ class ActionViewController: UIViewController {
                     if let url = item as? URL {
                         NSLog("PDF URL: \(url.absoluteString)")
                         self.imageView.image = UIImage(systemName: "doc.richtext")
-                        self.completeExtension()
+                        if let savedURL = self.savePDFToSharedContainer(fileURL: url) {
+                            self.redirectToApp(with: savedURL)
+                        }
                     } else if let data = item as? Data {
                         NSLog("PDF Data loaded")
-                        self.completeExtension()
+                        if let savedURL = self.savePDFToSharedContainer(data: data) {
+                            self.redirectToApp(with: savedURL)
+                        }
                     } else {
                         NSLog("Unexpected PDF item type")
                     }
@@ -138,7 +142,7 @@ class ActionViewController: UIViewController {
         self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
     }
 
-    func saveImageToSharedContainer(image: UIImage) -> URL? {
+    private func saveImageToSharedContainer(image: UIImage) -> URL? {
         guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
             NSLog("Failed to get container URL")
             return nil
@@ -156,6 +160,30 @@ class ActionViewController: UIViewController {
             }
         } catch {
             NSLog("Error saving image: \(error.localizedDescription)")
+        }
+        return nil
+    }
+
+    private func savePDFToSharedContainer(fileURL: URL? = nil, data: Data? = nil) -> URL? {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
+            NSLog("Failed to get container URL")
+            return nil
+        }
+        let fileName = UUID().uuidString + ".pdf"
+        let destinationURL = containerURL.appendingPathComponent(fileName)
+
+        do {
+            if let fileURL = fileURL {
+                try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+                NSLog("PDF file saved to shared container: \(destinationURL)")
+                return destinationURL
+            } else if let data = data {
+                try data.write(to: destinationURL)
+                NSLog("PDF data saved to shared container: \(destinationURL)")
+                return destinationURL
+            }
+        } catch {
+            NSLog("Error saving PDF: \(error.localizedDescription)")
         }
         return nil
     }
@@ -207,7 +235,7 @@ class ActionViewController: UIViewController {
         if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
             NSLog("URL points to image")
             self.imageView.image = image
-          //  self.completeExtension()
+            //  self.completeExtension()
         } else {
             NSLog("URL does not point to image data")
             // Handle other types of URL content if necessary

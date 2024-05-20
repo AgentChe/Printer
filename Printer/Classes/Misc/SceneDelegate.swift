@@ -9,7 +9,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        //DropboxClientsManager.unlinkClients()
+        // DropboxClientsManager.unlinkClients()
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = SplashViewController.make()
         window?.makeKeyAndVisible()
@@ -70,36 +70,48 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         do {
-            // Load the data from the URL
-            let imageData = try Data(contentsOf: fileURL)
+            let data = try Data(contentsOf: fileURL)
             
-            // Validate the image data
-            guard let image = UIImage(data: imageData) else {
-                print("Failed to create image from data at URL: \(fileURL)")
-                return
-            }
-            
-            // Configure the print interaction controller
-            let printController = UIPrintInteractionController.shared
-            
-            // Create a print info object and set the job name and output type
-            let printInfo = UIPrintInfo(dictionary: nil)
-            printInfo.jobName = fileURL.lastPathComponent
-            printInfo.outputType = .photo
-            printController.printInfo = printInfo
-            
-            // Set the printing item to be the image
-            printController.printingItem = image
-            
-            // Present the print interaction controller
-            printController.present(animated: true) { (controller, completed, error) in
-                if completed {
-                    print("Print completed successfully.")
-                } else {
-                    if let error = error {
-                        print("Failed to print: \(error.localizedDescription)")
+            if fileURL.pathExtension.lowercased() == "pdf" {
+                // Handle PDF file
+                let printController = UIPrintInteractionController.shared
+                let printInfo = UIPrintInfo(dictionary: nil)
+                printInfo.jobName = fileURL.lastPathComponent
+                printInfo.outputType = .general
+                printController.printInfo = printInfo
+                printController.printingItem = data
+                printController.present(animated: true) { (controller, completed, error) in
+                    if completed {
+                        print("Print completed successfully.")
                     } else {
-                        print("Print was cancelled.")
+                        if let error = error {
+                            print("Failed to print: \(error.localizedDescription)")
+                        } else {
+                            print("Print was cancelled.")
+                        }
+                    }
+                }
+            } else {
+                // Handle image file
+                guard let image = UIImage(data: data) else {
+                    print("Failed to create image from data at URL: \(fileURL)")
+                    return
+                }
+                let printController = UIPrintInteractionController.shared
+                let printInfo = UIPrintInfo(dictionary: nil)
+                printInfo.jobName = fileURL.lastPathComponent
+                printInfo.outputType = .photo
+                printController.printInfo = printInfo
+                printController.printingItem = image
+                printController.present(animated: true) { (controller, completed, error) in
+                    if completed {
+                        print("Print completed successfully.")
+                    } else {
+                        if let error = error {
+                            print("Failed to print: \(error.localizedDescription)")
+                        } else {
+                            print("Print was cancelled.")
+                        }
                     }
                 }
             }
