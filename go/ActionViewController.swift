@@ -31,11 +31,29 @@ class ActionViewController: UIViewController {
                     if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
                         handleImage(provider: provider)
                         return
+                    } else if provider.hasItemConformingToTypeIdentifier(UTType.pdf.identifier) {
+                        handlePDF(provider: provider)
+                        return
                     }
                 }
             }
         }
         NSLog("No matching item found")
+    }
+
+    private func handlePDF(provider: NSItemProvider) {
+        provider.loadItem(forTypeIdentifier: UTType.pdf.identifier, options: nil) { (pdfURL, error) in
+            NSLog("handlePDF called")
+            
+            OperationQueue.main.addOperation {
+                if let pdfURL = pdfURL as? URL {
+                    NSLog("PDF URL: \(pdfURL)")
+                    // Set the imageView to an icon or message indicating a PDF was received
+                    self.imageView.image = UIImage(systemName: "doc.richtext")
+                    self.completeExtension()
+                }
+            }
+        }
     }
 
     private func handleImage(provider: NSItemProvider) {
