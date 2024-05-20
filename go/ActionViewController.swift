@@ -37,6 +37,9 @@ class ActionViewController: UIViewController {
                     } else if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
                         handleURL(provider: provider)
                         return
+                    } else if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
+                        handleText(provider: provider)
+                        return
                     } else {
                         NSLog("No matching type found for attachment: \(provider.registeredTypeIdentifiers)")
                     }
@@ -113,6 +116,28 @@ class ActionViewController: UIViewController {
                         self.handleURLContent(url: url)
                     } else {
                         NSLog("Unexpected URL item type")
+                    }
+                }
+            }
+        }
+    }
+
+    private func handleText(provider: NSItemProvider) {
+        NSLog("handleText called")
+        if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
+            provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { (item, error) in
+                if let error = error {
+                    NSLog("Error loading text: \(error.localizedDescription)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    if let text = item as? String {
+                        NSLog("Text: \(text)")
+                        // Display text in a UILabel or other UI component if needed
+                        self.completeExtension()
+                    } else {
+                        NSLog("Unexpected text item type")
                     }
                 }
             }
