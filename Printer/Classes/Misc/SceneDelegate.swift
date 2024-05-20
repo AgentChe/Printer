@@ -91,6 +91,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         }
                     }
                 }
+            } else if fileURL.pathExtension.lowercased() == "txt" {
+                // Handle text file
+                let text = try String(contentsOf: fileURL, encoding: .utf8)
+                printText(text)
             } else {
                 // Handle image file
                 guard let image = UIImage(data: data) else {
@@ -128,9 +132,23 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func printText(_ text: String) {
-        // Implement text printing logic
-        print("Printing text: \(text)")
-        // e.g., present UIPrintInteractionController with the text
+        let textWithNewCarriageReturns = text.replacingOccurrences(of: "\n", with: "<br />")
+
+        let printController = UIPrintInteractionController.shared
+
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.outputType = .general
+        printController.printInfo = printInfo
+
+        let format = UIMarkupTextPrintFormatter(markupText: textWithNewCarriageReturns)
+
+        format.perPageContentInsets.top = 72
+        format.perPageContentInsets.bottom = 72
+        format.perPageContentInsets.left = 72
+        format.perPageContentInsets.right = 72
+        printController.printFormatter = format
+
+        printController.present(animated: true, completionHandler: nil)
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {

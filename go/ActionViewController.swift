@@ -116,6 +116,29 @@ class ActionViewController: UIViewController {
         }
     }
     
+    private func handleText(provider: NSItemProvider) {
+        NSLog("handleText called")
+        if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
+            provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { (item, error) in
+                if let error = error {
+                    NSLog("Error loading text: \(error.localizedDescription)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    if let text = item as? String {
+                        NSLog("Text: \(text)")
+                        if let savedURL = self.saveTextToSharedContainer(text: text) {
+                            self.redirectToApp(with: savedURL)
+                        }
+                    } else {
+                        NSLog("Unexpected text item type")
+                    }
+                }
+            }
+        }
+    }
+
     private func redirectToApp(with fileURL: URL) {
         var components = URLComponents(string: "db-fuxs23rugn88jl2://")
         components?.queryItems = [
@@ -188,6 +211,24 @@ class ActionViewController: UIViewController {
         return nil
     }
 
+    private func saveTextToSharedContainer(text: String) -> URL? {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
+            NSLog("Failed to get container URL")
+            return nil
+        }
+        let fileName = UUID().uuidString + ".txt"
+        let fileURL = containerURL.appendingPathComponent(fileName)
+
+        do {
+            try text.write(to: fileURL, atomically: true, encoding: .utf8)
+            NSLog("Text saved to shared container: \(fileURL)")
+            return fileURL
+        } catch {
+            NSLog("Error saving text: \(error.localizedDescription)")
+        }
+        return nil
+    }
+
     private func handleURL(provider: NSItemProvider) {
         NSLog("handleURL called")
         if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
@@ -209,33 +250,11 @@ class ActionViewController: UIViewController {
         }
     }
 
-    private func handleText(provider: NSItemProvider) {
-        NSLog("handleText called")
-        if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
-            provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { (item, error) in
-                if let error = error {
-                    NSLog("Error loading text: \(error.localizedDescription)")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    if let text = item as? String {
-                        NSLog("Text: \(text)")
-                        // Display text in a UILabel or other UI component if needed
-                        self.completeExtension()
-                    } else {
-                        NSLog("Unexpected text item type")
-                    }
-                }
-            }
-        }
-    }
-
     private func handleURLContent(url: URL) {
         if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
             NSLog("URL points to image")
             self.imageView.image = image
-            //  self.completeExtension()
+          //  self.completeExtension()
         } else {
             NSLog("URL does not point to image data")
             // Handle other types of URL content if necessary
