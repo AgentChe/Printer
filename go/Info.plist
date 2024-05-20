@@ -2,53 +2,53 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Copy to Printer App</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>NSExtension</key>
-	<dict>
-		<key>NSExtensionAttributes</key>
-		<dict>
-			<key>NSExtensionActivationRule</key>
-			<string>SUBQUERY(
-            extensionItems,
-            $extensionItem,
-            SUBQUERY(
-                $extensionItem.attachments,
-                $attachment,
-                ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.image&quot; OR
-                ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.jpeg&quot; OR
-                ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.png&quot; OR
-                ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;com.adobe.pdf&quot; OR 
-                ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.url&quot; OR
-                ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;public.text&quot; OR
-                 ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO &quot;org.openxmlformats.wordprocessingml.document&quot;
-            ).@count == $extensionItem.attachments.@count
-        ).@count &gt;= 1</string>
-		</dict>
-		<key>NSExtensionMainStoryboard</key>
-		<string>MainInterface</string>
-		<key>NSExtensionPointIdentifier</key>
-		<string>com.apple.ui-services</string>
-		<key>NSExtensionPointVersion</key>
-		<string>1.0</string>
-	</dict>
-	<key>NSHumanReadableCopyright</key>
-	<string></string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleDisplayName</key>
+    <string>Copy to Printer App</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+    <key>CFBundleShortVersionString</key>
+    <string>$(MARKETING_VERSION)</string>
+    <key>CFBundleVersion</key>
+    <string>$(CURRENT_PROJECT_VERSION)</string>
+    <key>NSExtension</key>
+    <dict>
+        <key>NSExtensionAttributes</key>
+        <dict>
+            <key>NSExtensionActivationRule</key>
+            <string>SUBQUERY(
+                extensionItems,
+                $extensionItem,
+                SUBQUERY(
+                    $extensionItem.attachments,
+                    $attachment,
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.image" OR
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.jpeg" OR
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.png" OR
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "com.adobe.pdf" OR 
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url" OR
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text" OR
+                    ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "org.openxmlformats.wordprocessingml.document"
+                ).@count == $extensionItem.attachments.@count
+            ).@count &gt;= 1</string>
+        </dict>
+        <key>NSExtensionMainStoryboard</key>
+        <string>MainInterface</string>
+        <key>NSExtensionPointIdentifier</key>
+        <string>com.apple.ui-services</string>
+        <key>NSExtensionPointVersion</key>
+        <string>1.0</string>
+    </dict>
+    <key>NSHumanReadableCopyright</key>
+    <string></string>
 </dict>
 </plist>

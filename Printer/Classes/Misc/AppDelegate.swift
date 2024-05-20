@@ -52,7 +52,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             backgroundSessionIdentifier: "com.yourapp.backgroundSession",
             completion: oauthCompletion
         )
-     
+        if url.scheme == "db-fuxs23rugn88jl2" {
+              // Navigate to specific view controller or perform action
+              print("App was opened via URL scheme!")
+          }
 
         
         return true

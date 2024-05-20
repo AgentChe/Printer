@@ -8,97 +8,68 @@ class ActionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        // Get the item[s] we're handling from the extension context.
+        NSLog("viewDidLoad called")
+        
+        // Set background color to ensure the view is visible
+        view.backgroundColor = .white
+        
+        // Example function to handle input items
         handleInputItems()
     }
 
     private func handleInputItems() {
+        NSLog("handleInputItems called")
+        
         guard let extensionItems = self.extensionContext?.inputItems as? [NSExtensionItem] else {
+            NSLog("No extension items")
             return
         }
-        
+
         for item in extensionItems {
             if let attachments = item.attachments {
                 for provider in attachments {
-                    if provider.hasItemConformingToTypeIdentifier(UTType.pdf.identifier) {
-                        handlePDF(provider: provider)
-                        return
-                    } else if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
+                    if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
                         handleImage(provider: provider)
                         return
-                    } else if provider.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
-                        handleText(provider: provider)
-                        return
+                    }
+                }
+            }
+        }
+        NSLog("No matching item found")
+    }
+
+    private func handleImage(provider: NSItemProvider) {
+        provider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { (imageURL, error) in
+            NSLog("handleImage called")
+            
+            OperationQueue.main.addOperation {
+                if let imageURL = imageURL as? URL {
+                    if let image = UIImage(data: try! Data(contentsOf: imageURL)) {
+                        self.imageView.image = image
+                        self.completeExtension()
                     }
                 }
             }
         }
     }
 
-    private func handlePDF(provider: NSItemProvider) {
-        provider.loadItem(forTypeIdentifier: UTType.pdf.identifier, options: nil) { (item, error) in
-            if let url = item as? URL {
-                self.savePDF(pdfURL: url)
-            } else if let data = item as? Data {
-                self.savePDF(data: data)
-            }
-        }
-    }
-
-    private func handleImage(provider: NSItemProvider) {
-        provider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { (imageURL, error) in
-            OperationQueue.main.addOperation {
-                if let imageURL = imageURL as? URL {
-                    self.imageView.image = UIImage(data: try! Data(contentsOf: imageURL))
-                }
-            }
-        }
-    }
-
-    private func handleText(provider: NSItemProvider) {
-        provider.loadItem(forTypeIdentifier: UTType.plainText.identifier, options: nil) { (text, error) in
-            OperationQueue.main.addOperation {
-                if let text = text as? String {
-                    print("Text: \(text)")
-                }
-            }
-        }
-    }
-
-    private func savePDF(pdfURL: URL) {
-        let fileManager = FileManager.default
-        let sharedContainerURL = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.yourapp.shared")
-        let destinationURL = sharedContainerURL?.appendingPathComponent(pdfURL.lastPathComponent)
+    private func completeExtension() {
+        NSLog("completeExtension called")
         
-        do {
-            if let destinationURL = destinationURL {
-                try fileManager.copyItem(at: pdfURL, to: destinationURL)
-                print("PDF saved to \(destinationURL.path)")
-            }
-        } catch {
-            print("Failed to save PDF: \(error)")
-        }
-    }
-    
-    private func savePDF(data: Data) {
-        let fileManager = FileManager.default
-        let sharedContainerURL = fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.yourapp.shared")
-        let fileName = UUID().uuidString + ".pdf"
-        let destinationURL = sharedContainerURL?.appendingPathComponent(fileName)
+        let url = URL(string: "db-fuxs23rugn88jl2://")!
         
-        do {
-            if let destinationURL = destinationURL {
-                try data.write(to: destinationURL)
-                print("PDF saved to \(destinationURL.path)")
+        // Attempt to open the URL to switch to the main app
+        var responder: UIResponder? = self
+        while responder != nil {
+            if let application = responder as? UIApplication {
+                NSLog("UIApplication found, opening URL")
+                application.perform(#selector(UIApplication.open(_:options:completionHandler:)), with: url, with: nil)
+                break
             }
-        } catch {
-            print("Failed to save PDF: \(error)")
+            responder = responder?.next
         }
-    }
 
-    @IBAction func done() {
-        // Return any edited content to the host app.
+        // Complete the request after attempting to open your app
         self.extensionContext!.completeRequest(returningItems: self.extensionContext!.inputItems, completionHandler: nil)
     }
 }
