@@ -9,7 +9,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        // DropboxClientsManager.unlinkClients()
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = SplashViewController.make()
         window?.makeKeyAndVisible()
@@ -28,25 +27,24 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }
         }
+        
         for context in URLContexts {
             if DropboxClientsManager.handleRedirectURL(context.url, includeBackgroundClient: false, completion: oauthCompletion) {
                 break
             }
         }
+        
         guard let urlContext = URLContexts.first else { return }
         let url = urlContext.url
         if url.scheme == "db-fuxs23rugn88jl2" {
             if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
                 if let fileURLString = queryItems.first(where: { $0.name == "fileURL" })?.value,
                    let fileURL = URL(string: fileURLString) {
-                    // Handle file URL for printing
                     printFile(at: fileURL)
                 } else if let fileDataString = queryItems.first(where: { $0.name == "fileData" })?.value,
                           let fileData = Data(base64Encoded: fileDataString) {
-                    // Handle file data for printing
                     printData(fileData)
                 } else if let text = queryItems.first(where: { $0.name == "text" })?.value {
-                    // Handle text for printing
                     printText(text)
                 }
             } else {
@@ -56,14 +54,12 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func printFile(at url: URL) {
-        // Use shared container to access the file
         guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
             print("Failed to get container URL")
             return
         }
         let fileURL = containerURL.appendingPathComponent(url.lastPathComponent)
         
-        // Check if the file exists at the URL
         guard FileManager.default.fileExists(atPath: fileURL.path) else {
             print("File does not exist at URL: \(fileURL)")
             return
@@ -71,57 +67,66 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         do {
             let data = try Data(contentsOf: fileURL)
+            let pathExtension = fileURL.pathExtension.lowercased()
             
-            if fileURL.pathExtension.lowercased() == "pdf" {
-                // Handle PDF file
-                let printController = UIPrintInteractionController.shared
-                let printInfo = UIPrintInfo(dictionary: nil)
-                printInfo.jobName = fileURL.lastPathComponent
-                printInfo.outputType = .general
-                printController.printInfo = printInfo
-                printController.printingItem = data
-                printController.present(animated: true) { (controller, completed, error) in
-                    if completed {
-                        print("Print completed successfully.")
-                    } else {
-                        if let error = error {
-                            print("Failed to print: \(error.localizedDescription)")
-                        } else {
-                            print("Print was cancelled.")
-                        }
-                    }
-                }
-            } else if fileURL.pathExtension.lowercased() == "txt" {
-                // Handle text file
+            switch pathExtension {
+            case "pdf":
+                printPDF(data: data, fileURL: fileURL)
+            case "txt", "swift", "md", "note": // Add more text-based extensions here
                 let text = try String(contentsOf: fileURL, encoding: .utf8)
                 printText(text)
-            } else {
-                // Handle image file
-                guard let image = UIImage(data: data) else {
-                    print("Failed to create image from data at URL: \(fileURL)")
-                    return
-                }
-                let printController = UIPrintInteractionController.shared
-                let printInfo = UIPrintInfo(dictionary: nil)
-                printInfo.jobName = fileURL.lastPathComponent
-                printInfo.outputType = .photo
-                printController.printInfo = printInfo
-                printController.printingItem = image
-                printController.present(animated: true) { (controller, completed, error) in
-                    if completed {
-                        print("Print completed successfully.")
-                    } else {
-                        if let error = error {
-                            print("Failed to print: \(error.localizedDescription)")
-                        } else {
-                            print("Print was cancelled.")
-                        }
-                    }
-                }
+            case "docx":
+                printDocx(data)
+            default:
+                printImage(data: data, fileURL: fileURL)
             }
             
         } catch {
             print("Error loading data from URL: \(fileURL), error: \(error)")
+        }
+    }
+
+    func printPDF(data: Data, fileURL: URL) {
+        let printController = UIPrintInteractionController.shared
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.jobName = fileURL.lastPathComponent
+        printInfo.outputType = .general
+        printController.printInfo = printInfo
+        printController.printingItem = data
+        printController.present(animated: true) { (controller, completed, error) in
+            if completed {
+                print("Print completed successfully.")
+            } else {
+                if let error = error {
+                    print("Failed to print: \(error.localizedDescription)")
+                } else {
+                    print("Print was cancelled.")
+                }
+            }
+        }
+    }
+
+    func printImage(data: Data, fileURL: URL) {
+        guard let image = UIImage(data: data) else {
+            print("Failed to create image from data at URL: \(fileURL)")
+            return
+        }
+        let printController = UIPrintInteractionController.shared
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.jobName = fileURL.lastPathComponent
+        printInfo.outputType = .photo
+        printController.printInfo = printInfo
+        printController.printingItem = image
+        printController.present(animated: true) { (controller, completed, error) in
+            if completed {
+                print("Print completed successfully.")
+            } else {
+                if let error = error {
+                    print("Failed to print: \(error.localizedDescription)")
+                } else {
+                    print("Print was cancelled.")
+                }
+            }
         }
     }
 
@@ -150,6 +155,33 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         printController.present(animated: true, completionHandler: nil)
     }
+    
+    func printDocx(_ data: Data) {
+        let tempFileURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString).appendingPathExtension("docx")
+        do {
+            try data.write(to: tempFileURL)
+            let printController = UIPrintInteractionController.shared
+            let printInfo = UIPrintInfo(dictionary: nil)
+            printInfo.jobName = tempFileURL.lastPathComponent
+            printInfo.outputType = .general
+            printController.printInfo = printInfo
+            printController.printingItem = tempFileURL
+            printController.present(animated: true) { (controller, completed, error) in
+                if completed {
+                    print("Print completed successfully.")
+                } else {
+                    if let error = error {
+                        print("Failed to print: \(error.localizedDescription)")
+                    } else {
+                        print("Print was cancelled.")
+                    }
+                }
+                try? FileManager.default.removeItem(at: tempFileURL)
+            }
+        } catch {
+            print("Error writing DOCX data to temporary file: \(error.localizedDescription)")
+        }
+    }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called as the scene is about to move from active to inactive state.
@@ -163,7 +195,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                 if let printer = printer {
                                     print("Reconnected to the last printer: \(printer.displayName)")
                                     mainViewController.delegate?.reloadCollectionView()  // Update the UI as needed
-                                    // Here, you could initiate further actions, such as starting a print job
                                 } else if let error = error {
                                     if let lastPrinterURL = PrinterManager.shared.lastConnectedPrinter {
                                         let lastPrinterName = PrinterManager.shared.getPrinterName(for: lastPrinterURL)
@@ -171,7 +202,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                         PrinterManager.shared.disconnectPrinter()
                                         mainViewController.delegate?.reloadCollectionView()
                                         print("Error: \(error.localizedDescription)")
-                                        // Handle error (e.g., show an alert or update UI to reflect the error)
                                     }
                                 }
                             }
