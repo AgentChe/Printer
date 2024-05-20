@@ -13,7 +13,7 @@ class ActionViewController: UIViewController {
         // Set background color to ensure the view is visible
         view.backgroundColor = .white
         
-        // Example function to handle input items
+        // Handle input items
         handleInputItems()
     }
 
@@ -34,6 +34,11 @@ class ActionViewController: UIViewController {
                     } else if provider.hasItemConformingToTypeIdentifier(UTType.pdf.identifier) {
                         handlePDF(provider: provider)
                         return
+                    } else if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
+                        handleURL(provider: provider)
+                        return
+                    } else {
+                        NSLog("No matching type found for attachment: \(provider.registeredTypeIdentifiers)")
                     }
                 }
             }
@@ -42,32 +47,87 @@ class ActionViewController: UIViewController {
     }
 
     private func handlePDF(provider: NSItemProvider) {
-        provider.loadItem(forTypeIdentifier: UTType.pdf.identifier, options: nil) { (pdfURL, error) in
-            NSLog("handlePDF called")
-            
-            OperationQueue.main.addOperation {
-                if let pdfURL = pdfURL as? URL {
-                    NSLog("PDF URL: \(pdfURL)")
-                    // Set the imageView to an icon or message indicating a PDF was received
-                    self.imageView.image = UIImage(systemName: "doc.richtext")
-                    self.completeExtension()
+        NSLog("handlePDF called")
+        if provider.hasItemConformingToTypeIdentifier(UTType.pdf.identifier) {
+            provider.loadItem(forTypeIdentifier: UTType.pdf.identifier, options: nil) { (item, error) in
+                if let error = error {
+                    NSLog("Error loading PDF: \(error.localizedDescription)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    if let url = item as? URL {
+                        NSLog("PDF URL: \(url.absoluteString)")
+                        self.imageView.image = UIImage(systemName: "doc.richtext")
+                        self.completeExtension()
+                    } else if let data = item as? Data {
+                        NSLog("PDF Data loaded")
+                        self.completeExtension()
+                    } else {
+                        NSLog("Unexpected PDF item type")
+                    }
                 }
             }
         }
     }
 
     private func handleImage(provider: NSItemProvider) {
-        provider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { (imageURL, error) in
-            NSLog("handleImage called")
-            
-            OperationQueue.main.addOperation {
-                if let imageURL = imageURL as? URL {
-                    if let image = UIImage(data: try! Data(contentsOf: imageURL)) {
+        NSLog("handleImage called")
+        if provider.hasItemConformingToTypeIdentifier(UTType.image.identifier) {
+            provider.loadItem(forTypeIdentifier: UTType.image.identifier, options: nil) { (item, error) in
+                if let error = error {
+                    NSLog("Error loading image: \(error.localizedDescription)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    if let url = item as? URL {
+                        NSLog("Image URL: \(url)")
+                        if let image = UIImage(data: try! Data(contentsOf: url)) {
+                            self.imageView.image = image
+                            self.completeExtension()
+                        }
+                    } else if let image = item as? UIImage {
                         self.imageView.image = image
                         self.completeExtension()
+                    } else {
+                        NSLog("Unexpected image item type")
                     }
                 }
             }
+        }
+    }
+
+    private func handleURL(provider: NSItemProvider) {
+        NSLog("handleURL called")
+        if provider.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
+            provider.loadItem(forTypeIdentifier: UTType.url.identifier, options: nil) { (item, error) in
+                if let error = error {
+                    NSLog("Error loading URL: \(error.localizedDescription)")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    if let url = item as? URL {
+                        NSLog("URL: \(url.absoluteString)")
+                        self.handleURLContent(url: url)
+                    } else {
+                        NSLog("Unexpected URL item type")
+                    }
+                }
+            }
+        }
+    }
+
+    private func handleURLContent(url: URL) {
+        if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+            NSLog("URL points to image")
+            self.imageView.image = image
+            self.completeExtension()
+        } else {
+            NSLog("URL does not point to image data")
+            // Handle other types of URL content if necessary
+            self.completeExtension()
         }
     }
 
