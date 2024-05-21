@@ -143,6 +143,9 @@ class ActionViewController: UIViewController {
     private func handleURLContent(url: URL) {
         let pathExtension = url.pathExtension.lowercased()
         
+        // Add logging to check URL and path extension
+        NSLog("Handling URL: \(url.absoluteString) with path extension: \(pathExtension)")
+
         switch pathExtension {
         case "txt", "swift", "md": // Add more text-based extensions here if needed
             if let text = try? String(contentsOf: url, encoding: .utf8) {
@@ -180,8 +183,20 @@ class ActionViewController: UIViewController {
             } else {
                 NSLog("Failed to read Notes file from URL")
             }
+        case "html":
+            if let html = try? String(contentsOf: url, encoding: .utf8) {
+                NSLog("URL points to HTML file")
+                if let savedURL = self.saveHTMLToSharedContainer(html: html) {
+                    self.redirectToApp(with: savedURL)
+                }
+            } else {
+                NSLog("Failed to read HTML from URL")
+            }
         default:
-            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+            if url.absoluteString.lowercased().hasPrefix("http") {
+                // Handle web URLs that don't have file extensions
+                handleWebURL(url: url)
+            } else if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
                 NSLog("URL points to image")
                 self.imageView.image = image
                 if let savedURL = self.saveImageToSharedContainer(image: image) {
@@ -193,6 +208,46 @@ class ActionViewController: UIViewController {
             }
         }
     }
+
+    private func handleWebURL(url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                NSLog("Failed to load web content: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let data = data, let html = String(data: data, encoding: .utf8) else {
+                NSLog("Failed to convert web content to HTML string")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let savedURL = self.saveHTMLToSharedContainer(html: html) {
+                    self.redirectToApp(with: savedURL)
+                }
+            }
+        }.resume()
+    }
+    private func saveHTMLToSharedContainer(html: String) -> URL? {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
+            NSLog("Failed to get container URL")
+            return nil
+        }
+        let fileName = UUID().uuidString + ".html"
+        let fileURL = containerURL.appendingPathComponent(fileName)
+        
+        NSLog("Saving HTML to \(fileURL)")
+
+        do {
+            try html.write(to: fileURL, atomically: true, encoding: .utf8)
+            NSLog("HTML saved to shared container: \(fileURL)")
+            return fileURL
+        } catch {
+            NSLog("Error saving HTML: \(error.localizedDescription)")
+        }
+        return nil
+    }
+
 
     private func handleText(provider: NSItemProvider) {
         NSLog("handleText called")

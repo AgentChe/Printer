@@ -68,6 +68,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         do {
             let data = try Data(contentsOf: fileURL)
             let pathExtension = fileURL.pathExtension.lowercased()
+            print("File path extension: \(pathExtension)")
             
             switch pathExtension {
             case "pdf":
@@ -77,6 +78,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 printText(text)
             case "docx":
                 printDocx(data)
+            case "html":
+                let html = try String(contentsOf: fileURL, encoding: .utf8)
+                printHTML(html)
             default:
                 printImage(data: data, fileURL: fileURL)
             }
@@ -84,6 +88,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } catch {
             print("Error loading data from URL: \(fileURL), error: \(error)")
         }
+    }
+    func printHTML(_ html: String) {
+        NSLog("Printing HTML content")
+        
+        let printController = UIPrintInteractionController.shared
+
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.outputType = .general
+        printController.printInfo = printInfo
+
+        let format = UIMarkupTextPrintFormatter(markupText: html)
+
+        format.perPageContentInsets.top = 72
+        format.perPageContentInsets.bottom = 72
+        format.perPageContentInsets.left = 72
+        format.perPageContentInsets.right = 72
+        printController.printFormatter = format
+
+        printController.present(animated: true, completionHandler: nil)
     }
 
     func printPDF(data: Data, fileURL: URL) {
