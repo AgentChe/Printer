@@ -12,17 +12,9 @@ class PrinterCell: UICollectionViewCell {
 
     private let iconContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Appearance.mainViewBackground // Use Appearance.mainViewBackground
+        view.backgroundColor = .clear // Use Appearance.mainViewBackground
         view.layer.cornerRadius = 12.scale // The corner radius for rounded corners
         view.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Drop shadow configuration
-        view.layer.shadowColor = Appearance.black.cgColor // Use Appearance.black for shadow
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowOffset = CGSize(width: 0.scale, height: 2.scale)
-        view.layer.shadowRadius = 4.scale
-        view.layer.masksToBounds = false
-        
         return view
     }()
     
@@ -31,6 +23,15 @@ class PrinterCell: UICollectionViewCell {
         let imageView = UIImageView(image: printerImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+     let checkmarkImageView: UIImageView = {
+        let checkmarkImage = UIImage(named: "PrinterCell.Checkmark")
+        let imageView = UIImageView(image: checkmarkImage)
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.alpha = 1 // Initial opacity set to 0
         return imageView
     }()
     
@@ -70,6 +71,7 @@ class PrinterCell: UICollectionViewCell {
         iconContainerView.addSubview(iconImageView)
         addSubview(printerName)
         addSubview(connectionStatusLabel)
+        addSubview(checkmarkImageView)
     }
     
     private func setupLayout() {
@@ -86,9 +88,15 @@ class PrinterCell: UICollectionViewCell {
             iconImageView.widthAnchor.constraint(equalToConstant: 24.scale), // Adjust your size
             iconImageView.heightAnchor.constraint(equalToConstant: 24.scale), // Adjust your size
             
+            // Checkmark ImageView Constraints
+            checkmarkImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
+            checkmarkImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkmarkImageView.widthAnchor.constraint(equalToConstant: 23.scale),
+            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24.scale),
+            
             // Title Label Constraints
             printerName.leadingAnchor.constraint(equalTo: iconContainerView.trailingAnchor, constant: 10.scale),
-            printerName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15.scale),
+            printerName.trailingAnchor.constraint(equalTo: checkmarkImageView.leadingAnchor, constant: -30.scale),
             printerName.topAnchor.constraint(equalTo: topAnchor, constant: 22.6.scale),
             
             // Detail Label Constraints
@@ -98,9 +106,10 @@ class PrinterCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with action: QuickAction) {
+    func configure(with action: QuickAction, isConnected: Bool) {
         iconImageView.image = action.icon
         printerName.text = action.title
         connectionStatusLabel.text = action.detail // Assuming QuickAction now has a 'detail' property for additional text
+        checkmarkImageView.alpha = isConnected ? 1 : 0 // Show checkmark if connected
     }
 }

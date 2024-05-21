@@ -74,6 +74,7 @@
 		A30715222BF210B200667526 /* CustomPrintImagePageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715212BF210B200667526 /* CustomPrintImagePageRenderer.swift */; };
 		A30715252BF379A100667526 /* Photos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715242BF379A100667526 /* Photos.swift */; };
 		A30715282BF379E000667526 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30715272BF379E000667526 /* Files.swift */; };
+		A308E1582BFD47BE0007CA02 /* PrinterSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A308E1572BFD47BE0007CA02 /* PrinterSelectionViewController.swift */; };
 		A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B62BF3B07300B93D6F /* Dropbox.swift */; };
 		A30EF7B92BF3BB1200B93D6F /* NotesCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */; };
 		A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */; };
@@ -294,6 +295,7 @@
 		A30715212BF210B200667526 /* CustomPrintImagePageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPrintImagePageRenderer.swift; sourceTree = "<group>"; };
 		A30715242BF379A100667526 /* Photos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
 		A30715272BF379E000667526 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
+		A308E1572BFD47BE0007CA02 /* PrinterSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterSelectionViewController.swift; sourceTree = "<group>"; };
 		A30EF7B62BF3B07300B93D6F /* Dropbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropbox.swift; sourceTree = "<group>"; };
 		A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCellContent.swift; sourceTree = "<group>"; };
 		A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 				A30715182BF19F7E00667526 /* CenteredFlowLayoutForPreviewsCollectionView.swift */,
 				A307151F2BF1EC5C00667526 /* CustomPrintTextPageRenderer.swift */,
 				A30714FE2BEDF03600667526 /* AvaliablePrintersCell.swift */,
+				A308E1572BFD47BE0007CA02 /* PrinterSelectionViewController.swift */,
 				A377360B2BEC765A00FCD54F /* WiFi+Bluetooth */,
 				A37736082BEC703C00FCD54F /* ToggleViews */,
 			);
@@ -1511,6 +1514,7 @@
 				DEDF90FC2BD7B07C004340C0 /* Weak.swift in Sources */,
 				A301E1BA2BE5448500A5F9EC /* ReviewViewController.swift in Sources */,
 				A301E18F2BE5448500A5F9EC /* AVCaptureVideoOrientation+Utils.swift in Sources */,
+				A308E1582BFD47BE0007CA02 /* PrinterSelectionViewController.swift in Sources */,
 				A30715072BEEF0EE00667526 /* PrinterManager.swift in Sources */,
 				DEDF90F82BD7B07C004340C0 /* ObservableRetrySingle.swift in Sources */,
 				DEDF90E02BD7B07C004340C0 /* GradientView.swift in Sources */,

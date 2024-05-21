@@ -3,6 +3,7 @@ import UIKit
 class ConnectPrinterCell: UICollectionViewCell {
     static let connectPrinterCellKey = "connectPrinterCellKey"
     weak var delegate: ConnectPrinterCellDelegate?
+    var isPrinterPickerPresented = false
 
     // Create the header label
     let headerLabel: UILabel = {
@@ -93,8 +94,12 @@ class ConnectPrinterCell: UICollectionViewCell {
     }
 
     @objc func selectPrinter() {
+        guard !isPrinterPickerPresented else {
+                NSLog("Printer picker is already presented")
+                return
+            }
         let printerPicker = UIPrinterPickerController(initiallySelectedPrinter: nil)
-
+        isPrinterPickerPresented = true
         printerPicker.present(animated: true) { [weak self] (printerPickerController, userDidSelect, error) in
             if userDidSelect {
                 if let printer = printerPickerController.selectedPrinter {
@@ -126,6 +131,8 @@ class ConnectPrinterCell: UICollectionViewCell {
                         }
                     }
                 }
+            } else {
+              
             }
         }
     }
@@ -177,9 +184,10 @@ class ConnectPrinterCell: UICollectionViewCell {
     var connectionCheckTimer: Timer?
     let wifi2ndManager = NetworkReachability()
     let bluetoothManager = BluetoothManager()
-
+    var BTHisON: Bool = false
+    var WIFIisON:Bool = false
     func setupConnectionCheckTimer() {
-        connectionCheckTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkWiFiConnection), userInfo: nil, repeats: true)
+        connectionCheckTimer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(checkWiFiConnection), userInfo: nil, repeats: true)
     }
 
     @objc func checkWiFiConnection() {
@@ -187,6 +195,10 @@ class ConnectPrinterCell: UICollectionViewCell {
             changeWIFIToOn()
         } else {
             changeWIFIToOff()
+            isPrinterPickerPresented = false
+        }
+        if BTHisON && WIFIisON && PrinterManager.shared.retrieveAllPrinters().count == 0 {
+            selectPrinter()
         }
     }
 
@@ -277,17 +289,23 @@ class ConnectPrinterCell: UICollectionViewCell {
 extension ConnectPrinterCell: StatusChangeDelegate {
     func changeWIFIToOn() {
         wifiToggleView.updateSwitchImage(with: "ToggleView.SwitchOn")
+        WIFIisON = true
+       // isPrinterPickerPresented = false
     }
 
     func changeWIFIToOff() {
         wifiToggleView.updateSwitchImage(with: "ToggleView.SwitchOff")
+        WIFIisON = false
     }
 
     func changeBTHToOn() {
         bluetoothToggleView.updateSwitchImage(with: "ToggleView.SwitchOn")
+        BTHisON = true
+        //isPrinterPickerPresented = false
     }
 
     func changeBTHToOff() {
         bluetoothToggleView.updateSwitchImage(with: "ToggleView.SwitchOff")
+        BTHisON = false
     }
 }

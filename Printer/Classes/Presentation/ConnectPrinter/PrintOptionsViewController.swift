@@ -14,7 +14,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     var pagesPerSheet: Int = 1
     
     var formattedText: NSAttributedString?
-
+    
     private let topBarImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "Grabber"))
         imageView.alpha = 1.0
@@ -195,7 +195,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         }
         previewCollectionView.reloadData()
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionView {
             return options.count
@@ -216,13 +216,14 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                     if let printerName = PrinterManager.shared.getPrinterName(for: currentlyConnectedPrinterURL) {
                         let cleanedPrinterName = printerName.filter { $0 != "\"" }
                         let truncatedPrinterName = String(cleanedPrinterName.prefix(10))
-                        cell.configure(with: NSLocalizedString("PrintOptions.Printer", comment: "Printer"), detail: "\(truncatedPrinterName)")
+                        cell.configure(with: NSLocalizedString("PrintOptions.Printer", comment: "Printer"), detail: "\(truncatedPrinterName)", showArrow: false)
                         return cell
                     }
-                } else {
-                    cell.configure(with: NSLocalizedString("PrintOptions.Printer", comment: "Printer"), detail: NSLocalizedString("PrintOptions.PrinterNotSelected", comment: "not selected"))
                 }
+                cell.configure(with: NSLocalizedString("PrintOptions.Printer", comment: "Printer"), detail: NSLocalizedString("PrintOptions.PrinterNotSelected", comment: "not selected"), showArrow: true)
                 return cell
+                
+                
                 
             case 1:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CopiesOptionCell.identifier, for: indexPath) as? CopiesOptionCell else {
@@ -254,7 +255,36 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.collectionView {
-            print("Selected Option: \(options[indexPath.row])")
+            if indexPath.row == 0 {
+                let printerPicker = UIPrinterPickerController(initiallySelectedPrinter: nil)
+                printerPicker.present(animated: true) { [weak self] (printerPickerController, userDidSelect, error) in
+                    if userDidSelect {
+                        if let printer = printerPickerController.selectedPrinter {
+                            print("Printer name: \(printer.displayName)")
+                            print("Printer URL: \(printer.url)")
+                            
+                            let isFirstTimeSaved = PrinterManager.shared.isFirstTimePrinterSaved(printer.url)
+                            PrinterManager.shared.savePrinter(url: printer.url, displayName: printer.displayName)
+                            
+                            PrinterManager.shared.connectToPrinter(with: printer.url) { printer, error in
+                                if let printer = printer {
+                                    self?.collectionView.reloadData()
+                    
+                                }
+                                if let error = error {
+                                    PrinterManager.shared.showAlertForErrorWithPrinter(printer?.displayName ?? "Unknown", viewController: self!)
+                                    
+                                    print("Error: \(error.localizedDescription)")
+                                }
+                            }
+                        }
+                    } else {
+                        
+                    }
+                }
+            } else {
+                print("Selected Option: \(options[indexPath.row])")
+            }
         } else if collectionView == self.previewCollectionView {
             print("Selected Preview: \(previews[indexPath.row])")
         }

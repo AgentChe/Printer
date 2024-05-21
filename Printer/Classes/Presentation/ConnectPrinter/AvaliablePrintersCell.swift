@@ -147,6 +147,7 @@ extension AvaliablePrintersCell {
                     if let printer = printer {
                         cell.connectionStatusLabel.text = NSLocalizedString("AvaliablePrintersCell.Connected", comment: "Connected")
                         print("Successfully connected to \(printer.displayName)")
+                        cell.checkmarkImageView.alpha = 1
                     }
                     if let error = error {
                         if let viewController4Alert = self?.parentViewController {
@@ -162,6 +163,7 @@ extension AvaliablePrintersCell {
             // Disconnect the printer if it is currently connected
             PrinterManager.shared.disconnectPrinter()
             cell.connectionStatusLabel.text = NSLocalizedString("AvaliablePrintersCell.NotConnected", comment: "Not connected")
+            cell.checkmarkImageView.alpha = 0
             collectionView.reloadData()  // Refresh to update connection status labels
         }
     }
