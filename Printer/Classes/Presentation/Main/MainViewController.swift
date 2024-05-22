@@ -1,10 +1,3 @@
-//
-//  MainViewController.swift
-//  Printer
-//
-//  Created by Андрей Чернышев on 24.04.2024.
-//
-
 import UIKit
 import MobileCoreServices
 import UniformTypeIdentifiers
@@ -41,11 +34,11 @@ final class MainViewController: UIViewController {
                 print("Error: \(error.localizedDescription)")
             }
         }
-        title = NSLocalizedString("MainViewController.Title", comment: "")
+        title = ""//NSLocalizedString("MainViewController.Title", comment: "")
         
-        // Enable large titles
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.largeTitleDisplayMode = .always
+        // Disable large titles
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         
         // Style the navigation bar for iOS 15 and later
         if #available(iOS 15.0, *) {
@@ -58,7 +51,7 @@ final class MainViewController: UIViewController {
             ]
             appearance.largeTitleTextAttributes = [
                 .foregroundColor: Appearance.black,
-                .font: Fonts.SFProDisplay.bold(size: 34.scale) // Replace system font with custom font
+                .font: Fonts.SFProDisplay.medium(size: 17.scale) // Replace system font with custom font
             ]
             appearance.shadowColor = nil
             
@@ -73,7 +66,7 @@ final class MainViewController: UIViewController {
             navigationController?.navigationBar.isTranslucent = false
             navigationController?.navigationBar.largeTitleTextAttributes = [
                 .foregroundColor: Appearance.black,
-                .font: Fonts.SFProDisplay.bold(size: 34.scale) // Replace system font with custom font
+                .font: Fonts.SFProDisplay.medium(size: 17.scale) // Replace system font with custom font
             ]
         }
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -91,6 +84,9 @@ final class MainViewController: UIViewController {
         viewModel.loadQuickActions()
         // viewModel.checkPrinterStatus()
     }
+
+ 
+
 }
 
 // MARK: Make

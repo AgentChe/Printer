@@ -67,6 +67,27 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
         return button
     }()
     
+    // New UI elements
+    private let myPrinterLabel: UILabel = {
+        let label = UILabel()
+        label.text = "My printer"
+        label.font = Fonts.SFProDisplay.bold(size: 24.scale)
+        label.textColor = Appearance.black // Use Appearance.black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let changePrinterButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Change printer", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = Fonts.SFProDisplay.medium(size: 18.scale)
+        button.setTitleColor(Appearance.signatureBlue, for: .normal) // Use Appearance signature blue color
+        button.addTarget(self, action: #selector(changePrinterButtonTapped), for: .touchUpInside)
+        button.alpha = 0
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -76,8 +97,12 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
         addSubview(subtitleLabel)
         addSubview(addPrinterButton)
         addSubview(compatibleListButton)
+        addSubview(myPrinterLabel)
+        addSubview(changePrinterButton)
         setupLayout()
+        //backgroundColor = .red
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -90,7 +115,7 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             // Printer image view constraints
             printerImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            printerImageView.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
+            printerImageView.topAnchor.constraint(equalTo: topAnchor, constant: spacing + 55.scale),
             printerImageView.widthAnchor.constraint(equalToConstant: 130.scale),
             printerImageView.heightAnchor.constraint(equalTo: printerImageView.widthAnchor),
             
@@ -112,7 +137,14 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
             compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             compatibleListButton.topAnchor.constraint(equalTo: addPrinterButton.bottomAnchor, constant: (spacing / 4).scale),
             compatibleListButton.widthAnchor.constraint(equalTo: addPrinterButton.widthAnchor),
-            compatibleListButton.heightAnchor.constraint(equalTo: addPrinterButton.heightAnchor)
+            compatibleListButton.heightAnchor.constraint(equalTo: addPrinterButton.heightAnchor),
+            
+            // New elements constraints
+            myPrinterLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing + 10.scale),
+            myPrinterLabel.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
+            
+            changePrinterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing),
+            changePrinterButton.topAnchor.constraint(equalTo: topAnchor, constant: spacing)
         ])
     }
     
@@ -136,6 +168,10 @@ extension PrinterNotConnectedStatusCell {
             let brandsVC = NavigationController(rootViewController:BrandsTableViewController())
             rootViewController.present(brandsVC, animated: true)
         }
-        
+    }
+    
+    @objc private func changePrinterButtonTapped() {
+        // Implement the action for the change printer button
+        // Example: present another view controller
     }
 }

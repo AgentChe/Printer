@@ -50,7 +50,7 @@ class MainView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+ 
     fileprivate func setupViews() {
         backgroundColor = Appearance.mainViewBackground
         addSubview(collectionView)
@@ -152,7 +152,7 @@ extension MainView: UICollectionViewDelegateFlowLayout {
             if PrinterManager.shared.currentlyConnectedPrinterURL != nil {
                 return CGSize(width: collectionView.bounds.width, height: 220.scale)
             } else {
-                return CGSize(width: collectionView.bounds.width, height: 335.scale) // Adjust height as needed
+                return CGSize(width: collectionView.bounds.width, height: 400.scale) // Adjust height as needed
             }
         } else {
             // Return size for QuickActionCell

@@ -59,9 +59,9 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         addSubview(printerImageView)
         addSubview(titleLabel)
         addSubview(changePrinterButton)
-        addSubview(compatibleListButton)
+       // addSubview(compatibleListButton)
         setupLayout()
-        backgroundColor = Appearance.background // Use Appearance.background
+        backgroundColor = .red//Appearance.background // Use Appearance.background
     }
     
     required init?(coder: NSCoder) {
@@ -91,10 +91,10 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
             changePrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight),
             
             // Compatible list button constraints
-            compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            compatibleListButton.topAnchor.constraint(equalTo: changePrinterButton.bottomAnchor, constant: spacing),
-            compatibleListButton.widthAnchor.constraint(equalTo: changePrinterButton.widthAnchor),
-            compatibleListButton.heightAnchor.constraint(equalTo: changePrinterButton.heightAnchor)
+//            compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+//            compatibleListButton.topAnchor.constraint(equalTo: changePrinterButton.bottomAnchor, constant: spacing),
+//            compatibleListButton.widthAnchor.constraint(equalTo: changePrinterButton.widthAnchor),
+//            compatibleListButton.heightAnchor.constraint(equalTo: changePrinterButton.heightAnchor)
         ])
     }
 }
