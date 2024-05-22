@@ -150,7 +150,7 @@ extension MainView: UICollectionViewDelegateFlowLayout {
         if indexPath.section == 0 {
             // Return size for PrinterStatusCell
             if PrinterManager.shared.currentlyConnectedPrinterURL != nil {
-                return CGSize(width: collectionView.bounds.width, height: 220.scale)
+                return CGSize(width: collectionView.bounds.width, height: 300.scale)
             } else {
                 return CGSize(width: collectionView.bounds.width, height: 400.scale) // Adjust height as needed
             }

@@ -141,7 +141,7 @@ final class PrinterNotConnectedStatusCell: UICollectionViewCell {
             
             // New elements constraints
             myPrinterLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: spacing + 10.scale),
-            myPrinterLabel.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
+            myPrinterLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             
             changePrinterButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -spacing),
             changePrinterButton.topAnchor.constraint(equalTo: topAnchor, constant: spacing)

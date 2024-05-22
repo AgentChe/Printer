@@ -1,10 +1,3 @@
-//
-//  PrinterConnectedStatusCell.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/11/24.
-//
-
 import UIKit
 
 final class PrinterConnectedStatusCell: UICollectionViewCell {
@@ -52,6 +45,15 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         return button
     }()
     
+    private let myPrinterLabel: UILabel = {
+        let label = UILabel()
+        label.text = "My printer"
+        label.font = Fonts.SFProDisplay.bold(size: 24.scale)
+        label.textColor = Appearance.black // Use Appearance.black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -59,9 +61,10 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         addSubview(printerImageView)
         addSubview(titleLabel)
         addSubview(changePrinterButton)
-       // addSubview(compatibleListButton)
+        addSubview(myPrinterLabel)
+        addSubview(compatibleListButton)
         setupLayout()
-        backgroundColor = .red//Appearance.background // Use Appearance.background
+        backgroundColor = Appearance.background // Use Appearance.background
     }
     
     required init?(coder: NSCoder) {
@@ -73,9 +76,13 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
         let buttonHeight = CGFloat(20.0).scale // The height of the buttons
         
         NSLayoutConstraint.activate([
+            // My printer label constraints
+            myPrinterLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.scale),
+            myPrinterLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            
             // Printer image view constraints
             printerImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            printerImageView.topAnchor.constraint(equalTo: topAnchor, constant: spacing),
+            printerImageView.topAnchor.constraint(equalTo: myPrinterLabel.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? spacing + 42.scale : spacing + 42.scale),
             printerImageView.widthAnchor.constraint(equalToConstant: 130.scale), // Adjust multiplier for the desired width
             printerImageView.heightAnchor.constraint(equalTo: printerImageView.widthAnchor), // Makes the image view square
             
@@ -91,10 +98,9 @@ final class PrinterConnectedStatusCell: UICollectionViewCell {
             changePrinterButton.heightAnchor.constraint(equalToConstant: buttonHeight),
             
             // Compatible list button constraints
-//            compatibleListButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-//            compatibleListButton.topAnchor.constraint(equalTo: changePrinterButton.bottomAnchor, constant: spacing),
-//            compatibleListButton.widthAnchor.constraint(equalTo: changePrinterButton.widthAnchor),
-//            compatibleListButton.heightAnchor.constraint(equalTo: changePrinterButton.heightAnchor)
+            compatibleListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.scale),
+            compatibleListButton.centerYAnchor.constraint(equalTo: myPrinterLabel.centerYAnchor, constant: 0.scale),
+            compatibleListButton.heightAnchor.constraint(equalToConstant: buttonHeight)
         ])
     }
 }
@@ -111,5 +117,11 @@ extension PrinterConnectedStatusCell {
     
     @objc private func compatibleListButtonTapped() {
         // Implement the action for the compatible list button
+         
+        if let rootViewController = UIApplication.shared.windows.filter({ $0.isKeyWindow }).first?.rootViewController {
+            let brandsVC = NavigationController(rootViewController:BrandsTableViewController())
+            rootViewController.present(brandsVC, animated: true)
+        }
     }
+    
 }

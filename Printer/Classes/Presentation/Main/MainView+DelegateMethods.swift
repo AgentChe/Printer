@@ -13,7 +13,7 @@ extension MainView {
                 print("scrollView.contentOffset.y: \(scrollView.contentOffset.y)")
                 let navigationController = mainViewController.navigationController
                 //print("CollectionView offset: \(collectionView.contentOffset)")
-                let threshold: CGFloat = -75.scale // Or any value that works for your layout
+                let threshold: CGFloat = ScreenSize.isIphoneXFamily ? -75.scale : -55.scale // Or any value that works for your layout
                 // Check the offset and adjust the shadow accordingly
                 if scrollView.contentOffset.y > threshold {
                     // User has scrolled: show the shadow line
