@@ -73,7 +73,7 @@ class NotesViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NotesCell", for: indexPath) as! NotesCell
-        cell.notesViewController?.delegate = delegate
+        cell.notesViewController?.delegate = self
         return cell
     }
     
@@ -87,5 +87,21 @@ class NotesViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         view.endEditing(true)
+    }
+}
+
+extension NotesViewController: NotesViewControllerDelegate {
+    func notesViewController(_ controller: NotesCellContent, didSaveFormattedText text: NSAttributedString) {
+        let printOptionsNotesVC = PrintOptionsNotesViewController()
+        printOptionsNotesVC.formattedText = text
+        printOptionsNotesVC.delegate = self
+        present(printOptionsNotesVC, animated: true, completion: nil)
+    }
+}
+
+extension NotesViewController: PrintOptionsNotesViewControllerDelegate {
+    func printOptionsNotesViewController(_ controller: PrintOptionsNotesViewController, didFinishPrinting success: Bool) {
+        controller.dismiss(animated: true, completion: nil)
+        // Handle any post-printing actions here if needed
     }
 }

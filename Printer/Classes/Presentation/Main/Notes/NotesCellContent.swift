@@ -215,9 +215,7 @@ class NotesCellContent: UIViewController {
     }
 
     @objc private func printButtonTapped() {
-        let printOptionsVC = PrintOptionsViewController()
-        printOptionsVC.formattedText = textView.attributedText
-        present(printOptionsVC, animated: true, completion: nil)
+        delegate?.notesViewController(self, didSaveFormattedText: textView.attributedText)
     }
 }
 

@@ -78,6 +78,9 @@
 		A308EF412BFDE5DD0071D2B3 /* CustomPhotoPrintPageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A308EF402BFDE5DD0071D2B3 /* CustomPhotoPrintPageRenderer.swift */; };
 		A308EF432BFDE68C0071D2B3 /* PhotoPrintOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A308EF422BFDE68C0071D2B3 /* PhotoPrintOptionsViewController.swift */; };
 		A308EF452BFDE9D30071D2B3 /* PhotosPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A308EF442BFDE9D30071D2B3 /* PhotosPrinterManager.swift */; };
+		A308EF472BFDFAF00071D2B3 /* PrintOptionsNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A308EF462BFDFAF00071D2B3 /* PrintOptionsNotesViewController.swift */; };
+		A308EF492BFDFCDD0071D2B3 /* CustomPrintNotesTextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A308EF482BFDFCDD0071D2B3 /* CustomPrintNotesTextRenderer.swift */; };
+		A308EF4B2BFDFD0B0071D2B3 /* PrinterManager(Notes).swift in Sources */ = {isa = PBXBuildFile; fileRef = A308EF4A2BFDFD0B0071D2B3 /* PrinterManager(Notes).swift */; };
 		A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B62BF3B07300B93D6F /* Dropbox.swift */; };
 		A30EF7B92BF3BB1200B93D6F /* NotesCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */; };
 		A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */; };
@@ -302,6 +305,9 @@
 		A308EF402BFDE5DD0071D2B3 /* CustomPhotoPrintPageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotoPrintPageRenderer.swift; sourceTree = "<group>"; };
 		A308EF422BFDE68C0071D2B3 /* PhotoPrintOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPrintOptionsViewController.swift; sourceTree = "<group>"; };
 		A308EF442BFDE9D30071D2B3 /* PhotosPrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPrinterManager.swift; sourceTree = "<group>"; };
+		A308EF462BFDFAF00071D2B3 /* PrintOptionsNotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintOptionsNotesViewController.swift; sourceTree = "<group>"; };
+		A308EF482BFDFCDD0071D2B3 /* CustomPrintNotesTextRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPrintNotesTextRenderer.swift; sourceTree = "<group>"; };
+		A308EF4A2BFDFD0B0071D2B3 /* PrinterManager(Notes).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrinterManager(Notes).swift"; sourceTree = "<group>"; };
 		A30EF7B62BF3B07300B93D6F /* Dropbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dropbox.swift; sourceTree = "<group>"; };
 		A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCellContent.swift; sourceTree = "<group>"; };
 		A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCell.swift; sourceTree = "<group>"; };
@@ -642,10 +648,13 @@
 			isa = PBXGroup;
 			children = (
 				A3C3B2842BF75991006CFEBC /* NotesViewController.swift */,
+				A308EF482BFDFCDD0071D2B3 /* CustomPrintNotesTextRenderer.swift */,
+				A308EF4A2BFDFD0B0071D2B3 /* PrinterManager(Notes).swift */,
 				A30EF7BB2BF3BE3A00B93D6F /* FontCell.swift */,
 				A30EF7BD2BF3C02100B93D6F /* AlignCell.swift */,
 				A3C3B2822BF75816006CFEBC /* NotesCell.swift */,
 				A30EF7B82BF3BB1200B93D6F /* NotesCellContent.swift */,
+				A308EF462BFDFAF00071D2B3 /* PrintOptionsNotesViewController.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -1387,6 +1396,8 @@
 				A3C3B2432BF66722006CFEBC /* ModelsTableViewController.swift in Sources */,
 				A30EF7BE2BF3C02100B93D6F /* AlignCell.swift in Sources */,
 				DEDF90E82BD7B07C004340C0 /* UIColor+Extension.swift in Sources */,
+				A308EF472BFDFAF00071D2B3 /* PrintOptionsNotesViewController.swift in Sources */,
+				A308EF4B2BFDFD0B0071D2B3 /* PrinterManager(Notes).swift in Sources */,
 				A301E1C22BE5448500A5F9EC /* CaptureSession+Flash.swift in Sources */,
 				DEDF910D2BD7B07C004340C0 /* SplashReceiptValidationObserver.swift in Sources */,
 				DEDF914D2BD7BD38004340C0 /* OSlideView.swift in Sources */,
@@ -1444,6 +1455,7 @@
 				DEDF90D92BD7B07C004340C0 /* RequestReview.swift in Sources */,
 				A301E1C52BE5448500A5F9EC /* ImageScannerController.swift in Sources */,
 				DEDF91A12BD9565E004340C0 /* PaygateViewController.swift in Sources */,
+				A308EF492BFDFCDD0071D2B3 /* CustomPrintNotesTextRenderer.swift in Sources */,
 				A30715132BF16C9200667526 /* PrintOptionsViewController.swift in Sources */,
 				A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */,
 				A377360D2BEC768900FCD54F /* BluetoothManager.swift in Sources */,
