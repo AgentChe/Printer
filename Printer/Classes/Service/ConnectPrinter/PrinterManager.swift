@@ -1,10 +1,3 @@
-//
-//  PrinterManager.swift
-//  Printer
-//
-//  Created by Niiaz Khasanov on 5/11/24.
-//
-
 import UIKit
 
 class PrinterManager {
@@ -15,7 +8,7 @@ class PrinterManager {
     private init() {}
 
     // Memory-only variable for currently connected printer URL
-     var currentlyConnectedPrinterURL: URL?
+    var currentlyConnectedPrinterURL: URL?
     
     // Save a new printer with URL and display name
     func savePrinter(url: URL, displayName: String) {
@@ -40,10 +33,12 @@ class PrinterManager {
         let printers = getSavedPrinters()
         return !printers.isEmpty
     }
+    
     func getPrinterName(for url: URL) -> String? {
-          let printers = getSavedPrinters()
-          return printers[url.absoluteString]
-      }
+        let printers = getSavedPrinters()
+        return printers[url.absoluteString]
+    }
+    
     // Example function to print a document with each printer
     func printDocumentWithAllPrinters(from viewController: UIViewController) {
         let printers = retrieveAllPrinters()
@@ -52,7 +47,6 @@ class PrinterManager {
         }
     }
     
-
     // Print a document with a specific printer
     func printDocument(printer: UIPrinter, from viewController: UIViewController) {
         let printInfo = UIPrintInfo(dictionary: nil)
@@ -101,34 +95,35 @@ class PrinterManager {
         })
     }
 }
+
 extension PrinterManager {
     // Connect to a printer by URL and return a UIPrinter object
     func connectToPrinter(with url: URL, completion: @escaping (UIPrinter?, Error?) -> Void) {
         let savedPrinters = getSavedPrinters()
 
-          guard let displayName = savedPrinters[url.absoluteString] else {
-              completion(nil, NSError(domain: "PrinterManagerError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Printer not found."]))
-              return
-          }
+        guard let displayName = savedPrinters[url.absoluteString] else {
+            completion(nil, NSError(domain: "PrinterManagerError", code: 404, userInfo: [NSLocalizedDescriptionKey: "Printer not found."]))
+            return
+        }
 
-          let printer = UIPrinter(url: url)
-          printer.contactPrinter { [self] success in
-              if success {
-                  self.lastConnectedPrinter = url
-                  self.currentlyConnectedPrinterURL = url
-                  completion(printer, nil)
-              } else {
-                  
-                  self.currentlyConnectedPrinterURL = nil
-                  completion(nil, NSError(domain: "PrinterManagerError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to contact printer."]))
-              }
-          }
-      }
+        let printer = UIPrinter(url: url)
+        printer.contactPrinter { [self] success in
+            if success {
+                self.lastConnectedPrinter = url
+                self.currentlyConnectedPrinterURL = url
+                completion(printer, nil)
+            } else {
+                self.currentlyConnectedPrinterURL = nil
+                completion(nil, NSError(domain: "PrinterManagerError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to contact printer."]))
+            }
+        }
+    }
+    
     func disconnectPrinter() {
         self.currentlyConnectedPrinterURL = nil
     }
-
 }
+
 extension PrinterManager {
     // Property to get and set the last connected printer URL
     var lastConnectedPrinter: URL? {
@@ -145,6 +140,7 @@ extension PrinterManager {
         }
     }
 }
+
 extension PrinterManager {
     // Function to show an alert using the scene delegate for the active scene
     func showAlertForErrorWithPrinter(_ printerName: String, viewController: UIViewController) {
@@ -157,12 +153,12 @@ extension PrinterManager {
             // Add an "OK" button to dismiss the alert
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             
-            
             // Present the alert
             viewController.present(alertController, animated: true, completion: nil)
         }
     }
 }
+
 extension PrinterManager {
     // Function to connect to the last connected printer
     func connectToLastConnectedPrinter(completion: @escaping (UIPrinter?, Error?) -> Void) {
@@ -177,7 +173,9 @@ extension PrinterManager {
         connectToPrinter(with: lastPrinterURL) { (printer, error) in
             completion(printer, error)
         }
-    }}
+    }
+}
+
 extension PrinterManager {
     // Method to check if a printer is being saved for the first time
     func isFirstTimePrinterSaved(_ url: URL) -> Bool {
@@ -185,6 +183,7 @@ extension PrinterManager {
         return savedPrinters[url.absoluteString] == nil
     }
 }
+
 extension PrinterManager {
     // Function to get the currently connected printer
     func getConnectedPrinter() -> UIPrinter? {
@@ -194,8 +193,9 @@ extension PrinterManager {
         return UIPrinter(url: url)
     }
 }
+
 extension PrinterManager {
-    func directPrintTextUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int,renderer: CustomPrintTextPageRenderer) {
+    func directPrintTextUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, renderer: CustomPrintTextPageRenderer) {
         let printController = UIPrintInteractionController.shared
 
         let printInfo = UIPrintInfo(dictionary: nil)
@@ -204,10 +204,9 @@ extension PrinterManager {
         printInfo.orientation = .portrait
         printInfo.duplex = .longEdge
 
-     //   let renderer = CustomPrintTextPageRenderer()
-        renderer.copies = copies*pagesPerSheet
+        renderer.copies = copies * pagesPerSheet
         renderer.pagesPerSheet = pagesPerSheet
-        //renderer.printText = text // Установка текста для печати
+        // renderer.printText = text // Установка текста для печати
 
         printController.printPageRenderer = renderer
         printController.printInfo = printInfo
@@ -223,6 +222,7 @@ extension PrinterManager {
         })
     }
 }
+
 extension PrinterManager {
     func directPrintImageUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, images: [UIImage], renderer: CustomPrintImagePageRenderer) {
         let printController = UIPrintInteractionController.shared
@@ -235,7 +235,7 @@ extension PrinterManager {
 
         renderer.copies = copies * pagesPerSheet
         renderer.pagesPerSheet = pagesPerSheet
-        renderer.printImages = images  // Setting the images for printing
+        renderer.printImages = images // Setting the images for printing
 
         printController.printPageRenderer = renderer
         printController.printInfo = printInfo
@@ -251,3 +251,5 @@ extension PrinterManager {
         })
     }
 }
+
+ 

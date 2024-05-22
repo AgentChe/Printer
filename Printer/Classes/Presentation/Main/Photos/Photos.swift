@@ -95,11 +95,11 @@ extension MainViewController: PHPickerViewControllerDelegate {
     }
 
     private func navigateToPrintOptionsViewController(with images: [UIImage]) {
-        let imageRenderer = CustomPrintImagePageRenderer()
-        imageRenderer.printImages = images
+        let photoRenderer = CustomPhotoPrintPageRenderer()
+        photoRenderer.photos = images
 
-        let printOptionsViewController = PrintOptionsViewController()
-        printOptionsViewController.imageRenderers = [imageRenderer]
-        present(printOptionsViewController, animated: true, completion: nil)
+        let photoPrintOptionsViewController = PhotoPrintOptionsViewController()
+        photoPrintOptionsViewController.imageRenderers = [photoRenderer]
+        present(photoPrintOptionsViewController, animated: true, completion: nil)
     }
 }

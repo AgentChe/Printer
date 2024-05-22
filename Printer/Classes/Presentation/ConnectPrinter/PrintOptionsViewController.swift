@@ -101,7 +101,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         collectionView.dataSource = self
         collectionView.register(PrinterOptionCell.self, forCellWithReuseIdentifier: PrinterOptionCell.identifier)
         collectionView.register(CopiesOptionCell.self, forCellWithReuseIdentifier: CopiesOptionCell.identifier)
-        collectionView.register(PegesPerSheetOptionCell.self, forCellWithReuseIdentifier: PegesPerSheetOptionCell.identifier)
+        collectionView.register(PagesPerSheetOptionCell.self, forCellWithReuseIdentifier: PagesPerSheetOptionCell.identifier)
         previewCollectionView.delegate = self
         previewCollectionView.dataSource = self
         previewCollectionView.register(PreviewCell.self, forCellWithReuseIdentifier: PreviewCell.identifier)
@@ -234,7 +234,7 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                 return cell
                 
             case 2:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PegesPerSheetOptionCell.identifier, for: indexPath) as? PegesPerSheetOptionCell else {
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PagesPerSheetOptionCell.identifier, for: indexPath) as? PagesPerSheetOptionCell else {
                     return UICollectionViewCell()
                 }
                 cell.delegate = self
@@ -307,8 +307,8 @@ extension PrintOptionsViewController: CopiesOptionCellDelegate {
     }
 }
 
-extension PrintOptionsViewController: PegesPerSheetOptionCellDelegate {
-    func pagesPerSheetOptionCell(cell: PegesPerSheetOptionCell, didChangePagesPerSheetTo pages: Int) {
+extension PrintOptionsViewController: PagesPerSheetOptionCellDelegate {
+    func pagesPerSheetOptionCell(cell: PagesPerSheetOptionCell, didChangePagesPerSheetTo pages: Int) {
         self.pagesPerSheet = pages
         print("Updated pages per sheet to \(pages)")
         generatePreviews() // Regenerate previews when pages per sheet option changes

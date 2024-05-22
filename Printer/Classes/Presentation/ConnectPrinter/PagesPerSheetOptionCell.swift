@@ -1,12 +1,12 @@
 import UIKit
 
-protocol PegesPerSheetOptionCellDelegate: AnyObject {
-    func pagesPerSheetOptionCell(cell: PegesPerSheetOptionCell, didChangePagesPerSheetTo pages: Int)
+protocol PagesPerSheetOptionCellDelegate: AnyObject {
+    func pagesPerSheetOptionCell(cell: PagesPerSheetOptionCell, didChangePagesPerSheetTo pages: Int)
 }
 
-class PegesPerSheetOptionCell: UICollectionViewCell {
+class PagesPerSheetOptionCell: UICollectionViewCell {
     static let identifier = "PagesPerSheetOptionCell"
-    weak var delegate: PegesPerSheetOptionCellDelegate?
+    weak var delegate: PagesPerSheetOptionCellDelegate?
     
     // UI Components
     let layout = UICollectionViewFlowLayout()
@@ -75,7 +75,7 @@ class PegesPerSheetOptionCell: UICollectionViewCell {
     }
 }
 
-extension PegesPerSheetOptionCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PagesPerSheetOptionCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pagesOptions.count
     }
