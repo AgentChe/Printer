@@ -6,15 +6,13 @@ source 'file:///Users/nkhsnv/CocoaPodsSpecs'
 
 target 'Printer' do
   pod 'lottie-ios'
-  
   pod 'RxSwift'
   pod 'RxCocoa'
-  
   pod 'Alamofire'
   pod 'GoogleSignIn'
-pod 'GoogleAPIClientForREST/Drive'
+  pod 'GoogleAPIClientForREST/Drive'
   pod 'SwiftyStoreKit'
-
+  pod 'ZIPFoundation', '~> 0.9'
   pod 'OtterScaleiOS', :git => "https://github.com/AgentChe/OtterScaleiOS.git"
   pod 'SwiftyDropbox'
   pod 'FBSDKCoreKit'

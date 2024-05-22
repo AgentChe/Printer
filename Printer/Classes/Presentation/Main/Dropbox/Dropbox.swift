@@ -3,6 +3,7 @@ import MobileCoreServices
 import UniformTypeIdentifiers
 import PhotosUI
 import SwiftyDropbox
+import ZIPFoundation
 
 extension MainViewController: DropboxFilesViewControllerDelegate {
     func didSelectDropboxFile(_ dropboxFile: Files.Metadata) {
@@ -11,7 +12,8 @@ extension MainViewController: DropboxFilesViewControllerDelegate {
     }
     
     private func downloadAndPrintDropboxFile(at path: String, fileName: String) {
-        DropboxClientsManager.authorizedClient?.files.download(path: path).response { response, error in
+        DropboxClientsManager.authorizedClient?.files.download(path: path).response { [weak self] response, error in
+            guard let self = self else { return }
             if let (_, data) = response {
                 let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
                 let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(fileName)
@@ -37,6 +39,13 @@ extension MainViewController: DropboxFilesViewControllerDelegate {
                         }
                     } else if fileType?.conforms(to: .pdf) == true {
                         printController.printingItem = data
+                    } else if fileType?.conforms(to: UTType(filenameExtension: "pages")!) == true {
+                        if let pdfData = self.extractPDFOrImage(fromPagesFile: temporaryFileURL) {
+                            printController.printingItem = pdfData
+                        } else {
+                            print("Failed to extract PDF or image from .pages file.")
+                            return
+                        }
                     } else if let text = String(data: data, encoding: .utf8) {
                         let pdfData = self.createPDF(from: text)
                         printController.printingItem = pdfData
@@ -82,6 +91,41 @@ extension MainViewController: DropboxFilesViewControllerDelegate {
         return data
     }
 
+    private func extractPDFOrImage(fromPagesFile url: URL) -> Data? {
+        let fileManager = FileManager.default
+        let tempDir = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        
+        do {
+            try fileManager.createDirectory(at: tempDir, withIntermediateDirectories: true, attributes: nil)
+            try fileManager.unzipItem(at: url, to: tempDir)
+            
+            // Log the directory structure
+            let directoryContents = try fileManager.contentsOfDirectory(at: tempDir, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            print("Contents of unzipped .pages file:")
+            for item in directoryContents {
+                print(item.path)
+            }
+            
+            let quickLookDir = tempDir.appendingPathComponent("QuickLook")
+            let previewPDFURL = quickLookDir.appendingPathComponent("Preview.pdf")
+            
+            if fileManager.fileExists(atPath: previewPDFURL.path) {
+                return try Data(contentsOf: previewPDFURL)
+            } else {
+                print("Preview.pdf not found in QuickLook directory.")
+                
+                // Try to use an image preview instead
+                for item in directoryContents {
+                    if item.pathExtension.lowercased() == "jpg" || item.pathExtension.lowercased() == "jpeg" {
+                        return try Data(contentsOf: item)
+                    }
+                }
+            }
+        } catch {
+            print("Error extracting PDF or image from .pages file: \(error.localizedDescription)")
+        }
+        return nil
+    }
 }
 
 extension MainViewController {

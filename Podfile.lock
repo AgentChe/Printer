@@ -145,6 +145,7 @@ PODS:
   - RxSwift (6.7.0)
   - SwiftyDropbox (10.0.7)
   - SwiftyStoreKit (0.16.1)
+  - ZIPFoundation (0.9.19)
 
 DEPENDENCIES:
   - Alamofire
@@ -161,6 +162,7 @@ DEPENDENCIES:
   - RxSwift
   - SwiftyDropbox
   - SwiftyStoreKit
+  - ZIPFoundation (~> 0.9)
 
 SPEC REPOS:
   file:///Users/nkhsnv/CocoaPodsSpecs:
@@ -192,6 +194,7 @@ SPEC REPOS:
     - RxSwift
     - SwiftyDropbox
     - SwiftyStoreKit
+    - ZIPFoundation
 
 EXTERNAL SOURCES:
   OtterScaleiOS:
@@ -232,7 +235,8 @@ SPEC CHECKSUMS:
   RxSwift: 6ee35684dc3f7a63938758f4b7708199517dfa97
   SwiftyDropbox: bd1e6f84cf36fa8d1440d4b54421d297e292dcd5
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
+  ZIPFoundation: b8c29ea7ae353b309bc810586181fd073cb3312c
 
-PODFILE CHECKSUM: 447b6928e4d5afd8ba1d4736cfb6c47d516f1d8f
+PODFILE CHECKSUM: 827c4eb12a4746f26bce6b53a27de8a89e71a2aa
 
 COCOAPODS: 1.15.2
