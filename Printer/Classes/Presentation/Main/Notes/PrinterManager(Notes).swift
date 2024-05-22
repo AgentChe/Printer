@@ -6,6 +6,33 @@
 //
 
 import UIKit
+
+extension PrinterManager {
+    func printPDFData(_ pdfData: Data, from viewController: UIViewController, to printer: UIPrinter, copies: Int, completion: @escaping (Bool) -> Void) {
+        let printController = UIPrintInteractionController.shared
+        
+        let printInfo = UIPrintInfo(dictionary: nil)
+        printInfo.jobName = "PDF Document"
+        printInfo.outputType = .general
+        printController.printInfo = printInfo
+        
+        printController.printingItem = pdfData
+        
+        printController.print(to: printer) { (controller, completed, error) in
+            if completed {
+                print("Printed successfully with \(printer.displayName)!")
+                completion(true)
+            } else {
+                if let printError = error {
+                    print("Failed to print with \(printer.displayName): \(printError.localizedDescription)")
+                }
+                completion(false)
+            }
+        }
+    }
+}
+
+
 extension PrinterManager {
     func directPrintTextUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, renderer: CustomPrintNotesTextRenderer) {
         let printController = UIPrintInteractionController.shared

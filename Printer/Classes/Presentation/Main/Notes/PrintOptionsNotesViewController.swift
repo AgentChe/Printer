@@ -78,21 +78,62 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
     
     @objc func handlePrintButton() {
         if let printer = PrinterManager.shared.getConnectedPrinter(), let formattedText = self.formattedText {
-            let textRenderer = CustomPrintNotesTextRenderer()
-            textRenderer.attributedPrintText = formattedText
-            textRenderer.pagesPerSheet = self.pagesPerSheet
-            textRenderer.copies = self.copies
-            
-            PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, renderer: textRenderer) 
-//            { success in
-//                self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: success)
-//            }
+            if let pdfData = generatePDF(from: formattedText, pagesPerSheet: self.pagesPerSheet) {
+                PrinterManager.shared.printPDFData(pdfData, from: self, to: printer, copies: self.copies) { success in
+                    self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: success)
+                }
+            } else {
+                print("Failed to generate PDF.")
+                self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: false)
+            }
         } else {
             print("Printer is not configured or unavailable.")
             self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: false)
         }
     }
-    
+    private func generatePDF(from attributedText: NSAttributedString, pagesPerSheet: Int) -> Data? {
+        let pdfMetaData = [
+            kCGPDFContextCreator: "Your App Name",
+            kCGPDFContextAuthor: "Your Name"
+        ]
+        let format = UIGraphicsPDFRendererFormat()
+        format.documentInfo = pdfMetaData as [String: Any]
+        
+        let pageWidth = 8.5 * 72.0
+        let pageHeight = 11.0 * 72.0
+        let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
+        
+        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
+        
+        let data = renderer.pdfData { (context) in
+            let textStorage = NSTextStorage(attributedString: attributedText)
+            let textLayout = NSLayoutManager()
+            textStorage.addLayoutManager(textLayout)
+            
+            var textContainers: [NSTextContainer] = []
+            var location = 0
+            
+            while location < textLayout.numberOfGlyphs {
+                let textContainer = NSTextContainer(size: CGSize(width: pageRect.width, height: pageRect.height))
+                textContainer.lineBreakMode = .byWordWrapping
+                textLayout.addTextContainer(textContainer)
+                textContainers.append(textContainer)
+                
+                let range = textLayout.glyphRange(for: textContainer)
+                location += range.length
+            }
+            
+            for (index, textContainer) in textContainers.enumerated() {
+                context.beginPage()
+                textLayout.drawBackground(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
+                textLayout.drawGlyphs(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
+            }
+        }
+        
+        return data
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Appearance.mainViewBackground
