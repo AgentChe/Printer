@@ -180,7 +180,7 @@ class NotesCellContent: UIViewController {
 
             printButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.scale),
             printButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.scale),
-            printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24.scale),
+            printButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -16.scale : -24.scale),
             printButton.heightAnchor.constraint(equalToConstant: 68.scale)
         ])
 
@@ -203,7 +203,7 @@ class NotesCellContent: UIViewController {
     }
 
     @objc private func dismissViewController() {
-        delegate?.notesViewController(self, didSaveFormattedText: textView.attributedText)
+      //  delegate?.notesViewController(self, didSaveFormattedText: textView.attributedText)
         view.superview?.parentViewController?.dismiss(animated: true, completion: nil)
     }
 

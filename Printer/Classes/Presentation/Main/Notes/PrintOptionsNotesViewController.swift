@@ -153,7 +153,7 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
         ])
         
         NSLayoutConstraint.activate([
-            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 5.scale : 10.scale),
+            printButton.topAnchor.constraint(equalTo: previewCollectionView.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 20.scale : 10.scale),
             printButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             printButton.widthAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 358.scale : 330.scale),
             printButton.heightAnchor.constraint(equalToConstant: ScreenSize.isIphoneXFamily ? 66.scale : 56.scale)
