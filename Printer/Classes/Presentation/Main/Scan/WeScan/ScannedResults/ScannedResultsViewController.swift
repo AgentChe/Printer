@@ -126,10 +126,10 @@ class ScannedResultsViewController: UIViewController, UICollectionViewDataSource
     }
 
     @objc private func printButtonTapped() {
-        let printOptionsVC = PrintOptionsViewController()
+        let printOptionsVC = ScanPrintOptionsViewController()
         let images = ImageManager.shared.imageScans.compactMap { $0.enhancedScan?.image }
-        let imageRenderer = CustomPrintImagePageRenderer()
-        imageRenderer.printImages = images
+        let imageRenderer = CustomScanPrintPageRenderer()
+        imageRenderer.photos = images
         printOptionsVC.imageRenderers = [imageRenderer]
         present(printOptionsVC, animated: true, completion: nil)
     }

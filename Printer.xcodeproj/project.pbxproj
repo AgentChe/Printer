@@ -102,6 +102,9 @@
 		A3632CD82BFB04910000967E /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3632CD72BFB04910000967E /* ActionViewController.swift */; };
 		A3632CDB2BFB04910000967E /* Base in Resources */ = {isa = PBXBuildFile; fileRef = A3632CDA2BFB04910000967E /* Base */; };
 		A3632CDF2BFB04910000967E /* go.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A3632CD22BFB04910000967E /* go.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A364651C2BFFF6E600ED02D6 /* CustomScanPrintPageRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364651B2BFFF6E600ED02D6 /* CustomScanPrintPageRenderer.swift */; };
+		A364651E2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364651D2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift */; };
+		A36465202BFFF89100ED02D6 /* ScanPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364651F2BFFF89100ED02D6 /* ScanPrinterManager.swift */; };
 		A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D242BE041A3006ADD60 /* QuickActionCell.swift */; };
 		A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D252BE041A3006ADD60 /* MainViewModel.swift */; };
 		A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */; };
@@ -332,6 +335,9 @@
 		A3632CDC2BFB04910000967E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3632CE32BFBA18C0000967E /* Printer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Printer.entitlements; sourceTree = "<group>"; };
 		A3632CE42BFBA1F90000967E /* go.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = go.entitlements; sourceTree = "<group>"; };
+		A364651B2BFFF6E600ED02D6 /* CustomScanPrintPageRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScanPrintPageRenderer.swift; sourceTree = "<group>"; };
+		A364651D2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanPrintOptionsViewController.swift; sourceTree = "<group>"; };
+		A364651F2BFFF89100ED02D6 /* ScanPrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanPrinterManager.swift; sourceTree = "<group>"; };
 		A3692D242BE041A3006ADD60 /* QuickActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
 		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedResultsViewController.swift; sourceTree = "<group>"; };
@@ -478,6 +484,7 @@
 				A301E0762BE44FE700A5F9EC /* PhotoReviewViewController.swift */,
 				A301E1C72BE5E0AC00A5F9EC /* ImageManager.swift */,
 				A301E1832BE5448500A5F9EC /* WeScan */,
+				A364651A2BFFF58B00ED02D6 /* ScanPrintService */,
 			);
 			path = Scan;
 			sourceTree = "<group>";
@@ -620,9 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				A30715242BF379A100667526 /* Photos.swift */,
-				A308EF402BFDE5DD0071D2B3 /* CustomPhotoPrintPageRenderer.swift */,
-				A308EF422BFDE68C0071D2B3 /* PhotoPrintOptionsViewController.swift */,
-				A308EF442BFDE9D30071D2B3 /* PhotosPrinterManager.swift */,
+				A36465192BFFF57A00ED02D6 /* PhotosPrintService */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -712,6 +717,26 @@
 				A3632CDC2BFB04910000967E /* Info.plist */,
 			);
 			path = go;
+			sourceTree = "<group>";
+		};
+		A36465192BFFF57A00ED02D6 /* PhotosPrintService */ = {
+			isa = PBXGroup;
+			children = (
+				A308EF402BFDE5DD0071D2B3 /* CustomPhotoPrintPageRenderer.swift */,
+				A308EF422BFDE68C0071D2B3 /* PhotoPrintOptionsViewController.swift */,
+				A308EF442BFDE9D30071D2B3 /* PhotosPrinterManager.swift */,
+			);
+			path = PhotosPrintService;
+			sourceTree = "<group>";
+		};
+		A364651A2BFFF58B00ED02D6 /* ScanPrintService */ = {
+			isa = PBXGroup;
+			children = (
+				A364651B2BFFF6E600ED02D6 /* CustomScanPrintPageRenderer.swift */,
+				A364651D2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift */,
+				A364651F2BFFF89100ED02D6 /* ScanPrinterManager.swift */,
+			);
+			path = ScanPrintService;
 			sourceTree = "<group>";
 		};
 		A377357B2BE7F0EC00FCD54F /* ScannedResults */ = {
@@ -995,7 +1020,6 @@
 				A355C2AB2BE09F5A0064E1F1 /* TabBar */,
 				DEDF91882BD95423004340C0 /* Main */,
 				A37735FC2BEC46DB00FCD54F /* ConnectPrinter */,
-				A301E0732BE437D200A5F9EC /* Scan */,
 				A355C2AE2BE0A6FD0064E1F1 /* Settings */,
 				DEDF91472BD7BD38004340C0 /* Onboarding */,
 				DEDF90AF2BD7B07C004340C0 /* Splash */,
@@ -1127,6 +1151,7 @@
 				A30715262BF379D600667526 /* Files */,
 				A33EB8112BF4556400616190 /* Mail */,
 				A30715232BF3798E00667526 /* Photos */,
+				A301E0732BE437D200A5F9EC /* Scan */,
 				A30EF7B52BF3B05C00B93D6F /* Dropbox */,
 				A30EF7BA2BF3BB3700B93D6F /* Notes */,
 				A30EF7BF2BF40F4F00B93D6F /* WebPages */,
@@ -1414,6 +1439,7 @@
 				A301E1852BE5448500A5F9EC /* CIRectangleDetector.swift in Sources */,
 				DEDF91B02BD958AF004340C0 /* PaygateOptionLineComponent.swift in Sources */,
 				A307151B2BF1BDFF00667526 /* CopiesOptionCell.swift in Sources */,
+				A364651E2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift in Sources */,
 				DEDF910F2BD7B07C004340C0 /* SplashViewController.swift in Sources */,
 				A307151D2BF1BF6E00667526 /* PagesPerSheetOptionCell.swift in Sources */,
 				DEDF919C2BD9565E004340C0 /* PaygateOptionInfo.swift in Sources */,
@@ -1505,6 +1531,7 @@
 				A308EF432BFDE68C0071D2B3 /* PhotoPrintOptionsViewController.swift in Sources */,
 				DEDF90EF2BD7B07C004340C0 /* RestAPITransport.swift in Sources */,
 				A301E1BF2BE5448500A5F9EC /* ScannerViewController.swift in Sources */,
+				A364651C2BFFF6E600ED02D6 /* CustomScanPrintPageRenderer.swift in Sources */,
 				A301E1902BE5448500A5F9EC /* CGAffineTransform+Utils.swift in Sources */,
 				A301E1BB2BE5448500A5F9EC /* CameraScannerViewController.swift in Sources */,
 				DEDF90DC2BD7B07C004340C0 /* NavigationController.swift in Sources */,
@@ -1537,6 +1564,7 @@
 				A301E1882BE5448500A5F9EC /* Quadrilateral.swift in Sources */,
 				DEDF90FC2BD7B07C004340C0 /* Weak.swift in Sources */,
 				A301E1BA2BE5448500A5F9EC /* ReviewViewController.swift in Sources */,
+				A36465202BFFF89100ED02D6 /* ScanPrinterManager.swift in Sources */,
 				A301E18F2BE5448500A5F9EC /* AVCaptureVideoOrientation+Utils.swift in Sources */,
 				A308E1582BFD47BE0007CA02 /* PrinterSelectionViewController.swift in Sources */,
 				A30715072BEEF0EE00667526 /* PrinterManager.swift in Sources */,
