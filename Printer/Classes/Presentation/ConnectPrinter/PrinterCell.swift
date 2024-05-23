@@ -31,7 +31,7 @@ class PrinterCell: UICollectionViewCell {
         let imageView = UIImageView(image: checkmarkImage)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.alpha = 1 // Initial opacity set to 0
+        imageView.alpha = 0 // Initial opacity set to 0
         return imageView
     }()
     
