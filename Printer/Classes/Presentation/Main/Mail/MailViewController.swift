@@ -8,7 +8,7 @@ class MailViewController: UIViewController {
     private let statusBarBackgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
+        view.backgroundColor = Appearance.white
         return view
     }()
     
