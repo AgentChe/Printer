@@ -28,7 +28,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         collectionView.register(NoPrinterCell.self, forCellWithReuseIdentifier: NoPrinterCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-
+        collectionView.isScrollEnabled = false 
         addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

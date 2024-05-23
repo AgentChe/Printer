@@ -25,7 +25,18 @@ class PrinterManager {
 
     // Helper function to get saved printers from UserDefaults
     private func getSavedPrinters() -> [String: String] {
-        return UserDefaults.standard.dictionary(forKey: "savedPrinters") as? [String: String] ?? [:]
+        return   UserDefaults.standard.dictionary(forKey: "savedPrinters") as? [String: String] ?? [:]
+
+// TEST PURPOSE
+//        [
+//            :
+//            "0":"Printer #1",
+//            "1":"Printer #2",
+//            "2":"Printer #3",
+//            "3":"Printer #4",
+//            "4":"Printer #5",
+//        ]
+       
     }
 
     // Check if there are any printers saved
