@@ -34,7 +34,7 @@ final class MainViewController: UIViewController {
                 print("Error: \(error.localizedDescription)")
             }
         }
-        title = ""//NSLocalizedString("MainViewController.Title", comment: "")
+      //  title = NSLocalizedString("MainViewController.Title", comment: "")
         
         // Disable large titles
         navigationController?.navigationBar.prefersLargeTitles = false

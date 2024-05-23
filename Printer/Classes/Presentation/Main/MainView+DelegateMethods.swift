@@ -17,7 +17,7 @@ extension MainView {
                 // Check the offset and adjust the shadow accordingly
                 if scrollView.contentOffset.y > threshold {
                     // User has scrolled: show the shadow line
-                    (parentViewController as! MainViewController ).title =  NSLocalizedString("MainViewController.Title", comment: "")
+                    mainViewController.navigationItem.title = NSLocalizedString("MainViewController.Title", comment: "")
              
                     if #available(iOS 15.0, *) {
                         let appearance = navigationController?.navigationBar.standardAppearance.copy()
@@ -28,7 +28,7 @@ extension MainView {
                         navigationController?.navigationBar.shadowImage = nil // Shows the default shadow line
                     }
                 } else {
-                    (parentViewController as! MainViewController).title = ""
+                    mainViewController.navigationItem.title = ""
                     // At the top: hide the shadow line
                     if #available(iOS 15.0, *) {
                         let appearance = navigationController?.navigationBar.standardAppearance.copy()
