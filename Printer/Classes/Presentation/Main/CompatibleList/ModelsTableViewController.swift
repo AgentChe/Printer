@@ -45,7 +45,22 @@ class ModelsTableViewController: UITableViewController {
         // Disable user interaction for the cell
         cell.selectionStyle = .none
         cell.isUserInteractionEnabled = false
-        
+        if indexPath.item == 0 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+            // Add a custom separator view
+            let separatorHeight = 1.0 / UIScreen.main.scale // To make the line as thin as the default separator
+            let separator = UIView(frame: CGRect(x: 0, y: (cell.frame.size.height - separatorHeight).scale, width: cell.frame.size.width.scale, height: separatorHeight.scale))
+            separator.backgroundColor = .lightGray // Set the color of your separator
+            separator.tag = 12345 // Tag the separator to identify and remove it if needed
+            cell.addSubview(separator)
+            separator.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                separator.leftAnchor.constraint(equalTo: cell.leftAnchor, constant:  15.scale),
+                separator.rightAnchor.constraint(equalTo: cell.rightAnchor),
+                separator.bottomAnchor.constraint(equalTo: cell.bottomAnchor),
+                separator.heightAnchor.constraint(equalToConstant: separatorHeight)
+            ])
+        }
         return cell
     }
 }
