@@ -32,7 +32,6 @@ extension PrinterManager {
     }
 }
 
-
 extension PrinterManager {
     func directPrintTextUsingRenderer(from viewController: UIViewController, printer: UIPrinter, copies: Int, pagesPerSheet: Int, renderer: CustomPrintNotesTextRenderer) {
         let printController = UIPrintInteractionController.shared

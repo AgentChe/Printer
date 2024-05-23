@@ -1,4 +1,5 @@
 import UIKit
+import UIKit
 
 class ModelsTableViewController: UITableViewController {
     
@@ -23,6 +24,7 @@ class ModelsTableViewController: UITableViewController {
         }
         tableView.backgroundColor = Appearance.white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "modelCell")
+        tableView.allowsSelection = false // Disable selection for the entire table view
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -39,6 +41,11 @@ class ModelsTableViewController: UITableViewController {
         cell.textLabel?.textColor = Appearance.black
         cell.textLabel?.font = Fonts.SFProDisplay.medium(size: 16)
         cell.backgroundColor = Appearance.white
+        
+        // Disable user interaction for the cell
+        cell.selectionStyle = .none
+        cell.isUserInteractionEnabled = false
+        
         return cell
     }
 }

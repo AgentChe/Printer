@@ -78,8 +78,8 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
     
     @objc func handlePrintButton() {
         if let printer = PrinterManager.shared.getConnectedPrinter(), let formattedText = self.formattedText {
-            if let pdfData = generatePDF(from: formattedText, pagesPerSheet: self.pagesPerSheet) {
-                PrinterManager.shared.printPDFData(pdfData, from: self, to: printer, copies: self.copies) { success in
+            if let pdfData = generatePDF(from: formattedText, pagesPerSheet: self.pagesPerSheet, copies: self.copies) {
+                PrinterManager.shared.printPDFData(pdfData, from: self, to: printer, copies: 1) { success in
                     self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: success)
                 }
             } else {
@@ -91,7 +91,7 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
             self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: false)
         }
     }
-    private func generatePDF(from attributedText: NSAttributedString, pagesPerSheet: Int) -> Data? {
+    private func generatePDF(from attributedText: NSAttributedString, pagesPerSheet: Int, copies: Int) -> Data? {
         let pdfMetaData = [
             kCGPDFContextCreator: "Your App Name",
             kCGPDFContextAuthor: "Your Name"
@@ -106,33 +106,34 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         
         let data = renderer.pdfData { (context) in
-            let textStorage = NSTextStorage(attributedString: attributedText)
-            let textLayout = NSLayoutManager()
-            textStorage.addLayoutManager(textLayout)
-            
-            var textContainers: [NSTextContainer] = []
-            var location = 0
-            
-            while location < textLayout.numberOfGlyphs {
-                let textContainer = NSTextContainer(size: CGSize(width: pageRect.width, height: pageRect.height))
-                textContainer.lineBreakMode = .byWordWrapping
-                textLayout.addTextContainer(textContainer)
-                textContainers.append(textContainer)
+            for _ in 0..<copies {
+                let textStorage = NSTextStorage(attributedString: attributedText)
+                let textLayout = NSLayoutManager()
+                textStorage.addLayoutManager(textLayout)
                 
-                let range = textLayout.glyphRange(for: textContainer)
-                location += range.length
-            }
-            
-            for (index, textContainer) in textContainers.enumerated() {
-                context.beginPage()
-                textLayout.drawBackground(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
-                textLayout.drawGlyphs(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
+                var textContainers: [NSTextContainer] = []
+                var location = 0
+                
+                while location < textLayout.numberOfGlyphs {
+                    let textContainer = NSTextContainer(size: CGSize(width: pageRect.width, height: pageRect.height))
+                    textContainer.lineBreakMode = .byWordWrapping
+                    textLayout.addTextContainer(textContainer)
+                    textContainers.append(textContainer)
+                    
+                    let range = textLayout.glyphRange(for: textContainer)
+                    location += range.length
+                }
+                
+                for textContainer in textContainers {
+                    context.beginPage()
+                    textLayout.drawBackground(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
+                    textLayout.drawGlyphs(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
+                }
             }
         }
         
         return data
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
