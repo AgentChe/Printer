@@ -295,7 +295,6 @@ public final class ScannerViewController: UIViewController {
                 let tabBarHeight = tabBarController.tabBar.frame.height
                 let shutterButtonBottomConstraint = shutterButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(tabBarHeight + 18).scale)
                 
-                //view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: shutterButton.bottomAnchor, constant: 18.0)
                 shutterButtonConstraints.append(shutterButtonBottomConstraint)
             } else {
                 // Handle the case where the tab bar controller is not found

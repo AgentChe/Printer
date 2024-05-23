@@ -268,7 +268,11 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                             
                             PrinterManager.shared.connectToPrinter(with: printer.url) { printer, error in
                                 if let printer = printer {
-                                    self?.collectionView.reloadData()
+                                    if let collectionView = self?.collectionView {
+                                        let indexPath = IndexPath(item: 0, section: 0)
+                                        collectionView.reloadItems(at: [indexPath])
+                                    }
+
                     
                                 }
                                 if let error = error {
