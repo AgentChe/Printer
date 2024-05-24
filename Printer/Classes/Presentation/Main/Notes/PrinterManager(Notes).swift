@@ -24,6 +24,9 @@ extension PrinterManager {
                 completion(true)
             } else {
                 if let printError = error {
+                    let printErrorViewController = PrintErrorViewController()
+                    printErrorViewController.modalPresentationStyle = .fullScreen
+                    viewController.present(printErrorViewController, animated: true, completion: nil)
                     print("Failed to print with \(printer.displayName): \(printError.localizedDescription)")
                 }
                 completion(false)
@@ -54,6 +57,9 @@ extension PrinterManager {
                 print("Printed successfully with \(printer.displayName)!")
             } else {
                 if let printError = error {
+                    let printErrorViewController = PrintErrorViewController()
+                    printErrorViewController.modalPresentationStyle = .fullScreen
+                    viewController.present(printErrorViewController, animated: true, completion: nil)
                     print("Failed to print with \(printer.displayName): \(printError.localizedDescription)")
                 }
             }

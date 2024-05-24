@@ -131,7 +131,7 @@ class PrintTestFileViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            skipButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -30.0.scale : -10.scale),
+            skipButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -40.0.scale : -10.scale),
             skipButton.widthAnchor.constraint(equalToConstant: 358.scale),
             skipButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
@@ -143,7 +143,7 @@ class PrintTestFileViewController: UIViewController {
             printButton.heightAnchor.constraint(equalToConstant: 66.scale)
         ])
     }
-
+     
     @objc private func goToPrintConfigViewController() {
         let textRenderer = CustomPrintTextPageRenderer()
         textRenderer.printText = """

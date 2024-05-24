@@ -29,6 +29,9 @@ extension PrinterManager {
                 print("Photos printed successfully with \(printer.displayName)!")
             } else {
                 if let printError = error {
+                    let printErrorViewController = PrintErrorViewController()
+                    printErrorViewController.modalPresentationStyle = .fullScreen
+                    viewController.present(printErrorViewController, animated: true, completion: nil)
                     print("Failed to print photos with \(printer.displayName): \(printError.localizedDescription)")
                 }
             }

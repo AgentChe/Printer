@@ -106,6 +106,7 @@
 		A364651E2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364651D2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift */; };
 		A36465202BFFF89100ED02D6 /* ScanPrinterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A364651F2BFFF89100ED02D6 /* ScanPrinterManager.swift */; };
 		A36465222C00A31100ED02D6 /* SceneDelegate+ActionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36465212C00A31100ED02D6 /* SceneDelegate+ActionExtension.swift */; };
+		A36465292C00C83400ED02D6 /* PrintErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36465282C00C83400ED02D6 /* PrintErrorViewController.swift */; };
 		A3692D262BE041A3006ADD60 /* QuickActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D242BE041A3006ADD60 /* QuickActionCell.swift */; };
 		A3692D272BE041A3006ADD60 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3692D252BE041A3006ADD60 /* MainViewModel.swift */; };
 		A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */; };
@@ -340,6 +341,7 @@
 		A364651D2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanPrintOptionsViewController.swift; sourceTree = "<group>"; };
 		A364651F2BFFF89100ED02D6 /* ScanPrinterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanPrinterManager.swift; sourceTree = "<group>"; };
 		A36465212C00A31100ED02D6 /* SceneDelegate+ActionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneDelegate+ActionExtension.swift"; sourceTree = "<group>"; };
+		A36465282C00C83400ED02D6 /* PrintErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintErrorViewController.swift; sourceTree = SOURCE_ROOT; };
 		A3692D242BE041A3006ADD60 /* QuickActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionCell.swift; sourceTree = "<group>"; };
 		A3692D252BE041A3006ADD60 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A377357C2BE7F10800FCD54F /* ScannedResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedResultsViewController.swift; sourceTree = "<group>"; };
@@ -1191,6 +1193,7 @@
 		DEDF91882BD95423004340C0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				A36465282C00C83400ED02D6 /* PrintErrorViewController.swift */,
 				A30715262BF379D600667526 /* Files */,
 				A33EB8112BF4556400616190 /* Mail */,
 				A30715232BF3798E00667526 /* Photos */,
@@ -1585,6 +1588,7 @@
 				DEDF90FE2BD7B07C004340C0 /* AppDelegate.swift in Sources */,
 				A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */,
 				DEDF91A32BD9565E004340C0 /* PaygateViewModel.swift in Sources */,
+				A36465292C00C83400ED02D6 /* PrintErrorViewController.swift in Sources */,
 				A30715252BF379A100667526 /* Photos.swift in Sources */,
 				A3C3B2832BF75816006CFEBC /* NotesCell.swift in Sources */,
 				A3C3B2852BF75991006CFEBC /* NotesViewController.swift in Sources */,

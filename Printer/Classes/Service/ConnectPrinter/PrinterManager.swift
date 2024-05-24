@@ -76,6 +76,11 @@ class PrinterManager {
             if completed, error == nil {
                 print("Printed successfully with \(printer.displayName)!")
             } else {
+                
+                let printErrorViewController = PrintErrorViewController()
+                printErrorViewController.modalPresentationStyle = .fullScreen
+                viewController.present(printErrorViewController, animated: true, completion: nil)
+                
                 print("Failed to print with \(printer.displayName): \(String(describing: error))")
             }
         }
@@ -99,6 +104,9 @@ class PrinterManager {
             if completed {
                 print("Printed successfully with \(printer.displayName)!")
             } else {
+                let printErrorViewController = PrintErrorViewController()
+                printErrorViewController.modalPresentationStyle = .fullScreen
+                viewController.present(printErrorViewController, animated: true, completion: nil)
                 if let printError = error {
                     print("Failed to print with \(printer.displayName): \(printError.localizedDescription)")
                 }
@@ -227,6 +235,9 @@ extension PrinterManager {
                 print("Printed successfully with \(printer.displayName)!")
             } else {
                 if let printError = error {
+                    let printErrorViewController = PrintErrorViewController()
+                    printErrorViewController.modalPresentationStyle = .fullScreen
+                    viewController.present(printErrorViewController, animated: true, completion: nil)
                     print("Failed to print with \(printer.displayName): \(printError.localizedDescription)")
                 }
             }
@@ -256,6 +267,9 @@ extension PrinterManager {
                 print("Images printed successfully with \(printer.displayName)!")
             } else {
                 if let printError = error {
+                    let printErrorViewController = PrintErrorViewController()
+                    printErrorViewController.modalPresentationStyle = .fullScreen
+                    viewController.present(printErrorViewController, animated: true, completion: nil)
                     print("Failed to print images with \(printer.displayName): \(printError.localizedDescription)")
                 }
             }
