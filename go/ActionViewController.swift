@@ -216,18 +216,32 @@ class ActionViewController: UIViewController {
                 return
             }
             
-            guard let data = data, let html = String(data: data, encoding: .utf8) else {
-                NSLog("Failed to convert web content to HTML string")
+            guard let data = data else {
+                NSLog("Failed to load data from URL")
                 return
             }
             
-            DispatchQueue.main.async {
-                if let savedURL = self.saveHTMLToSharedContainer(html: html) {
-                    self.redirectToApp(with: savedURL)
+            if let image = UIImage(data: data) {
+                NSLog("Loaded image from URL")
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                    if let savedURL = self.saveImageToSharedContainer(image: image) {
+                        self.redirectToApp(with: savedURL)
+                    }
                 }
+            } else if let html = String(data: data, encoding: .utf8) {
+                NSLog("Loaded HTML from URL")
+                DispatchQueue.main.async {
+                    if let savedURL = self.saveHTMLToSharedContainer(html: html) {
+                        self.redirectToApp(with: savedURL)
+                    }
+                }
+            } else {
+                NSLog("Failed to convert web content to image or HTML string")
             }
         }.resume()
     }
+
     private func saveHTMLToSharedContainer(html: String) -> URL? {
         guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
             NSLog("Failed to get container URL")
