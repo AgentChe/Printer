@@ -62,7 +62,7 @@ final class PaygateViewController: UIViewController {
         mainView.closeButton.rx.tap
             .bind(to: Binder(self) { base, void in
                 base.dismiss()
-               
+                
             })
             .disposed(by: disposeBag)
         
@@ -121,9 +121,18 @@ private extension PaygateViewController {
             self?.didClose?()
             let tabBarVC = findRootTabBarController()
             tabBarVC?.tabBar.isHidden = false
+            // Access the SceneDelegate
+            if let sceneDelegate = self?.getSceneDelegate() {
+                sceneDelegate.checkForSavedURL()
+            }
         }
     }
-    
+    private func getSceneDelegate() -> SceneDelegate? {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return nil
+        }
+        return windowScene.delegate as? SceneDelegate
+    }
     func activity(_ activity: Bool) {
         activity ? mainView.preloader.startAnimating() : mainView.preloader.stopAnimating()
         

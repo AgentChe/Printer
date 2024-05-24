@@ -208,7 +208,11 @@ class ActionViewController: UIViewController {
             }
         }
     }
-
+    private func saveURLToUserDefaults(_ url: URL) {
+        let defaults = UserDefaults(suiteName: "group.niiaz.khasanov.group")
+        defaults?.set(url.absoluteString, forKey: "sharedURL")
+        defaults?.synchronize()
+    }
     private func handleWebURL(url: URL) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -395,6 +399,8 @@ class ActionViewController: UIViewController {
     }
 
     private func redirectToApp(with fileURL: URL) {
+       
+        
         var components = URLComponents(string: "db-fuxs23rugn88jl2://")
         components?.queryItems = [
             URLQueryItem(name: "fileURL", value: fileURL.absoluteString)
@@ -410,6 +416,7 @@ class ActionViewController: UIViewController {
         while responder != nil {
             if let application = responder as? UIApplication {
                 NSLog("UIApplication found, opening URL")
+                saveURLToUserDefaults(url)
                 application.perform(#selector(UIApplication.open(_:options:completionHandler:)), with: url, with: nil)
                 break
             }

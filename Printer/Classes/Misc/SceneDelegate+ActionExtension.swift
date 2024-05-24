@@ -20,7 +20,7 @@ extension SceneDelegate {
             print("File does not exist at URL: \(fileURL)")
             return
         }
-        
+         
         do {
             let data = try Data(contentsOf: fileURL)
             let pathExtension = fileURL.pathExtension.lowercased()
@@ -36,6 +36,7 @@ extension SceneDelegate {
                 printDocx(data)
             case "html":
                 let html = try String(contentsOf: fileURL, encoding: .utf8)
+                
                 printHTML(html)
             default:
                 printImage(data: data, fileURL: fileURL)

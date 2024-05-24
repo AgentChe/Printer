@@ -55,6 +55,7 @@ private extension SplashViewController {
         } else {
             let vc = PaygateViewController.make {
                 UIApplication.shared.keyWindow?.rootViewController = nc
+                
                  
             }
             present(vc, animated: true)
