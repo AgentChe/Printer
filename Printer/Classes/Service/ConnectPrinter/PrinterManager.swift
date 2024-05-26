@@ -132,6 +132,9 @@ extension PrinterManager {
                 self.currentlyConnectedPrinterURL = url
                 completion(printer, nil)
             } else {
+                let printErrorViewController = PrintErrorViewController()
+                printErrorViewController.modalPresentationStyle = .fullScreen
+               
                 self.currentlyConnectedPrinterURL = nil
                 completion(nil, NSError(domain: "PrinterManagerError", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to contact printer."]))
             }

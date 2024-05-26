@@ -62,12 +62,7 @@ class CustomScanPrintPageRenderer: UIPrintPageRenderer {
     }
 
     private func drawImage(in rect: CGRect, image: UIImage) {
-        // Define a target size for resizing the image
-        let targetSize = CGSize(width: 1024, height: 1024) // Adjust this size as needed
-
-        // Resize the image
-        let resizedImage = resizeImage(image: image, targetSize: targetSize)
-        let imageSize = resizedImage.size
+        let imageSize = image.size
         let aspectRatio = imageSize.width / imageSize.height
         let isApprox3x4AspectRatio = (aspectRatio >= 2.5 / 4.0) && (aspectRatio <= 3.5 / 4.0)
         let isApprox19_5x9AspectRatio = (aspectRatio >= 8.5 / 19.5) && (aspectRatio <= 9.5 / 19.5)
@@ -106,40 +101,12 @@ class CustomScanPrintPageRenderer: UIPrintPageRenderer {
                 height: scaledWidth
             )
 
-            resizedImage.draw(in: imageRect)
+            image.draw(in: imageRect)
             UIGraphicsGetCurrentContext()?.restoreGState()
         } else {
-            resizedImage.draw(in: imageRect)
+            image.draw(in: imageRect)
         }
     }
-
-    // Helper function to resize the image
-    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let size = image.size
-
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-
-        // Figure out what our orientation is, and use that to determine the scale factor
-        var newSize: CGSize
-        if widthRatio > heightRatio {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
-        }
-
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(origin: .zero, size: newSize)
-
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return newImage!
-    }
-
 
     // Helper function to get aspect fit size
     private func aspectFitSizeForImage(_ imageSize: CGSize, inRect rect: CGRect) -> CGSize {
@@ -150,5 +117,5 @@ class CustomScanPrintPageRenderer: UIPrintPageRenderer {
         let aspectFitSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
         return aspectFitSize
     }
-   
+    
 }

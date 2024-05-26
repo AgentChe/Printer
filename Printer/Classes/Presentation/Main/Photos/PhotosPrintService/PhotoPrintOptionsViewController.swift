@@ -77,7 +77,50 @@ class PhotoPrintOptionsViewController: UIViewController, UICollectionViewDelegat
             for imageRenderer in imageRenderers {
                 imageRenderer.pagesPerSheet = self.pagesPerSheet
                 imageRenderer.copies = self.copies
-                PrinterManager.shared.directPrintPhotoUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, images: imageRenderer.photos, renderer: imageRenderer)
+                
+                var resizedPhotos: [UIImage] = []
+                for photo in imageRenderer.photos {
+                    let maxDimension = max(photo.size.width, photo.size.height)
+                    let targetSize: CGFloat
+                    
+                    switch self.pagesPerSheet {
+                    case 1:
+                        targetSize = 3000
+                    case 2:
+                        targetSize = 2000
+                    case 4:
+                        targetSize = 1200
+                    case 6:
+                        targetSize = 900
+                    case 9:
+                        targetSize = 600
+                    case 16:
+                        targetSize = 300
+                    default:
+                        targetSize = 3000
+                    }
+                    
+                    let newSize: CGSize
+                    if maxDimension > targetSize {
+                        let scale = targetSize / maxDimension
+                        newSize = CGSize(width: photo.size.width * scale, height: photo.size.height * scale)
+                    } else {
+                        newSize = photo.size
+                    }
+                    
+                    UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+                    photo.draw(in: CGRect(origin: .zero, size: newSize))
+                    let resizedPhoto = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
+                    
+                    if let resizedPhoto = resizedPhoto {
+                        resizedPhotos.append(resizedPhoto)
+                    } else {
+                        resizedPhotos.append(photo) // In case resizing fails, use the original photo
+                    }
+                }
+                
+                PrinterManager.shared.directPrintPhotoUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, images: resizedPhotos, renderer: imageRenderer)
             }
         } else {
             print("Printer is not configured or unavailable.")
