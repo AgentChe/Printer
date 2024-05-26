@@ -3,13 +3,7 @@ import UIKit
 class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
 
     var photos: [UIImage] = []
-    var copies: Int = 1 {
-        didSet {
-            if copies == 2 {
-                pagesPerSheet = 2
-            }
-        }
-    }
+    var copies: Int = 1
     var pagesPerSheet: Int = 1
 
     // Define the page frame and content frame
@@ -69,20 +63,21 @@ class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
 
     private func drawImage(in rect: CGRect, image: UIImage) {
         let imageSize = image.size
-        let isPortrait = imageSize.height > imageSize.width
-        
+        let aspectRatio = imageSize.width / imageSize.height
+        let is3x4AspectRatio = (aspectRatio == 3.0 / 4.0)
+
+        let shouldRotate = (pagesPerSheet == 2 || pagesPerSheet == 6) && is3x4AspectRatio
+
         // Calculate scale factor to fit the image within the rect
         let scaleFactor: CGFloat
-        if copies == 2 || ((pagesPerSheet == 6 || pagesPerSheet == 9 || pagesPerSheet == 16) && isPortrait) {
+        if shouldRotate {
             scaleFactor = min(rect.width / imageSize.height, rect.height / imageSize.width)
-        } else if pagesPerSheet == 9 && !isPortrait {
-            scaleFactor = min(rect.height / imageSize.height, rect.width / imageSize.width)
         } else {
             scaleFactor = min(rect.width / imageSize.width, rect.height / imageSize.height)
         }
 
-        let scaledWidth = isPortrait ? imageSize.height * scaleFactor : imageSize.width * scaleFactor
-        let scaledHeight = isPortrait ? imageSize.width * scaleFactor : imageSize.height * scaleFactor
+        let scaledWidth = shouldRotate ? imageSize.height * scaleFactor : imageSize.width * scaleFactor
+        let scaledHeight = shouldRotate ? imageSize.width * scaleFactor : imageSize.height * scaleFactor
 
         // Define the rectangle where the image will be drawn
         var imageRect = CGRect(
@@ -92,7 +87,7 @@ class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
             height: scaledHeight
         )
 
-        if copies == 2 || ((pagesPerSheet == 6 || pagesPerSheet == 9 || pagesPerSheet == 16) && isPortrait) {
+        if shouldRotate {
             UIGraphicsGetCurrentContext()?.saveGState()
             UIGraphicsGetCurrentContext()?.translateBy(x: rect.midX, y: rect.midY)
             UIGraphicsGetCurrentContext()?.rotate(by: CGFloat.pi / 2)
@@ -106,24 +101,12 @@ class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
 
             image.draw(in: imageRect)
             UIGraphicsGetCurrentContext()?.restoreGState()
-        } else if pagesPerSheet == 9 && !isPortrait {
-            UIGraphicsGetCurrentContext()?.saveGState()
-            UIGraphicsGetCurrentContext()?.translateBy(x: rect.midX, y: rect.midY)
-            UIGraphicsGetCurrentContext()?.rotate(by: CGFloat.pi / 2)
-
-            imageRect = CGRect(
-                x: -scaledWidth / 2,
-                y: -scaledHeight / 2,
-                width: scaledWidth,
-                height: scaledHeight
-            )
-
-            image.draw(in: imageRect)
-            UIGraphicsGetCurrentContext()?.restoreGState()
         } else {
             image.draw(in: imageRect)
         }
     }
+
+
 
     // Helper function to get aspect fit size
     private func aspectFitSizeForImage(_ imageSize: CGSize, inRect rect: CGRect) -> CGSize {
