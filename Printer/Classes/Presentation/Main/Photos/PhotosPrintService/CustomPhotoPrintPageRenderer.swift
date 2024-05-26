@@ -3,7 +3,13 @@ import UIKit
 class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
 
     var photos: [UIImage] = []
-    var copies: Int = 1
+    var copies: Int = 1 {
+        didSet {
+            if copies == 2 {
+                pagesPerSheet = 2
+            }
+        }
+    }
     var pagesPerSheet: Int = 1
 
     // Define the page frame and content frame
@@ -20,8 +26,26 @@ class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
     }
 
     override func drawPage(at pageIndex: Int, in printableRect: CGRect) {
-        let cols = Int(ceil(sqrt(Double(pagesPerSheet))))
-        let rows = Int(ceil(Double(pagesPerSheet) / Double(cols)))
+        let cols: Int
+        let rows: Int
+        
+        switch pagesPerSheet {
+        case 6:
+            cols = 2
+            rows = 3
+        case 9:
+            cols = 3
+            rows = 3
+        case 16:
+            cols = 4
+            rows = 4
+        case 2:
+            cols = 1
+            rows = 2
+        default:
+            cols = Int(ceil(sqrt(Double(pagesPerSheet))))
+            rows = Int(ceil(Double(pagesPerSheet) / Double(cols)))
+        }
 
         let virtualPageWidth = printableRect.width / CGFloat(cols)
         let virtualPageHeight = printableRect.height / CGFloat(rows)
@@ -45,19 +69,60 @@ class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
 
     private func drawImage(in rect: CGRect, image: UIImage) {
         let imageSize = image.size
-        let scaleFactor = min(rect.width / imageSize.width, rect.height / imageSize.height)
+        let isPortrait = imageSize.height > imageSize.width
+        
+        // Calculate scale factor to fit the image within the rect
+        let scaleFactor: CGFloat
+        if copies == 2 || ((pagesPerSheet == 6 || pagesPerSheet == 9 || pagesPerSheet == 16) && isPortrait) {
+            scaleFactor = min(rect.width / imageSize.height, rect.height / imageSize.width)
+        } else if pagesPerSheet == 9 && !isPortrait {
+            scaleFactor = min(rect.height / imageSize.height, rect.width / imageSize.width)
+        } else {
+            scaleFactor = min(rect.width / imageSize.width, rect.height / imageSize.height)
+        }
 
-        let scaledWidth = imageSize.width * scaleFactor
-        let scaledHeight = imageSize.height * scaleFactor
+        let scaledWidth = isPortrait ? imageSize.height * scaleFactor : imageSize.width * scaleFactor
+        let scaledHeight = isPortrait ? imageSize.width * scaleFactor : imageSize.height * scaleFactor
 
-        let imageRect = CGRect(
+        // Define the rectangle where the image will be drawn
+        var imageRect = CGRect(
             x: rect.origin.x + (rect.width - scaledWidth) / 2,
-            y: rect.origin.y, // Pin to the top of the virtual page rect
+            y: rect.origin.y + (rect.height - scaledHeight) / 2,
             width: scaledWidth,
             height: scaledHeight
         )
 
-        image.draw(in: imageRect)
+        if copies == 2 || ((pagesPerSheet == 6 || pagesPerSheet == 9 || pagesPerSheet == 16) && isPortrait) {
+            UIGraphicsGetCurrentContext()?.saveGState()
+            UIGraphicsGetCurrentContext()?.translateBy(x: rect.midX, y: rect.midY)
+            UIGraphicsGetCurrentContext()?.rotate(by: CGFloat.pi / 2)
+
+            imageRect = CGRect(
+                x: -scaledHeight / 2,
+                y: -scaledWidth / 2,
+                width: scaledHeight,
+                height: scaledWidth
+            )
+
+            image.draw(in: imageRect)
+            UIGraphicsGetCurrentContext()?.restoreGState()
+        } else if pagesPerSheet == 9 && !isPortrait {
+            UIGraphicsGetCurrentContext()?.saveGState()
+            UIGraphicsGetCurrentContext()?.translateBy(x: rect.midX, y: rect.midY)
+            UIGraphicsGetCurrentContext()?.rotate(by: CGFloat.pi / 2)
+
+            imageRect = CGRect(
+                x: -scaledWidth / 2,
+                y: -scaledHeight / 2,
+                width: scaledWidth,
+                height: scaledHeight
+            )
+
+            image.draw(in: imageRect)
+            UIGraphicsGetCurrentContext()?.restoreGState()
+        } else {
+            image.draw(in: imageRect)
+        }
     }
 
     // Helper function to get aspect fit size
