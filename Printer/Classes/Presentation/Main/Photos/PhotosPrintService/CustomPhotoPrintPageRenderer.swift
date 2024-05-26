@@ -64,9 +64,11 @@ class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
     private func drawImage(in rect: CGRect, image: UIImage) {
         let imageSize = image.size
         let aspectRatio = imageSize.width / imageSize.height
-        let is3x4AspectRatio = (aspectRatio == 3.0 / 4.0)
+        let isApprox3x4AspectRatio = (aspectRatio >= 2.5 / 4.0) && (aspectRatio <= 3.5 / 4.0)
+        let isApprox19_5x9AspectRatio = (aspectRatio >= 8.5 / 19.5) && (aspectRatio <= 9.5 / 19.5)
 
-        let shouldRotate = (pagesPerSheet == 2 || pagesPerSheet == 6) && is3x4AspectRatio
+        let shouldRotate = ((pagesPerSheet == 2 || pagesPerSheet == 6) && isApprox3x4AspectRatio) ||
+                           (pagesPerSheet == 2 && isApprox19_5x9AspectRatio)
 
         // Calculate scale factor to fit the image within the rect
         let scaleFactor: CGFloat
@@ -105,8 +107,6 @@ class CustomPhotoPrintPageRenderer: UIPrintPageRenderer {
             image.draw(in: imageRect)
         }
     }
-
-
 
     // Helper function to get aspect fit size
     private func aspectFitSizeForImage(_ imageSize: CGSize, inRect rect: CGRect) -> CGSize {
