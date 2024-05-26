@@ -1,7 +1,7 @@
 import UIKit
 
 class CustomScanPrintPageRenderer: UIPrintPageRenderer {
-
+    
     var photos: [UIImage] = []
     var copies: Int = 1
     var pagesPerSheet: Int = 1
@@ -20,8 +20,26 @@ class CustomScanPrintPageRenderer: UIPrintPageRenderer {
     }
 
     override func drawPage(at pageIndex: Int, in printableRect: CGRect) {
-        let cols = Int(ceil(sqrt(Double(pagesPerSheet))))
-        let rows = Int(ceil(Double(pagesPerSheet) / Double(cols)))
+        let cols: Int
+        let rows: Int
+        
+        switch pagesPerSheet {
+        case 6:
+            cols = 2
+            rows = 3
+        case 9:
+            cols = 3
+            rows = 3
+        case 16:
+            cols = 4
+            rows = 4
+        case 2:
+            cols = 1
+            rows = 2
+        default:
+            cols = Int(ceil(sqrt(Double(pagesPerSheet))))
+            rows = Int(ceil(Double(pagesPerSheet) / Double(cols)))
+        }
 
         let virtualPageWidth = printableRect.width / CGFloat(cols)
         let virtualPageHeight = printableRect.height / CGFloat(rows)
@@ -44,21 +62,84 @@ class CustomScanPrintPageRenderer: UIPrintPageRenderer {
     }
 
     private func drawImage(in rect: CGRect, image: UIImage) {
-        let imageSize = image.size
-        let scaleFactor = min(rect.width / imageSize.width, rect.height / imageSize.height)
+        // Define a target size for resizing the image
+        let targetSize = CGSize(width: 1024, height: 1024) // Adjust this size as needed
 
-        let scaledWidth = imageSize.width * scaleFactor
-        let scaledHeight = imageSize.height * scaleFactor
+        // Resize the image
+        let resizedImage = resizeImage(image: image, targetSize: targetSize)
+        let imageSize = resizedImage.size
+        let aspectRatio = imageSize.width / imageSize.height
+        let isApprox3x4AspectRatio = (aspectRatio >= 2.5 / 4.0) && (aspectRatio <= 3.5 / 4.0)
+        let isApprox19_5x9AspectRatio = (aspectRatio >= 8.5 / 19.5) && (aspectRatio <= 9.5 / 19.5)
 
-        let imageRect = CGRect(
+        let shouldRotate = ((pagesPerSheet == 2 || pagesPerSheet == 6) && isApprox3x4AspectRatio) ||
+                           (pagesPerSheet == 2 && isApprox19_5x9AspectRatio)
+
+        // Calculate scale factor to fit the image within the rect
+        let scaleFactor: CGFloat
+        if shouldRotate {
+            scaleFactor = min(rect.width / imageSize.height, rect.height / imageSize.width)
+        } else {
+            scaleFactor = min(rect.width / imageSize.width, rect.height / imageSize.height)
+        }
+
+        let scaledWidth = shouldRotate ? imageSize.height * scaleFactor : imageSize.width * scaleFactor
+        let scaledHeight = shouldRotate ? imageSize.width * scaleFactor : imageSize.height * scaleFactor
+
+        // Define the rectangle where the image will be drawn
+        var imageRect = CGRect(
             x: rect.origin.x + (rect.width - scaledWidth) / 2,
-            y: rect.origin.y, // Pin to the top of the virtual page rect
+            y: rect.origin.y + (rect.height - scaledHeight) / 2,
             width: scaledWidth,
             height: scaledHeight
         )
 
-        image.draw(in: imageRect)
+        if shouldRotate {
+            UIGraphicsGetCurrentContext()?.saveGState()
+            UIGraphicsGetCurrentContext()?.translateBy(x: rect.midX, y: rect.midY)
+            UIGraphicsGetCurrentContext()?.rotate(by: CGFloat.pi / 2)
+
+            imageRect = CGRect(
+                x: -scaledHeight / 2,
+                y: -scaledWidth / 2,
+                width: scaledHeight,
+                height: scaledWidth
+            )
+
+            resizedImage.draw(in: imageRect)
+            UIGraphicsGetCurrentContext()?.restoreGState()
+        } else {
+            resizedImage.draw(in: imageRect)
+        }
     }
+
+    // Helper function to resize the image
+    private func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+
+        // Figure out what our orientation is, and use that to determine the scale factor
+        var newSize: CGSize
+        if widthRatio > heightRatio {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(origin: .zero, size: newSize)
+
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
+    }
+
 
     // Helper function to get aspect fit size
     private func aspectFitSizeForImage(_ imageSize: CGSize, inRect rect: CGRect) -> CGSize {
@@ -69,4 +150,5 @@ class CustomScanPrintPageRenderer: UIPrintPageRenderer {
         let aspectFitSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
         return aspectFitSize
     }
+   
 }
