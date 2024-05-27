@@ -175,7 +175,25 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
         for textRenderer in textRenderers {
             textRenderer.pagesPerSheet = self.pagesPerSheet
             let pdfData = textRenderer.pdfData()
-            if let previewImage = textRenderer.createImageFromPDFData(pdfData: pdfData) {
+            let imageName: String
+            switch self.pagesPerSheet {
+            case 1:
+                imageName = "ImagePreview.1"
+            case 2:
+                imageName = "ImagePreview.2"
+            case 4:
+                imageName = "ImagePreview.4"
+            case 6:
+                imageName = "ImagePreview.6"
+            case 9:
+                imageName = "ImagePreview.9"
+            case 16:
+                imageName = "ImagePreview.16"
+            default:
+                imageName = "ImagePreview.1"
+            }
+
+            if let previewImage = UIImage(named: imageName) {
                 previews.append(previewImage)
             }
         }
@@ -188,7 +206,25 @@ class PrintOptionsViewController: UIViewController, UICollectionViewDelegate, UI
                 individualImageRenderer.copies = imageRenderer.copies
                 individualImageRenderer.printImages = [image]
                 let pdfData = individualImageRenderer.pdfData()
-                if let previewImage = individualImageRenderer.createImageFromPDFData(pdfData: pdfData) {
+                let imageName: String
+                switch self.pagesPerSheet {
+                case 1:
+                    imageName = "ImagePreview.1"
+                case 2:
+                    imageName = "ImagePreview.2"
+                case 4:
+                    imageName = "ImagePreview.4"
+                case 6:
+                    imageName = "ImagePreview.6"
+                case 9:
+                    imageName = "ImagePreview.9"
+                case 16:
+                    imageName = "ImagePreview.16"
+                default:
+                    imageName = "ImagePreview.1"
+                }
+
+                if let previewImage = UIImage(named: imageName) {
                     previews.append(previewImage)
                 }
             }

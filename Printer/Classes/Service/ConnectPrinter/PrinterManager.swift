@@ -29,7 +29,7 @@ class PrinterManager {
 
 // TEST PURPOSE
 //        [
-//            :
+//           // :
 //            "0":"Printer #1",
 //            "1":"Printer #2",
 //            "2":"Printer #3",

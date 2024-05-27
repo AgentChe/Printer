@@ -11,6 +11,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         super.init(frame: frame)
         setupCollectionView()
         setupActionButton()
+        //backgroundColor = .red
     }
 
     required init?(coder: NSCoder) {
@@ -33,7 +34,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -120.scale), // Leave space for the button
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: ScreenSize.isIphoneXFamily ? -60.scale : -72.scale), // Leave space for the button
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
@@ -50,7 +51,7 @@ class AvaliablePrintersCell: UICollectionViewCell {
         addSubview(actionButton)
 
         NSLayoutConstraint.activate([
-            actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 3.scale),
+            actionButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: ScreenSize.isIphoneXFamily ? 3.scale:(PrinterManager.shared.retrieveAllPrinters().count == 1 ? -5.scale : 8.scale)),
             actionButton.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }

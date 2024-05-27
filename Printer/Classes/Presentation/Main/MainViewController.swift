@@ -102,42 +102,68 @@ extension MainViewController: MainViewDelegate {
         switch action.title {
         case NSLocalizedString("MainViewController.Action.Photos", comment: ""):
             print("Selected Photos action")
-            checkPhotoLibraryPermission()
+           
+            if SessionManager().hasActiveSubscriptions() {
+                checkPhotoLibraryPermission()
+            } else {
+                let vc = PaygateViewController.make()
+                present(vc, animated: true)
+            }
         case NSLocalizedString("MainViewController.Action.Files", comment: ""):
             print("Selected Files action")
-            openDocumentPicker()
-            
-//            if SessionManager().hasActiveSubscriptions() {
-//                openDocumentPicker()
-//            } else {
-//                let vc = PaygateViewController.make()
-//                present(vc, animated: true)
-//            }
-            
+          
+            if SessionManager().hasActiveSubscriptions() {
+                openDocumentPicker()
+            } else {
+                let vc = PaygateViewController.make()
+                present(vc, animated: true)
+            }
         case NSLocalizedString("MainViewController.Action.WebPages", comment: ""):
             print("Selected Web Pages action")
-            let webVC = WebViewController()
-            webVC.hidesBottomBarWhenPushed = true // Hide the tab bar
-            let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-            navigationItem.backBarButtonItem = backButton
-            // Hide the toolbar before the transition
-            navigationController?.pushViewController(webVC, animated: true)
+            
+            if SessionManager().hasActiveSubscriptions() {
+                let webVC = WebViewController()
+                webVC.hidesBottomBarWhenPushed = true // Hide the tab bar
+                let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+                navigationItem.backBarButtonItem = backButton
+                // Hide the toolbar before the transition
+                navigationController?.pushViewController(webVC, animated: true)
+            } else {
+                let vc = PaygateViewController.make()
+                present(vc, animated: true)
+            }
         case NSLocalizedString("MainViewController.Action.Notes", comment: ""):
             print("Selected Notes action")
-            let notesVC = NotesViewController()
-            notesVC.modalPresentationStyle = .fullScreen
-            notesVC.delegate = self
-            present(notesVC, animated: true, completion: nil)
+       
+            if SessionManager().hasActiveSubscriptions() {
+                let notesVC = NotesViewController()
+                notesVC.modalPresentationStyle = .fullScreen
+                notesVC.delegate = self
+                present(notesVC, animated: true, completion: nil)
+            } else {
+                let vc = PaygateViewController.make()
+                present(vc, animated: true)
+            }
         case NSLocalizedString("MainViewController.Action.GoogleDrive", comment: ""):
             print("Selected Google Drive action")
         case NSLocalizedString("MainViewController.Action.Dropbox", comment: ""):
             print("Selected Dropbox action")
-            openDropbox()
+            if SessionManager().hasActiveSubscriptions() {
+                openDropbox()
+            } else {
+                let vc = PaygateViewController.make()
+                present(vc, animated: true)
+            }
         case NSLocalizedString("MainViewController.Action.Email", comment: ""):
             print("Selected Email action")
-            let mailVC = MailViewController()
-            mailVC.modalPresentationStyle = .fullScreen
-            present(mailVC, animated: true, completion: nil)
+            if SessionManager().hasActiveSubscriptions() {
+                let mailVC = MailViewController()
+                mailVC.modalPresentationStyle = .fullScreen
+                present(mailVC, animated: true, completion: nil)
+            } else {
+                let vc = PaygateViewController.make()
+                present(vc, animated: true)
+            }
         case NSLocalizedString("MainViewController.Action.TestPrint", comment: ""):
             print("Selected Test Print action")
             let printTestFileVC = PrintTestFileViewController()
