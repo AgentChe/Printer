@@ -3,10 +3,10 @@ import UIKit
 
 class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
     var copies: Int = 1
-     var pagesPerSheet: Int = 1
-     var printText: String = "Default text to print"  // This should be replaced with attributed text handling
-     var attributedPrintText: NSAttributedString? // New variable for attributed text
-     var textAlignment: NSTextAlignment = .left  // Default alignment is left
+    var pagesPerSheet: Int = 1
+    var printText: String = "Default text to print"  // This should be replaced with attributed text handling
+    var attributedPrintText: NSAttributedString? // New variable for attributed text
+    var textAlignment: NSTextAlignment = .left  // Default alignment is left
 
     override init() {
         super.init()
@@ -30,21 +30,21 @@ class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
 
         var currentCopy = startCopyIndex
         for row in 0..<rows {
-                  for col in 0..<cols {
-                      if currentCopy > endCopyIndex {
-                          break
-                      }
-                      let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
-                      let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
-                      let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
-                      if let attributedText = attributedPrintText {
-                          drawAttributedText(in: virtualPageRect, text: attributedText)
-                      } else {
-                          drawText(in: virtualPageRect, text: printText, alignment: textAlignment)
-                      }
-                      currentCopy += 1
-                  }
-              }
+            for col in 0..<cols {
+                if currentCopy > endCopyIndex {
+                    break
+                }
+                let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
+                let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
+                let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
+                if let attributedText = attributedPrintText {
+                    drawAttributedText(in: virtualPageRect, text: attributedText)
+                } else {
+                    drawText(in: virtualPageRect, text: printText, alignment: textAlignment)
+                }
+                currentCopy += 1
+            }
+        }
     }
 
     private func drawText(in rect: CGRect, text: String, alignment: NSTextAlignment) {
@@ -87,20 +87,22 @@ class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
     }
 
     private func drawAttributedText(in rect: CGRect, text: NSAttributedString) {
+        // No need to modify font attribute, use the text's own attributes
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = textAlignment
 
-        var fontSize = min(12, max(rect.width, rect.height) / 4)  // Start with a reasonable font size
-        var attributes = text.attributes(at: 0, effectiveRange: nil)
-        attributes[.paragraphStyle] = paragraphStyle
+        let attributes: [NSAttributedString.Key: Any] = [
+            .paragraphStyle: paragraphStyle
+        ]
+
+        let attributedText = NSMutableAttributedString(attributedString: text)
+        attributedText.addAttributes(attributes, range: NSRange(location: 0, length: text.length))
 
         var textSize: CGSize
+        var fontSize: CGFloat = 12
         var fits: Bool
 
         repeat {
-            attributes[.font] = UIFont.systemFont(ofSize: CGFloat(fontSize))
-            let attributedText = NSAttributedString(string: text.string, attributes: attributes)
-
             textSize = attributedText.boundingRect(
                 with: CGSize(width: rect.width - 20, height: CGFloat.greatestFiniteMagnitude),
                 options: .usesLineFragmentOrigin,
@@ -110,6 +112,12 @@ class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
             fits = textSize.height <= rect.height - 20 && textSize.width <= rect.width - 20
             if (!fits) {
                 fontSize -= 0.5
+                attributedText.enumerateAttribute(.font, in: NSRange(location: 0, length: attributedText.length)) { value, range, _ in
+                    if let font = value as? UIFont {
+                        let resizedFont = font.withSize(fontSize)
+                        attributedText.addAttribute(.font, value: resizedFont, range: range)
+                    }
+                }
             }
         } while !fits && fontSize > 2
 
@@ -120,13 +128,9 @@ class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
             width: rect.width - 20,
             height: textSize.height
         )
-        let finalAttributedText = NSAttributedString(string: text.string, attributes: attributes)
-        finalAttributedText.draw(in: textRect)
+        attributedText.draw(in: textRect)
     }
-
-   
 }
-
 
 // Extension for PDF data creation remains unchanged
 extension UIPrintPageRenderer {
