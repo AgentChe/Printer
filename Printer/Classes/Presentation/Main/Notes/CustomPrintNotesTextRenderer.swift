@@ -3,9 +3,10 @@ import UIKit
 
 class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
     var copies: Int = 1
-    var pagesPerSheet: Int = 1
-    var attributedPrintText: NSAttributedString? // Attributed text to be printed
-    var textAlignment: NSTextAlignment = .left  // Default text alignment
+     var pagesPerSheet: Int = 1
+     var printText: String = "Default text to print"  // This should be replaced with attributed text handling
+     var attributedPrintText: NSAttributedString? // New variable for attributed text
+     var textAlignment: NSTextAlignment = .left  // Default alignment is left
 
     override init() {
         super.init()
@@ -14,74 +15,116 @@ class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
     }
 
     override var numberOfPages: Int {
-        guard let attributedText = attributedPrintText else { return 1 }
-        return calculatePageCount(for: attributedText)
-    }
-
-    private func calculatePageCount(for text: NSAttributedString) -> Int {
-        let textContainer = NSTextContainer(size: CGSize(width: paperRect.width - 40, height: CGFloat.greatestFiniteMagnitude))
-        let layoutManager = NSLayoutManager()
-        let textStorage = NSTextStorage(attributedString: text)
-
-        layoutManager.addTextContainer(textContainer)
-        textStorage.addLayoutManager(layoutManager)
-
-        var range = NSRange(location: 0, length: layoutManager.numberOfGlyphs)
-        var pages = 0
-
-        while range.length > 0 {
-            let glyphRange = layoutManager.glyphRange(forBoundingRect: CGRect(x: 0, y: 0, width: paperRect.width - 40, height: paperRect.height - headerHeight - footerHeight), in: textContainer)
-            range = NSRange(location: range.location + glyphRange.length, length: range.length - glyphRange.length)
-            pages += 1
-        }
-
-        return pages
+        return Int(ceil(Double(copies) / Double(pagesPerSheet)))
     }
 
     override func drawPage(at pageIndex: Int, in printableRect: CGRect) {
-        guard let attributedText = attributedPrintText else { return }
-        
-        let layoutManager = NSLayoutManager()
-        let textStorage = NSTextStorage(attributedString: attributedText)
-        layoutManager.addTextContainer(NSTextContainer())
-        textStorage.addLayoutManager(layoutManager)
+        let startCopyIndex = pageIndex * pagesPerSheet
+        let endCopyIndex = min(startCopyIndex + pagesPerSheet, copies) - 1
 
-        // Calculate columns and rows
-        let columns = Int(ceil(sqrt(Double(pagesPerSheet))))
-        let rows = (pagesPerSheet + columns - 1) / columns  // Ensures filling up rows optimally
-        let segmentWidth = printableRect.width / CGFloat(columns)
-        let segmentHeight = printableRect.height / CGFloat(rows)
+        let cols = Int(ceil(sqrt(Double(pagesPerSheet))))
+        let rows = Int(ceil(Double(pagesPerSheet) / Double(cols)))
 
-        // Iterate over each segment
+        let virtualPageWidth = printableRect.width / CGFloat(cols)
+        let virtualPageHeight = printableRect.height / CGFloat(rows)
+
+        var currentCopy = startCopyIndex
         for row in 0..<rows {
-            for column in 0..<columns {
-                let pageIndexToRender = pageIndex * pagesPerSheet + (row * columns) + column
-                if pageIndexToRender >= numberOfPages { continue }
-
-                let segmentOriginX = printableRect.origin.x + CGFloat(column) * segmentWidth
-                let segmentOriginY = printableRect.origin.y + CGFloat(row) * segmentHeight
-                let segmentRect = CGRect(x: segmentOriginX, y: segmentOriginY, width: segmentWidth, height: segmentHeight)
-
-                // Setting up a new text container for the segment
-                let textContainer = NSTextContainer(size: CGSize(width: segmentRect.width - 20, height: segmentRect.height - 20))
-                layoutManager.addTextContainer(textContainer)
-                let textStorage = NSTextStorage(attributedString: attributedText)
-                textStorage.addLayoutManager(layoutManager)
-                
-                let glyphRange = layoutManager.glyphRange(forBoundingRect: CGRect(x: 0, y: 0, width: textContainer.size.width, height: textContainer.size.height), in: textContainer)
-                let rangeStart = layoutManager.characterIndexForGlyph(at: glyphRange.location)
-
-                // Draw background and glyphs in the segment
-                layoutManager.drawBackground(forGlyphRange: glyphRange, at: CGPoint(x: segmentRect.origin.x + 10, y: segmentRect.origin.y + 10))
-                layoutManager.drawGlyphs(forGlyphRange: glyphRange, at: CGPoint(x: segmentRect.origin.x + 10, y: segmentRect.origin.y + 10))
-
-                // Clean up after drawing the segment to prevent reuse in the next iteration
-                layoutManager.removeTextContainer(at: layoutManager.textContainers.count - 1)
-            }
-        }
+                  for col in 0..<cols {
+                      if currentCopy > endCopyIndex {
+                          break
+                      }
+                      let x = printableRect.origin.x + CGFloat(col) * virtualPageWidth
+                      let y = printableRect.origin.y + CGFloat(row) * virtualPageHeight
+                      let virtualPageRect = CGRect(x: x, y: y, width: virtualPageWidth, height: virtualPageHeight)
+                      if let attributedText = attributedPrintText {
+                          drawAttributedText(in: virtualPageRect, text: attributedText)
+                      } else {
+                          drawText(in: virtualPageRect, text: printText, alignment: textAlignment)
+                      }
+                      currentCopy += 1
+                  }
+              }
     }
 
+    private func drawText(in rect: CGRect, text: String, alignment: NSTextAlignment) {
+        var fontSize = min(12, max(rect.width, rect.height) / 4)  // Start with a reasonable font size
+        var attributes: [NSAttributedString.Key: Any]
+        var textSize: CGSize
+        var fits: Bool
 
+        repeat {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = alignment
+
+            attributes = [
+                .font: UIFont.systemFont(ofSize: CGFloat(fontSize)),
+                .paragraphStyle: paragraphStyle
+            ]
+
+            textSize = (text as NSString).boundingRect(
+                with: CGSize(width: rect.width - 20, height: CGFloat.greatestFiniteMagnitude),
+                options: .usesLineFragmentOrigin,
+                attributes: attributes,
+                context: nil
+            ).size
+
+            fits = textSize.height <= rect.height - 20 && textSize.width <= rect.width - 20
+            if !fits {
+                fontSize -= 0.5
+            }
+        } while !fits && fontSize > 2
+
+        let topMargin: CGFloat = (rect.height - textSize.height) / 2  // Center the text vertically
+        let textRect = CGRect(
+            x: rect.origin.x + 10,
+            y: rect.origin.y + topMargin,
+            width: rect.width - 20,
+            height: textSize.height
+        )
+        let attributedString = NSAttributedString(string: text, attributes: attributes)
+        attributedString.draw(in: textRect)
+    }
+
+    private func drawAttributedText(in rect: CGRect, text: NSAttributedString) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = textAlignment
+
+        var fontSize = min(12, max(rect.width, rect.height) / 4)  // Start with a reasonable font size
+        var attributes = text.attributes(at: 0, effectiveRange: nil)
+        attributes[.paragraphStyle] = paragraphStyle
+
+        var textSize: CGSize
+        var fits: Bool
+
+        repeat {
+            attributes[.font] = UIFont.systemFont(ofSize: CGFloat(fontSize))
+            let attributedText = NSAttributedString(string: text.string, attributes: attributes)
+
+            textSize = attributedText.boundingRect(
+                with: CGSize(width: rect.width - 20, height: CGFloat.greatestFiniteMagnitude),
+                options: .usesLineFragmentOrigin,
+                context: nil
+            ).size
+
+            fits = textSize.height <= rect.height - 20 && textSize.width <= rect.width - 20
+            if (!fits) {
+                fontSize -= 0.5
+            }
+        } while !fits && fontSize > 2
+
+        let topMargin: CGFloat = (rect.height - textSize.height) / 2  // Center the text vertically
+        let textRect = CGRect(
+            x: rect.origin.x + 10,
+            y: rect.origin.y + topMargin,
+            width: rect.width - 20,
+            height: textSize.height
+        )
+        let finalAttributedText = NSAttributedString(string: text.string, attributes: attributes)
+        finalAttributedText.draw(in: textRect)
+    }
+
+   
 }
 
 

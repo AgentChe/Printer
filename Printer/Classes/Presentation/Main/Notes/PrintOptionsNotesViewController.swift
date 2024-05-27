@@ -77,24 +77,37 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
     }()
     
     @objc func handlePrintButton() {
-        if let printer = PrinterManager.shared.getConnectedPrinter(), let formattedText = self.formattedText {
-            if let pdfData = generatePDF(from: formattedText, pagesPerSheet: self.pagesPerSheet, copies: self.copies) {
-                PrinterManager.shared.printPDFData(pdfData, from: self, to: printer, copies: 1) { success in
-                    self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: success)
+        if pagesPerSheet == 1 {
+            if let printer = PrinterManager.shared.getConnectedPrinter(), let formattedText = self.formattedText {
+                if let pdfData = generatePDF(from: formattedText, pagesPerSheet: self.pagesPerSheet, copies: self.copies) {
+                    PrinterManager.shared.printPDFData(pdfData, from: self, to: printer, copies: 1) { success in
+                        self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: success)
+                    }
+                } else {
+                    print("Failed to generate PDF.")
+                    self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: false)
                 }
             } else {
-                print("Failed to generate PDF.")
+                print("Printer is not configured or unavailable.")
                 self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: false)
             }
         } else {
-            print("Printer is not configured or unavailable.")
-            self.delegate?.printOptionsNotesViewController(self, didFinishPrinting: false)
+            if let printer = PrinterManager.shared.getConnectedPrinter() {
+                    let textRenderer = CustomPrintNotesTextRenderer()
+                textRenderer.copies = copies
+                textRenderer.pagesPerSheet = pagesPerSheet
+                textRenderer.attributedPrintText = formattedText
+                    PrinterManager.shared.directPrintTextUsingRenderer(from: self, printer: printer, copies: self.copies, pagesPerSheet: self.pagesPerSheet, renderer: textRenderer)
+                
+                
+            } else {
+                print("Printer is not configured or unavailable.")
+            }
+
         }
     }
     private func generatePDF(from attributedText: NSAttributedString, pagesPerSheet: Int, copies: Int) -> Data? {
         let minimumFontSize: CGFloat = 5.0 // Define the minimum font size
-
-        if pagesPerSheet == 1 {
             let pdfMetaData = [
                 kCGPDFContextCreator: "Your App Name",
                 kCGPDFContextAuthor: "Your Name"
@@ -136,82 +149,6 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
             }
             
             return data
-        } else {
-            let pdfMetaData = [
-                kCGPDFContextCreator: "Your App Name",
-                kCGPDFContextAuthor: "Your Name"
-            ]
-            let format = UIGraphicsPDFRendererFormat()
-            format.documentInfo = pdfMetaData as [String: Any]
-            
-            let pageWidth = 8.5 * 72.0
-            let pageHeight = 11.0 * 72.0
-            let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
-            
-            let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
-            
-            let data = renderer.pdfData { (context) in
-                for _ in 0..<copies {
-                    // Calculate the number of rows and columns based on pagesPerSheet
-                    let columns = Int(sqrt(Double(pagesPerSheet)))
-                    let rows = pagesPerSheet / columns
-                    let cellWidth = pageRect.width / CGFloat(columns)
-                    let cellHeight = pageRect.height / CGFloat(rows)
-                    
-                    // Calculate the font size scaling factor
-                    let scaleFactor = 1.0 / sqrt(Double(pagesPerSheet))
-                    
-                    // Create a new attributed string with adjusted font size
-                    let scaledAttributedText = NSMutableAttributedString(attributedString: attributedText)
-                    scaledAttributedText.beginEditing()
-                    scaledAttributedText.enumerateAttribute(.font, in: NSRange(location: 0, length: scaledAttributedText.length)) { value, range, _ in
-                        if let font = value as? UIFont {
-                            let newFontSize = max(font.pointSize * CGFloat(scaleFactor), minimumFontSize)
-                            let scaledFont = font.withSize(newFontSize)
-                            scaledAttributedText.addAttribute(.font, value: scaledFont, range: range)
-                        }
-                    }
-                    scaledAttributedText.endEditing()
-
-                    let textStorage = NSTextStorage(attributedString: scaledAttributedText)
-                    let textLayout = NSLayoutManager()
-                    textStorage.addLayoutManager(textLayout)
-                    
-                    var textContainers: [NSTextContainer] = []
-                    var location = 0
-                    
-                    while location < textLayout.numberOfGlyphs {
-                        let textContainer = NSTextContainer(size: CGSize(width: cellWidth, height: cellHeight))
-                        textContainer.lineBreakMode = .byWordWrapping
-                        textLayout.addTextContainer(textContainer)
-                        textContainers.append(textContainer)
-                        
-                        let range = textLayout.glyphRange(for: textContainer)
-                        location += range.length
-                    }
-                    
-                    var cellIndex = 0
-                    for textContainer in textContainers {
-                        if cellIndex % pagesPerSheet == 0 {
-                            context.beginPage()
-                        }
-                        let row = cellIndex / columns
-                        let column = cellIndex % columns
-                        let origin = CGPoint(x: CGFloat(column) * cellWidth, y: CGFloat(row) * cellHeight)
-                        
-                        context.cgContext.saveGState()
-                        context.cgContext.translateBy(x: origin.x, y: origin.y)
-                        textLayout.drawBackground(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
-                        textLayout.drawGlyphs(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
-                        context.cgContext.restoreGState()
-                        
-                        cellIndex += 1
-                    }
-                }
-            }
-            
-            return data
-        }
     }
 
 
