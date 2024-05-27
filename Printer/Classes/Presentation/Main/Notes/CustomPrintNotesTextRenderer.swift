@@ -40,31 +40,48 @@ class CustomPrintNotesTextRenderer: UIPrintPageRenderer {
 
     override func drawPage(at pageIndex: Int, in printableRect: CGRect) {
         guard let attributedText = attributedPrintText else { return }
-        let textContainer = NSTextContainer(size: CGSize(width: printableRect.width - 20, height: printableRect.height - 20))
+        
         let layoutManager = NSLayoutManager()
         let textStorage = NSTextStorage(attributedString: attributedText)
-
-        layoutManager.addTextContainer(textContainer)
+        layoutManager.addTextContainer(NSTextContainer())
         textStorage.addLayoutManager(layoutManager)
 
-        var startGlyphIndex = 0
-        var currentStart = 0
+        // Calculate columns and rows
+        let columns = Int(ceil(sqrt(Double(pagesPerSheet))))
+        let rows = (pagesPerSheet + columns - 1) / columns  // Ensures filling up rows optimally
+        let segmentWidth = printableRect.width / CGFloat(columns)
+        let segmentHeight = printableRect.height / CGFloat(rows)
 
-        // Calculate the starting glyph for each page
-        for pageIndex in 0..<pageIndex {
-            let glyphRange = layoutManager.glyphRange(forBoundingRect: CGRect(origin: CGPoint.zero, size: textContainer.size), in: textContainer)
-            currentStart += glyphRange.length
+        // Iterate over each segment
+        for row in 0..<rows {
+            for column in 0..<columns {
+                let pageIndexToRender = pageIndex * pagesPerSheet + (row * columns) + column
+                if pageIndexToRender >= numberOfPages { continue }
+
+                let segmentOriginX = printableRect.origin.x + CGFloat(column) * segmentWidth
+                let segmentOriginY = printableRect.origin.y + CGFloat(row) * segmentHeight
+                let segmentRect = CGRect(x: segmentOriginX, y: segmentOriginY, width: segmentWidth, height: segmentHeight)
+
+                // Setting up a new text container for the segment
+                let textContainer = NSTextContainer(size: CGSize(width: segmentRect.width - 20, height: segmentRect.height - 20))
+                layoutManager.addTextContainer(textContainer)
+                let textStorage = NSTextStorage(attributedString: attributedText)
+                textStorage.addLayoutManager(layoutManager)
+                
+                let glyphRange = layoutManager.glyphRange(forBoundingRect: CGRect(x: 0, y: 0, width: textContainer.size.width, height: textContainer.size.height), in: textContainer)
+                let rangeStart = layoutManager.characterIndexForGlyph(at: glyphRange.location)
+
+                // Draw background and glyphs in the segment
+                layoutManager.drawBackground(forGlyphRange: glyphRange, at: CGPoint(x: segmentRect.origin.x + 10, y: segmentRect.origin.y + 10))
+                layoutManager.drawGlyphs(forGlyphRange: glyphRange, at: CGPoint(x: segmentRect.origin.x + 10, y: segmentRect.origin.y + 10))
+
+                // Clean up after drawing the segment to prevent reuse in the next iteration
+                layoutManager.removeTextContainer(at: layoutManager.textContainers.count - 1)
+            }
         }
-        
-        // Determine the range of glyphs to draw for the current page
-        let glyphRange = layoutManager.glyphRange(forBoundingRect: CGRect(origin: CGPoint.zero, size: textContainer.size), in: textContainer)
-        startGlyphIndex = currentStart
-
-        let drawingRect = CGRect(x: printableRect.origin.x + 10, y: printableRect.origin.y + 10, width: printableRect.width - 20, height: printableRect.height - 20)
-
-        layoutManager.drawBackground(forGlyphRange: NSRange(location: startGlyphIndex, length: glyphRange.length), at: CGPoint(x: drawingRect.origin.x, y: drawingRect.origin.y))
-        layoutManager.drawGlyphs(forGlyphRange: NSRange(location: startGlyphIndex, length: glyphRange.length), at: CGPoint(x: drawingRect.origin.x, y: drawingRect.origin.y))
     }
+
+
 }
 
 
