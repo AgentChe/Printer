@@ -52,3 +52,4 @@ class PreviewCell: UICollectionViewCell {
         descriptionLabel.text = localizedDescription
     }
 }
+
