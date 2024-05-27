@@ -106,6 +106,55 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
 
         }
     }
+    private func generateContainersCount(from attributedText: NSAttributedString, pagesPerSheet: Int, copies: Int) -> Int {
+        let minimumFontSize: CGFloat = 5.0 // Define the minimum font size
+        let pdfMetaData = [
+            kCGPDFContextCreator: "Your App Name",
+            kCGPDFContextAuthor: "Your Name"
+        ]
+        let format = UIGraphicsPDFRendererFormat()
+        format.documentInfo = pdfMetaData as [String: Any]
+        
+        let pageWidth = 8.5 * 72.0
+        let pageHeight = 11.0 * 72.0
+        let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
+        
+        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
+        
+        var totalContainersCount = 0
+        
+        _ = renderer.pdfData { (context) in
+            for _ in 0..<copies {
+                let textStorage = NSTextStorage(attributedString: attributedText)
+                let textLayout = NSLayoutManager()
+                textStorage.addLayoutManager(textLayout)
+                
+                var textContainers: [NSTextContainer] = []
+                var location = 0
+                
+                while location < textLayout.numberOfGlyphs {
+                    let textContainer = NSTextContainer(size: CGSize(width: pageRect.width / CGFloat(pagesPerSheet), height: pageRect.height))
+                    textContainer.lineBreakMode = .byWordWrapping
+                    textLayout.addTextContainer(textContainer)
+                    textContainers.append(textContainer)
+                    
+                    let range = textLayout.glyphRange(for: textContainer)
+                    location += range.length
+                }
+                
+                for textContainer in textContainers {
+                    context.beginPage()
+                    textLayout.drawBackground(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
+                    textLayout.drawGlyphs(forGlyphRange: textLayout.glyphRange(for: textContainer), at: .zero)
+                }
+                
+                totalContainersCount += textContainers.count
+            }
+        }
+        
+        return totalContainersCount
+    }
+
     private func generatePDF(from attributedText: NSAttributedString, pagesPerSheet: Int, copies: Int) -> Data? {
         let minimumFontSize: CGFloat = 5.0 // Define the minimum font size
             let pdfMetaData = [
@@ -224,15 +273,54 @@ class PrintOptionsNotesViewController: UIViewController, UICollectionViewDelegat
     
     private func generatePreviews() {
         previews.removeAll() // Clear existing previews
-        if let formattedText = self.formattedText {
-            let textRenderer = CustomPrintTextPageRenderer()
-            textRenderer.attributedPrintText = formattedText
-            textRenderer.pagesPerSheet = self.pagesPerSheet
-            let pdfData = textRenderer.pdfData()
-            if let previewImage = textRenderer.createImageFromPDFData(pdfData: pdfData) {
-                previews.append(previewImage)
+        if pagesPerSheet == 1 {
+            if let formattedText = self.formattedText {
+                for i in 0..<generateContainersCount(from: formattedText, pagesPerSheet: self.pagesPerSheet, copies: 1) {
+                    let imageName: String
+                    switch self.pagesPerSheet {
+                    case 1:
+                        imageName = "ImagePreview.1"
+                    case 2:
+                        imageName = "ImagePreview.2"
+                    case 4:
+                        imageName = "ImagePreview.4"
+                    case 6:
+                        imageName = "ImagePreview.6"
+                    case 9:
+                        imageName = "ImagePreview.9"
+                    case 16:
+                        imageName = "ImagePreview.16"
+                    default:
+                        imageName = "ImagePreview.1"
+                    }
+
+                    if let previewImage = UIImage(named: imageName) {
+                        previews.append(previewImage)
+                    }
+                }
             }
-        }
+        } else {
+            let imageName: String
+            switch self.pagesPerSheet {
+            case 1:
+                imageName = "ImagePreview.1"
+            case 2:
+                imageName = "ImagePreview.2"
+            case 4:
+                imageName = "ImagePreview.4"
+            case 6:
+                imageName = "ImagePreview.6"
+            case 9:
+                imageName = "ImagePreview.9"
+            case 16:
+                imageName = "ImagePreview.16"
+            default:
+                imageName = "ImagePreview.1"
+            }
+
+            if let previewImage = UIImage(named: imageName) {
+                previews.append(previewImage)
+            }        }
         previewCollectionView.reloadData()
     }
     
