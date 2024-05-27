@@ -88,7 +88,6 @@
 		A30EF7C12BF40F7600B93D6F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30EF7C02BF40F7600B93D6F /* WebViewController.swift */; };
 		A33EB8132BF4557500616190 /* MailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8122BF4557500616190 /* MailViewController.swift */; };
 		A33EB8152BF455B100616190 /* StepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8142BF455B100616190 /* StepCell.swift */; };
-		A33EB8172BF4A7A900616190 /* DropboxFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB8162BF4A7A900616190 /* DropboxFilesViewController.swift */; };
 		A33EB82C2BF6028100616190 /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33EB82B2BF6028100616190 /* SettingsWebViewController.swift */; };
 		A355C2A12BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */; };
 		A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A355C2A52BE08F870064E1F1 /* UIView.swift */; };
@@ -118,6 +117,7 @@
 		A37736072BEC59FB00FCD54F /* WiFiToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37736062BEC59FB00FCD54F /* WiFiToggleView.swift */; };
 		A377360A2BEC756800FCD54F /* Wi-fi(Network).swift in Sources */ = {isa = PBXBuildFile; fileRef = A37736092BEC756800FCD54F /* Wi-fi(Network).swift */; };
 		A377360D2BEC768900FCD54F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A377360C2BEC768900FCD54F /* BluetoothManager.swift */; };
+		A3A7D07D2C0535800013A2F2 /* DropboxFilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A7D07C2C0535800013A2F2 /* DropboxFilesViewController.swift */; };
 		A3C3B23F2BF666EB006CFEBC /* PrinterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B23E2BF666EB006CFEBC /* PrinterModel.swift */; };
 		A3C3B2412BF66707006CFEBC /* BrandsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2402BF66707006CFEBC /* BrandsTableViewController.swift */; };
 		A3C3B2432BF66722006CFEBC /* ModelsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2422BF66722006CFEBC /* ModelsTableViewController.swift */; };
@@ -321,7 +321,6 @@
 		A32BF62A2BF99C3E00E88CCA /* UniformTypeIdentifiers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UniformTypeIdentifiers.framework; path = System/Library/Frameworks/UniformTypeIdentifiers.framework; sourceTree = SDKROOT; };
 		A33EB8122BF4557500616190 /* MailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailViewController.swift; sourceTree = "<group>"; };
 		A33EB8142BF455B100616190 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
-		A33EB8162BF4A7A900616190 /* DropboxFilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropboxFilesViewController.swift; path = /Users/nkhsnv/Documents/Printer/Printer/Classes/Presentation/Main/Dropbox/DropboxFilesViewController.swift; sourceTree = "<absolute>"; };
 		A33EB82B2BF6028100616190 /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		A355C2A02BE07F740064E1F1 /* PrinterNotConnectedStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterNotConnectedStatusCell.swift; sourceTree = "<group>"; };
 		A355C2A52BE08F870064E1F1 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -353,6 +352,7 @@
 		A37736062BEC59FB00FCD54F /* WiFiToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WiFiToggleView.swift; sourceTree = "<group>"; };
 		A37736092BEC756800FCD54F /* Wi-fi(Network).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wi-fi(Network).swift"; sourceTree = "<group>"; };
 		A377360C2BEC768900FCD54F /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		A3A7D07C2C0535800013A2F2 /* DropboxFilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxFilesViewController.swift; sourceTree = "<group>"; };
 		A3C3B23E2BF666EB006CFEBC /* PrinterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterModel.swift; sourceTree = "<group>"; };
 		A3C3B2402BF66707006CFEBC /* BrandsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsTableViewController.swift; sourceTree = "<group>"; };
 		A3C3B2422BF66722006CFEBC /* ModelsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTableViewController.swift; sourceTree = "<group>"; };
@@ -647,7 +647,7 @@
 		A30EF7B52BF3B05C00B93D6F /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
-				A33EB8162BF4A7A900616190 /* DropboxFilesViewController.swift */,
+				A3A7D07C2C0535800013A2F2 /* DropboxFilesViewController.swift */,
 				A30EF7B62BF3B07300B93D6F /* Dropbox.swift */,
 			);
 			path = Dropbox;
@@ -1515,6 +1515,7 @@
 				DEDF90ED2BD7B07C004340C0 /* DefaultRequestWrapper.swift in Sources */,
 				DEDF90E92BD7B07C004340C0 /* UIDevice+Extension.swift in Sources */,
 				DEDF91202BD7B07C004340C0 /* IAPErrorHelper.swift in Sources */,
+				A3A7D07D2C0535800013A2F2 /* DropboxFilesViewController.swift in Sources */,
 				A308EF412BFDE5DD0071D2B3 /* CustomPhotoPrintPageRenderer.swift in Sources */,
 				DEDF914E2BD7BD38004340C0 /* OnboardingView.swift in Sources */,
 				DEDF90F42BD7B07C004340C0 /* NetworkError.swift in Sources */,
@@ -1623,7 +1624,6 @@
 				A301E1C02BE5448500A5F9EC /* ShutterButton.swift in Sources */,
 				A301E18C2BE5448500A5F9EC /* EditScanViewController.swift in Sources */,
 				DEDF90E72BD7B07C004340C0 /* UIApplication+Extension.swift in Sources */,
-				A33EB8172BF4A7A900616190 /* DropboxFilesViewController.swift in Sources */,
 				DEDF910E2BD7B07C004340C0 /* SplashView.swift in Sources */,
 				A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */,
 				A301E1872BE5448500A5F9EC /* Error.swift in Sources */,
