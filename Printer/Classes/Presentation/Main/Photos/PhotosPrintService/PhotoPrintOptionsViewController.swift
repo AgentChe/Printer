@@ -198,10 +198,10 @@ class PhotoPrintOptionsViewController: UIViewController, UICollectionViewDelegat
         for imageRenderer in imageRenderers {
             imageRenderer.pagesPerSheet = self.pagesPerSheet
             for image in imageRenderer.photos {
-                let individualImageRenderer = CustomPhotoPrintPageRenderer()
-                individualImageRenderer.pagesPerSheet = imageRenderer.pagesPerSheet
-                individualImageRenderer.copies = imageRenderer.copies
-                individualImageRenderer.photos = [image]
+//                let individualImageRenderer = CustomPhotoPrintPageRenderer()
+//                individualImageRenderer.pagesPerSheet = imageRenderer.pagesPerSheet
+//                individualImageRenderer.copies = imageRenderer.copies
+//                individualImageRenderer.photos = [image]
                 
                 let imageName: String
                 switch self.pagesPerSheet {

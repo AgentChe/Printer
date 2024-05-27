@@ -46,6 +46,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let url = urlContext.url
         if url.scheme == "db-fuxs23rugn88jl2" {
             if let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems {
+                if SessionManager().hasActiveSubscriptions() {
                 if let fileURLString = queryItems.first(where: { $0.name == "fileURL" })?.value,
                    let fileURL = URL(string: fileURLString) {
                     printFile(at: fileURL)
@@ -55,6 +56,26 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 } else if let text = queryItems.first(where: { $0.name == "text" })?.value {
                     printText(text)
                 }
+                } else {
+ 
+                    let vc = PaygateViewController.make()
+                    if let window = window {
+                        if let tabBarVC = window.rootViewController as? TabBarController {
+                            if let tabBarVCS = tabBarVC.viewControllers {
+                                if let mainVCNavVC = tabBarVCS[0] as? UINavigationController {
+                                    if let mainViewController = mainVCNavVC.viewControllers.first as? MainViewController {
+                                        mainViewController.present(vc, animated: true)
+                                        //do not chack twice
+                                        let defaults = UserDefaults(suiteName: "group.niiaz.khasanov.group")
+                                        if let urlString = defaults?.string(forKey: "sharedURL"), let url = URL(string: urlString) {
+                                            defaults?.removeObject(forKey: "sharedURL")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             } else {
                 print("No query items found in the URL.")
             }
@@ -62,13 +83,25 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
      func checkForSavedURL() {
         let defaults = UserDefaults(suiteName: "group.niiaz.khasanov.group")
-        if let urlString = defaults?.string(forKey: "sharedURL"), let url = URL(string: urlString) {
-            defaults?.removeObject(forKey: "sharedURL")
-            
-            handleIncomingURL(url)
-        } else {
-           
-        }
+         if let urlString = defaults?.string(forKey: "sharedURL"), let url = URL(string: urlString) {
+             defaults?.removeObject(forKey: "sharedURL")
+             if SessionManager().hasActiveSubscriptions() {
+                 handleIncomingURL(url)
+             }  else {
+                 let vc = PaygateViewController.make()
+                 if let window = window {
+                     if let tabBarVC = window.rootViewController as? TabBarController {
+                         if let tabBarVCS = tabBarVC.viewControllers {
+                             if let mainVCNavVC = tabBarVCS[0] as? UINavigationController {
+                                 if let mainViewController = mainVCNavVC.viewControllers.first as? MainViewController {
+                                     mainViewController.present(vc, animated: true)
+                                 }
+                             }
+                         }
+                     }
+                 }
+             }
+         }
     }
 
     private func handleIncomingURL(_ url: URL) {

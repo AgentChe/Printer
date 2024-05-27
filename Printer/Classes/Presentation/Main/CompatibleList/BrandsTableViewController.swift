@@ -47,6 +47,7 @@ class BrandsTableViewController: UITableViewController {
         cell.textLabel?.textColor = Appearance.black
         cell.textLabel?.font = Fonts.SFProDisplay.medium(size: 16.scale)
         cell.backgroundColor = Appearance.white
+        cell.selectionStyle = .none
         if indexPath.item == 0 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
             // Add a custom separator view
@@ -119,35 +120,35 @@ class CustomTableViewCell: UITableViewCell {
         selectedBackgroundView = clearView
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Ensure the background color does not change when selected
-        if selected {
-            backgroundColor = Appearance.white
-            contentView.backgroundColor = Appearance.white
-        } else {
-            backgroundColor = Appearance.white
-            contentView.backgroundColor = Appearance.white
-        }
-        
-        // Reset chevron image view background color
-        chevronImageView.backgroundColor = .clear
-    }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
-        // Ensure the background color does not change when highlighted
-        if highlighted {
-            backgroundColor = Appearance.white
-            contentView.backgroundColor = Appearance.white
-        } else {
-            backgroundColor = Appearance.white
-            contentView.backgroundColor = Appearance.white
-        }
-        
-        // Reset chevron image view background color
-        chevronImageView.backgroundColor = .clear
-    }
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//        
+//        // Ensure the background color does not change when selected
+//        if selected {
+//            backgroundColor = Appearance.white
+//            contentView.backgroundColor = Appearance.white
+//        } else {
+//            backgroundColor = Appearance.white
+//            contentView.backgroundColor = Appearance.white
+//        }
+//        
+//        // Reset chevron image view background color
+//        chevronImageView.backgroundColor = .clear
+//    }
+//    
+//    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+//        super.setHighlighted(highlighted, animated: animated)
+//        
+//        // Ensure the background color does not change when highlighted
+//        if highlighted {
+//            backgroundColor = Appearance.white
+//            contentView.backgroundColor = Appearance.white
+//        } else {
+//            backgroundColor = Appearance.white
+//            contentView.backgroundColor = Appearance.white
+//        }
+//        
+//        // Reset chevron image view background color
+//        chevronImageView.backgroundColor = .clear
+//    }
 }
