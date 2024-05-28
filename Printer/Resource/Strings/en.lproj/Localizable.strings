@@ -37,7 +37,7 @@
 "Paygate.PrivacyPolicy" = "Privacy Policy";
 "Paygate.RestorePurchases" = "Restore Purchase";
 "Paygate.Failed" = "Failed to make purchase";
-"Paygate.Monthly.Name1" = "7 days for free";
+"Paygate.Monthly.Name1" = "3 days for free";
 "Paygate.Monthly.Name2" = "Quick prep";
 "Paygate.Monthly.Bottom1" = "After 7-day trial";
 "Paygate.Monthly.Bottom2" = "Trial is over";

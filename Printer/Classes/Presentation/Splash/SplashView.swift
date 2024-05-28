@@ -8,6 +8,7 @@
 import UIKit
 
 final class SplashView: UIView {
+    lazy var imageView = makeImageView()
     lazy var preloader = makePreloader()
     lazy var loadingLabel = makeLoadingLabel()
     
@@ -26,7 +27,7 @@ final class SplashView: UIView {
 // MARK: Private
 private extension SplashView {
     func initialize() {
-        backgroundColor = Appearance.main
+        backgroundColor = Appearance.background
     }
 }
 
@@ -34,6 +35,15 @@ private extension SplashView {
 private extension SplashView {
     func makeConstraints() {
         NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 254.scale),
+            imageView.heightAnchor.constraint(equalToConstant: 254.scale),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            preloader.widthAnchor.constraint(equalToConstant: 45.scale),
+            preloader.heightAnchor.constraint(equalToConstant: 45.scale),
             preloader.centerXAnchor.constraint(equalTo: centerXAnchor),
             preloader.bottomAnchor.constraint(equalTo: loadingLabel.topAnchor, constant: -16.scale)
         ])
@@ -47,9 +57,21 @@ private extension SplashView {
 
 // MARK: Lazy initialization
 private extension SplashView {
-    func makePreloader() -> Spinner {
-        let view = Spinner(size: CGSize(width: 32.scale, height: 32.scale))
+    func makeImageView() -> UIImageView {
+        let view = UIImageView()
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFit
+        view.image = UIImage(named: "Splash.Image")
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        return view
+    }
+    
+    func makePreloader() -> UIActivityIndicatorView {
+        let view = UIActivityIndicatorView()
         view.startAnimating()
+        view.style = .large
+        view.color = Appearance.black
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
@@ -57,7 +79,7 @@ private extension SplashView {
     
     func makeLoadingLabel() -> UILabel {
         let attrs = TextAttributes()
-            .textColor(Appearance.white.withAlphaComponent(0.6))
+            .textColor(Appearance.black)
             .font(Fonts.SFPro.medium(size: 17.scale))
             .letterSpacing(-0.44.scale)
             .lineHeight(20.scale)
