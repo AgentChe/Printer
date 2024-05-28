@@ -119,7 +119,7 @@ extension MainView: UICollectionViewDataSource {
             // If you don't want a header for other sections, you should create a default UICollectionReusableView here
             return UICollectionReusableView()
         default:
-            assert(false, "Unexpected element kind")
+            return UICollectionReusableView()
         }
     }
 }
