@@ -7,20 +7,21 @@
 
 import Foundation
 
-// TODO: заменить по готовности доки
 final class GlobalDefinitions {
     static let otterScaleHost = "https://api.korrekted.com"
-    static let otterScaleApiKey = "i9upCYSnV2mW4aM3"
+    static let otterScaleApiKey = "iC30EgiLeN62YD8a"
     
-    static let applicationTag = "WHIP"
-    static let amplitudeApiKey = "d4ad5c33d23d7a891e9c68de9471f36b"
+    static let applicationTag = "PRINTER_MANAGER"
+    static let amplitudeApiKey = "d433d2c66723aeefd10c5b65f91c1fa3"
     
-    static let termsOfUseUrl = URL(string: "https://sergei-mobile.com/eula.html")!
-    static let privacyPolicyUrl = URL(string: "https://sergei-mobile.com/policy.html")!
-    static let contactUsUrl = URL(string: "https://sergei-mobile.com/contact.html")!
+    static let termsOfUseUrl = URL(string: "https://coffeestop-ou.com/terms.html")!
+    static let privacyPolicyUrl = URL(string: "https://coffeestop-ou.com/policy.html")!
+    static let contactUsUrl = URL(string: "https://coffeestop-ou.com/contacts.html")!
+    
+    static let groupId = "group.niiaz.khasanov.group"
     
     enum Paygate {
-        static let defaultLifetime = "train.chair.endless"
-        static let defaultMonthly = "train.chair.monthly"
+        static let defaultLifetime = "com.printer.manager.lifetime"
+        static let defaultMonthly = "com.printer.manager.monthly"
     }
 }

@@ -10,7 +10,7 @@ import SwiftyDropbox
 
 extension SceneDelegate {
     func printFile(at url: URL) {
-        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.niiaz.khasanov.group") else {
+        guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: GlobalDefinitions.groupId) else {
             print("Failed to get container URL")
             return
         }

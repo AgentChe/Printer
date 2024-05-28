@@ -1,4 +1,4 @@
-platform :ios, ‘15.0’
+platform :ios, ‘15.1’
 inhibit_all_warnings!
 use_frameworks!
 
@@ -25,7 +25,7 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.1'
       config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
       if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
         target.build_configurations.each do |config|

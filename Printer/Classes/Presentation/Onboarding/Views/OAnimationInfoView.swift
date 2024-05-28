@@ -47,6 +47,15 @@ final class OAnimationInfoView: OSlideView {
     override func moveToThis() {
         super.moveToThis()
         
+        switch step {
+        case .connect:
+            AmplitudeManager.shared.logEvent(name: "Welcome Screen", parameters: ["step": "1"])
+        case .scan:
+            AmplitudeManager.shared.logEvent(name: "Welcome Screen", parameters: ["step": "2"])
+        case .print:
+            AmplitudeManager.shared.logEvent(name: "Welcome Screen", parameters: ["step": "3"])
+        }
+        
         animationView.animation = LottieAnimation.named(animationName)
         animationView.play()
     }

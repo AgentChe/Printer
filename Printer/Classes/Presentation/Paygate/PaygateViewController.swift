@@ -35,8 +35,7 @@ final class PaygateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AmplitudeManager.shared
-            .logEvent(name: "Paygate Screen", parameters: [:])
+        AmplitudeManager.shared.logEvent(name: "Paygate Screen")
         
         viewModel.products
             .drive(Binder(self) { base, products in

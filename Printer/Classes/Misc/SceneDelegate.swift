@@ -66,7 +66,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                     if let mainViewController = mainVCNavVC.viewControllers.first as? MainViewController {
                                         mainViewController.present(vc, animated: true)
                                         //do not chack twice
-                                        let defaults = UserDefaults(suiteName: "group.niiaz.khasanov.group")
+                                        let defaults = UserDefaults(suiteName: GlobalDefinitions.groupId)
                                         if let urlString = defaults?.string(forKey: "sharedURL"), let url = URL(string: urlString) {
                                             defaults?.removeObject(forKey: "sharedURL")
                                         }
@@ -82,7 +82,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
      func checkForSavedURL() {
-        let defaults = UserDefaults(suiteName: "group.niiaz.khasanov.group")
+         let defaults = UserDefaults(suiteName: GlobalDefinitions.groupId)
          if let urlString = defaults?.string(forKey: "sharedURL"), let url = URL(string: urlString) {
              defaults?.removeObject(forKey: "sharedURL")
              if SessionManager().hasActiveSubscriptions() {

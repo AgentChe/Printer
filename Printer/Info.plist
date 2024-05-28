@@ -12,13 +12,29 @@
 				<string>db-fuxs23rugn88jl2</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb452733250781571</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>printermanager</string>
+			</array>
+		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string></string>
+	<string>452733250781571</string>
 	<key>FacebookClientToken</key>
-	<string></string>
+	<string>007bafebdfd2091f12fa8cc83a607271</string>
 	<key>FacebookDisplayName</key>
-	<string></string>
+	<string>Printer Manager</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>dbapi-2</string>
@@ -57,6 +73,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
 	<key>branch_key</key>
-	<string></string>
+	<string>key_live_kwpKvD3SNlbe8tBIlRV4giedrxk1fhp3</string>
 </dict>
 </plist>
