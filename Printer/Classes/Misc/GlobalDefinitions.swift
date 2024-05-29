@@ -18,7 +18,7 @@ final class GlobalDefinitions {
     static let privacyPolicyUrl = URL(string: "https://coffeestop-ou.com/policy.html")!
     static let contactUsUrl = URL(string: "https://coffeestop-ou.com/contacts.html")!
     
-    static let groupId = "group.niiaz.khasanov.group"
+    static let groupId = "group.com.printer.manager"
     
     enum Paygate {
         static let defaultLifetime = "com.printer.manager.lifetime"
