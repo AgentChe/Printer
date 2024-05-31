@@ -39,7 +39,7 @@
 "Paygate.Failed" = "Failed to make purchase";
 "Paygate.Monthly.Name1" = "3 days for free";
 "Paygate.Monthly.Name2" = "Quick prep";
-"Paygate.Monthly.Bottom1" = "After 7-day trial";
+"Paygate.Monthly.Bottom1" = "After 3-day trial";
 "Paygate.Monthly.Bottom2" = "Trial is over";
 "Paygate.Lifetime.Name" = "Lifetime";
 "Paygate.Lifetime.PriceDescription" = "\nIn terms of  1  year";
