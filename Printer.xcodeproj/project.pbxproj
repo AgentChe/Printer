@@ -125,6 +125,17 @@
 		A3C3B2832BF75816006CFEBC /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2822BF75816006CFEBC /* NotesCell.swift */; };
 		A3C3B2852BF75991006CFEBC /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C3B2842BF75991006CFEBC /* NotesViewController.swift */; };
 		A92E64BFF8CD1054112B0CAA /* Pods_Printer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAB365A124501A9CDBEC57 /* Pods_Printer.framework */; };
+		DE89B00F2C10639500D19A35 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0012C10639500D19A35 /* Currency.swift */; };
+		DE89B0102C10639500D19A35 /* PaygateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0022C10639500D19A35 /* PaygateInteractor.swift */; };
+		DE89B0112C10639500D19A35 /* PaygateActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0042C10639500D19A35 /* PaygateActionsView.swift */; };
+		DE89B0122C10639500D19A35 /* PaygateBestOfferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0052C10639500D19A35 /* PaygateBestOfferView.swift */; };
+		DE89B0132C10639500D19A35 /* PaygateEnableTrialButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0062C10639500D19A35 /* PaygateEnableTrialButton.swift */; };
+		DE89B0142C10639500D19A35 /* PaygateInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0072C10639500D19A35 /* PaygateInfoCell.swift */; };
+		DE89B0152C10639500D19A35 /* PaygateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0082C10639500D19A35 /* PaygateInfoView.swift */; };
+		DE89B0162C10639500D19A35 /* PaygateProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B0092C10639500D19A35 /* PaygateProductButton.swift */; };
+		DE89B0172C10639500D19A35 /* PaygateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B00B2C10639500D19A35 /* PaygateView.swift */; };
+		DE89B0182C10639500D19A35 /* PaygateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B00C2C10639500D19A35 /* PaygateViewController.swift */; };
+		DE89B0192C10639500D19A35 /* PaygateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE89B00D2C10639500D19A35 /* PaygateViewModel.swift */; };
 		DEDF90552BD7AF5D004340C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90542BD7AF5D004340C0 /* Assets.xcassets */; };
 		DEDF90582BD7AF5D004340C0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = DEDF90572BD7AF5D004340C0 /* Base */; };
 		DEDF90D42BD7B07C004340C0 /* AmplitudeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF90602BD7B07C004340C0 /* AmplitudeManager.swift */; };
@@ -199,18 +210,9 @@
 		DEDF91572BD7BE32004340C0 /* Onboarding.Connect.Animation.json in Resources */ = {isa = PBXBuildFile; fileRef = DEDF91542BD7BE32004340C0 /* Onboarding.Connect.Animation.json */; };
 		DEDF918A2BD9542D004340C0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91892BD9542D004340C0 /* MainViewController.swift */; };
 		DEDF918E2BD95438004340C0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF918D2BD95438004340C0 /* MainView.swift */; };
-		DEDF919B2BD9565E004340C0 /* DefaultPaygate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF918F2BD9565E004340C0 /* DefaultPaygate.swift */; };
-		DEDF919C2BD9565E004340C0 /* PaygateOptionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91902BD9565E004340C0 /* PaygateOptionInfo.swift */; };
-		DEDF919D2BD9565E004340C0 /* PaygateInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91922BD9565E004340C0 /* PaygateInfoCell.swift */; };
-		DEDF919E2BD9565E004340C0 /* PaygateProductButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91932BD9565E004340C0 /* PaygateProductButton.swift */; };
-		DEDF919F2BD9565E004340C0 /* PaygateInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91952BD9565E004340C0 /* PaygateInteractor.swift */; };
-		DEDF91A02BD9565E004340C0 /* PaygateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91962BD9565E004340C0 /* PaygateView.swift */; };
-		DEDF91A12BD9565E004340C0 /* PaygateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91972BD9565E004340C0 /* PaygateViewController.swift */; };
-		DEDF91A32BD9565E004340C0 /* PaygateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91992BD9565E004340C0 /* PaygateViewModel.swift */; };
 		DEDF91AE2BD958AF004340C0 /* Paygate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91A42BD958AF004340C0 /* Paygate.swift */; };
 		DEDF91AF2BD958AF004340C0 /* PaygateOptionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91A52BD958AF004340C0 /* PaygateOptionConfig.swift */; };
 		DEDF91B02BD958AF004340C0 /* PaygateOptionLineComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91A62BD958AF004340C0 /* PaygateOptionLineComponent.swift */; };
-		DEDF91B52BD95E7C004340C0 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEDF91B42BD95E7C004340C0 /* Currency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -360,6 +362,17 @@
 		A3C3B2822BF75816006CFEBC /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
 		A3C3B2842BF75991006CFEBC /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		B8E14D044AF96B2AD10E26B3 /* Pods-Printer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.debug.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.debug.xcconfig"; sourceTree = "<group>"; };
+		DE89B0012C10639500D19A35 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		DE89B0022C10639500D19A35 /* PaygateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateInteractor.swift; sourceTree = "<group>"; };
+		DE89B0042C10639500D19A35 /* PaygateActionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateActionsView.swift; sourceTree = "<group>"; };
+		DE89B0052C10639500D19A35 /* PaygateBestOfferView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateBestOfferView.swift; sourceTree = "<group>"; };
+		DE89B0062C10639500D19A35 /* PaygateEnableTrialButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateEnableTrialButton.swift; sourceTree = "<group>"; };
+		DE89B0072C10639500D19A35 /* PaygateInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateInfoCell.swift; sourceTree = "<group>"; };
+		DE89B0082C10639500D19A35 /* PaygateInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateInfoView.swift; sourceTree = "<group>"; };
+		DE89B0092C10639500D19A35 /* PaygateProductButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateProductButton.swift; sourceTree = "<group>"; };
+		DE89B00B2C10639500D19A35 /* PaygateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateView.swift; sourceTree = "<group>"; };
+		DE89B00C2C10639500D19A35 /* PaygateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateViewController.swift; sourceTree = "<group>"; };
+		DE89B00D2C10639500D19A35 /* PaygateViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateViewModel.swift; sourceTree = "<group>"; };
 		DEDF90482BD7AF5B004340C0 /* Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEDF90542BD7AF5D004340C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DEDF90572BD7AF5D004340C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -436,18 +449,9 @@
 		DEDF91542BD7BE32004340C0 /* Onboarding.Connect.Animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Onboarding.Connect.Animation.json; sourceTree = "<group>"; };
 		DEDF91892BD9542D004340C0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		DEDF918D2BD95438004340C0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		DEDF918F2BD9565E004340C0 /* DefaultPaygate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPaygate.swift; sourceTree = "<group>"; };
-		DEDF91902BD9565E004340C0 /* PaygateOptionInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateOptionInfo.swift; sourceTree = "<group>"; };
-		DEDF91922BD9565E004340C0 /* PaygateInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateInfoCell.swift; sourceTree = "<group>"; };
-		DEDF91932BD9565E004340C0 /* PaygateProductButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateProductButton.swift; sourceTree = "<group>"; };
-		DEDF91952BD9565E004340C0 /* PaygateInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateInteractor.swift; sourceTree = "<group>"; };
-		DEDF91962BD9565E004340C0 /* PaygateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateView.swift; sourceTree = "<group>"; };
-		DEDF91972BD9565E004340C0 /* PaygateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateViewController.swift; sourceTree = "<group>"; };
-		DEDF91992BD9565E004340C0 /* PaygateViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateViewModel.swift; sourceTree = "<group>"; };
 		DEDF91A42BD958AF004340C0 /* Paygate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paygate.swift; sourceTree = "<group>"; };
 		DEDF91A52BD958AF004340C0 /* PaygateOptionConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateOptionConfig.swift; sourceTree = "<group>"; };
 		DEDF91A62BD958AF004340C0 /* PaygateOptionLineComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaygateOptionLineComponent.swift; sourceTree = "<group>"; };
-		DEDF91B42BD95E7C004340C0 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		F23409BB661F52E9F007BD41 /* Pods-Printer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Printer.release.xcconfig"; path = "Target Support Files/Pods-Printer/Pods-Printer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -853,6 +857,40 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DE89B0032C10639500D19A35 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DE89B0012C10639500D19A35 /* Currency.swift */,
+				DE89B0022C10639500D19A35 /* PaygateInteractor.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		DE89B00A2C10639500D19A35 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DE89B0042C10639500D19A35 /* PaygateActionsView.swift */,
+				DE89B0052C10639500D19A35 /* PaygateBestOfferView.swift */,
+				DE89B0062C10639500D19A35 /* PaygateEnableTrialButton.swift */,
+				DE89B0072C10639500D19A35 /* PaygateInfoCell.swift */,
+				DE89B0082C10639500D19A35 /* PaygateInfoView.swift */,
+				DE89B0092C10639500D19A35 /* PaygateProductButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DE89B00E2C10639500D19A35 /* Paygate */ = {
+			isa = PBXGroup;
+			children = (
+				DE89B0032C10639500D19A35 /* Utils */,
+				DE89B00A2C10639500D19A35 /* Views */,
+				DE89B00C2C10639500D19A35 /* PaygateViewController.swift */,
+				DE89B00D2C10639500D19A35 /* PaygateViewModel.swift */,
+				DE89B00B2C10639500D19A35 /* PaygateView.swift */,
+			);
+			path = Paygate;
+			sourceTree = "<group>";
+		};
 		DEDF903F2BD7AF5B004340C0 = {
 			isa = PBXGroup;
 			children = (
@@ -1058,7 +1096,7 @@
 		DEDF90C12BD7B07C004340C0 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				DEDF919A2BD9565E004340C0 /* Paygate */,
+				DE89B00E2C10639500D19A35 /* Paygate */,
 				A355C2AB2BE09F5A0064E1F1 /* TabBar */,
 				DEDF91882BD95423004340C0 /* Main */,
 				A36465272C00C6E700ED02D6 /* TestPrint */,
@@ -1212,38 +1250,6 @@
 				A3692D242BE041A3006ADD60 /* QuickActionCell.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		DEDF91912BD9565E004340C0 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				DEDF918F2BD9565E004340C0 /* DefaultPaygate.swift */,
-				DEDF91902BD9565E004340C0 /* PaygateOptionInfo.swift */,
-				DEDF91B42BD95E7C004340C0 /* Currency.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		DEDF91942BD9565E004340C0 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				DEDF91922BD9565E004340C0 /* PaygateInfoCell.swift */,
-				DEDF91932BD9565E004340C0 /* PaygateProductButton.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		DEDF919A2BD9565E004340C0 /* Paygate */ = {
-			isa = PBXGroup;
-			children = (
-				DEDF91912BD9565E004340C0 /* Models */,
-				DEDF91942BD9565E004340C0 /* Views */,
-				DEDF91952BD9565E004340C0 /* PaygateInteractor.swift */,
-				DEDF91972BD9565E004340C0 /* PaygateViewController.swift */,
-				DEDF91992BD9565E004340C0 /* PaygateViewModel.swift */,
-				DEDF91962BD9565E004340C0 /* PaygateView.swift */,
-			);
-			path = Paygate;
 			sourceTree = "<group>";
 		};
 		DEDF91A72BD958AF004340C0 /* Model */ = {
@@ -1459,7 +1465,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEDF919F2BD9565E004340C0 /* PaygateInteractor.swift in Sources */,
+				DE89B00F2C10639500D19A35 /* Currency.swift in Sources */,
 				DEDF90FA2BD7B07C004340C0 /* ScreenSize.swift in Sources */,
 				A301E18D2BE5448500A5F9EC /* ZoomGestureController.swift in Sources */,
 				A301E1862BE5448500A5F9EC /* EditScanCornerView.swift in Sources */,
@@ -1478,18 +1484,22 @@
 				DEDF90EE2BD7B07C004340C0 /* APIRequestBody.swift in Sources */,
 				A301E0752BE437DD00A5F9EC /* ScanViewController.swift in Sources */,
 				A308EF452BFDE9D30071D2B3 /* PhotosPrinterManager.swift in Sources */,
+				DE89B0122C10639500D19A35 /* PaygateBestOfferView.swift in Sources */,
 				A30715202BF1EC5C00667526 /* CustomPrintTextPageRenderer.swift in Sources */,
-				DEDF91B52BD95E7C004340C0 /* Currency.swift in Sources */,
 				DEDF918A2BD9542D004340C0 /* MainViewController.swift in Sources */,
+				DE89B0152C10639500D19A35 /* PaygateInfoView.swift in Sources */,
 				A301E18A2BE5448500A5F9EC /* VisionRectangleDetector.swift in Sources */,
+				DE89B0192C10639500D19A35 /* PaygateViewModel.swift in Sources */,
+				DE89B0162C10639500D19A35 /* PaygateProductButton.swift in Sources */,
 				A301E1952BE5448500A5F9EC /* CIImage+Utils.swift in Sources */,
 				A301E1852BE5448500A5F9EC /* CIRectangleDetector.swift in Sources */,
 				DEDF91B02BD958AF004340C0 /* PaygateOptionLineComponent.swift in Sources */,
 				A307151B2BF1BDFF00667526 /* CopiesOptionCell.swift in Sources */,
+				DE89B0112C10639500D19A35 /* PaygateActionsView.swift in Sources */,
+				DE89B0182C10639500D19A35 /* PaygateViewController.swift in Sources */,
 				A364651E2BFFF72000ED02D6 /* ScanPrintOptionsViewController.swift in Sources */,
 				DEDF910F2BD7B07C004340C0 /* SplashViewController.swift in Sources */,
 				A307151D2BF1BF6E00667526 /* PagesPerSheetOptionCell.swift in Sources */,
-				DEDF919C2BD9565E004340C0 /* PaygateOptionInfo.swift in Sources */,
 				A301E0772BE44FE700A5F9EC /* PhotoReviewViewController.swift in Sources */,
 				A37735812BE9436200FCD54F /* ImageCollectionViewCell.swift in Sources */,
 				DEDF90F22BD7B07C004340C0 /* PushNotificationsManager.swift in Sources */,
@@ -1528,7 +1538,6 @@
 				DEDF90E22BD7B07C004340C0 /* PaddingTextField.swift in Sources */,
 				DEDF90D92BD7B07C004340C0 /* RequestReview.swift in Sources */,
 				A301E1C52BE5448500A5F9EC /* ImageScannerController.swift in Sources */,
-				DEDF91A12BD9565E004340C0 /* PaygateViewController.swift in Sources */,
 				A308EF492BFDFCDD0071D2B3 /* CustomPrintNotesTextRenderer.swift in Sources */,
 				A30715132BF16C9200667526 /* PrintOptionsViewController.swift in Sources */,
 				A377357D2BE7F10800FCD54F /* ScannedResultsViewController.swift in Sources */,
@@ -1540,6 +1549,7 @@
 				DEDF91222BD7B07C004340C0 /* IAPProduct.swift in Sources */,
 				A301E1922BE5448500A5F9EC /* CGPoint+Utils.swift in Sources */,
 				DEDF91212BD7B07C004340C0 /* IAPActionResult.swift in Sources */,
+				DE89B0102C10639500D19A35 /* PaygateInteractor.swift in Sources */,
 				DEDF91AE2BD958AF004340C0 /* Paygate.swift in Sources */,
 				DEDF90F92BD7B07C004340C0 /* Scalable.swift in Sources */,
 				DEDF911F2BD7B07C004340C0 /* IAPError.swift in Sources */,
@@ -1564,15 +1574,14 @@
 				A33EB8132BF4557500616190 /* MailViewController.swift in Sources */,
 				DEDF90E32BD7B07C004340C0 /* TapAreaButton.swift in Sources */,
 				A37735FE2BEC470100FCD54F /* ConnectPrinterViewController.swift in Sources */,
-				DEDF91A02BD9565E004340C0 /* PaygateView.swift in Sources */,
 				DEDF91012BD7B07C004340C0 /* SceneDelegate.swift in Sources */,
 				A355C2B02BE0A70E0064E1F1 /* SettingsViewController.swift in Sources */,
 				A301E1982BE5448500A5F9EC /* UIImage+Utils.swift in Sources */,
 				DEDF90EA2BD7B07C004340C0 /* UIEdgeInsets+Extension.swift in Sources */,
+				DE89B0132C10639500D19A35 /* PaygateEnableTrialButton.swift in Sources */,
 				A30714FF2BEDF03600667526 /* AvaliablePrintersCell.swift in Sources */,
 				A30715152BF18CF900667526 /* PrinterOptionCell.swift in Sources */,
 				A377360A2BEC756800FCD54F /* Wi-fi(Network).swift in Sources */,
-				DEDF919D2BD9565E004340C0 /* PaygateInfoCell.swift in Sources */,
 				A33EB82C2BF6028100616190 /* SettingsWebViewController.swift in Sources */,
 				A33EB8152BF455B100616190 /* StepCell.swift in Sources */,
 				A355C2A62BE08F870064E1F1 /* UIView.swift in Sources */,
@@ -1588,7 +1597,6 @@
 				DEDF90E12BD7B07C004340C0 /* PaddingLabel.swift in Sources */,
 				DEDF90FE2BD7B07C004340C0 /* AppDelegate.swift in Sources */,
 				A30EF7BC2BF3BE3A00B93D6F /* FontCell.swift in Sources */,
-				DEDF91A32BD9565E004340C0 /* PaygateViewModel.swift in Sources */,
 				A36465292C00C83400ED02D6 /* PrintErrorViewController.swift in Sources */,
 				A30715252BF379A100667526 /* Photos.swift in Sources */,
 				A3C3B2832BF75816006CFEBC /* NotesCell.swift in Sources */,
@@ -1607,6 +1615,7 @@
 				A355C2AD2BE09F820064E1F1 /* TabBarViewController.swift in Sources */,
 				A30715102BF09D2000667526 /* PagesPerSheetCell.swift in Sources */,
 				A301E1892BE5448500A5F9EC /* QuadrilateralView.swift in Sources */,
+				DE89B0142C10639500D19A35 /* PaygateInfoCell.swift in Sources */,
 				A37736052BEC560800FCD54F /* BluetoothToggleView.swift in Sources */,
 				A301E1C42BE5448500A5F9EC /* CaptureSession+Orientation.swift in Sources */,
 				A355C2B22BE0A8F50064E1F1 /* SettingsTableViewCell.swift in Sources */,
@@ -1618,6 +1627,7 @@
 				A308E1582BFD47BE0007CA02 /* PrinterSelectionViewController.swift in Sources */,
 				A30715072BEEF0EE00667526 /* PrinterManager.swift in Sources */,
 				DEDF90F82BD7B07C004340C0 /* ObservableRetrySingle.swift in Sources */,
+				DE89B0172C10639500D19A35 /* PaygateView.swift in Sources */,
 				DEDF90E02BD7B07C004340C0 /* GradientView.swift in Sources */,
 				DEDF90D42BD7B07C004340C0 /* AmplitudeManager.swift in Sources */,
 				A301E1912BE5448500A5F9EC /* CGImagePropertyOrientation.swift in Sources */,
@@ -1628,10 +1638,8 @@
 				A30EF7B72BF3B07300B93D6F /* Dropbox.swift in Sources */,
 				A301E1872BE5448500A5F9EC /* Error.swift in Sources */,
 				DEDF90D52BD7B07C004340C0 /* BranchManager.swift in Sources */,
-				DEDF919E2BD9565E004340C0 /* PaygateProductButton.swift in Sources */,
 				A30EF7B92BF3BB1200B93D6F /* NotesCellContent.swift in Sources */,
 				A301E19A2BE5448500A5F9EC /* Transformable.swift in Sources */,
-				DEDF919B2BD9565E004340C0 /* DefaultPaygate.swift in Sources */,
 				A301E1C12BE5448500A5F9EC /* CaptureSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1891,7 +1899,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Z2WD4P9PA4;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1910,7 +1918,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.printer.manager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1936,7 +1944,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = Z2WD4P9PA4;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1955,7 +1963,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.printer.manager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

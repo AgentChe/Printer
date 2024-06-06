@@ -1,8 +1,8 @@
 //
 //  PaygateInfoCell.swift
-//  Soccer
+//  CodeChallenge
 //
-//  Created by Андрей Чернышев on 02.09.2022.
+//  Created by Андрей Чернышев on 20.02.2024.
 //
 
 import UIKit
@@ -11,27 +11,18 @@ final class PaygateInfoCell: UIView {
     lazy var imageView = makeImageView()
     lazy var label = makeLabel()
     
-    private lazy var attrs = TextAttributes()
-        .textColor(Appearance.black)
-        .font(Fonts.SFPro.regular(size: ScreenSize.isIphoneXFamily ? 18.scale : 16.scale))
-        .lineHeight(ScreenSize.isIphoneXFamily ? 21.scale : 19.scale)
-        .letterSpacing(-0.44.scale)
+    let text: String
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(text: String) {
+        self.text = text
+        
+        super.init(frame: .zero)
         
         makeConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-// MARK: Public
-extension PaygateInfoCell {
-    func setup(text: String) {
-        label.attributedText = text.attributed(with: attrs)
     }
 }
 
@@ -47,7 +38,7 @@ private extension PaygateInfoCell {
         
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 38.scale),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -36.scale),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.scale),
             label.topAnchor.constraint(equalTo: topAnchor),
             label.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
@@ -58,16 +49,24 @@ private extension PaygateInfoCell {
 private extension PaygateInfoCell {
     func makeImageView() -> UIImageView {
         let view = UIImageView()
+        view.image = UIImage(named: "Paygate.Cell")
         view.contentMode = .scaleAspectFit
-        view.image = UIImage(named: "Paygate.CellChecked")
+        view.clipsToBounds = true
+        view.backgroundColor = UIColor.clear
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view
     }
     
     func makeLabel() -> UILabel {
+        let attrs = TextAttributes()
+            .textColor(Appearance.black)
+            .font(Fonts.SFPro.regular(size: 16.scale))
+            .lineHeight(22.4.scale)
+            .textAlignment(.left)
+        
         let view = UILabel()
-        view.numberOfLines = 2
+        view.attributedText = text.attributed(with: attrs)
         view.translatesAutoresizingMaskIntoConstraints = false
         addSubview(view)
         return view

@@ -132,7 +132,7 @@ extension SettingsViewController: UITableViewDelegate {
             settingsWebViewController.url = GlobalDefinitions.contactUsUrl
         case 1:
             // Terms of Use action
-            settingsWebViewController.url = GlobalDefinitions.termsOfUseUrl
+            settingsWebViewController.url = GlobalDefinitions.termsOfServiceUrl
         case 2:
             // Privacy Policy action
             settingsWebViewController.url = GlobalDefinitions.privacyPolicyUrl

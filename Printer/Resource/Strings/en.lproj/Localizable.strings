@@ -28,27 +28,28 @@
 "Onboarding.Print.SubTitle" = "Easily print files from iCloud, Google Drive,\nDropbox or email ";
 
 // MARK: Paygate
-"Paygate.Title" = "Unlock Premium Status";
-"Paygate.Cell1" = "Compatible with a multitude of printers";
-"Paygate.Cell2" = "Print documents, photos, emails, and more";
-"Paygate.Cell3" = "Scan on the go and enjoy seamless printing";
-"Paygate.Info" = "Secured by the App Store. Cancel anytime.";
-"Paygate.TermsOfUse" = "Terms of Use";
-"Paygate.PrivacyPolicy" = "Privacy Policy";
-"Paygate.RestorePurchases" = "Restore Purchase";
-"Paygate.Failed" = "Failed to make purchase";
-"Paygate.Monthly.Name1" = "3 days for free";
-"Paygate.Monthly.Name2" = "Quick prep";
-"Paygate.Monthly.Bottom1" = "After 3-day trial";
-"Paygate.Monthly.Bottom2" = "Trial is over";
-"Paygate.Lifetime.Name" = "Lifetime";
-"Paygate.Lifetime.PriceDescription" = "\nIn terms of  1  year";
-"Paygate.Lifetime.BottomDescription" = "once";
-"Paygate.Discount" = "SAVE %i%%";
-"Paygate.Price.Period" = "month";
 "Paygate.Error.Title" = "Error";
 "Paygate.Error.Text" = "An error occurred during execution. Try later.";
 "Paygate.Error.Button" = "OK";
+"Paygate.Title" = "Upgrade Premium";
+"Paygate.Info1" = "Compatible with a multitude of printers";
+"Paygate.Info2" = "Print docs, photos, emails, and more";
+"Paygate.Info3" = "Scan on-the-go and enjoy seamless printing";
+"Paygate.EnableFreeTrial" = "Enable Free Trial";
+"Paygate.FreeTrialEnabled" = "Free Trial Enabled";
+"Paygate.Yearly" = "Yearly";
+"Paygate.Yearly.Bottom" = "Just %@/year";
+"Paygate.PerWeek" = "per week";
+"Paygate.FreeTrialDays" = "3-day free trial";
+"Paygate.Then" = "then %@\n";
+"Paygate.Continue" = "Continue";
+"Paygate.TryFreeSubscribe" = "Try free & subscribe";
+"Paygate.CancelAnytime" = "Cancel Anytime";
+"Paygate.NoPaymentNow" = "No payment now";
+"Paygate.TermsOfUse" = "Terms of Use";
+"Paygate.PrivacyPolicy" = "Privacy Policy";
+"Paygate.RestorePurchases" = "Restore Purchases";
+"Paygate.BestOffer" = "⭐ Best Offer";
 
 // MARK: MainViewController
 "MainViewController.Title" = "My printer";
