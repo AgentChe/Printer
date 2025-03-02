@@ -8,6 +8,18 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    private let requestReview: Bool
+    
+    init(requestReview: Bool) {
+        self.requestReview = requestReview
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
@@ -54,6 +66,9 @@ class TabBarController: UITabBarController {
             tabBar.barTintColor = UIColor.white
         }
         
+        if requestReview {
+            RequestReview.request()
+        }
     }
     func resizeImage(image: UIImage?, targetSize: CGSize) -> UIImage? {
         guard let image = image else { return nil }

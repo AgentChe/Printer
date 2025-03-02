@@ -48,7 +48,7 @@ private extension SplashViewController {
             return
         }
         
-        let nc = TabBarController()
+        let nc = TabBarController(requestReview: false)
         
         if SessionManager().hasActiveSubscriptions() {
             UIApplication.shared.keyWindow?.rootViewController = nc

@@ -60,7 +60,7 @@ private extension OnboardingViewController {
     func goToNext(at step: OnboardingViewModel.Step) {
         switch step {
         case .main:
-            UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController = TabBarController()
+            UIApplication.shared.windows.filter { $0.isKeyWindow }.first?.rootViewController = TabBarController(requestReview: true)
         case .paygate:
             let vc = PaygateViewController.make { [weak self] in
                 self?.goToNext(at: .main)
